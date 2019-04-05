@@ -18,16 +18,16 @@ public class AdServiceImp implements AdService {
     private List<City> initCities() {
         return new ArrayList<>(
                 Arrays.asList(
-                        new City("Warszawa", 1764615),
-                        new City("Krakow", 767348),
-                        new City("Lodz", 690422),
-                        new City("Wroclaw", 638586),
-                        new City("Poznan", 538633),
-                        new City("Gdansk", 464254),
-                        new City("Szczecin", 403883),
-                        new City("Bydgoszcz", 352313),
-                        new City("Lublin", 339850),
-                        new City("Bialystok", 297288)
+                        new City("Warszawa", 1764615, 517.24),
+                        new City("Krakow", 767348, 326.85),
+                        new City("Lodz", 690422, 293.25),
+                        new City("Wroclaw", 638586, 292.82),
+                        new City("Poznan", 538633, 261.91),
+                        new City("Gdansk", 464254, 261.96),
+                        new City("Szczecin", 403883, 300.60),
+                        new City("Bydgoszcz", 352313, 175.98),
+                        new City("Lublin", 339850, 147.5),
+                        new City("Bialystok", 297288, 102.12)
                 )
         );
     }
@@ -48,8 +48,13 @@ public class AdServiceImp implements AdService {
                     String htmlFirstTag = "<span class=\"results-header__offer-count-text-number\">";
                     String htmlLastTag = "</span> ofert";
 
-                    city.setAdAmount(Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag))));
-                    city.setAdPerCapita((double)Math.round((city.getAdAmount() * 1.0 / (city.getPopulation() / 100000)) * 100 ) / 100);
+                    if (resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)){
+                        city.setAdAmount(Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag))));
+                    } else {
+                        city.setAdAmount(0);
+                    }
+
+                    city.setAdPer100kCitizens((double)Math.round((city.getAdAmount() * 1.0 / (city.getPopulation() / 100000)) * 100 ) / 100);
                 }
         );
 

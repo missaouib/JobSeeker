@@ -12,8 +12,6 @@ public class BackendApplication {
 
 	//todo
 	//new endpoint
-	//gestosc zaludnienia
-	//powierzchnia
 	//database -> hql, transactions
 	//security -> jwt
 	//tests
