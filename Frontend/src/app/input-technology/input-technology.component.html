@@ -1,3 +1,5 @@
 <mat-form-field class="example-form-field">
-  <input matInput type="text" placeholder="Technology">
+  <input matInput type="text" placeholder="Technology" [formControl]="searchTechnology">
 </mat-form-field>
+
+<a (click)='getData()' class="searchBtn" mat-raised-button routerLink=".">Search</a>
