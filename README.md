@@ -1,8 +1,9 @@
 ### JobSeeker
 WebScrapper
 
-#### Backend
-- Spring
+#### Backend - Spring
+`Lombok configure`
 
-#### Frontend
-- Angular
+#### Frontend - Angular
+`npm install`  
+`ng serve`
