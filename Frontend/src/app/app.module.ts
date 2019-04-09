@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { AppComponent } from './app.component';
 import { CitiesListComponent } from './cities-list/cities-list.component';
 import { InputTechnologyComponent } from './input-technology/input-technology.component';
 import { ServerCommunicationService } from './services/server-communication.service';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { ServerCommunicationService } from './services/server-communication.serv
     MatInputModule,
     MatIconModule,
     MatTableModule,
+    MatSortModule,
     MatButtonModule,
     ReactiveFormsModule
   ],

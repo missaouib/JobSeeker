@@ -19,7 +19,7 @@ export class ServerCommunicationService {
   constructor(private http: HttpClient) { }
 
   getCities(technology2: string): Observable <City[]> {
-    return this.http.post<City[]>('http://localhost:8080/getAmountOfAdsForTechnology', {
+    return this.http.post<City[]>('http://localhost:8080/getJobsOffers', {
       technology: technology2
     }
     ,httpOptions);

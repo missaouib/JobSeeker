@@ -11,9 +11,7 @@ import { FormControl } from '@angular/forms';
 })
 export class InputTechnologyComponent {
 
-  constructor(private httpService: ServerCommunicationService, private cityService: CityService) {
-
-  }
+  constructor(private httpService: ServerCommunicationService, private cityService: CityService) { }
 
   cityList: City[] = [];
   searchTechnology = new FormControl('');
@@ -24,10 +22,9 @@ export class InputTechnologyComponent {
       this.httpService.getCities(this.searchTechnology.value)
         .subscribe(cityList => {
           this.cityList = cityList;
+          console.log(cityList);
           this.cityService.fillTable(cityList);
         });
     }
-
-    //console.log(this.cityList);
   }
 }

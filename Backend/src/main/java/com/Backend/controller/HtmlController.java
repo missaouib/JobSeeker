@@ -1,7 +1,7 @@
 package com.Backend.controller;
 
 import com.Backend.model.City;
-import com.Backend.service.AdService;
+import com.Backend.service.JobService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,15 +11,15 @@ import java.util.List;
 @RestController
 public class HtmlController {
 
-    private AdService adService;
+    private JobService jobService;
 
-    HtmlController (AdService adService){
-        this.adService = adService;
+    HtmlController (JobService jobService){
+        this.jobService = jobService;
     }
 
-    @PostMapping("/getAmountOfAdsForTechnology")
-    public List<City> getTechnology(@RequestBody ModelMap technology) {
-        return adService.getAdsinCities(technology);
+    @PostMapping("/getJobsOffers")
+    public List<City> getJobOffers(@RequestBody ModelMap technology) {
+        return jobService.getJobs(technology);
     }
 
 }

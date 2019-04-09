@@ -13,8 +13,9 @@ public class City {
 
     String name;
     int population;
+    int jobAmount;
+    double jobOfferPer100kCitizens;
     double areaSquareKilometers;
-    int adAmount;
-    double adPer100kCitizens;
+    double destinyOfPopulation;
 
 }

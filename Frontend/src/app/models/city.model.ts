@@ -3,7 +3,8 @@ export class City {
     name: string,
     population: number,
     areaSquareKilometers: number,
-    adAmount: number,
-    adPer100kCitizens: number
+    jobAmount: number,
+    jobOfferPer100kCitizens: number,
+    destinyOfPopulation: number
   ) {}
 }

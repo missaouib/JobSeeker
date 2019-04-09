@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class AdServiceImp implements AdService {
+public class JobServiceImp implements JobService {
 
     private List<City> initCities() {
         return new ArrayList<>(
@@ -32,7 +32,7 @@ public class AdServiceImp implements AdService {
         );
     }
 
-    public List<City> getAdsinCities(ModelMap technology) {
+    public List<City> getJobs(ModelMap technology) {
         List<City> cities = initCities();
 
         cities.forEach(city -> {
@@ -49,12 +49,13 @@ public class AdServiceImp implements AdService {
                     String htmlLastTag = "</span> ofert";
 
                     if (resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)){
-                        city.setAdAmount(Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag))));
+                        city.setJobAmount(Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag))));
                     } else {
-                        city.setAdAmount(0);
+                        city.setJobAmount(0);
                     }
 
-                    city.setAdPer100kCitizens((double)Math.round((city.getAdAmount() * 1.0 / (city.getPopulation() / 100000)) * 100 ) / 100);
+                    city.setJobOfferPer100kCitizens((double)Math.round((city.getJobAmount() * 1.0 / (city.getPopulation() / 100000)) * 100 ) / 100);
+                    city.setDestinyOfPopulation((int)Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
                 }
         );
 
