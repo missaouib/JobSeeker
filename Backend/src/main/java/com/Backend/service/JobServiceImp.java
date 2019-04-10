@@ -1,6 +1,7 @@
 package com.Backend.service;
 
 import com.Backend.model.City;
+import com.Backend.model.Technology;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -28,6 +29,26 @@ public class JobServiceImp implements JobService {
                         new City("Bydgoszcz", 352313, 175.98),
                         new City("Lublin", 339850, 147.5),
                         new City("Bialystok", 297288, 102.12)
+                )
+        );
+    }
+
+    private List<Technology> initTechnologies(){
+        return new ArrayList<>(
+                Arrays.asList(
+                        new Technology("java", "language"),
+                        new Technology("spring", "framework"),
+                        new Technology("android", "framework"),
+                        new Technology("javascript", "language"),
+                        new Technology("typescript", "language"),
+                        new Technology("angular", "framework"),
+                        new Technology("reactjs", "framework"),
+                        new Technology("vue.js", "framework"),
+                        new Technology("php", "language"),
+                        new Technology("c#", "language"),
+                        new Technology("asp.net", "framework"),
+                        new Technology("python", "language"),
+                        new Technology("c++", "language")
                 )
         );
     }
@@ -60,5 +81,15 @@ public class JobServiceImp implements JobService {
         );
 
         return cities;
+    }
+
+    @Override
+    public List<Technology> getTechnologies(ModelMap city) {
+        List<Technology> technologies = initTechnologies();
+
+        technologies.forEach(x -> {
+        });
+
+        return technologies;
     }
 }
