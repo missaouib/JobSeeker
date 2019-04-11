@@ -11,7 +11,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JobServiceImp implements JobService {
@@ -36,24 +38,45 @@ public class JobServiceImp implements JobService {
     private List<Technology> initTechnologies(){
         return new ArrayList<>(
                 Arrays.asList(
-                        new Technology("java", "language"),
-                        new Technology("spring", "framework"),
-                        new Technology("android", "framework"),
-                        new Technology("javascript", "language"),
-                        new Technology("typescript", "language"),
-                        new Technology("angular", "framework"),
-                        new Technology("reactjs", "framework"),
-                        new Technology("vue.js", "framework"),
-                        new Technology("php", "language"),
-                        new Technology("c#", "language"),
-                        new Technology("asp.net", "framework"),
-                        new Technology("python", "language"),
-                        new Technology("c++", "language")
+                        new Technology("Java", "Language"),
+                        new Technology("Javascript", "Language"),
+                        new Technology("Typescript", "Language"),
+                        new Technology("c%23", "language"),
+                        new Technology("Python", "Language"),
+                        new Technology("Php", "Language"),
+                        new Technology("c-x47-c%2b%2b", "Language"),
+                        new Technology("Ruby", "Language"),
+                        new Technology("Kotlin", "Language"),
+                        new Technology("Swift", "Language"),
+
+                        new Technology("Spring", "Framework"),
+                        new Technology("Android", "Framework"),
+                        new Technology("Angular", "Framework"),
+                        new Technology("ReactJS", "Framework"),
+                        new Technology("Vue.js", "Framework"),
+                        new Technology("Node.js", "Framework"),
+                        new Technology("Symfony", "Framework"),
+                        new Technology("Laravel", "Framework"),
+                        new Technology("iOS", "Framework"),
+                        new Technology("Asp.net", "Framework"),
+
+                        new Technology("SQL", "DevOps"),
+                        new Technology("Linux", "DevOps"),
+                        new Technology("Git", "DevOps"),
+                        new Technology("Docker", "DevOps"),
+                        new Technology("Jenkins", "DevOps"),
+                        new Technology("Kubernetes", "DevOps"),
+                        new Technology("Aws", "DevOps"),
+                        new Technology("Maven", "DevOps"),
+                        new Technology("Gradle", "DevOps"),
+                        new Technology("JUnit", "DevOps")
+                        // REST, Agile
+
                 )
         );
     }
 
-    public List<City> getJobs(ModelMap technology) {
+    public List<City> getCities(ModelMap technology) {
         List<City> cities = initCities();
 
         cities.forEach(city -> {
@@ -87,7 +110,36 @@ public class JobServiceImp implements JobService {
     public List<Technology> getTechnologies(ModelMap city) {
         List<Technology> technologies = initTechnologies();
 
-        technologies.forEach(x -> {
+        technologies.forEach(technology -> {
+
+            WebClient client = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw/" + city.get("city") + ";wp");
+
+            if((city.get("city").toString().toLowerCase()).equals("polska")){
+                client = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw");
+            }
+
+            Mono<ClientResponse> result = client.get()
+                    .accept(MediaType.TEXT_PLAIN)
+                    .exchange();
+
+            String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
+
+            // Can be changed in future by site owner
+            String htmlFirstTag = "<span class=\"results-header__offer-count-text-number\">";
+            String htmlLastTag = "</span> ofert";
+
+            if (resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)){
+                technology.setJobOffersAmount(Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag))));
+            } else {
+                technology.setJobOffersAmount(0);
+            }
+
+            if(technology.getName().equals("c%23")){
+                technology.setName("C#");
+            }
+            if(technology.getName().equals("c-x47-c%2b%2b")){
+                technology.setName("C/C++");
+            }
         });
 
         return technologies;

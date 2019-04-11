@@ -15,8 +15,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CitiesListComponent } from './cities-list/cities-list.component';
 import { InputTechnologyComponent } from './input-technology/input-technology.component';
-import { ServerCommunicationService } from './services/server-communication.service';
+import { HttpService } from './services/http.service';
 
+//block button
+//tooltip moz ejakis
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import { ServerCommunicationService } from './services/server-communication.serv
     MatButtonModule,
     ReactiveFormsModule
   ],
-  providers: [ServerCommunicationService],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

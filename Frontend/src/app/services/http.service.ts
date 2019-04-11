@@ -14,15 +14,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class ServerCommunicationService {
+export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  getCities(technology2: string): Observable <City[]> {
-    return this.http.post<City[]>('http://localhost:8080/getJobsOffers', {
-      technology: technology2
-    }
-    ,httpOptions);
+  getCities(keyword: string): Observable <City[]> {
+    return this.http.post<City[]>('http://localhost:8080/getCities', {
+      technology: keyword
+    } , httpOptions);
   }
-
 }

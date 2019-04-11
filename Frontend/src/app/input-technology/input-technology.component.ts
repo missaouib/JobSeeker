@@ -1,5 +1,5 @@
 import { CityService } from './../services/city.service';
-import { ServerCommunicationService } from './../services/server-communication.service';
+import { HttpService } from './../services/http.service';
 import { Component } from '@angular/core';
 import { City } from '../models/city.model';
 import { FormControl } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
 })
 export class InputTechnologyComponent {
 
-  constructor(private httpService: ServerCommunicationService, private cityService: CityService) { }
+  constructor(private httpService: HttpService, private cityService: CityService) { }
 
   cityList: City[] = [];
   searchTechnology = new FormControl('');

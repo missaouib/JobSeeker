@@ -11,7 +11,7 @@ public class BackendApplication {
 	}
 
 	//todo
-	//new endpoint
+	//stringbuilder
 	//database -> hql, transactions
 	//security -> jwt
 	//tests

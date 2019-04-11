@@ -18,14 +18,14 @@ public class HtmlController {
         this.jobService = jobService;
     }
 
-    @PostMapping("/getJobsOffers")
-    public List<City> getJobOffers(@RequestBody ModelMap technology) {
-        return jobService.getJobs(technology);
+    @PostMapping("/getCities")
+    public List<City> getCities(@RequestBody ModelMap technology) {
+        return jobService.getCities(technology);
     }
 
     @PostMapping("/getTechnologies")
     public List<Technology> getTechnologies(@RequestBody ModelMap city){
         return jobService.getTechnologies(city);
-    }
 
+    }
 }
