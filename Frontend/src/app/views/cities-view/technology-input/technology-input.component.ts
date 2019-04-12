@@ -19,6 +19,7 @@ export class TechnologyInputComponent {
   getData() {
 
     if (this.searchTechnology.value !== '') {
+      this.cityService.showSpinner();
       this.httpService.getCities(this.searchTechnology.value)
         .subscribe(cityList => {
           this.cityList = cityList;

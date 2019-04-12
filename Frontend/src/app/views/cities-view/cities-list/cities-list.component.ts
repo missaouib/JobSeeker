@@ -22,8 +22,11 @@ export class CitiesListComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private cityService: CityService) {
-    //subscribe showspinner
-    //this.showSpinner = true;
+    
+    this.cityService.showSpinner$.subscribe( () => {
+      this.showSpinner = true;
+    });
+
     this.cityService.fillTable$.subscribe( cities => {
       this.citiesList = cities;
       this.dataSource = new MatTableDataSource(this.citiesList);
