@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.spinner {
+  padding-top: 10%;
+  display: flex;
+  justify-content: center;
+}

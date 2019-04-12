@@ -1,15 +1,15 @@
-import { CityService } from './../services/city.service';
-import { HttpService } from './../services/http.service';
+import { CityService } from '../../../services/city.service';
+import { HttpService } from '../../../services/http.service';
+import { City } from '../../../models/city.model';
 import { Component } from '@angular/core';
-import { City } from '../models/city.model';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-input-technology',
-  templateUrl: './input-technology.component.html',
-  styleUrls: ['./input-technology.component.css']
+  selector: 'app-technology-input',
+  templateUrl: './technology-input.component.html',
+  styleUrls: ['./technology-input.component.css']
 })
-export class InputTechnologyComponent {
+export class TechnologyInputComponent {
 
   constructor(private httpService: HttpService, private cityService: CityService) { }
 

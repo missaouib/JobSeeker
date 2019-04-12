@@ -2,4 +2,5 @@
   <input matInput type="text" placeholder="Technology" [formControl]="searchTechnology">
 </mat-form-field>
 
-<a (click)='getData()' class="searchBtn" mat-raised-button routerLink=".">Search</a>
+<button (click)='getData()' class="searchBtn" mat-raised-button
+  matTooltip="Search in top 10 populated cities in Poland" >Search</button >
