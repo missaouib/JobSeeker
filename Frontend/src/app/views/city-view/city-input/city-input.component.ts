@@ -1,6 +1,6 @@
-import { TechnologyService } from './../../../services/technology.service';
-import { HttpService } from './../../../services/http.service';
-import { Technology } from './../../../models/technology.model';
+import { TechnologyService } from '../../../services/technology.service';
+import { HttpService } from '../../../services/http.service';
+import { Technology } from '../../../models/technology.model';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 

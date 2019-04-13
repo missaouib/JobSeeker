@@ -19,15 +19,15 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  getCities(keyword: string): Observable <City[]> {
-    return this.http.post<City[]>('http://localhost:8080/getCities', {
-      technology: keyword
+  getCities(technologyName: string): Observable <City[]> {
+    return this.http.post<City[]>('http://localhost:8080/technologyStatistics', {
+      technology: technologyName
     } , httpOptions);
   }
 
-  getTechnologies(keyword: string): Observable <Technology[]>{
-    return this.http.post<Technology[]>('http://localhost:8080/getTechnologies', {
-      city: keyword
+  getTechnologies(cityName: string): Observable <Technology[]>{
+    return this.http.post<Technology[]>('http://localhost:8080/cityStatistics', {
+      city: cityName
     })
   }
 }

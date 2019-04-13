@@ -1,10 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { City } from '../models/city.model';
-//import { empty } from 'rxjs'
-import { of } from 'rxjs';
-
-const empty = of({})
 
 @Injectable({
   providedIn: 'root'

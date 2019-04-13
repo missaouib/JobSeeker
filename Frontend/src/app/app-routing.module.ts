@@ -1,16 +1,16 @@
-import { CitiesViewComponent } from './views/cities-view/cities-view.component';
+import { TechnologyViewComponent } from './views/technology-view/technology-view.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TechnologiesViewComponent } from './views/technologies-view/technologies-view.component';
+import { CityViewComponent } from './views/city-view/city-view.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CitiesViewComponent
+    component: TechnologyViewComponent
   },
   {
     path: 'city',
-    component: TechnologiesViewComponent
+    component: CityViewComponent
   }
 ];
 

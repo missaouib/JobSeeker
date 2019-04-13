@@ -1,5 +1,5 @@
-import { City } from './../../../models/city.model';
-import { CityService } from './../../../services/city.service';
+import { City } from '../../../models/city.model';
+import { CityService } from '../../../services/city.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 
@@ -12,17 +12,14 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 export class CitiesListComponent {
 
   showSpinner = false;
-
   citiesList: City[] = [];
-
+  dataSource = new MatTableDataSource(this.citiesList);
   displayedColumns: string[] = [
     'name', 'population', 'jobAmount', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation'];
-  dataSource = new MatTableDataSource(this.citiesList);
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private cityService: CityService) {
-    
     this.cityService.showSpinner$.subscribe( () => {
       this.showSpinner = true;
     });
@@ -34,4 +31,5 @@ export class CitiesListComponent {
       this.showSpinner = false;
     });
    }
+
 }
