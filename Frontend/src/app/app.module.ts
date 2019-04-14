@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select'; 
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -56,6 +57,7 @@ import { CityInputComponent } from './views/city-view/city-input/city-input.comp
     MatRadioModule,
     MatTooltipModule,
     MatSliderModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
     MatTabsModule,
     MatCardModule,

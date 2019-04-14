@@ -31,7 +31,6 @@ export class TechnologyInputComponent {
       this.httpService.getCities(this.searchTechnology.value)
         .subscribe(cityList => {
           this.cityList = cityList;
-          console.log(cityList);
           this.cityService.fillTable(cityList);
         });
     }

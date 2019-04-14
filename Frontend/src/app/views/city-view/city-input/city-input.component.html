@@ -1,6 +1,12 @@
-<mat-form-field class="example-form-field">
-  <input matInput type="text" placeholder="City" [formControl]="searchCity">
+<mat-form-field class="inputCity">
+  <mat-label>City</mat-label>
+  <mat-select [formControl]="searchCity">
+    <mat-option *ngFor="let city of cityList" [value]="city">
+      {{city}}
+    </mat-option>
+  </mat-select>
 </mat-form-field>
 
 <button (click)='getData()' class="searchBtn" mat-raised-button
-  matTooltip="Statistics for top10 technologies by 3 categories on pracujpl">Search</button>
+  matTooltip="Statistics for top10 technologies by 3 categories on pracujpl" [disabled]="isDisabled">Search</button>
+

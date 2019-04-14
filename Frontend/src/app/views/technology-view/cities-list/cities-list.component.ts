@@ -11,7 +11,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 
 export class CitiesListComponent {
   
-  sum = 0;
+  total = 0;
   showSpinner = false;
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
@@ -31,7 +31,7 @@ export class CitiesListComponent {
       this.dataSource = new MatTableDataSource(this.citiesList);
       this.dataSource.sort = this.sort;
 
-      this.sum = this.citiesList.map(city => city.jobAmount).reduce((sum, current) => sum + current);
+      this.total = this.citiesList.map(city => city.jobAmount).reduce((sum, current) => sum + current);
    
       this.showSpinner = false;
     });

@@ -84,7 +84,7 @@ public class JobServiceImp implements JobService {
 
         cities.forEach(city -> {
 
-            WebClient url = WebClient.create("https://www.pracuj.pl/praca/" + technology.get("technology") + ";kw/" + city.getName().toLowerCase() + ";wp");
+            WebClient url = WebClient.create("https://www.pracuj.pl/praca/" + technology.get("technology").toString().toLowerCase() + ";kw/" + city.getName().toLowerCase() + ";wp");
 
             if(technology.get("technology").toString().toLowerCase().equals("all")){
                 url = WebClient.create("https://www.pracuj.pl/praca/" + city.getName().toLowerCase() + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
@@ -106,9 +106,9 @@ public class JobServiceImp implements JobService {
 
         technologies.forEach(technology -> {
 
-            WebClient url = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw/" + city.get("city") + ";wp");
+            WebClient url = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw/" + city.get("city").toString().toLowerCase() + ";wp");
 
-            if((city.get("city").toString().toLowerCase()).equals("polska")){
+            if((city.get("city").toString().toLowerCase()).equals("poland")){
                 url = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw");
             }
 
