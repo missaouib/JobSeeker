@@ -83,7 +83,12 @@ public class JobServiceImp implements JobService {
         }
 
         cities.forEach(city -> {
+
             WebClient url = WebClient.create("https://www.pracuj.pl/praca/" + technology.get("technology") + ";kw/" + city.getName().toLowerCase() + ";wp");
+
+            if(technology.get("technology").toString().toLowerCase().equals("all")){
+                url = WebClient.create("https://www.pracuj.pl/praca/" + city.getName().toLowerCase() + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
+            }
 
             city.setJobAmount(getJobAmount(url));
 

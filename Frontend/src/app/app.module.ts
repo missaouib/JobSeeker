@@ -29,9 +29,6 @@ import { TechnologiesListComponent } from './views/city-view/technologies-list/t
 import { CityInputComponent } from './views/city-view/city-input/city-input.component';
 
 //animations
-//empty = all it
-//block button per 5 sec
-//suma data?
 //diagrams
 
 @NgModule({

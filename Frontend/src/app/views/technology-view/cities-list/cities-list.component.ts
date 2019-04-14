@@ -10,7 +10,8 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 })
 
 export class CitiesListComponent {
-
+  
+  sum = 0;
   showSpinner = false;
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
@@ -21,6 +22,7 @@ export class CitiesListComponent {
 
   constructor(private cityService: CityService) {
     this.cityService.showSpinner$.subscribe( () => {
+      this.citiesList.length = 0;
       this.showSpinner = true;
     });
 
@@ -28,6 +30,9 @@ export class CitiesListComponent {
       this.citiesList = cities;
       this.dataSource = new MatTableDataSource(this.citiesList);
       this.dataSource.sort = this.sort;
+
+      this.sum = this.citiesList.map(city => city.jobAmount).reduce((sum, current) => sum + current);
+   
       this.showSpinner = false;
     });
    }

@@ -11,3 +11,7 @@ th.mat-sort-header-sorted {
   display: flex;
   justify-content: center;
 }
+
+.mat-h1 {
+  padding: 20px 0px 0x 10px;
+}
