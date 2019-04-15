@@ -64,10 +64,9 @@ public class JobServiceImp implements JobService {
                         new Technology("Jenkins", "DevOps"),
                         new Technology("Kubernetes", "DevOps"),
                         new Technology("Aws", "DevOps"),
-                        new Technology("Maven", "DevOps"),
-                        new Technology("Gradle", "DevOps"),
+                        new Technology("Azure", "DevOps"),
+                        new Technology("HTML", "DevOps"),
                         new Technology("JUnit", "DevOps")
-                        // REST, Agile
         );
     }
 

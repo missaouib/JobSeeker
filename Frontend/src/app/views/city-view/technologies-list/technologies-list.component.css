@@ -1,4 +1,4 @@
-#tables {
+.tables {
   display: flex;
   justify-content: space-around;
 }

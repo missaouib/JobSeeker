@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +29,8 @@ import { CityViewComponent } from './views/city-view/city-view.component';
 import { TechnologiesListComponent } from './views/city-view/technologies-list/technologies-list.component';
 import { CityInputComponent } from './views/city-view/city-input/city-input.component';
 
+//fix refreshing router
+//private models
 //animations
 //diagrams
 

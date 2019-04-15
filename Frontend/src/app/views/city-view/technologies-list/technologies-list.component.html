@@ -1,4 +1,4 @@
-<div id="tables" [hidden]="technologiesList.length === 0">
+<div class="tables" [style.display]="technologiesList.length === 0 ? 'none' : 'flex'">
   <table mat-table [dataSource]="langueageData" matSort class="mat-elevation-z8" matSortActive="jobOffersAmount"
     matSortDirection="desc">
 

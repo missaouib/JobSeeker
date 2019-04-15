@@ -33,6 +33,8 @@ export class TechnologiesListComponent {
     this.technologyService.fillTable$.subscribe(technologies => {
       this.technologiesList = technologies;
 
+      this.technologiesList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
+
       this.langueageData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language'));
       this.langueageData.sort = this.sort;
       this.totalLangueage = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
