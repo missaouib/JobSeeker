@@ -15,7 +15,7 @@ export class CityInputComponent {
   technologyList: Technology[] = [];
   searchCity = new FormControl('');
   cityList = ['Poland', 'Warszawa', 'Krakow', 'Wroclaw', 'Gdansk', 'Poznan', 'Lodz', 'Lublin', 'Bydgoszcz', 'Bialystok', 'Szczecin'];
-  
+
   constructor(private httpService: HttpService, private technologyService: TechnologyService) { }
 
   getData(){
@@ -24,7 +24,7 @@ export class CityInputComponent {
       this.isDisabled = true;
 
       setTimeout(() =>{
-        this.isDisabled = false; 
+        this.isDisabled = false;
               }, 3000);
 
       //this.cityService.showSpinner();
@@ -32,7 +32,6 @@ export class CityInputComponent {
       this.httpService.getTechnologies(this.searchCity.value)
       .subscribe(technologyList => {
         this.technologyList = technologyList;
-        console.log(this.technologyList);
         this.technologyService.fillTable(technologyList);
       });
     }

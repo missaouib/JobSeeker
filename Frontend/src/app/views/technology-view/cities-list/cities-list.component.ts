@@ -10,13 +10,14 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 })
 
 export class CitiesListComponent {
-  
+
   total = 0;
+  today = Date.now();
   showSpinner = false;
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
   displayedColumns: string[] = [
-    'name', 'population', 'jobAmount', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation'];
+    'name', 'jobAmount', 'population', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation'];
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -32,7 +33,7 @@ export class CitiesListComponent {
       this.dataSource.sort = this.sort;
 
       this.total = this.citiesList.map(city => city.jobAmount).reduce((sum, current) => sum + current);
-   
+
       this.showSpinner = false;
     });
    }
