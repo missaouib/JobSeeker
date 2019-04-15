@@ -27,8 +27,7 @@ export class CityInputComponent {
         this.isDisabled = false;
               }, 3000);
 
-      //this.cityService.showSpinner();
-
+      this.technologyService.showSpinner();
       this.httpService.getTechnologies(this.searchCity.value)
       .subscribe(technologyList => {
         this.technologyList = technologyList;

@@ -10,26 +10,45 @@ import { Component, ViewChild } from '@angular/core';
 })
 export class TechnologiesListComponent {
 
-  total = 0;
   showSpinner = false;
+  totalLangueage = 0;
+  totalFramework = 0;
+  totalDevOps = 0;
   technologiesList: Technology[] = [];
-  dataSource = new MatTableDataSource(this.technologiesList);
-  displayedColumns: string[] = ['name', 'jobOffersAmount'/*, 'type', 'jobOffersAmount', 'type', 'jobOffersAmount'*/];
+  langueageData = null;
+  frameworkData = null;
+  devOpsData = null;
+  displayedColumns: string[] = ['name', 'jobOffersAmount'];
 
   @ViewChild(MatSort) sort: MatSort;
 
-
   constructor(private technologyService: TechnologyService) {
+
+    console.log(this.technologiesList.length);
+    this.technologyService.showSpinner$.subscribe(() => {
+      this.technologiesList.length = 0;
+      this.showSpinner = true;
+    });
 
     this.technologyService.fillTable$.subscribe(technologies => {
       this.technologiesList = technologies;
-      console.log(this.technologiesList);
-      this.dataSource = new MatTableDataSource(this.technologiesList);
-      this.dataSource.sort = this.sort;
 
-      //this.total = this.technologiesList.map(city => city.jobAmount).reduce((sum, current) => sum + current);
+      this.langueageData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language'));
+      this.langueageData.sort = this.sort;
+      this.totalLangueage = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
+        .map(technology => technology.jobOffersAmount).reduce((sum, current) => sum + current);
 
-      //this.showSpinner = false;
+      this.frameworkData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework'));
+      this.frameworkData.sort = this.sort;
+      this.totalFramework = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
+        .map(technology => technology.jobOffersAmount).reduce((sum, current) => sum + current);
+
+      this.devOpsData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops'));
+      this.devOpsData.sort = this.sort;
+      this.totalDevOps = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
+        .map(technology => technology.jobOffersAmount).reduce((sum, current) => sum + current);
+
+      this.showSpinner = false;
     });
 
   }

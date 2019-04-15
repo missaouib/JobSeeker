@@ -1,7 +1,7 @@
 export class Technology {
   constructor(
     name: string,
-    type: string,
-    jobOffersAmount: number,
+    public type: string,
+    public jobOffersAmount: number,
   ) {}
   }

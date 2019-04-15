@@ -10,11 +10,19 @@ export class TechnologyService {
   fillTable$: Observable<any>;
   private fillTableSubject = new Subject<any>();
 
+  showSpinner$: Observable<any>;
+  private showSpinnerSubject = new Subject<any>();
+
   constructor() {
     this.fillTable$ = this.fillTableSubject.asObservable();
+    this.showSpinner$ = this.showSpinnerSubject.asObservable();
   }
 
   fillTable(cities: Technology[]){
     this.fillTableSubject.next(cities);
+  }
+
+  showSpinner() {
+    this.showSpinnerSubject.next();
   }
 }

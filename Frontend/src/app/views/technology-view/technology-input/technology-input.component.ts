@@ -24,7 +24,7 @@ export class TechnologyInputComponent {
       this.isDisabled = true;
 
       setTimeout(() =>{
-        this.isDisabled = false; 
+        this.isDisabled = false;
               }, 3000);
 
       this.cityService.showSpinner();
