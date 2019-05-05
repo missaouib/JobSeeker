@@ -14,7 +14,7 @@ export class CityInputComponent {
   isDisabled = false;
   technologyList: Technology[] = [];
   searchCity = new FormControl('');
-  cityList = ['Poland', 'Warszawa', 'Krakow', 'Wroclaw', 'Gdansk', 'Poznan', 'Lodz', 'Lublin', 'Bydgoszcz', 'Bialystok', 'Szczecin'];
+  cityList = ['Poland', 'Warszawa', 'Krakow', 'Wroclaw', 'Gdansk', 'Poznan', 'Lodz', 'Lublin', 'Bydgoszcz', 'Bialystok', 'Szczecin', 'Katowice', 'Rzeszow', 'Kielce', 'Olsztyn', 'Zielona Gora', 'Opole'];
 
   constructor(private httpService: HttpService, private technologyService: TechnologyService) { }
 

@@ -29,11 +29,6 @@ import { CityViewComponent } from './views/city-view/city-view.component';
 import { TechnologiesListComponent } from './views/city-view/technologies-list/technologies-list.component';
 import { CityInputComponent } from './views/city-view/city-input/city-input.component';
 
-//fix refreshing router
-//private models
-//animations
-//diagrams
-
 @NgModule({
   declarations: [
     AppComponent,

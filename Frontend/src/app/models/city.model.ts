@@ -1,7 +1,7 @@
 export class City {
   constructor(
     name: string,
-    population: number,
+    public population: number,
     areaSquareKilometers: number,
     public jobAmount: number,
     jobOfferPer100kCitizens: number,
