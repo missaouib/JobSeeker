@@ -11,6 +11,15 @@ public class BackendApplication {
 	}
 
 	//todo
+	//apartaments
+	//jobs in other industries
+	//other products
+	//------------------
+	//fix refreshing router
+	//private models
+	//animations
+	//diagrams
+	//------------------
 	//stringbuilder
 	//database -> hql, transactions
 	//security -> jwt

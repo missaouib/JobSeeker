@@ -29,7 +29,13 @@ public class JobServiceImp implements JobService {
                         new City("Szczecin", 403883, 300.60),
                         new City("Bydgoszcz", 352313, 175.98),
                         new City("Lublin", 339850, 147.5),
-                        new City("Bialystok", 297288, 102.12)
+                        new City("Bialystok", 297288, 102.12),
+                        new City("Katowice", 296262, 164.64),
+                        new City("Rzeszow", 193631, 126.57),
+                        new City("Kielce", 195774, 109.45),
+                        new City("Olsztyn", 173125, 88.33),
+                        new City("Zielona Gora", 140113, 278.32),
+                        new City("Opole", 128140, 148.99)
         );
     }
 
@@ -38,24 +44,32 @@ public class JobServiceImp implements JobService {
                         new Technology("Java", "Language"),
                         new Technology("Javascript", "Language"),
                         new Technology("Typescript", "Language"),
-                        new Technology("c%23", "language"),
+                        new Technology(".NET", "language"),
                         new Technology("Python", "Language"),
                         new Technology("Php", "Language"),
                         new Technology("c-x47-c%2b%2b", "Language"),
                         new Technology("Ruby", "Language"),
                         new Technology("Kotlin", "Language"),
+                        new Technology("Scala", "Language"),
+                        new Technology("Groovy", "Language"),
                         new Technology("Swift", "Language"),
+                        new Technology("Objective-C", "Language"),
+                        new Technology("Visual Basic", "Language"),
 
                         new Technology("Spring", "Framework"),
+                        new Technology("JavaEE", "Framework"),
                         new Technology("Android", "Framework"),
                         new Technology("Angular", "Framework"),
                         new Technology("ReactJS", "Framework"),
                         new Technology("Vue.js", "Framework"),
                         new Technology("Node.js", "Framework"),
+                        new Technology("JQuery", "Framework"),
                         new Technology("Symfony", "Framework"),
                         new Technology("Laravel", "Framework"),
                         new Technology("iOS", "Framework"),
                         new Technology("Asp.net", "Framework"),
+                        new Technology("Django", "Framework"),
+                        new Technology("Unity", "Framework"),
 
                         new Technology("SQL", "DevOps"),
                         new Technology("Linux", "DevOps"),
@@ -66,7 +80,11 @@ public class JobServiceImp implements JobService {
                         new Technology("Aws", "DevOps"),
                         new Technology("Azure", "DevOps"),
                         new Technology("HTML", "DevOps"),
-                        new Technology("JUnit", "DevOps")
+                        new Technology("Maven", "DevOps"),
+                        new Technology("Gradle", "DevOps"),
+                        new Technology("JUnit", "DevOps"),
+                        new Technology("Jira", "DevOps"),
+                        new Technology("Scrum", "DevOps")
         );
     }
 
@@ -113,9 +131,6 @@ public class JobServiceImp implements JobService {
 
             technology.setJobOffersAmount(getJobAmount(url));
 
-            if(technology.getName().equals("c%23")){
-                technology.setName("C#");
-            }
             if(technology.getName().equals("c-x47-c%2b%2b")){
                 technology.setName("C/C++");
             }
