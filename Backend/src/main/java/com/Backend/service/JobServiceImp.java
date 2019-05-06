@@ -20,22 +20,22 @@ public class JobServiceImp implements JobService {
 
     private List<City> initCities() {
         return List.of(
-                        new City("Warszawa", 1764615, 517.24),
-                        new City("Krakow", 767348, 326.85),
-                        new City("Lodz", 690422, 293.25),
-                        new City("Wroclaw", 638586, 292.82),
-                        new City("Poznan", 538633, 261.91),
-                        new City("Gdansk", 464254, 261.96),
-                        new City("Szczecin", 403883, 300.60),
-                        new City("Bydgoszcz", 352313, 175.98),
-                        new City("Lublin", 339850, 147.5),
-                        new City("Bialystok", 297288, 102.12),
-                        new City("Katowice", 296262, 164.64),
-                        new City("Rzeszow", 193631, 126.57),
-                        new City("Kielce", 195774, 109.45),
-                        new City("Olsztyn", 173125, 88.33),
-                        new City("Zielona Gora", 140113, 278.32),
-                        new City("Opole", 128140, 148.99)
+                        new City("Warszawa", 1764615, 517.24, 9300),
+                        new City("Krakow", 767348, 326.85, 9200),
+                        new City("Lodz", 690422, 293.25, 5200),
+                        new City("Wroclaw", 638586, 292.82, 8400),
+                        new City("Poznan", 538633, 261.91, 7600),
+                        new City("Gdansk", 464254, 261.96, 8600),
+                        new City("Szczecin", 403883, 300.60, 5800),
+                        new City("Bydgoszcz", 352313, 175.98, 5400),
+                        new City("Lublin", 339850, 147.5, 6070),
+                        new City("Bialystok", 297288, 102.12, 5860),
+                        new City("Katowice", 296262, 164.64, 5460),
+                        new City("Rzeszow", 193631, 126.57, 6100),
+                        new City("Kielce", 195774, 109.45, 5000),
+                        new City("Olsztyn", 173125, 88.33, 5350),
+                        new City("Zielona Gora", 140113, 278.32, 5000),
+                        new City("Opole", 128140, 148.99, 5340)
         );
     }
 

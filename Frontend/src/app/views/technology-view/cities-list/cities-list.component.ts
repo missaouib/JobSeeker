@@ -17,7 +17,7 @@ export class CitiesListComponent {
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
   displayedColumns: string[] = [
-    'position', 'name', 'jobAmount', 'population', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation'];
+    'position', 'name', 'jobAmount', 'population', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation', 'averageFlatPrice'];
 
   @ViewChild(MatSort) sort: MatSort;
 

@@ -11,11 +11,9 @@ public class BackendApplication {
 	}
 
 	//todo
-	//apartaments
+	//date to server side
 	//jobs in other industries
-	//other products
 	//------------------
-	//fix refreshing router
 	//private models
 	//animations
 	//diagrams
@@ -24,6 +22,4 @@ public class BackendApplication {
 	//database -> hql, transactions
 	//security -> jwt
 	//tests
-	//rest -> graphql
-
 }
