@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CityViewComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit() {
   }
 

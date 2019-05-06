@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-
+  navLinks = [
+    { path: '', label: 'Technology' },
+    { path: 'city', label: 'City' }
+  ];
 }

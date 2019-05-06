@@ -1,4 +1,3 @@
-import { NavigationBarComponent } from './views/navigation-bar/navigation-bar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,8 +36,7 @@ import { CityInputComponent } from './views/city-view/city-input/city-input.comp
     TechnologyViewComponent,
     CityViewComponent,
     TechnologiesListComponent,
-    CityInputComponent,
-    NavigationBarComponent
+    CityInputComponent
   ],
   imports: [
     BrowserModule,
