@@ -1,16 +1,21 @@
-import { TechnologyViewComponent } from './views/technology-view/technology-view.component';
+import { ItJobOffersViewComponent } from './views/it-job-offers-view/it-job-offers-view.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CityViewComponent } from './views/city-view/city-view.component';
+import { TechnologyStatisticsViewComponent } from './views/technology-statistics-view/technology-statistics-view.component';
+import {CategoryStatisticsViewComponent} from "./views/category-statistics-view/category-statistics-view.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: TechnologyViewComponent
+    component: ItJobOffersViewComponent
   },
   {
-    path: 'city',
-    component: CityViewComponent
+    path: 'technology',
+    component: TechnologyStatisticsViewComponent
+  },
+  {
+    path: 'category',
+    component: CategoryStatisticsViewComponent
   }
 ];
 

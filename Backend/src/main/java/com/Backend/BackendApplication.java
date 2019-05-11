@@ -11,15 +11,15 @@ public class BackendApplication {
 	}
 
 	//todo
+	//all -> all IT category in itjoboffers-view
+	//database -> init methods
 	//date to server side
-	//jobs in other industries
 	//------------------
-	//private models
+	//category component
 	//animations
 	//diagrams
 	//------------------
 	//stringbuilder
-	//database -> hql, transactions
-	//security -> jwt
+	//jwt python
 	//tests
 }

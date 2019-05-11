@@ -1,25 +1,14 @@
 export class City {
   constructor(
-    name: string,
+    public name: string,
     public population: number,
-    averageFlatPrice: number,
-    areaSquareKilometers: number,
-    public jobAmount: number,
-    jobOfferPer100kCitizens: number,
-    destinyOfPopulation: number,
+    public pracujplJobOffers: number,
+    public linkedinJobOffers: number,
+    public justjoinitJobOffers: number,
+    public nofluffjobsJobOffers: number,
+    public averageFlatPrice: number,
+    public areaSquareKilometers: number,
+    public jobOfferPer100kCitizens: number,
+    public destinyOfPopulation: number
   ) {}
   }
-// export interface ICity {
-//   //constructor(
-//     name: string;
-//     population: number;
-//     areaSquareKilometers: number;
-//     jobAmount: number;
-//     jobOfferPer100kCitizens: number;
-//     destinyOfPopulation: number;
-//   //) {}
-// }
-
-// export class City {
-
-// }

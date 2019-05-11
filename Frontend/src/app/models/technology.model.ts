@@ -2,6 +2,8 @@ export class Technology {
   constructor(
     public name: string,
     public type: string,
-    public jobOffersAmount: number,
+    public pracujplJobOffers: number,
+    public linkedinJobOffers: number,
+    public nofluffjobsJobOffers: number
   ) {}
   }

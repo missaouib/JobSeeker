@@ -7,6 +7,6 @@ import org.springframework.ui.ModelMap;
 import java.util.List;
 
 public interface JobService {
-    List<City> getCities(ModelMap technology);
-    List<Technology> getTechnologies(ModelMap city);
+    List<City> getItJobOffers(ModelMap technology);
+    List<Technology> getTechnologyStatistics(ModelMap city);
 }

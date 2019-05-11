@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin
 @RestController
@@ -15,16 +16,16 @@ public class HtmlController {
     private JobService jobService;
 
     HtmlController (JobService jobService){
-        this.jobService = jobService;
+        this.jobService = Objects.requireNonNull(jobService);
+    }
+
+    @PostMapping("/itJobOffers")
+    public List<City> ItJobOffers(@RequestBody ModelMap technology) {
+        return jobService.getItJobOffers(technology);
     }
 
     @PostMapping("/technologyStatistics")
-    public List<City> getCities(@RequestBody ModelMap technology) {
-        return jobService.getCities(technology);
-    }
-
-    @PostMapping("/cityStatistics")
-    public List<Technology> getTechnologies(@RequestBody ModelMap city){
-        return jobService.getTechnologies(city);
+    public List<Technology> TechnologyStatistics(@RequestBody ModelMap city){
+        return jobService.getTechnologyStatistics(city);
     }
 }

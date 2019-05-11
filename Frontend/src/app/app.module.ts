@@ -21,22 +21,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpService } from './services/http.service';
-import { CitiesListComponent } from './views/technology-view/cities-list/cities-list.component';
-import { TechnologyInputComponent } from './views/technology-view/technology-input/technology-input.component';
-import { TechnologyViewComponent } from './views/technology-view/technology-view.component';
-import { CityViewComponent } from './views/city-view/city-view.component';
-import { TechnologiesListComponent } from './views/city-view/technologies-list/technologies-list.component';
-import { CityInputComponent } from './views/city-view/city-input/city-input.component';
+import { CitiesListComponent } from './views/it-job-offers-view/cities-list/cities-list.component';
+import { TechnologyInputComponent } from './views/it-job-offers-view/technology-input/technology-input.component';
+import { TechnologyStatisticsViewComponent } from './views/technology-statistics-view/technology-statistics-view.component';
+import { TechnologiesListComponent } from './views/technology-statistics-view/technologies-list/technologies-list.component';
+import { CityInputComponent } from './views/technology-statistics-view/city-input/city-input.component';
+import { CategoryStatisticsViewComponent } from './views/category-statistics-view/category-statistics-view.component';
+import {ItJobOffersViewComponent} from "./views/it-job-offers-view/it-job-offers-view.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CitiesListComponent,
-    TechnologyInputComponent,
-    TechnologyViewComponent,
-    CityViewComponent,
+    ItJobOffersViewComponent,
+    TechnologyStatisticsViewComponent,
+    CategoryStatisticsViewComponent,
     TechnologiesListComponent,
-    CityInputComponent
+    CityInputComponent,
+    CitiesListComponent,
+    TechnologyInputComponent
   ],
   imports: [
     BrowserModule,

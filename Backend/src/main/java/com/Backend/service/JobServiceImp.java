@@ -44,7 +44,7 @@ public class JobServiceImp implements JobService {
                         new Technology("Java", "Language"),
                         new Technology("Javascript", "Language"),
                         new Technology("Typescript", "Language"),
-                        new Technology(".NET", "language"),
+                        new Technology(".Net", "language"),
                         new Technology("Python", "Language"),
                         new Technology("Php", "Language"),
                         new Technology("c-x47-c%2b%2b", "Language"),
@@ -88,7 +88,7 @@ public class JobServiceImp implements JobService {
         );
     }
 
-    public List<City> getCities(ModelMap technology) {
+    public List<City> getItJobOffers(ModelMap technology) {
         List<City> cities = initCities();
 
         if(technology.get("technology").toString().toLowerCase().equals("c#")){
@@ -107,9 +107,9 @@ public class JobServiceImp implements JobService {
                 url = WebClient.create("https://www.pracuj.pl/praca/" + city.getName().toLowerCase() + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
             }
 
-            city.setJobAmount(getJobAmount(url));
+            city.setPracujplJobOffers(getJobAmount(url));
 
-            city.setJobOfferPer100kCitizens((double)Math.round((city.getJobAmount() * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100 ) / 100);
+            city.setJobOfferPer100kCitizens((double)Math.round((city.getPracujplJobOffers() * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100 ) / 100);
                     city.setDestinyOfPopulation((int)Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
             }
         );
@@ -118,7 +118,7 @@ public class JobServiceImp implements JobService {
     }
 
     @Override
-    public List<Technology> getTechnologies(ModelMap city) {
+    public List<Technology> getTechnologyStatistics(ModelMap city) {
         List<Technology> technologies = initTechnologies();
 
         technologies.forEach(technology -> {
@@ -129,7 +129,7 @@ public class JobServiceImp implements JobService {
                 url = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw");
             }
 
-            technology.setJobOffersAmount(getJobAmount(url));
+            technology.setPracujplJobOffers(getJobAmount(url));
 
             if(technology.getName().equals("c-x47-c%2b%2b")){
                 technology.setName("C/C++");

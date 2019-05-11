@@ -13,11 +13,13 @@ public class City {
     }
 
     String name;
+    int pracujplJobOffers;
+    int linkedinJobOffers;
+    int justjoinitJobOffers;
+    int nofluffjobsJobOffers;
     int population;
-    int jobAmount;
     int averageFlatPrice;
-    double jobOfferPer100kCitizens;
+    int destinyOfPopulation;
     double areaSquareKilometers;
-    double destinyOfPopulation;
-
+    double jobOfferPer100kCitizens;
 }
