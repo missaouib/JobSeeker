@@ -1,5 +1,5 @@
 <div [hidden]="citiesList.length === 0">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matSortActive="pracujplJobOffers" matSortDirection="desc">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matSortActive="linkedinJobOffers" matSortDirection="desc">
 
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
@@ -13,28 +13,28 @@
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
 
-    <ng-container matColumnDef="pracujplJobOffers">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pracujpl</th>
-      <td mat-cell *matCellDef="let city"> {{city.pracujplJobOffers}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{this.total}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="linkedinJobOffers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Linkedin</th>
       <td mat-cell *matCellDef="let city"> {{city.linkedinJobOffers}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{this.total}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[0]}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pracujplJobOffers">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pracujpl</th>
+      <td mat-cell *matCellDef="let city"> {{city.pracujplJobOffers}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[1]}} </td>
     </ng-container>
 
     <ng-container matColumnDef="nofluffjobsJobOffers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>NoFluffJobs</th>
       <td mat-cell *matCellDef="let city"> {{city.nofluffjobsJobOffers}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{this.total}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[2]}} </td>
     </ng-container>
 
     <ng-container matColumnDef="justjoinitJobOffers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>JustJoinIt</th>
       <td mat-cell *matCellDef="let city"> {{city.justjoinitJobOffers}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{this.total}} </td>
+      <td mat-footer-cell *matFooterCellDef> 0 </td>
     </ng-container>
 
     <ng-container matColumnDef="population">

@@ -15,7 +15,7 @@ export class TechnologyInputComponent {
 
   isDisabled = false;
   cityList: City[] = [];
-  searchTechnology = new FormControl('all');
+  searchTechnology = new FormControl('IT category');
 
   getData() {
 

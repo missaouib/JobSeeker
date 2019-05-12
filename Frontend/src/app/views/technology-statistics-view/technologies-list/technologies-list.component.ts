@@ -10,15 +10,16 @@ import { Component, ViewChild } from '@angular/core';
 })
 export class TechnologiesListComponent {
 
+
+  totalPracuj: number[] = [];
+  totalLinkedin: number[] = [];
+  totalNoFluffJobs: number[] = [];
   showSpinner = false;
-  totalLanguage = 0;
-  totalFramework = 0;
-  totalDevOps = 0;
   technologiesList: Technology[] = [];
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'pracujplJobOffers', 'linkedinJobOffers', 'nofluffjobsJobOffers'];
+  displayedColumns: string[] = ['name', 'linkedinJobOffers', 'pracujplJobOffers', 'nofluffjobsJobOffers'];
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -37,23 +38,28 @@ export class TechnologiesListComponent {
 
       this.languageData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language'));
       this.languageData.sort = this.sort;
-      this.totalLanguage = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
-        .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
-
       this.frameworkData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework'));
       this.frameworkData.sort = this.sort;
-      this.totalFramework = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
-        .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
-
       this.devOpsData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops'));
       this.devOpsData.sort = this.sort;
-      this.totalDevOps = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
+
+      this.totalPracuj[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
         .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
+      this.totalPracuj[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
+        .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
+      this.totalPracuj[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
+        .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
+
+      this.totalLinkedin[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
+        .map(technology => technology.linkedinJobOffers).reduce((sum, current) => sum + current);
+      this.totalLinkedin[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
+        .map(technology => technology.linkedinJobOffers).reduce((sum, current) => sum + current);
+      this.totalLinkedin[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
+        .map(technology => technology.linkedinJobOffers).reduce((sum, current) => sum + current);
 
       this.showSpinner = false;
     });
 
   }
-
 
 }

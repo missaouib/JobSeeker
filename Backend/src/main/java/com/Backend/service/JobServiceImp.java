@@ -2,6 +2,7 @@ package com.Backend.service;
 
 import com.Backend.model.City;
 import com.Backend.model.Technology;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -9,6 +10,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.net.CookieHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -44,10 +46,10 @@ public class JobServiceImp implements JobService {
                         new Technology("Java", "Language"),
                         new Technology("Javascript", "Language"),
                         new Technology("Typescript", "Language"),
-                        new Technology(".Net", "language"),
+                        new Technology(".NET", "language"),
                         new Technology("Python", "Language"),
-                        new Technology("Php", "Language"),
-                        new Technology("c-x47-c%2b%2b", "Language"),
+                        new Technology("PHP", "Language"),
+                        new Technology("c%2B%2B", "Language"),
                         new Technology("Ruby", "Language"),
                         new Technology("Kotlin", "Language"),
                         new Technology("Scala", "Language"),
@@ -77,7 +79,7 @@ public class JobServiceImp implements JobService {
                         new Technology("Docker", "DevOps"),
                         new Technology("Jenkins", "DevOps"),
                         new Technology("Kubernetes", "DevOps"),
-                        new Technology("Aws", "DevOps"),
+                        new Technology("AWS", "DevOps"),
                         new Technology("Azure", "DevOps"),
                         new Technology("HTML", "DevOps"),
                         new Technology("Maven", "DevOps"),
@@ -94,23 +96,25 @@ public class JobServiceImp implements JobService {
         if(technology.get("technology").toString().toLowerCase().equals("c#")){
             technology.replace("technology", "c%23");
         }
-
-        if(technology.get("technology").toString().toLowerCase().equals("c/c++")){
-            technology.replace("technology", "c-x47-c%2b%2b");
+        else if (technology.get("technology").toString().toLowerCase().equals("c++")){
+            technology.replace("technology", "c%2b%2b");
         }
 
         cities.forEach(city -> {
 
-            WebClient url = WebClient.create("https://www.pracuj.pl/praca/" + technology.get("technology").toString().toLowerCase() + ";kw/" + city.getName().toLowerCase() + ";wp");
+            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + technology.get("technology").toString().toLowerCase() + "&location=" + city.getName().toLowerCase());
+            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + technology.get("technology").toString().toLowerCase() + ";kw/" + city.getName().toLowerCase() + ";wp");
 
-            if(technology.get("technology").toString().toLowerCase().equals("all")){
-                url = WebClient.create("https://www.pracuj.pl/praca/" + city.getName().toLowerCase() + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
+            if(technology.get("technology").toString().toLowerCase().equals("it category")){
+                pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + city.getName().toLowerCase() + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
+                linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?location=" + city.getName().toLowerCase() + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
             }
 
-            city.setPracujplJobOffers(getJobAmount(url));
+            city.setLinkedinJobOffers(getLinkedinOffers(linkedinURL));
+            city.setPracujplJobOffers(getPracujplOffers(pracujURL));
 
-            city.setJobOfferPer100kCitizens((double)Math.round((city.getPracujplJobOffers() * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100 ) / 100);
-                    city.setDestinyOfPopulation((int)Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
+            city.setJobOfferPer100kCitizens((double)Math.round(((city.getPracujplJobOffers() + city.getLinkedinJobOffers()) / 2 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100 ) / 100);
+            city.setDestinyOfPopulation((int)Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
             }
         );
 
@@ -123,25 +127,44 @@ public class JobServiceImp implements JobService {
 
         technologies.forEach(technology -> {
 
-            WebClient url = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw/" + city.get("city").toString().toLowerCase() + ";wp");
+            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + technology.getName().toLowerCase() + "&location=" + city.get("city").toString().toLowerCase());
+            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw/" + city.get("city").toString().toLowerCase() + ";wp");
 
             if((city.get("city").toString().toLowerCase()).equals("poland")){
-                url = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw");
+                pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw");
             }
 
-            technology.setPracujplJobOffers(getJobAmount(url));
+            technology.setLinkedinJobOffers(getLinkedinOffers(linkedinURL));
+            technology.setPracujplJobOffers(getPracujplOffers(pracujURL));
 
-            if(technology.getName().equals("c-x47-c%2b%2b")){
-                technology.setName("C/C++");
+            if(technology.getName().equals("c%2B%2B")){
+                technology.setName("C++");
             }
         });
 
         return technologies;
     }
 
-    private int getJobAmount(WebClient url){
+    private int getLinkedinOffers(WebClient url){
+
+        Mono<ClientResponse> result = url.get()
+                .exchange();
+
+        String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
+
+        // Can be changed in future by site owner
+        String htmlFirstTag = "Ostatni miesiąc <span class=\"filter-list__label-count\">(";
+        String htmlLastTag = ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>";
 
         int jobAmount = 0;
+        if (resultString != null && resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)){
+            jobAmount = Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)).replaceAll(",", ""));
+        }
+
+        return jobAmount;
+    }
+
+    private int getPracujplOffers(WebClient url){
 
         Mono<ClientResponse> result = url.get()
                 .accept(MediaType.TEXT_PLAIN)
@@ -153,6 +176,7 @@ public class JobServiceImp implements JobService {
         String htmlFirstTag = "<span class=\"results-header__offer-count-text-number\">";
         String htmlLastTag = "</span> ofert";
 
+        int jobAmount = 0;
         if (resultString != null && resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)){
             jobAmount = Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)));
         }

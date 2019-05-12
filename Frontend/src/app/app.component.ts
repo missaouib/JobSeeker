@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   navLinks = [
-    { path: '', label: 'IT Job Offers' },
+    { path: '', label: 'IT Job Offers in Poland' },
     { path: 'technology', label: 'Technology statistics' },
     { path: 'category', label: 'Category statistics' }
   ];

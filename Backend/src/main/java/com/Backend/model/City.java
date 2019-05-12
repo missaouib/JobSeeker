@@ -13,10 +13,10 @@ public class City {
     }
 
     String name;
-    int pracujplJobOffers;
     int linkedinJobOffers;
-    int justjoinitJobOffers;
+    int pracujplJobOffers;
     int nofluffjobsJobOffers;
+    int justjoinitJobOffers;
     int population;
     int averageFlatPrice;
     int destinyOfPopulation;

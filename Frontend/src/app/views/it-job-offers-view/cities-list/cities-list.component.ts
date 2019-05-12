@@ -11,13 +11,13 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 
 export class CitiesListComponent {
 
-  total = 0;
+  totalOffers: number[] = [];
   today = Date.now();
   showSpinner = false;
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
   displayedColumns: string[] = [
-    'position', 'name', 'pracujplJobOffers', 'linkedinJobOffers', 'nofluffjobsJobOffers', 'justjoinitJobOffers',
+    'position', 'name', 'linkedinJobOffers', 'pracujplJobOffers', 'nofluffjobsJobOffers', 'justjoinitJobOffers',
     'population', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation', 'averageFlatPrice'];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -33,7 +33,10 @@ export class CitiesListComponent {
       this.dataSource = new MatTableDataSource(this.citiesList);
       this.dataSource.sort = this.sort;
 
-      this.total = this.citiesList.map(city => city.pracujplJobOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[0] = this.citiesList.map(city => city.linkedinJobOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[1] = this.citiesList.map(city => city.pracujplJobOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[2] = this.citiesList.map(city => city.nofluffjobsJobOffers).reduce((sum, current) => sum + current);
+
       this.showSpinner = false;
     });
    }

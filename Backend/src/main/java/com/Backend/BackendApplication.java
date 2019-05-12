@@ -11,13 +11,17 @@ public class BackendApplication {
 	}
 
 	//todo
-	//all -> all IT category in itjoboffers-view
-	//database -> init methods
-	//date to server side
+	//[BUG] c++ linkedin
+	//[BUG] sort technologies
+	//[FEAT] add nofluffjobs
+	//[FEAT] add justjoinit
+	//[FEAT] add categories from pracuj
+	//[FEAT] jobs around the world from liknedin
+	//[REFACTOR] date to server side and other tables
+	//[FEAT] database -> init methods
 	//------------------
-	//category component
-	//animations
-	//diagrams
+	//[FEAT] animations
+	//[FEAT] diagrams
 	//------------------
 	//stringbuilder
 	//jwt python
