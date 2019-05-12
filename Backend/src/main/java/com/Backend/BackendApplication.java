@@ -11,12 +11,14 @@ public class BackendApplication {
 	}
 
 	//todo
-	//[BUG] c++ linkedin
+	//[BUG] C# Linkedin
 	//[BUG] sort technologies
 	//[FEAT] add nofluffjobs
 	//[FEAT] add justjoinit
 	//[FEAT] add categories from pracuj
-	//[FEAT] jobs around the world from liknedin
+	//[FEAT] label informing about prices on job pages
+	//[FEAT] jobs around the world from Linkedin
+	//[REFACTOR] change linkedin urls?
 	//[REFACTOR] date to server side and other tables
 	//[FEAT] database -> init methods
 	//------------------

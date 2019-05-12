@@ -49,7 +49,7 @@ public class JobServiceImp implements JobService {
                         new Technology(".NET", "language"),
                         new Technology("Python", "Language"),
                         new Technology("PHP", "Language"),
-                        new Technology("c%2B%2B", "Language"),
+                        new Technology("C++", "Language"),
                         new Technology("Ruby", "Language"),
                         new Technology("Kotlin", "Language"),
                         new Technology("Scala", "Language"),
@@ -96,9 +96,6 @@ public class JobServiceImp implements JobService {
         if(technology.get("technology").toString().toLowerCase().equals("c#")){
             technology.replace("technology", "c%23");
         }
-        else if (technology.get("technology").toString().toLowerCase().equals("c++")){
-            technology.replace("technology", "c%2b%2b");
-        }
 
         cities.forEach(city -> {
 
@@ -108,6 +105,12 @@ public class JobServiceImp implements JobService {
             if(technology.get("technology").toString().toLowerCase().equals("it category")){
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + city.getName().toLowerCase() + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
                 linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?location=" + city.getName().toLowerCase() + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
+            }
+            if (technology.get("technology").toString().toLowerCase().equals("c++")){
+                linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c++-jobs-" + city.getName().toLowerCase());
+            }
+            if(technology.get("technology").toString().toLowerCase().equals("c%23")){
+                linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c%23-jobs-" + city.getName().toLowerCase());
             }
 
             city.setLinkedinJobOffers(getLinkedinOffers(linkedinURL));
@@ -133,13 +136,13 @@ public class JobServiceImp implements JobService {
             if((city.get("city").toString().toLowerCase()).equals("poland")){
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw");
             }
+            if (technology.getName().toLowerCase().equals("c++")){
+                linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c++-jobs-polska");
+            }
 
             technology.setLinkedinJobOffers(getLinkedinOffers(linkedinURL));
             technology.setPracujplJobOffers(getPracujplOffers(pracujURL));
 
-            if(technology.getName().equals("c%2B%2B")){
-                technology.setName("C++");
-            }
         });
 
         return technologies;
