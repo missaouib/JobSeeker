@@ -1,5 +1,5 @@
 <div [hidden]="citiesList.length === 0">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matSortActive="linkedinJobOffers" matSortDirection="desc">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matSortActive="linkedinOffers" matSortDirection="desc">
 
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
@@ -13,27 +13,27 @@
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
 
-    <ng-container matColumnDef="linkedinJobOffers">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Linkedin</th>
-      <td mat-cell *matCellDef="let city"> {{city.linkedinJobOffers}} </td>
+    <ng-container matColumnDef="linkedinOffers">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Shared data 300USD" matTooltipPosition="above">Linkedin</th>
+      <td mat-cell *matCellDef="let city"> {{city.linkedinOffers}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[0]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="pracujplJobOffers">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pracujpl</th>
-      <td mat-cell *matCellDef="let city"> {{city.pracujplJobOffers}} </td>
+    <ng-container matColumnDef="pracujOffers">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Shared data 499PLN" matTooltipPosition="above">Pracujpl</th>
+      <td mat-cell *matCellDef="let city"> {{city.pracujOffers}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[1]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="nofluffjobsJobOffers">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>NoFluffJobs</th>
-      <td mat-cell *matCellDef="let city"> {{city.nofluffjobsJobOffers}} </td>
+    <ng-container matColumnDef="noFluffJobsOffers">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Distinct data 490PLN" matTooltipPosition="above">NoFluffJobs</th>
+      <td mat-cell *matCellDef="let city"> {{city.noFluffJobsOffers}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[2]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="justjoinitJobOffers">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>JustJoinIt</th>
-      <td mat-cell *matCellDef="let city"> {{city.justjoinitJobOffers}} </td>
+    <ng-container matColumnDef="justJoinOffers">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Distinct data 290PLN" matTooltipPosition="above">JustJoinIt</th>
+      <td mat-cell *matCellDef="let city"> {{city.justJoinOffers}} </td>
       <td mat-footer-cell *matFooterCellDef> 0 </td>
     </ng-container>
 

@@ -12,7 +12,7 @@ public class Technology {
 
     String name;
     String type;
-    int pracujplJobOffers;
-    int linkedinJobOffers;
-    int nofluffjobsJobOffers;
+    int linkedinOffers;
+    int pracujOffers;
+    int noFluffJobsOffers;
 }

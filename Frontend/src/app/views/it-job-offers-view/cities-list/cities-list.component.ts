@@ -17,7 +17,7 @@ export class CitiesListComponent {
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
   displayedColumns: string[] = [
-    'position', 'name', 'linkedinJobOffers', 'pracujplJobOffers', 'nofluffjobsJobOffers', 'justjoinitJobOffers',
+    'position', 'name', 'linkedinOffers', 'pracujOffers', 'noFluffJobsOffers', 'justJoinOffers',
     'population', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation', 'averageFlatPrice'];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -33,9 +33,9 @@ export class CitiesListComponent {
       this.dataSource = new MatTableDataSource(this.citiesList);
       this.dataSource.sort = this.sort;
 
-      this.totalOffers[0] = this.citiesList.map(city => city.linkedinJobOffers).reduce((sum, current) => sum + current);
-      this.totalOffers[1] = this.citiesList.map(city => city.pracujplJobOffers).reduce((sum, current) => sum + current);
-      this.totalOffers[2] = this.citiesList.map(city => city.nofluffjobsJobOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[0] = this.citiesList.map(city => city.linkedinOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[1] = this.citiesList.map(city => city.pracujOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[2] = this.citiesList.map(city => city.noFluffJobsOffers).reduce((sum, current) => sum + current);
 
       this.showSpinner = false;
     });
