@@ -20,6 +20,9 @@ public class BackendApplication {
 	//[FEAT] add jobs around the world from Linkedin
 	//[REFACTOR] date to server side and other tables
 	//[FEAT] database -> init methods
+	//[FEAT] additional data like salary
+	//[FEAT] experience level
+	//[FEAT] salary calculator
 	//------------------
 	//[FEAT] animations
 	//[FEAT] diagrams

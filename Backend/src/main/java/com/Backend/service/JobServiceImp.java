@@ -3,15 +3,12 @@ package com.Backend.service;
 import com.Backend.model.City;
 import com.Backend.model.Technology;
 import com.Backend.model.dto.JustJoinDto;
-import com.Backend.model.dto.NoFluffJobsDto;
-import org.springframework.core.ParameterizedTypeReference;
+import com.Backend.model.NoFluffJobsList;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -90,31 +87,32 @@ public class JobServiceImp implements JobService {
     }
 
     public List<City> getItJobOffers(ModelMap technology) {
+
         List<City> cities = initCities();
-
-        if (technology.get("technology").toString().toLowerCase().equals("c#")) {
-            technology.replace("technology", "c%23");
-        }
-
-        //List<NoFluffJobsDto> noFluffJobsDtoOffers = getNoFluffJobsOffers();
-        //getNoFluffJobsOffers();
+        List<NoFluffJobsList> noFluffJobsDtoOffers = getNoFluffJobsOffers();
         List<JustJoinDto> justJoinDtoOffers = getJustJoin();
+        String selectedTechnology = technology.get("technology").toString().toLowerCase();
 
         cities.forEach(city -> {
 
-                    WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + technology.get("technology").toString().toLowerCase() + "&location=" + city.getName().toLowerCase());
-                    WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + technology.get("technology").toString().toLowerCase() + ";kw/" + city.getName().toLowerCase() + ";wp");
+                    String selectedCity = city.getName().toLowerCase();
+                    //https://www.linkedin.com/jobs/java-jobs-poland
+                    WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCity);
+                    WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCity + ";wp");
 
-                    if (technology.get("technology").toString().toLowerCase().equals("it category")) {
-                        pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + city.getName().toLowerCase() + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
-                        linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?location=" + city.getName().toLowerCase() + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
+                    switch(selectedTechnology){
+                        case "it category":
+                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?location=" + selectedCity + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
+                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCity + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
+                            break;
+                        case "c++":
+                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c++-jobs-" + selectedCity);
+                            break;
+                        case "c#":
+                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=C%23&location=" + selectedCity);
+                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/c%23;kw/" + selectedCity + ";wp");
+                            break;
                     }
-                    if (technology.get("technology").toString().toLowerCase().equals("c++")) {
-                        linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c++-jobs-" + city.getName().toLowerCase());
-                    }
-//            if(technology.get("technology").toString().toLowerCase().equals("c%23")){
-//                linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c%23-jobs-" + city.getName().toLowerCase());
-//            }
 
                     city.setLinkedinOffers(getLinkedinOffers(linkedinURL));
                     city.setPracujOffers(getPracujOffers(pracujURL));
@@ -125,33 +123,33 @@ public class JobServiceImp implements JobService {
                     city.setDestinyOfPopulation((int) Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
                 }
         );
-
         return cities;
     }
 
     @Override
     public List<Technology> getTechnologyStatistics(ModelMap city) {
+
+        String selectedCity = city.get("city").toString().toLowerCase();
         List<Technology> technologies = initTechnologies();
+        List<JustJoinDto> justJoinDtoOffers = getJustJoin();
 
         technologies.forEach(technology -> {
 
-            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + technology.getName().toLowerCase() + "&location=" + city.get("city").toString().toLowerCase());
-            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw/" + city.get("city").toString().toLowerCase() + ";wp");
+            String selectedTechnology = technology.getName().toLowerCase();
+            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCity);
+            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCity + ";wp");
 
-
-            if ((city.get("city").toString().toLowerCase()).equals("poland")) {
-                pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + technology.getName().toLowerCase() + ";kw");
+            if(selectedCity.equals("poland")) {
+                pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw");
             }
-            if (technology.getName().toLowerCase().equals("c++")) {
+            if(selectedTechnology.equals("c++")) {
                 linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c++-jobs-polska");
             }
 
             technology.setLinkedinOffers(getLinkedinOffers(linkedinURL));
             technology.setPracujOffers(getPracujOffers(pracujURL));
-            //technology.setNoFluffJobsOffers(getNoFluffJobsOffers(noFluffJobsURL));
-
+            //technology.setJustJoinOffers();
         });
-
         return technologies;
     }
 
@@ -194,37 +192,28 @@ public class JobServiceImp implements JobService {
         return jobAmount;
     }
 
-    private int getNoFluffJobsOffers() {
+    private List<NoFluffJobsList> getNoFluffJobsOffers() {
 
         WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/posting");
 
-        //List<NoFluffJobsDto> posting = noFluffJobsURL
-        //Mono<NoFluffJobsDto> flux =
-                noFluffJobsURL
+        return noFluffJobsURL
                 .get()
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
-                .bodyToFlux(NoFluffJobsDto[].class)
-                .subscribe(System.out::println);
-//                .collectList()
-//                .block();
-
-        //List<NoFluffJobsDto> list = flux.subscribe()
-        //System.out.println(posting);
-
-        return 0;
+                .bodyToFlux(NoFluffJobsList.class)
+                .collectList()
+                .block();
     }
 
     private List<JustJoinDto> getJustJoin() {
 
         WebClient justJoinURL = WebClient.create("https://justjoin.it/api/offers");
 
-        Flux<JustJoinDto> flux =
-                justJoinURL.get()
-                        .accept(MediaType.APPLICATION_JSON_UTF8)
-                        .retrieve()
-                        .bodyToFlux(JustJoinDto.class);
-
-        return flux.collectList().block();
+        return justJoinURL.get()
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .retrieve()
+                .bodyToFlux(JustJoinDto.class)
+                .collectList()
+                .block();
     }
 }

@@ -19,7 +19,7 @@ export class TechnologiesListComponent {
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'linkedinJobOffers', 'pracujplJobOffers', 'nofluffjobsJobOffers'];
+  displayedColumns: string[] = ['name', 'linkedinOffers', 'pracujOffers', 'justJoinOffers'];
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -44,18 +44,18 @@ export class TechnologiesListComponent {
       this.devOpsData.sort = this.sort;
 
       this.totalPracuj[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
-        .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
+        .map(technology => technology.pracujOffers).reduce((sum, current) => sum + current);
       this.totalPracuj[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
-        .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
+        .map(technology => technology.pracujOffers).reduce((sum, current) => sum + current);
       this.totalPracuj[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
-        .map(technology => technology.pracujplJobOffers).reduce((sum, current) => sum + current);
+        .map(technology => technology.pracujOffers).reduce((sum, current) => sum + current);
 
       this.totalLinkedin[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
-        .map(technology => technology.linkedinJobOffers).reduce((sum, current) => sum + current);
+        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
       this.totalLinkedin[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
-        .map(technology => technology.linkedinJobOffers).reduce((sum, current) => sum + current);
+        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
       this.totalLinkedin[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
-        .map(technology => technology.linkedinJobOffers).reduce((sum, current) => sum + current);
+        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
 
       this.showSpinner = false;
     });
