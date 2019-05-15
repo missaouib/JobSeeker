@@ -4,6 +4,7 @@ import com.Backend.model.City;
 import com.Backend.model.Technology;
 import com.Backend.model.dto.JustJoinDto;
 import com.Backend.model.NoFluffJobsList;
+import com.Backend.model.dto.NoFluffJobsDto;
 import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Mono;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class JobServiceImp implements JobService {
@@ -92,7 +94,7 @@ public class JobServiceImp implements JobService {
     public List<City> getItJobOffers(ModelMap technology) {
 
         List<City> cities = initCities();
-        List<NoFluffJobsList> noFluffJobsDtoOffers = getNoFluffJobsOffers();
+        List<NoFluffJobsDto> noFluffJobsDtoOffers = getNoFluffJobsOffers().get(0).getPostings();
         List<JustJoinDto> justJoinDtoOffers = getJustJoin();
         String selectedTechnology = technology.get("technology").toString().toLowerCase();
 
@@ -100,7 +102,6 @@ public class JobServiceImp implements JobService {
 
                     String selectedCityUTF8 = city.getName().toLowerCase();
                     String selectedCityASCII = removePolishSigns(selectedCityUTF8);
-                    //https://www.linkedin.com/jobs/java-jobs-poland
                     WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII);
                     WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp");
 
@@ -118,23 +119,22 @@ public class JobServiceImp implements JobService {
                             break;
                     }
 
-                    //warsaw cracow
+
                     city.setLinkedinOffers(getLinkedinOffers(linkedinURL));
                     city.setPracujOffers(getPracujOffers(pracujURL));
 
-                    noFluffJobsDtoOffers
-                            .stream()
-                            .filter(filterCity -> filterCity.getPostings().equals(selectedCityUTF8))
-                            // || filterCity.equals(selectedCityASCII)
-                            .forEach(System.out::println);
-
-
+                    //warsaw cracow itcategory, few cities
                     city.setNoFluffJobsOffers((int)noFluffJobsDtoOffers
-                            .stream()
-                            .filter(filterCity -> filterCity.equals(selectedCityUTF8) || filterCity.equals(selectedCityASCII))
-                            //.forEach(System.out::println);
-                            .count());
-                    //city.setJustJoinOffers();
+                        .stream()
+                        .filter(filterCity -> filterCity.getCity().toLowerCase().equals(selectedCityUTF8) || filterCity.getCity().toLowerCase().equals(selectedCityASCII))
+                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology))
+                        .count());
+
+                    city.setJustJoinOffers((int)justJoinDtoOffers
+                        .stream()
+                        .filter(filterCity -> filterCity.getCity().toLowerCase().equals(selectedCityUTF8) || filterCity.getCity().toLowerCase().equals(selectedCityASCII))
+                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology))
+                        .count());
 
                     city.setJobOfferPer100kCitizens((double) Math.round(((city.getPracujOffers() + city.getLinkedinOffers()) / 2 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100) / 100);
                     city.setDestinyOfPopulation((int) Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
