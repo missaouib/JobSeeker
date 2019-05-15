@@ -4,6 +4,7 @@ import com.Backend.model.City;
 import com.Backend.model.Technology;
 import com.Backend.model.dto.JustJoinDto;
 import com.Backend.model.NoFluffJobsList;
+import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -11,7 +12,9 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.text.Normalizer;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class JobServiceImp implements JobService {
@@ -19,20 +22,20 @@ public class JobServiceImp implements JobService {
     private List<City> initCities() {
         return List.of(
                 new City("Warszawa", 1764615, 517.24, 9300),
-                new City("Krakow", 767348, 326.85, 9200),
-                new City("Lodz", 690422, 293.25, 5200),
-                new City("Wroclaw", 638586, 292.82, 8400),
-                new City("Poznan", 538633, 261.91, 7600),
-                new City("Gdansk", 464254, 261.96, 8600),
+                new City("Kraków", 767348, 326.85, 9200),
+                new City("Łódź", 690422, 293.25, 5200),
+                new City("Wrocław", 638586, 292.82, 8400),
+                new City("Poznań", 538633, 261.91, 7600),
+                new City("Gdańsk", 464254, 261.96, 8600),
                 new City("Szczecin", 403883, 300.60, 5800),
                 new City("Bydgoszcz", 352313, 175.98, 5400),
                 new City("Lublin", 339850, 147.5, 6070),
-                new City("Bialystok", 297288, 102.12, 5860),
+                new City("Białystok", 297288, 102.12, 5860),
                 new City("Katowice", 296262, 164.64, 5460),
-                new City("Rzeszow", 193631, 126.57, 6100),
+                new City("Rzeszów", 193631, 126.57, 6100),
                 new City("Kielce", 195774, 109.45, 5000),
                 new City("Olsztyn", 173125, 88.33, 5350),
-                new City("Zielona Gora", 140113, 278.32, 5000),
+                new City("Zielona Góra", 140113, 278.32, 5000),
                 new City("Opole", 128140, 148.99, 5340)
         );
     }
@@ -95,28 +98,42 @@ public class JobServiceImp implements JobService {
 
         cities.forEach(city -> {
 
-                    String selectedCity = city.getName().toLowerCase();
+                    String selectedCityUTF8 = city.getName().toLowerCase();
+                    String selectedCityASCII = removePolishSigns(selectedCityUTF8);
                     //https://www.linkedin.com/jobs/java-jobs-poland
-                    WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCity);
-                    WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCity + ";wp");
+                    WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII);
+                    WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp");
 
                     switch(selectedTechnology){
                         case "it category":
-                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?location=" + selectedCity + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
-                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCity + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
+                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?location=" + selectedCityASCII + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
+                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
                             break;
                         case "c++":
-                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c++-jobs-" + selectedCity);
+                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/c++-jobs-" + selectedCityASCII);
                             break;
                         case "c#":
-                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=C%23&location=" + selectedCity);
-                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/c%23;kw/" + selectedCity + ";wp");
+                            linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=C%23&location=" + selectedCityASCII);
+                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/c%23;kw/" + selectedCityASCII + ";wp");
                             break;
                     }
 
+                    //warsaw cracow
                     city.setLinkedinOffers(getLinkedinOffers(linkedinURL));
                     city.setPracujOffers(getPracujOffers(pracujURL));
-                    //city.setNoFluffJobsOffers();
+
+                    noFluffJobsDtoOffers
+                            .stream()
+                            .filter(filterCity -> filterCity.getPostings().equals(selectedCityUTF8))
+                            // || filterCity.equals(selectedCityASCII)
+                            .forEach(System.out::println);
+
+
+                    city.setNoFluffJobsOffers((int)noFluffJobsDtoOffers
+                            .stream()
+                            .filter(filterCity -> filterCity.equals(selectedCityUTF8) || filterCity.equals(selectedCityASCII))
+                            //.forEach(System.out::println);
+                            .count());
                     //city.setJustJoinOffers();
 
                     city.setJobOfferPer100kCitizens((double) Math.round(((city.getPracujOffers() + city.getLinkedinOffers()) / 2 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100) / 100);
@@ -215,5 +232,11 @@ public class JobServiceImp implements JobService {
                 .bodyToFlux(JustJoinDto.class)
                 .collectList()
                 .block();
+    }
+
+    private String removePolishSigns(String city){
+        return Normalizer.normalize(city, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .replaceAll("ł", "l");
     }
 }
