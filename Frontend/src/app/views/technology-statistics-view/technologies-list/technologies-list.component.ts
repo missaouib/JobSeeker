@@ -14,12 +14,13 @@ export class TechnologiesListComponent {
   totalPracuj: number[] = [];
   totalLinkedin: number[] = [];
   totalNoFluffJobs: number[] = [];
+  totalJustJoin: number[] = [];
   showSpinner = false;
   technologiesList: Technology[] = [];
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'linkedinOffers', 'pracujOffers', 'justJoinOffers'];
+  displayedColumns: string[] = ['name', 'linkedinOffers', 'pracujOffers', 'noFluffJobsOffers', 'justJoinOffers'];
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -43,6 +44,13 @@ export class TechnologiesListComponent {
       this.devOpsData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops'));
       this.devOpsData.sort = this.sort;
 
+      this.totalLinkedin[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
+        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
+      this.totalLinkedin[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
+        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
+      this.totalLinkedin[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
+        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
+
       this.totalPracuj[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
         .map(technology => technology.pracujOffers).reduce((sum, current) => sum + current);
       this.totalPracuj[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
@@ -50,12 +58,19 @@ export class TechnologiesListComponent {
       this.totalPracuj[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
         .map(technology => technology.pracujOffers).reduce((sum, current) => sum + current);
 
-      this.totalLinkedin[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
-        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
-      this.totalLinkedin[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
-        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
-      this.totalLinkedin[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
-        .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
+      this.totalNoFluffJobs[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
+        .map(technology => technology.noFluffJobsOffers).reduce((sum, current) => sum + current);
+      this.totalNoFluffJobs[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
+        .map(technology => technology.noFluffJobsOffers).reduce((sum, current) => sum + current);
+      this.totalNoFluffJobs[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
+        .map(technology => technology.noFluffJobsOffers).reduce((sum, current) => sum + current)
+
+      this.totalJustJoin[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
+        .map(technology => technology.justJoinOffers).reduce((sum, current) => sum + current);
+      this.totalJustJoin[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
+        .map(technology => technology.justJoinOffers).reduce((sum, current) => sum + current);
+      this.totalJustJoin[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
+        .map(technology => technology.justJoinOffers).reduce((sum, current) => sum + current);
 
       this.showSpinner = false;
     });

@@ -36,6 +36,7 @@ export class CitiesListComponent {
       this.totalOffers[0] = this.citiesList.map(city => city.linkedinOffers).reduce((sum, current) => sum + current);
       this.totalOffers[1] = this.citiesList.map(city => city.pracujOffers).reduce((sum, current) => sum + current);
       this.totalOffers[2] = this.citiesList.map(city => city.noFluffJobsOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[3] = this.citiesList.map(city => city.justJoinOffers).reduce((sum, current) => sum + current);
 
       this.showSpinner = false;
     });

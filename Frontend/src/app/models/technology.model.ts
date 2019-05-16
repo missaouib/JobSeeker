@@ -4,6 +4,7 @@ export class Technology {
     public type: string,
     public linkedinOffers: number,
     public pracujOffers: number,
+    public noFluffJobsOffers: number,
     public justJoinOffers: number
   ) {}
   }

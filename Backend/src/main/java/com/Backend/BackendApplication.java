@@ -16,6 +16,8 @@ public class BackendApplication {
 	//[REFACTOR] simplify URLs
 	//[FEAT] add nofluffjobs
 	//[FEAT] add justjoinit
+    //[FEAT] search button on enter key
+    //[BUG] something goes wrong with searching specific number of data
 	//[FEAT] add categories from pracuj
 	//[FEAT] add jobs around the world from Linkedin
 	//[REFACTOR] date to server side and other tables

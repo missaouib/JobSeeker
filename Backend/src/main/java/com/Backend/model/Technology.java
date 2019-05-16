@@ -14,5 +14,6 @@ public class Technology {
     String type;
     int linkedinOffers;
     int pracujOffers;
+    int noFluffJobsOffers;
     int justJoinOffers;
 }

@@ -1,11 +1,10 @@
 package com.Backend.service;
 
 import com.Backend.model.City;
+import com.Backend.model.NoFluffJobsList;
 import com.Backend.model.Technology;
 import com.Backend.model.dto.JustJoinDto;
-import com.Backend.model.NoFluffJobsList;
 import com.Backend.model.dto.NoFluffJobsDto;
-import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -15,8 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.text.Normalizer;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Service
 public class JobServiceImp implements JobService {
@@ -93,10 +91,10 @@ public class JobServiceImp implements JobService {
 
     public List<City> getItJobOffers(ModelMap technology) {
 
+        String selectedTechnology = technology.get("technology").toString().toLowerCase();
         List<City> cities = initCities();
         List<NoFluffJobsDto> noFluffJobsDtoOffers = getNoFluffJobsOffers().get(0).getPostings();
         List<JustJoinDto> justJoinDtoOffers = getJustJoin();
-        String selectedTechnology = technology.get("technology").toString().toLowerCase();
 
         cities.forEach(city -> {
 
@@ -123,20 +121,51 @@ public class JobServiceImp implements JobService {
                     city.setLinkedinOffers(getLinkedinOffers(linkedinURL));
                     city.setPracujOffers(getPracujOffers(pracujURL));
 
-                    //warsaw cracow itcategory, few cities
-                    city.setNoFluffJobsOffers((int)noFluffJobsDtoOffers
-                        .stream()
-                        .filter(filterCity -> filterCity.getCity().toLowerCase().equals(selectedCityUTF8) || filterCity.getCity().toLowerCase().equals(selectedCityASCII))
-                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology))
-                        .count());
+                    if(selectedTechnology.equals("it category")){
+                        city.setNoFluffJobsOffers((int)noFluffJobsDtoOffers
+                                .stream()
+                                .flatMap(filterCity -> filterCity.getCities().stream()
+                                        .filter(x -> {
+                                            if(selectedCityUTF8.equals("warszawa")){
+                                                return (x.toLowerCase().contains(selectedCityUTF8) || x.toLowerCase().contains(selectedCityASCII) || x.toLowerCase().contains("warsaw"));
+                                            } else if (selectedCityUTF8.equals("kraków")){
+                                                return (x.toLowerCase().contains(selectedCityUTF8) || x.toLowerCase().contains(selectedCityASCII) || x.toLowerCase().contains("cracow"));
+                                            } else {
+                                                return (x.toLowerCase().contains(selectedCityUTF8) || x.toLowerCase().contains(selectedCityASCII));
+                                            }
+                                        }))
+                                .count());
 
-                    city.setJustJoinOffers((int)justJoinDtoOffers
-                        .stream()
-                        .filter(filterCity -> filterCity.getCity().toLowerCase().equals(selectedCityUTF8) || filterCity.getCity().toLowerCase().equals(selectedCityASCII))
-                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology))
-                        .count());
+                        city.setJustJoinOffers((int)justJoinDtoOffers
+                                .stream()
+                                .filter(filterCity -> filterCity.getCity().toLowerCase().equals(selectedCityUTF8) || filterCity.getCity().toLowerCase().equals(selectedCityASCII))
+                                .count());
+                    } else {
+                        city.setNoFluffJobsOffers((int)noFluffJobsDtoOffers
+                                .stream()
+                                .filter(x -> Objects.nonNull(x.getTechnology()))
+                                .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology + " ")
+                                        || filterTechnology.getTechnology().toLowerCase().contains(selectedTechnology))
+                                .flatMap(filterCity -> filterCity.getCities().stream()
+                                        .filter(x -> {
+                                            if(selectedCityUTF8.equals("warszawa")){
+                                                return (x.toLowerCase().contains(selectedCityUTF8) || x.toLowerCase().contains(selectedCityASCII) || x.toLowerCase().contains("warsaw"));
+                                            } else if (selectedCityUTF8.equals("kraków")){
+                                                return (x.toLowerCase().contains(selectedCityUTF8) || x.toLowerCase().contains(selectedCityASCII) || x.toLowerCase().contains("cracow"));
+                                            } else {
+                                                return (x.toLowerCase().contains(selectedCityUTF8) || x.toLowerCase().contains(selectedCityASCII));
+                                            }
+                                        }))
+                                .count());
 
-                    city.setJobOfferPer100kCitizens((double) Math.round(((city.getPracujOffers() + city.getLinkedinOffers()) / 2 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100) / 100);
+                        city.setJustJoinOffers((int)justJoinDtoOffers
+                                .stream()
+                                .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology))
+                                .filter(filterCity -> filterCity.getCity().toLowerCase().equals(selectedCityUTF8) || filterCity.getCity().toLowerCase().equals(selectedCityASCII))
+                                .count());
+                    }
+
+                    city.setJobOfferPer100kCitizens((double) Math.round(((city.getPracujOffers() + city.getLinkedinOffers() + city.getJustJoinOffers() + city.getNoFluffJobsOffers()) / 4.0 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100) / 100);
                     city.setDestinyOfPopulation((int) Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
                 }
         );
@@ -146,17 +175,19 @@ public class JobServiceImp implements JobService {
     @Override
     public List<Technology> getTechnologyStatistics(ModelMap city) {
 
-        String selectedCity = city.get("city").toString().toLowerCase();
+        String selectedCityUTF8 = city.get("city").toString().toLowerCase();
+        String selectedCityASCII = removePolishSigns(selectedCityUTF8);
         List<Technology> technologies = initTechnologies();
+        List<NoFluffJobsDto> noFluffJobsDtoOffers = getNoFluffJobsOffers().get(0).getPostings();
         List<JustJoinDto> justJoinDtoOffers = getJustJoin();
 
         technologies.forEach(technology -> {
 
             String selectedTechnology = technology.getName().toLowerCase();
-            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCity);
-            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCity + ";wp");
+            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityUTF8);
+            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityUTF8 + ";wp");
 
-            if(selectedCity.equals("poland")) {
+            if(selectedCityUTF8.equals("poland")) {
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw");
             }
             if(selectedTechnology.equals("c++")) {
@@ -165,7 +196,36 @@ public class JobServiceImp implements JobService {
 
             technology.setLinkedinOffers(getLinkedinOffers(linkedinURL));
             technology.setPracujOffers(getPracujOffers(pracujURL));
-            //technology.setJustJoinOffers();
+
+            if(selectedCityUTF8.equals("poland")){
+                technology.setNoFluffJobsOffers((int)noFluffJobsDtoOffers
+                        .stream()
+                        .filter(x -> Objects.nonNull(x.getTechnology()))
+                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology + " ")
+                                || filterTechnology.getTechnology().toLowerCase().contains(selectedTechnology))
+                        .count());
+
+                technology.setJustJoinOffers((int)justJoinDtoOffers
+                        .stream()
+                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
+                                || filterTechnology.getSkills().get(0).containsValue((selectedTechnology)))
+                        .count());
+            } else {
+                technology.setNoFluffJobsOffers((int)noFluffJobsDtoOffers
+                        .stream()
+                        .filter(x -> Objects.nonNull(x.getTechnology()))
+                        //.filter(filterCity -> filterCity.getCities().)
+                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology + " ")
+                                || filterTechnology.getTechnology().toLowerCase().contains(selectedTechnology))
+                        .count());
+
+                technology.setJustJoinOffers((int)justJoinDtoOffers
+                        .stream()
+                        .filter(filterCity -> filterCity.getCity().toLowerCase().equals(selectedCityUTF8) || filterCity.getCity().toLowerCase().equals(selectedCityASCII))
+//                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
+//                                || filterTechnology.getSkills().contains(selectedTechnology))
+                        .count());
+            }
         });
         return technologies;
     }
