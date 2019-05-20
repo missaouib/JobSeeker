@@ -15,25 +15,25 @@
 
     <ng-container matColumnDef="linkedinOffers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Shared data 300USD" matTooltipPosition="above">Linkedin</th>
-      <td mat-cell *matCellDef="let city"> {{city.linkedinOffers}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.linkedinOffers.toLocaleString('en-US').replace(',', ' ')}} </td>
       <td mat-footer-cell *matFooterCellDef> {{totalOffers[0]}} </td>
     </ng-container>
 
     <ng-container matColumnDef="pracujOffers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Shared data 499PLN" matTooltipPosition="above">Pracuj</th>
-      <td mat-cell *matCellDef="let city"> {{city.pracujOffers}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.pracujOffers.toLocaleString('en-US').replace(',', ' ')}} </td>
       <td mat-footer-cell *matFooterCellDef> {{totalOffers[1]}} </td>
     </ng-container>
 
     <ng-container matColumnDef="noFluffJobsOffers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Distinct data 490PLN" matTooltipPosition="above">NoFluffJobs</th>
-      <td mat-cell *matCellDef="let city"> {{city.noFluffJobsOffers}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.noFluffJobsOffers.toLocaleString('en-US').replace(',', ' ')}} </td>
       <td mat-footer-cell *matFooterCellDef> {{totalOffers[2]}} </td>
     </ng-container>
 
     <ng-container matColumnDef="justJoinOffers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Distinct data 290PLN" matTooltipPosition="above">JustJoin</th>
-      <td mat-cell *matCellDef="let city"> {{city.justJoinOffers}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.justJoinOffers.toLocaleString('en-US').replace(',', ' ')}} </td>
       <td mat-footer-cell *matFooterCellDef> {{totalOffers[3]}} </td>
     </ng-container>
 
@@ -51,7 +51,7 @@
 
     <ng-container matColumnDef="areaSquareKilometers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Area in km<sup>2</sup> </th>
-      <td mat-cell *matCellDef="let city"> {{city.areaSquareKilometers}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.areaSquareKilometers.toLocaleString('en-US').replace(',', ' ')}} </td>
       <td mat-footer-cell *matFooterCellDef> </td>
     </ng-container>
 

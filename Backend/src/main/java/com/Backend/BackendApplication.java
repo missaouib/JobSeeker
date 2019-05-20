@@ -11,15 +11,11 @@ public class BackendApplication {
 	}
 
 	//todo
-	//[BUG] C# Linkedin
 	//[BUG] sort technologies
-	//[REFACTOR] simplify URLs
-	//[FEAT] add nofluffjobs
-	//[FEAT] add justjoinit
-    //[FEAT] search button on enter key
-    //[BUG] something goes wrong with searching specific number of data
 	//[FEAT] add categories from pracuj
 	//[FEAT] add jobs around the world from Linkedin
+    //[REFACTOR] simplify URLs
+    //[TEST] make sure that portals provide valid data
 	//[REFACTOR] date to server side and other tables
 	//[FEAT] database -> init methods
 	//[FEAT] additional data like salary

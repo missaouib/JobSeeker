@@ -1,5 +1,5 @@
 <mat-form-field class="example-form-field">
-  <input matInput type="text" placeholder="Technology" [formControl]="searchTechnology">
+  <input (keyup.enter)='getData()' matInput type="text" placeholder="Technology" [formControl]="searchTechnology">
 </mat-form-field>
 
 <button (click)='getData()' class="searchBtn" mat-raised-button

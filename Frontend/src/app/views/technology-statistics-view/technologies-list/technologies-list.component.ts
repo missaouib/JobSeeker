@@ -25,8 +25,6 @@ export class TechnologiesListComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private technologyService: TechnologyService) {
-
-    console.log(this.technologiesList.length);
     this.technologyService.showSpinner$.subscribe(() => {
       this.technologiesList.length = 0;
       this.showSpinner = true;
@@ -76,5 +74,4 @@ export class TechnologiesListComponent {
     });
 
   }
-
 }
