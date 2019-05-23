@@ -11,7 +11,7 @@ public class BackendApplication {
 	}
 
 	//todo
-	//[BUG] sort techno + total poland
+	//[BUG] sort total offers column
     //[REFACTOR] simplify URLs
     //[TEST] make sure that portals provide valid data
 	//[REFACTOR] date to server side and other tables

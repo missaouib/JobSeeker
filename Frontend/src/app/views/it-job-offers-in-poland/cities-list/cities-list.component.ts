@@ -32,6 +32,7 @@ export class CitiesListComponent {
       this.citiesList = cities;
       this.dataSource = new MatTableDataSource(this.citiesList);
       this.dataSource.sort = this.sort;
+      this.sort.disableClear = true;
 
       this.totalOffers[0] = this.citiesList.map(city => city.linkedinOffers).reduce((sum, current) => sum + current);
       this.totalOffers[1] = this.citiesList.map(city => city.pracujOffers).reduce((sum, current) => sum + current);

@@ -20,7 +20,7 @@ export class TechnologiesListComponent {
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'linkedinOffers', 'pracujOffers', 'noFluffJobsOffers', 'justJoinOffer', 'totalJobOffers'];
+  displayedColumns: string[] = ['name', 'linkedinOffers', 'pracujOffers', 'noFluffJobsOffers', 'justJoinOffers', 'totalJobOffers'];
 
   @ViewChild('languageTable') public languageTable: MatSort;
   @ViewChild('frameworkTable') public frameworkTable: MatSort;

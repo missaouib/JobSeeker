@@ -2,7 +2,7 @@
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matSortActive="linkedinOffers" matSortDirection="desc">
 
     <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> No.</th>
       <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
