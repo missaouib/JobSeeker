@@ -1,5 +1,6 @@
 package com.Backend.service;
 
+import com.Backend.model.Category;
 import com.Backend.model.City;
 import com.Backend.model.NoFluffJobsList;
 import com.Backend.model.Technology;
@@ -85,6 +86,12 @@ public class JobServiceImp implements JobService {
                 new Technology("JUnit", "DevOps"),
                 new Technology("Jira", "DevOps"),
                 new Technology("Scrum", "DevOps")
+        );
+    }
+
+    private List<Category> initCategories(){
+        return List.of(
+                new Category("administracja biurowa","office administration") //url?
         );
     }
 

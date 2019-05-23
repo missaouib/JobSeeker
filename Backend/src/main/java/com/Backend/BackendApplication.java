@@ -11,8 +11,7 @@ public class BackendApplication {
 	}
 
 	//todo
-    //[REFACTOR] simplify URLs
-    //[TEST] make sure that portals provide valid data
+    //[REFACTOR] simplify URLs and fix keywords
 	//[REFACTOR] date to server side and other tables
 	//[FEAT] database, init methods
 	//[FEAT] additional data {salary, experience, calculator}
