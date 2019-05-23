@@ -11,21 +11,18 @@ public class BackendApplication {
 	}
 
 	//todo
-	//[BUG] sort technologies
-	//[FEAT] add categories from pracuj
-	//[FEAT] add jobs around the world from Linkedin
+	//[BUG] sort techno + total poland
     //[REFACTOR] simplify URLs
     //[TEST] make sure that portals provide valid data
 	//[REFACTOR] date to server side and other tables
-	//[FEAT] database -> init methods
-	//[FEAT] additional data like salary
-	//[FEAT] experience level
-	//[FEAT] salary calculator
+	//[FEAT] database, init methods
+	//[FEAT] additional data {salary, experience, calculator}
 	//------------------
 	//[FEAT] animations
 	//[FEAT] diagrams
+	//[FEAT] RWD
 	//------------------
-	//stringbuilder
-	//jwt python
-	//tests
+	//[REFACTOR] stringbuilder
+	//[FEAT] jwt python
+	//[TEST] add tests
 }

@@ -1,21 +1,26 @@
-import { ItJobOffersViewComponent } from './views/it-job-offers-view/it-job-offers-view.component';
+import { ItJobOffersInPolandComponent } from './views/it-job-offers-in-poland/it-job-offers-in-poland.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TechnologyStatisticsViewComponent } from './views/technology-statistics-view/technology-statistics-view.component';
-import {CategoryStatisticsViewComponent} from "./views/category-statistics-view/category-statistics-view.component";
+import { TechnologyStatisticsComponent } from './views/technology-statistics/technology-statistics.component';
+import {CategoryStatisticsComponent} from "./views/category-statistics/category-statistics.component";
+import {ItJobOffersInWorldComponent} from "./views/it-job-offers-in-world/it-job-offers-in-world.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: ItJobOffersViewComponent
+    component: ItJobOffersInPolandComponent
+  },
+  {
+    path: 'world',
+    component: ItJobOffersInWorldComponent
   },
   {
     path: 'technology',
-    component: TechnologyStatisticsViewComponent
+    component: TechnologyStatisticsComponent
   },
   {
     path: 'category',
-    component: CategoryStatisticsViewComponent
+    component: CategoryStatisticsComponent
   }
 ];
 

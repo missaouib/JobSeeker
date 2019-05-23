@@ -10,19 +10,21 @@ import { Component, ViewChild } from '@angular/core';
 })
 export class TechnologiesListComponent {
 
-
   totalPracuj: number[] = [];
   totalLinkedin: number[] = [];
   totalNoFluffJobs: number[] = [];
   totalJustJoin: number[] = [];
+  totalOffers: number[] = [];
   showSpinner = false;
   technologiesList: Technology[] = [];
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'linkedinOffers', 'pracujOffers', 'noFluffJobsOffers', 'justJoinOffers'];
+  displayedColumns: string[] = ['name', 'linkedinOffers', 'pracujOffers', 'noFluffJobsOffers', 'justJoinOffer', 'totalJobOffers'];
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('languageTable') public languageTable: MatSort;
+  @ViewChild('frameworkTable') public frameworkTable: MatSort;
+  @ViewChild('devOpsTable') public devOpsTable: MatSort;
 
   constructor(private technologyService: TechnologyService) {
     this.technologyService.showSpinner$.subscribe(() => {
@@ -36,11 +38,16 @@ export class TechnologiesListComponent {
       this.technologiesList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
 
       this.languageData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language'));
-      this.languageData.sort = this.sort;
       this.frameworkData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework'));
-      this.frameworkData.sort = this.sort;
       this.devOpsData = new MatTableDataSource(this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops'));
-      this.devOpsData.sort = this.sort;
+
+      this.languageData.sort = this.languageTable;
+      this.frameworkData.sort = this.frameworkTable;
+      this.devOpsData.sort = this.devOpsTable;
+
+      this.languageTable.disableClear = true;
+      this.frameworkTable.disableClear = true;
+      this.devOpsTable.disableClear = true;
 
       this.totalLinkedin[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
         .map(technology => technology.linkedinOffers).reduce((sum, current) => sum + current);
@@ -61,7 +68,7 @@ export class TechnologiesListComponent {
       this.totalNoFluffJobs[1] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'framework')
         .map(technology => technology.noFluffJobsOffers).reduce((sum, current) => sum + current);
       this.totalNoFluffJobs[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
-        .map(technology => technology.noFluffJobsOffers).reduce((sum, current) => sum + current)
+        .map(technology => technology.noFluffJobsOffers).reduce((sum, current) => sum + current);
 
       this.totalJustJoin[0] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'language')
         .map(technology => technology.justJoinOffers).reduce((sum, current) => sum + current);
@@ -70,8 +77,21 @@ export class TechnologiesListComponent {
       this.totalJustJoin[2] = this.technologiesList.filter(technology => technology.type.toLowerCase() === 'devops')
         .map(technology => technology.justJoinOffers).reduce((sum, current) => sum + current);
 
+      this.totalOffers[0] = this.technologiesList.filter(technology => technology.type.toLocaleLowerCase() === 'language')
+        .map(t => t.linkedinOffers + t.pracujOffers + t.noFluffJobsOffers + t.justJoinOffers)
+        .reduce((sum, current) => sum + current);
+
+      this.totalOffers[1] = this.technologiesList.filter(technology => technology.type.toLocaleLowerCase() === 'framework')
+        .map(t => t.linkedinOffers + t.pracujOffers + t.noFluffJobsOffers + t.justJoinOffers)
+        .reduce((sum, current) => sum + current);
+
+      this.totalOffers[2] = this.technologiesList.filter(technology => technology.type.toLocaleLowerCase() === 'devops')
+        .map(t => t.linkedinOffers + t.pracujOffers + t.noFluffJobsOffers + t.justJoinOffers)
+        .reduce((sum, current) => sum + current);
+
       this.showSpinner = false;
     });
 
   }
 }
+

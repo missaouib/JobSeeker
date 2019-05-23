@@ -21,24 +21,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpService } from './services/http.service';
-import { CitiesListComponent } from './views/it-job-offers-view/cities-list/cities-list.component';
-import { TechnologyInputComponent } from './views/it-job-offers-view/technology-input/technology-input.component';
-import { TechnologyStatisticsViewComponent } from './views/technology-statistics-view/technology-statistics-view.component';
-import { TechnologiesListComponent } from './views/technology-statistics-view/technologies-list/technologies-list.component';
-import { CityInputComponent } from './views/technology-statistics-view/city-input/city-input.component';
-import { CategoryStatisticsViewComponent } from './views/category-statistics-view/category-statistics-view.component';
-import {ItJobOffersViewComponent} from "./views/it-job-offers-view/it-job-offers-view.component";
+import { CitiesListComponent } from './views/it-job-offers-in-poland/cities-list/cities-list.component';
+import { TechnologyInputComponent } from './views/it-job-offers-in-poland/technology-input/technology-input.component';
+import { TechnologyStatisticsComponent } from './views/technology-statistics/technology-statistics.component';
+import { TechnologiesListComponent } from './views/technology-statistics/technologies-list/technologies-list.component';
+import { CityInputComponent } from './views/technology-statistics/city-input/city-input.component';
+import { CategoryStatisticsComponent } from './views/category-statistics/category-statistics.component';
+import {ItJobOffersInPolandComponent} from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
+import { ItJobOffersInWorldComponent } from './views/it-job-offers-in-world/it-job-offers-in-world.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItJobOffersViewComponent,
-    TechnologyStatisticsViewComponent,
-    CategoryStatisticsViewComponent,
+    ItJobOffersInPolandComponent,
+    TechnologyStatisticsComponent,
+    CategoryStatisticsComponent,
     TechnologiesListComponent,
     CityInputComponent,
     CitiesListComponent,
-    TechnologyInputComponent
+    TechnologyInputComponent,
+    ItJobOffersInWorldComponent
   ],
   imports: [
     BrowserModule,
