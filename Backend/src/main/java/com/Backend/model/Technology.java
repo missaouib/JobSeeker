@@ -16,4 +16,5 @@ public class Technology {
     int pracujOffers;
     int noFluffJobsOffers;
     int justJoinOffers;
+    int totalJobOffers;
 }

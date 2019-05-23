@@ -9,6 +9,7 @@ export class City {
     public averageFlatPrice: number,
     public areaSquareKilometers: number,
     public jobOfferPer100kCitizens: number,
-    public destinyOfPopulation: number
+    public destinyOfPopulation: number,
+    public totalJobOffers: number
   ) {}
   }

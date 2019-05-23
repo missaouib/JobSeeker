@@ -152,6 +152,7 @@ public class JobServiceImp implements JobService {
                                 .count());
                     }
 
+                    city.setTotalJobOffers(city.getLinkedinOffers() + city.getPracujOffers() + city.getNoFluffJobsOffers() + city.getJustJoinOffers());
                     city.setJobOfferPer100kCitizens((double) Math.round(((city.getPracujOffers() + city.getLinkedinOffers() + city.getJustJoinOffers() + city.getNoFluffJobsOffers()) / 4.0 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100) / 100);
                     city.setDestinyOfPopulation((int) Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
                 }
@@ -208,6 +209,7 @@ public class JobServiceImp implements JobService {
                         })
                         .count());
             }
+            technology.setTotalJobOffers(technology.getLinkedinOffers() + technology.getPracujOffers() + technology.getNoFluffJobsOffers() + technology.getJustJoinOffers());
         });
         return technologies;
     }

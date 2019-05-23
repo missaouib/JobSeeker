@@ -17,6 +17,7 @@ public class City {
     int pracujOffers;
     int noFluffJobsOffers;
     int justJoinOffers;
+    int totalJobOffers;
     int population;
     int averageFlatPrice;
     int destinyOfPopulation;
