@@ -91,7 +91,41 @@ public class JobServiceImp implements JobService {
 
     private List<Category> initCategories(){
         return List.of(
-                new Category("administracja biurowa","office administration") //url?
+                new Category(5001, "Administracja biurowa","Office administration"),
+                new Category(5037, "Doradztwo / Konsulting","Consulting"),
+                new Category(5002, "Badania i rozwój","Research and development"),
+                new Category(5003, "Bankowość","Banking"),
+                new Category(5004, "BHP / Ochrona środowiska","Health and Safety / Environmental protection"),
+                new Category(5005, "Budownictwo","Architecture"),
+                new Category(5006, "Call Center","Call Center"),
+                new Category(5007, "Edukacja / Szkolenia","Education / Training"),
+                new Category(5008, "Finanse / Ekonomia","Finance / Economy"),
+                new Category(5009, "Franczyza / Własny biznes","Own business"),
+                new Category(5010, "Hotelarstwo / Gastronomia / Turystyka","Hospitality / Gastronomy / Tourism"),
+                new Category(5011, "Human Resources / Zasoby ludzkie","Human Resources"),
+                new Category(5013, "Internet / e-Commerce / Nowe media","Internet / e-Commerce / New media"),
+                new Category(5014, "Inżynieria","Engineering"),
+                new Category(5015, "IT - Administracja","IT - Administration"),
+                new Category(5016, "IT - Rozwój oprogramowania","IT - Software development"),
+                new Category(5017, "Łańcuch dostaw","Supply chain"),
+                new Category(5018, "Marketing","Marketing"),
+                new Category(5019, "Media / Sztuka / Rozrywka","Media / Arts / Entertainment"),
+                new Category(5020, "Nieruchomości","Real estate"),
+                new Category(5021, "Obsługa klienta","Customer service"),
+                new Category(5022, "Praca fizyczna","Physical work"),
+                new Category(5023, "Prawo","Law"),
+                new Category(5024, "Produkcja","Production"),
+                new Category(5025, "Public Relations","Public Relations"),
+                new Category(5026, "Reklama / Grafika / Kreacja / Fotografia","Advertisement / Graphic / Photography"),
+                new Category(5027, "Sektor publiczny","Public sector"),
+                new Category(5028, "Sprzedaż","Sale"),
+                new Category(5031, "Transport / Spedycja","Transport / Shipping"),
+                new Category(5032, "Ubezpieczenia","Insurance"),
+                new Category(5033, "Zakupy","Shopping"),
+                new Category(5034, "Kontrola jakości","Quality control"),
+                new Category(5035, "Zdrowie / Uroda / Rekreacja","Health / Beauty / Recreation"),
+                new Category(5036, "Energetyka","Energetics"),
+                new Category(5012, "Inne","Other")
         );
     }
 
@@ -123,7 +157,6 @@ public class JobServiceImp implements JobService {
                             pracujURL = WebClient.create("https://www.pracuj.pl/praca/c%23;kw/" + selectedCityASCII + ";wp");
                             break;
                     }
-
 
                     city.setLinkedinOffers(getLinkedinOffers(linkedinURL));
                     city.setPracujOffers(getPracujOffers(pracujURL));
@@ -164,6 +197,7 @@ public class JobServiceImp implements JobService {
                     city.setDestinyOfPopulation((int) Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
                 }
         );
+
         return cities;
     }
 
@@ -218,7 +252,22 @@ public class JobServiceImp implements JobService {
             }
             technology.setTotalJobOffers(technology.getLinkedinOffers() + technology.getPracujOffers() + technology.getNoFluffJobsOffers() + technology.getJustJoinOffers());
         });
+
         return technologies;
+    }
+
+    public List<Category> getCategoryStatistics(ModelMap city){
+
+        String selectedCityASCII = removePolishSigns(city.get("city").toString().toLowerCase());
+        List<Category> categories = initCategories();
+
+        categories.forEach(category -> {
+            String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
+            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/" + categoryName + ";cc," + category.getId());
+            category.setPracujOffers(getPracujOffers(pracujURL));
+        });
+
+        return categories;
     }
 
     private int getLinkedinOffers(WebClient url) {

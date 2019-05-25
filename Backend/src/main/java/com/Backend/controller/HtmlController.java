@@ -1,11 +1,13 @@
 package com.Backend.controller;
 
+import com.Backend.model.Category;
 import com.Backend.model.City;
 import com.Backend.model.Technology;
 import com.Backend.service.JobService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,5 +29,10 @@ public class HtmlController {
     @PostMapping("/technologyStatistics")
     public List<Technology> TechnologyStatistics(@RequestBody ModelMap city){
         return jobService.getTechnologyStatistics(city);
+    }
+
+    @PostMapping("/categoryStatistics")
+    public List<Category> CategoryStatistics(@RequestBody ModelMap city){
+        return jobService.getCategoryStatistics(city);
     }
 }

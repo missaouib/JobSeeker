@@ -11,6 +11,7 @@ public class BackendApplication {
 	}
 
 	//todo
+	//[FEAT] add 'world' to technology statistics
     //[REFACTOR] simplify URLs and fix keywords
 	//[REFACTOR] date to server side and other tables
 	//[FEAT] database, init methods
