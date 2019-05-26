@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class Category {
 
-    public Category(int id, String polishName, String englishName) {
-        this.id = id;
+    public Category(int pracujId, String polishName, String englishName) {
+        this.pracujId = pracujId;
         this.polishName = polishName;
         this.englishName = englishName;
     }
 
-    int id;
+    int pracujId;
     String polishName;
     String englishName;
     int pracujOffers;
