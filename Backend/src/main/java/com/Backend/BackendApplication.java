@@ -11,7 +11,11 @@ public class BackendApplication {
 	}
 
 	//todo
-	//[FEAT] add 'world' to technology statistics
+	//[REFACTOR] Consider init Categories by scraping request
+	//[REFACTOR} Think about how works particularly categories on selected sites
+	//[REFACTOR] Change to Polish city names on front-end site
+	//[FEAT] add RWD on all views
+	//[FEAT] add other countries to technology view
     //[REFACTOR] simplify URLs and fix keywords
 	//[REFACTOR] date to server side and other tables
 	//[FEAT] database, init methods

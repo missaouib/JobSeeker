@@ -3,6 +3,7 @@ package com.Backend.controller;
 import com.Backend.model.Category;
 import com.Backend.model.City;
 import com.Backend.model.Technology;
+import com.Backend.model.dto.CategoryDto;
 import com.Backend.service.JobService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class HtmlController {
     }
 
     @PostMapping("/categoryStatistics")
-    public List<Category> CategoryStatistics(@RequestBody ModelMap city){
+    public List<CategoryDto> CategoryStatistics(@RequestBody ModelMap city){
         return jobService.getCategoryStatistics(city);
     }
 }

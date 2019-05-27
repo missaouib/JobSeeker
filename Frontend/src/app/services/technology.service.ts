@@ -5,6 +5,7 @@ import { Technology } from '../models/technology.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class TechnologyService {
 
   fillTable$: Observable<any>;

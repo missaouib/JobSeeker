@@ -27,8 +27,9 @@ import { TechnologyStatisticsComponent } from './views/technology-statistics/tec
 import { TechnologiesListComponent } from './views/technology-statistics/technologies-list/technologies-list.component';
 import { CityInputComponent } from './views/technology-statistics/city-input/city-input.component';
 import { CategoryStatisticsComponent } from './views/category-statistics/category-statistics.component';
-import {ItJobOffersInPolandComponent} from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
+import { ItJobOffersInPolandComponent } from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
 import { ItJobOffersInWorldComponent } from './views/it-job-offers-in-world/it-job-offers-in-world.component';
+import { CategoriesListComponent } from './views/category-statistics/categories-list/categories-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ItJobOffersInWorldComponent } from './views/it-job-offers-in-world/it-j
     CityInputComponent,
     CitiesListComponent,
     TechnologyInputComponent,
-    ItJobOffersInWorldComponent
+    ItJobOffersInWorldComponent,
+    CategoriesListComponent
   ],
   imports: [
     BrowserModule,

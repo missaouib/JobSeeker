@@ -4,7 +4,9 @@ import com.Backend.model.Category;
 import com.Backend.model.City;
 import com.Backend.model.NoFluffJobsList;
 import com.Backend.model.Technology;
+import com.Backend.model.dto.CategoryDto;
 import com.Backend.model.dto.JustJoinDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -15,9 +17,16 @@ import reactor.core.publisher.Mono;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class JobServiceImp implements JobService {
+
+    private ModelMapper modelMapper;
+
+    JobServiceImp(ModelMapper modelMapper){
+        this.modelMapper = modelMapper;
+    }
 
     private List<City> initCities() {
         return List.of(
@@ -256,7 +265,7 @@ public class JobServiceImp implements JobService {
         return technologies;
     }
 
-    public List<Category> getCategoryStatistics(ModelMap city){
+    public List<CategoryDto> getCategoryStatistics(ModelMap city){
 
         String selectedCityASCII = removePolishSigns(city.get("city").toString().toLowerCase());
         List<Category> categories = initCategories();
@@ -267,7 +276,7 @@ public class JobServiceImp implements JobService {
             category.setPracujOffers(getPracujOffers(pracujURL));
         });
 
-        return categories;
+        return categories.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
     }
 
     private int getLinkedinOffers(WebClient url) {

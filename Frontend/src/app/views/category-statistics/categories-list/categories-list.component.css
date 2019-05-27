@@ -1,0 +1,14 @@
+.tables {
+  display: flex;
+  justify-content: space-around;
+}
+
+table {
+  width: 30%;
+}
+
+.spinner {
+  padding-top: 10%;
+  display: flex;
+  justify-content: center;
+}
