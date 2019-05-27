@@ -1,15 +1,15 @@
-import { CategoryService } from './../../../services/category.service';
-import { HttpService } from './../../../services/http.service';
+import { CategoryService } from '../../../services/category.service';
+import { HttpService } from '../../../services/http.service';
 import { FormControl } from '@angular/forms';
-import { Category } from './../../../models/category.model';
+import { Category } from '../../../models/category.model';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-city-input',
-  templateUrl: './city-input.component.html',
-  styleUrls: ['./city-input.component.css']
+  selector: 'app-selected-city',
+  templateUrl: './selected-city.component.html',
+  styleUrls: ['./selected-city.component.css']
 })
-export class CityInputComponent {
+export class SelectedCityComponent {
 
   isDisabled = false;
   categoryList: Category[] = [];
@@ -22,8 +22,6 @@ export class CityInputComponent {
     if (this.searchCity.value !== '') {
 
       this.isDisabled = true;
-
-      console.log('witam');
 
       setTimeout(() => {
         this.isDisabled = false;

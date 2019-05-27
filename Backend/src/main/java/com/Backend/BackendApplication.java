@@ -16,6 +16,7 @@ public class BackendApplication {
 	//[REFACTOR] Change to Polish city names on front-end site
 	//[FEAT] add RWD on all views
 	//[FEAT] add other countries to technology view
+	//{REFACTOR] alphabetical cities
     //[REFACTOR] simplify URLs and fix keywords
 	//[REFACTOR] date to server side and other tables
 	//[FEAT] database, init methods

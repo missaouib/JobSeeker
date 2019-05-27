@@ -30,6 +30,7 @@ import { CategoryStatisticsComponent } from './views/category-statistics/categor
 import { ItJobOffersInPolandComponent } from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
 import { ItJobOffersInWorldComponent } from './views/it-job-offers-in-world/it-job-offers-in-world.component';
 import { CategoriesListComponent } from './views/category-statistics/categories-list/categories-list.component';
+import { SelectedCityComponent } from './views/category-statistics/selected-city/selected-city.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CategoriesListComponent } from './views/category-statistics/categories-
     CitiesListComponent,
     TechnologyInputComponent,
     ItJobOffersInWorldComponent,
-    CategoriesListComponent
+    CategoriesListComponent,
+    SelectedCityComponent
   ],
   imports: [
     BrowserModule,
