@@ -1,11 +1,7 @@
 package com.Backend.service;
 
-import com.Backend.model.Category;
-import com.Backend.model.City;
-import com.Backend.model.NoFluffJobsList;
-import com.Backend.model.Technology;
+import com.Backend.model.*;
 import com.Backend.model.dto.CategoryDto;
-import com.Backend.model.dto.JustJoinDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -138,11 +134,11 @@ public class JobServiceImp implements JobService {
         );
     }
 
-    public List<City> getItJobOffers(ModelMap technology) {
+    public List<City> getItJobOffersInPoland(ModelMap technology) {
 
         String selectedTechnology = technology.get("technology").toString().toLowerCase();
         List<City> cities = initCities();
-        List<JustJoinDto> justJoinDtoOffers = getJustJoin();
+        List<JustJoin> justJoinOffers = getJustJoin();
 
         cities.forEach(city -> {
 
@@ -172,7 +168,7 @@ public class JobServiceImp implements JobService {
                     city.setNoFluffJobsOffers(getNoFluffJobsOffers(noFluffJobsURL));
 
                     if(selectedTechnology.equals("it category")){
-                        city.setJustJoinOffers((int)justJoinDtoOffers
+                        city.setJustJoinOffers((int) justJoinOffers
                                 .stream()
                                 .filter(filterCity -> {
                                     if(selectedCityUTF8.equals("warszawa")){
@@ -185,7 +181,7 @@ public class JobServiceImp implements JobService {
                                     })
                                 .count());
                     } else {
-                        city.setJustJoinOffers((int)justJoinDtoOffers
+                        city.setJustJoinOffers((int) justJoinOffers
                                 .stream()
                                 .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
                                     || filterTechnology.getSkills().stream().allMatch(map -> map.containsValue(selectedTechnology)))
@@ -211,12 +207,18 @@ public class JobServiceImp implements JobService {
     }
 
     @Override
+    public List<Country> getItJobOffersInWorld(ModelMap technology) {
+        return null;
+    }
+
+
+    @Override
     public List<Technology> getTechnologyStatistics(ModelMap city) {
 
         String selectedCityUTF8 = city.get("city").toString().toLowerCase();
         String selectedCityASCII = removePolishSigns(selectedCityUTF8);
         List<Technology> technologies = initTechnologies();
-        List<JustJoinDto> justJoinDtoOffers = getJustJoin();
+        List<JustJoin> justJoinOffers = getJustJoin();
 
         technologies.forEach(technology -> {
 
@@ -238,13 +240,13 @@ public class JobServiceImp implements JobService {
             technology.setNoFluffJobsOffers(getNoFluffJobsOffers(noFluffJobsURL));
 
             if(selectedCityUTF8.equals("poland")){
-                technology.setJustJoinOffers((int)justJoinDtoOffers
+                technology.setJustJoinOffers((int) justJoinOffers
                         .stream()
                         .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
                                 || filterTechnology.getSkills().stream().allMatch(map -> map.containsValue(selectedTechnology)))
                         .count());
             } else {
-                technology.setJustJoinOffers((int)justJoinDtoOffers
+                technology.setJustJoinOffers((int) justJoinOffers
                         .stream()
                         .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
                                 || filterTechnology.getSkills().stream().allMatch(map -> map.containsValue(selectedTechnology)))
@@ -330,14 +332,14 @@ public class JobServiceImp implements JobService {
         return Objects.requireNonNull(postings).getPostings().size();
     }
 
-    private List<JustJoinDto> getJustJoin() {
+    private List<JustJoin> getJustJoin() {
 
         WebClient justJoinURL = WebClient.create("https://justjoin.it/api/offers");
 
         return justJoinURL.get()
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
-                .bodyToFlux(JustJoinDto.class)
+                .bodyToFlux(JustJoin.class)
                 .collectList()
                 .block();
     }

@@ -1,14 +1,16 @@
 package com.Backend.controller;
 
-import com.Backend.model.Category;
 import com.Backend.model.City;
+import com.Backend.model.Country;
 import com.Backend.model.Technology;
 import com.Backend.model.dto.CategoryDto;
 import com.Backend.service.JobService;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,9 +24,14 @@ public class HtmlController {
         this.jobService = Objects.requireNonNull(jobService);
     }
 
-    @PostMapping("/itJobOffers")
+    @PostMapping("/itJobOffersInPoland")
     public List<City> ItJobOffers(@RequestBody ModelMap technology) {
-        return jobService.getItJobOffers(technology);
+        return jobService.getItJobOffersInPoland(technology);
+    }
+
+    @PostMapping("/itJobOffersInWorld")
+    public List<Country> itJobOffersInWorld(@RequestBody ModelMap technology){
+        return jobService.getItJobOffersInWorld(technology);
     }
 
     @PostMapping("/technologyStatistics")

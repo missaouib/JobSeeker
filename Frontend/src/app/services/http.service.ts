@@ -21,7 +21,7 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   getCities(technologyName: string): Observable <City[]> {
-    return this.http.post<City[]>('http://localhost:8080/itJobOffers', {
+    return this.http.post<City[]>('http://localhost:8080/itJobOffersInPoland', {
       technology: technologyName
     }, httpOptions);
   }
