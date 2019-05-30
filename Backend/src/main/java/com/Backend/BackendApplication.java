@@ -11,6 +11,7 @@ public class BackendApplication {
 	}
 
 	//todo
+	//[REFACTOR] change input fields to autocomplete
 	//[FEAT] add switch language button to categories
 	//[FEAT] add other countries to technology view
 	//[REFACTOR] Consider init Categories by scraping request
