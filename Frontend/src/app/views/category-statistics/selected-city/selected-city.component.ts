@@ -14,7 +14,8 @@ export class SelectedCityComponent {
   isDisabled = false;
   categoryList: Category[] = [];
   searchCity = new FormControl('Poland');
-  cityList = ['Poland', 'Warszawa', 'Krakow', 'Wroclaw', 'Gdansk', 'Poznan', 'Lodz', 'Lublin', 'Bydgoszcz', 'Bialystok', 'Szczecin', 'Katowice', 'Rzeszow', 'Kielce', 'Olsztyn', 'Zielona Gora', 'Opole'];
+  cityList = ['Poland', 'Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin',
+    'Bydgoszcz', 'Białystok', 'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole'];
 
   constructor(private httpService: HttpService, private categoryService: CategoryService) { }
 

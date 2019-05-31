@@ -216,18 +216,18 @@ public class JobServiceImp implements JobService {
     public List<Technology> getTechnologyStatistics(ModelMap city) {
 
         String selectedCityUTF8 = city.get("city").toString().toLowerCase();
-        String selectedCityASCII = removePolishSigns(selectedCityUTF8);
+        String selectedCityASCII = removePolishSigns(city.get("city").toString().toLowerCase());
         List<Technology> technologies = initTechnologies();
         List<JustJoin> justJoinOffers = getJustJoin();
 
         technologies.forEach(technology -> {
 
             String selectedTechnology = technology.getName().toLowerCase();
-            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityUTF8);
-            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityUTF8 + ";wp");
+            WebClient linkedinURL = WebClient.create("https://pl.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII);
+            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp");
             WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology);
 
-            if(selectedCityUTF8.equals("poland")) {
+            if(selectedCityASCII.equals("poland")) {
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw");
                 noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=" + selectedTechnology);
             }
@@ -239,7 +239,7 @@ public class JobServiceImp implements JobService {
             technology.setPracujOffers(getPracujOffers(pracujURL));
             technology.setNoFluffJobsOffers(getNoFluffJobsOffers(noFluffJobsURL));
 
-            if(selectedCityUTF8.equals("poland")){
+            if(selectedCityASCII.equals("poland")){
                 technology.setJustJoinOffers((int) justJoinOffers
                         .stream()
                         .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
@@ -251,9 +251,9 @@ public class JobServiceImp implements JobService {
                         .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
                                 || filterTechnology.getSkills().stream().allMatch(map -> map.containsValue(selectedTechnology)))
                         .filter(filterCity -> {
-                            if(selectedCityUTF8.equals("warszawa")){
+                            if(selectedCityASCII.equals("warszawa")){
                                 return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
-                            } else if (selectedCityUTF8.equals("kraków")){
+                            } else if (selectedCityASCII.equals("kraków")){
                                 return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
                             } else {
                                 return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII));

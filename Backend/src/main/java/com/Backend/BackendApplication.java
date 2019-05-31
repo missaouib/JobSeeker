@@ -11,23 +11,18 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[REFACTOR] stringbuilder
-	//[REFACTOR] Change to Polish city names on front-end site
 	//[REFACTOR] simplify URLs and fix keywords
-	//[REFACTOR] date to server side and other tables
+	//[FEAT] nofluff/justjoin {category, experience} + {salary}
+	//[REFACTOR] LocalDate to server side and other tables
 	//[FEAT] database, init methods
-	//[FEAT] additional data {salary, experience, calculator}
+	//[FEAT] implements apartments scraping
 	//[FEAT] jwt python
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[REFACTOR] change input fields to autocomplete /only statistics view
-	//[REFACTOR] change all tooltips
-	//{REFACTOR] alphabetical cities
-	//[FEAT] add RWD on all views
-	//[FEAT] add animations
 	//[FEAT] add slide toogle language button to categories
-	//[FEAT] add other countries to technology view
+	//[REFACTOR] Highlight the first autocomplete option /only statistics view
+	//[FEAT] add animations
 	//[REFACTOR] shared input component
 	//[FEAT] add diagrams
 }
