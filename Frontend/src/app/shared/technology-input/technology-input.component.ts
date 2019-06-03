@@ -1,6 +1,7 @@
-import { CityService } from '../../../services/city.service';
-import { HttpService } from '../../../services/http.service';
-import { City } from '../../../models/city.model';
+import { City } from './../../models/city.model';
+import { CityService } from './../../services/city.service';
+import { HttpService } from './../../services/http.service';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
@@ -11,7 +12,9 @@ import { FormControl } from '@angular/forms';
 })
 export class TechnologyInputComponent {
 
-  constructor(private httpService: HttpService, private cityService: CityService) { }
+  constructor(private httpService: HttpService,
+    private cityService: CityService,
+    private router: Router) { }
 
   isDisabled = false;
   cityList: City[] = [];
@@ -23,16 +26,20 @@ export class TechnologyInputComponent {
 
       this.isDisabled = true;
 
-      setTimeout(() =>{
+      setTimeout(() => {
         this.isDisabled = false;
-              }, 3000);
+      }, 3000);
 
+      if (this.router.url === '/') {
       this.cityService.showSpinner();
       this.httpService.getCities(this.searchTechnology.value)
         .subscribe(cityList => {
           this.cityList = cityList;
           this.cityService.fillTable(cityList);
         });
+      } else {
+        console.log('todo');
+      }
     }
   }
 }

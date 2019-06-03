@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './technology-statistics.component.html',
   styleUrls: ['./technology-statistics.component.css']
 })
-export class TechnologyStatisticsComponent {
-
-}
+export class TechnologyStatisticsComponent {}

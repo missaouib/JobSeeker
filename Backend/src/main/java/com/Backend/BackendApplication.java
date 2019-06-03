@@ -12,6 +12,7 @@ public class BackendApplication {
 
 	//[BACKEND] TODO
 	//[REFACTOR] simplify URLs and fix keywords
+	//[FEAT] consider linkedin categories
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[REFACTOR] LocalDate to server side and other tables
 	//[FEAT] database, init methods

@@ -1,3 +1,4 @@
+import { TechnologyInputComponent } from './shared/technology-input/technology-input.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +25,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpService } from './services/http.service';
 import { CitiesListComponent } from './views/it-job-offers-in-poland/cities-list/cities-list.component';
-import { TechnologyInputComponent } from './views/it-job-offers-in-poland/technology-input/technology-input.component';
 import { TechnologyStatisticsComponent } from './views/technology-statistics/technology-statistics.component';
 import { TechnologiesListComponent } from './views/technology-statistics/technologies-list/technologies-list.component';
 import { CategoryStatisticsComponent } from './views/category-statistics/category-statistics.component';
@@ -32,6 +32,8 @@ import { ItJobOffersInPolandComponent } from "./views/it-job-offers-in-poland/it
 import { ItJobOffersInWorldComponent } from './views/it-job-offers-in-world/it-job-offers-in-world.component';
 import { CategoriesListComponent } from './views/category-statistics/categories-list/categories-list.component';
 import { CityInputComponent } from './shared/city-input/city-input.component';
+import { CountriesListComponent } from './views/it-job-offers-in-world/countries-list/countries-list.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { CityInputComponent } from './shared/city-input/city-input.component';
     TechnologyInputComponent,
     ItJobOffersInWorldComponent,
     CategoriesListComponent,
-    CityInputComponent
+    CityInputComponent,
+    CountriesListComponent
   ],
   imports: [
     BrowserModule,
