@@ -20,6 +20,5 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FEAT] add animations
 	//[FEAT] add diagrams
 }
