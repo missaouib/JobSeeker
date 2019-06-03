@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './category-statistics.component.html',
   styleUrls: ['./category-statistics.component.css']
 })
-export class CategoryStatisticsComponent {
-
-}
+export class CategoryStatisticsComponent {}
