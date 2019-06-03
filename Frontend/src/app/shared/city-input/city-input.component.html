@@ -1,10 +1,10 @@
 <mat-form-field class="inputCity">
-  <mat-label>City</mat-label>
-  <mat-select [formControl]="searchCity">
-    <mat-option *ngFor="let city of cityList" [value]="city">
+  <input type="text" placeholder="City" aria-label="Number" matInput [formControl]="searchCity" [matAutocomplete]="auto">
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-option *ngFor="let city of filteredCities | async" [value]="city">
       {{city}}
     </mat-option>
-  </mat-select>
+  </mat-autocomplete>
 </mat-form-field>
 
 <button (click)='getData()' class="searchBtn" mat-raised-button

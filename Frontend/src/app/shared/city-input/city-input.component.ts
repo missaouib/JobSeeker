@@ -1,11 +1,13 @@
+import { Observable } from 'rxjs';
 import { Category } from './../../models/category.model';
 import { CategoryService } from './../../services/category.service';
 import { TechnologyService } from './../../services/technology.service';
 import { HttpService } from './../../services/http.service';
 import { Technology } from './../../models/technology.model';
 import { FormControl } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-city-input',
@@ -13,19 +15,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./city-input.component.css']
 })
 
-export class CityInputComponent {
+export class CityInputComponent implements OnInit {
 
   isDisabled = false;
   categoryList: Category[] = [];
   technologyList: Technology[] = [];
-  searchCity = new FormControl('Poland');
+  searchCity = new FormControl('');
   cityList = ['Poland', 'Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin',
     'Bydgoszcz', 'Białystok', 'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole'];
+  filteredCities: Observable<string[]>
 
   constructor(private httpService: HttpService,
     private technologyService: TechnologyService,
     private categoryService: CategoryService,
     private router: Router) { }
+
+  ngOnInit(){
+    this.filteredCities = this.searchCity.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.cityList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
 
   getData() {
     if (this.searchCity.value !== '') {

@@ -21,8 +21,6 @@ public class BackendApplication {
 
 	//[FRONTEND] TODO
 	//[FEAT] add slide toogle language button to categories
-	//[REFACTOR] Highlight the first autocomplete option /only statistics view
-	//[REFACTOR] shared input component
 	//[FEAT] add animations
 	//[FEAT] add diagrams
 }
