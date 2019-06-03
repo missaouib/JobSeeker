@@ -21,7 +21,7 @@ public class JobServiceImp implements JobService {
     private ModelMapper modelMapper;
 
     JobServiceImp(ModelMapper modelMapper){
-        this.modelMapper = modelMapper;
+        this.modelMapper = Objects.requireNonNull(modelMapper);
     }
 
     private List<City> initCities() {
@@ -131,6 +131,12 @@ public class JobServiceImp implements JobService {
                 new Category(5035, "Zdrowie / Uroda / Rekreacja","Health / Beauty / Recreation"),
                 new Category(5036, "Energetyka","Energetics"),
                 new Category(5012, "Inne","Other")
+        );
+    }
+
+    private List<Country> initCountries(){
+        return List.of(
+
         );
     }
 
