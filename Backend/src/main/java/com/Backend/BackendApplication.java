@@ -20,7 +20,6 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FEAT] add slide toogle language button to categories
 	//[FEAT] add animations
 	//[FEAT] add diagrams
 }

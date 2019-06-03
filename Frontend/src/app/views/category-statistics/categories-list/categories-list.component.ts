@@ -15,6 +15,7 @@ export class CategoriesListComponent {
   categoriesList: Category[] = [];
   dataSource = new MatTableDataSource(this.categoriesList);
   displayedColumns: string[] = ['position', 'polishName', 'pracujOffers'];
+  isLanguage: boolean;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -33,6 +34,10 @@ export class CategoriesListComponent {
       this.totalOffers = this.categoriesList.map(category => category.pracujOffers).reduce((sum, current) => sum + current);
       this.showSpinner = false;
     });
+  }
+
+  switchLanguage(){
+    this.isLanguage = !this.isLanguage;
   }
 
 }

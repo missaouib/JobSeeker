@@ -5,12 +5,12 @@
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> No.</th>
       <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
-      <td mat-footer-cell *matFooterCellDef></td>
+      <td mat-footer-cell *matFooterCellDef> <mat-slide-toggle (click)="switchLanguage()"></mat-slide-toggle> </td>
     </ng-container>
 
     <ng-container matColumnDef="polishName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> Name </th>
-      <td mat-cell *matCellDef="let category"> {{category.polishName}} </td>
+      <td mat-cell *matCellDef="let category"> {{isLanguage ? category.polishName : category.englishName}} </td>
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
 
