@@ -13,7 +13,7 @@ public class BackendApplication {
 	//[BACKEND] TODO
 	//[FEAT] add world jobs
 	//[FEAT] consider linkedin categories
-	//[REFACTOR] simplify URLs and fix keywords(cpp, small cities)
+	//[REFACTOR] simplify URLs and fix keywords(cpp, small cities, polish linkedin)
 	//[REFACTOR] LocalDate to server side and other tables
 	//[FEAT] database, init methods
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
