@@ -11,13 +11,12 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[FEAT] consider linkedin categories
-	//[REFACTOR] simplify URLs and fix keywords(cpp, small cities, polish linkedin)
+	//[REFACTOR] fix(cpp linkedin, broke justjoin)
 	//[REFACTOR] LocalDate to server side and other tables
 	//[FEAT] database, init methods
+	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[FEAT] implements apartments scraping
-	//[FEAT] add auto play requests script
 	//[FEAT] add json web token
 	//[TEST] add tests
 
