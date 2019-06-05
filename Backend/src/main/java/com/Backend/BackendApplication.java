@@ -11,7 +11,6 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[FEAT] add world jobs
 	//[FEAT] consider linkedin categories
 	//[REFACTOR] simplify URLs and fix keywords(cpp, small cities, polish linkedin)
 	//[REFACTOR] LocalDate to server side and other tables
@@ -23,6 +22,5 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FEAT] add filters and pagination to it world
 	//[FEAT] add diagrams
 }

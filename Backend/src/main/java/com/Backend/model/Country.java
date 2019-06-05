@@ -14,7 +14,7 @@ public class Country {
     String name;
     int linkedinOffers;
     int population;
+    double destinyOfPopulation;
     double areaSquareKilometers;
-    int destinyOfPopulation;
     double jobOfferPer100kCitizens;
 }

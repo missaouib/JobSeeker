@@ -1,5 +1,5 @@
+import { ResultInputService } from './../../../services/result-input.service';
 import { City } from '../../../models/city.model';
-import { CityService } from '../../../services/city.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 
@@ -23,13 +23,13 @@ export class CitiesListComponent {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private cityService: CityService) {
-    this.cityService.showSpinner$.subscribe( () => {
+  constructor(private resultInputService: ResultInputService) {
+    this.resultInputService.showSpinner$.subscribe( () => {
       this.citiesList.length = 0;
       this.showSpinner = true;
     });
 
-    this.cityService.fillTable$.subscribe( cities => {
+    this.resultInputService.fillTable$.subscribe( cities => {
       this.citiesList = cities;
       this.dataSource = new MatTableDataSource(this.citiesList);
       this.dataSource.sort = this.sort;

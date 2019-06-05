@@ -1,7 +1,10 @@
-import { TechnologyInputComponent } from './shared/technology-input/technology-input.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,22 +22,17 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
 import { HttpService } from './services/http.service';
-import { CitiesListComponent } from './views/it-job-offers-in-poland/cities-list/cities-list.component';
-import { TechnologyStatisticsComponent } from './views/technology-statistics/technology-statistics.component';
-import { TechnologiesListComponent } from './views/technology-statistics/technologies-list/technologies-list.component';
-import { CategoryStatisticsComponent } from './views/category-statistics/category-statistics.component';
 import { ItJobOffersInPolandComponent } from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
 import { ItJobOffersInWorldComponent } from './views/it-job-offers-in-world/it-job-offers-in-world.component';
+import { TechnologyStatisticsComponent } from './views/technology-statistics/technology-statistics.component';
+import { CategoryStatisticsComponent } from './views/category-statistics/category-statistics.component';
+import { CitiesListComponent } from './views/it-job-offers-in-poland/cities-list/cities-list.component';
+import { TechnologiesListComponent } from './views/technology-statistics/technologies-list/technologies-list.component';
 import { CategoriesListComponent } from './views/category-statistics/categories-list/categories-list.component';
-import { CityInputComponent } from './shared/city-input/city-input.component';
 import { CountriesListComponent } from './views/it-job-offers-in-world/countries-list/countries-list.component';
-
+import { CityInputComponent } from './shared/city-input/city-input.component';
+import { TechnologyInputComponent } from './shared/technology-input/technology-input.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +54,7 @@ import { CountriesListComponent } from './views/it-job-offers-in-world/countries
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
     MatTableModule,
@@ -68,7 +67,6 @@ import { CountriesListComponent } from './views/it-job-offers-in-world/countries
     MatProgressSpinnerModule,
     MatTabsModule,
     MatCardModule,
-    ReactiveFormsModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatPaginatorModule

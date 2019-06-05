@@ -1,5 +1,6 @@
+import { Country } from './../../models/country.model';
+import { ResultInputService } from './../../services/result-input.service';
 import { City } from './../../models/city.model';
-import { CityService } from './../../services/city.service';
 import { HttpService } from './../../services/http.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
@@ -13,11 +14,12 @@ import { FormControl } from '@angular/forms';
 export class TechnologyInputComponent {
 
   constructor(private httpService: HttpService,
-    private cityService: CityService,
+    private resultInputService: ResultInputService,
     private router: Router) { }
 
   isDisabled = false;
   cityList: City[] = [];
+  countryList: Country[] = [];
   searchTechnology = new FormControl('IT category');
 
   getData() {
@@ -31,14 +33,19 @@ export class TechnologyInputComponent {
       }, 3000);
 
       if (this.router.url === '/') {
-      this.cityService.showSpinner();
-      this.httpService.getCities(this.searchTechnology.value)
+        this.resultInputService.showSpinner();
+        this.httpService.getCities(this.searchTechnology.value)
         .subscribe(cityList => {
           this.cityList = cityList;
-          this.cityService.fillTable(cityList);
+          this.resultInputService.fillCityTable(cityList);
         });
       } else {
-        console.log('todo');
+        this.resultInputService.showSpinner();
+        this.httpService.getCountries(this.searchTechnology.value)
+          .subscribe(countryList => {
+            this.countryList = countryList;
+            this.resultInputService.fillCountryTable(countryList);
+          });
       }
     }
   }

@@ -33,9 +33,7 @@ for row in rows:
 
 for x in range(0, len(countryNames)):
     countryArea[x] = countryArea[x].replace(',', '')
-    countryArea[x] = countryArea[x].replace('.', '')
     countryPopulation[x] = countryPopulation[x].replace(',', '')
-    countryPopulation[x] = countryPopulation[x].replace('.', '')
     countryNames[x] = countryNames[x].encode("ascii", "ignore").decode()
 
 with open('data.txt', 'w') as file:

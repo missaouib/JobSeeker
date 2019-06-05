@@ -1,4 +1,4 @@
-import { TechnologyService } from '../../../services/technology.service';
+import { ResultInputService } from './../../../services/result-input.service';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { Technology } from '../../../models/technology.model';
 import { Component, ViewChild } from '@angular/core';
@@ -26,13 +26,13 @@ export class TechnologiesListComponent {
   @ViewChild('frameworkTable') public frameworkTable: MatSort;
   @ViewChild('devOpsTable') public devOpsTable: MatSort;
 
-  constructor(private technologyService: TechnologyService) {
-    this.technologyService.showSpinner$.subscribe(() => {
+  constructor(private resultInputService: ResultInputService) {
+    this.resultInputService.showSpinner$.subscribe(() => {
       this.technologiesList.length = 0;
       this.showSpinner = true;
     });
 
-    this.technologyService.fillTable$.subscribe(technologies => {
+    this.resultInputService.fillTable$.subscribe(technologies => {
       this.technologiesList = technologies;
 
       this.technologiesList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');

@@ -1,7 +1,6 @@
+import { ResultInputService } from './../../services/result-input.service';
 import { Observable } from 'rxjs';
 import { Category } from './../../models/category.model';
-import { CategoryService } from './../../services/category.service';
-import { TechnologyService } from './../../services/technology.service';
 import { HttpService } from './../../services/http.service';
 import { Technology } from './../../models/technology.model';
 import { FormControl } from '@angular/forms';
@@ -26,8 +25,7 @@ export class CityInputComponent implements OnInit {
   filteredCities: Observable<string[]>
 
   constructor(private httpService: HttpService,
-    private technologyService: TechnologyService,
-    private categoryService: CategoryService,
+    private resultInputService: ResultInputService,
     private router: Router) { }
 
   ngOnInit(){
@@ -52,18 +50,18 @@ export class CityInputComponent implements OnInit {
       }, 3000);
 
       if(this.router.url === '/technology'){
-        this.technologyService.showSpinner();
+        this.resultInputService.showSpinner();
         this.httpService.getTechnologies(this.searchCity.value)
           .subscribe(technologyList => {
             this.technologyList = technologyList;
-            this.technologyService.fillTable(technologyList);
+            this.resultInputService.fillTechnologyTable(technologyList);
           });
       } else {
-        this.categoryService.showSpinner();
+        this.resultInputService.showSpinner();
         this.httpService.getCategories(this.searchCity.value)
           .subscribe(categoryList => {
             this.categoryList = categoryList;
-            this.categoryService.fillTable(categoryList);
+            this.resultInputService.fillCategoryTable(categoryList);
           });
       }
     }

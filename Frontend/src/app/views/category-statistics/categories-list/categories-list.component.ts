@@ -1,4 +1,4 @@
-import { CategoryService } from './../../../services/category.service';
+import { ResultInputService } from './../../../services/result-input.service';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { Category } from './../../../models/category.model';
 import { Component, ViewChild } from '@angular/core';
@@ -19,13 +19,13 @@ export class CategoriesListComponent {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private categoryService: CategoryService) {
-    this.categoryService.showSpinner$.subscribe(() => {
+  constructor(private resultInputService: ResultInputService) {
+    this.resultInputService.showSpinner$.subscribe(() => {
       this.categoriesList.length = 0;
       this.showSpinner = true;
     });
 
-    this.categoryService.fillTable$.subscribe(categories => {
+    this.resultInputService.fillTable$.subscribe(categories => {
       this.categoriesList = categories;
       this.dataSource = new MatTableDataSource(this.categoriesList);
       this.dataSource.sort = this.sort;
