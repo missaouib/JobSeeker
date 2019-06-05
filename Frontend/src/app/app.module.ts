@@ -17,12 +17,13 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { HttpService } from './services/http.service';
 import { CitiesListComponent } from './views/it-job-offers-in-poland/cities-list/cities-list.component';
 import { TechnologyStatisticsComponent } from './views/technology-statistics/technology-statistics.component';
@@ -69,7 +70,8 @@ import { CountriesListComponent } from './views/it-job-offers-in-world/countries
     MatCardModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatPaginatorModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
