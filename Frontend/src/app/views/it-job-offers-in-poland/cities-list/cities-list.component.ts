@@ -13,7 +13,6 @@ export class CitiesListComponent {
 
   totalOffers: number[] = [];
   totalJobOffersSum: number;
-  today = Date.now();
   showSpinner = false;
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
