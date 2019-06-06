@@ -32,7 +32,7 @@ export class CountriesListComponent implements DoCheck {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillTable$.subscribe(countries => {
+    this.resultInputService.fillCountryTable$.subscribe(countries => {
       this.countriesList = countries;
       this.dataSource = new MatTableDataSource(this.countriesList);
       this.dataSource.sort = this.sort;

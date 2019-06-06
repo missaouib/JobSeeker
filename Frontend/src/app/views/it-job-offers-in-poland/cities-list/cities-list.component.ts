@@ -29,7 +29,7 @@ export class CitiesListComponent {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillTable$.subscribe( cities => {
+    this.resultInputService.fillCityTable$.subscribe( cities => {
       this.citiesList = cities;
       this.dataSource = new MatTableDataSource(this.citiesList);
       this.dataSource.sort = this.sort;

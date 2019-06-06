@@ -11,31 +11,41 @@ import { City } from '../models/city.model';
 
 export class ResultInputService {
 
-  fillTable$: Observable<any>;
-  private fillTableSubject = new Subject<any>();
+  fillCityTable$: Observable<any>;
+  fillCountryTable$: Observable<any>;
+  fillTechnologyTable$: Observable<any>;
+  fillCategoryTable$: Observable<any>;
+
+  private fillCityTableSubject = new Subject<any>();
+  private fillCountryTableSubject = new Subject<any>();
+  private fillTechnologyTableSubject = new Subject<any>();
+  private fillCategoryTableSubject = new Subject<any>();
 
   showSpinner$: Observable<any>;
   private showSpinnerSubject = new Subject<any>();
 
   constructor() {
-    this.fillTable$ = this.fillTableSubject.asObservable();
+    this.fillCityTable$ = this.fillCityTableSubject.asObservable();
+    this.fillCountryTable$ = this.fillCountryTableSubject.asObservable();
+    this.fillTechnologyTable$ = this.fillTechnologyTableSubject.asObservable();
+    this.fillCategoryTable$ = this.fillCategoryTableSubject.asObservable();
     this.showSpinner$ = this.showSpinnerSubject.asObservable();
   }
 
   fillCityTable(data: City[]) {
-    this.fillTableSubject.next(data);
+    this.fillCityTableSubject.next(data);
   }
 
   fillCountryTable(data: Country[]) {
-    this.fillTableSubject.next(data);
+    this.fillCountryTableSubject.next(data);
   }
 
   fillTechnologyTable(data: Technology[]) {
-    this.fillTableSubject.next(data);
+    this.fillTechnologyTableSubject.next(data);
   }
 
   fillCategoryTable(data: Category[]) {
-    this.fillTableSubject.next(data);
+    this.fillCategoryTableSubject.next(data);
   }
 
   showSpinner() {

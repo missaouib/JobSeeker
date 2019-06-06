@@ -378,7 +378,7 @@ public class JobServiceImp implements JobService {
                         city.setJustJoinOffers((int) justJoinOffers
                                 .stream()
                                 .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
-                                    || filterTechnology.getSkills().stream().allMatch(map -> map.containsValue(selectedTechnology)))
+                                    || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology))
                                 .filter(filterCity -> {
                                     if(selectedCityUTF8.equals("warszawa")){
                                         return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
@@ -452,7 +452,7 @@ public class JobServiceImp implements JobService {
                 noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=" + selectedTechnology);
             }
             if(selectedTechnology.equals("c++")) {
-                linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-polska");
+                linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + selectedCityASCII);
             }
 
             technology.setLinkedinOffers(getLinkedinOffers(linkedinURL));
@@ -463,13 +463,13 @@ public class JobServiceImp implements JobService {
                 technology.setJustJoinOffers((int) justJoinOffers
                         .stream()
                         .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
-                                || filterTechnology.getSkills().stream().allMatch(map -> map.containsValue(selectedTechnology)))
+                                || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology))
                         .count());
             } else {
                 technology.setJustJoinOffers((int) justJoinOffers
                         .stream()
                         .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
-                                || filterTechnology.getSkills().stream().allMatch(map -> map.containsValue(selectedTechnology)))
+                                || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology))
                         .filter(filterCity -> {
                             if(selectedCityASCII.equals("warszawa")){
                                 return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));

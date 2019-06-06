@@ -11,12 +11,10 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[REFACTOR] fix(cpp linkedin, broke justjoin)
-	//[REFACTOR] LocalDate to server side and other tables
-	//[FEAT] database, init methods
+	//[FEAT] database, init methods, localDate
 	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
-	//[FEAT] implements apartments scraping
+	//[FEAT] implement apartments scraping
 	//[FEAT] add json web token
 	//[TEST] add tests
 

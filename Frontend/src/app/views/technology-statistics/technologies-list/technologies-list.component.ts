@@ -32,7 +32,7 @@ export class TechnologiesListComponent {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillTable$.subscribe(technologies => {
+    this.resultInputService.fillTechnologyTable$.subscribe(technologies => {
       this.technologiesList = technologies;
 
       this.technologiesList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');

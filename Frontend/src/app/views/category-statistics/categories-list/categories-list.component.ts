@@ -25,7 +25,7 @@ export class CategoriesListComponent {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillTable$.subscribe(categories => {
+    this.resultInputService.fillCategoryTable$.subscribe(categories => {
       this.categoriesList = categories;
       this.dataSource = new MatTableDataSource(this.categoriesList);
       this.dataSource.sort = this.sort;
