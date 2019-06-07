@@ -12,8 +12,9 @@ soup = BeautifulSoup(website_url, 'lxml')
 countryTable = soup.find('table', {'class': 'sortable wikitable'})
 
 countryNames = []
-countryArea = []
 countryPopulation = []
+countryArea = []
+countryDensity = []
 
 rows = countryTable.findAll('tr')
 rows.pop()
@@ -25,17 +26,25 @@ for row in rows:
     a = row.findAll('a')
     countryNames.append(a[0].get('title'))
 
-    areaColumn = row.findAll('td')[2]
     populationColumn = row.findAll('td')[4]
-
-    countryArea.append(re.search('>(.*)\n', str(areaColumn)).group(1))
     countryPopulation.append(re.search('>(.*)\n', str(populationColumn)).group(1))
 
+    areaColumn = row.findAll('td')[2]
+    countryArea.append(re.search('>(.*)\n', str(areaColumn)).group(1))
+
+    densityColumn = row.findAll('td')[5]
+    countryDensity.append(re.search('>(.*)\n', str(densityColumn)).group(1))
+
 for x in range(0, len(countryNames)):
-    countryArea[x] = countryArea[x].replace(',', '')
-    countryPopulation[x] = countryPopulation[x].replace(',', '')
     countryNames[x] = countryNames[x].encode("ascii", "ignore").decode()
+    countryPopulation[x] = countryPopulation[x].replace(',', '')
+    countryArea[x] = countryArea[x].replace(',', '')
+    countryDensity[x] = countryDensity[x].replace(',', '')
+
 
 with open('data.txt', 'w') as file:
     for x in range(0, len(countryNames)):
-        file.write('new Country("' + str(countryNames[x]) + '", ' + countryPopulation[x] + ', ' + countryArea[x] + '),\n')
+        file.write('INSERT INTO country(name, population, area, density) VALUES (\'' + str(countryNames[x]) + '\', ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' + countryDensity[x] + '),\n')
+
+# Black list countries that broke linkedin search engine:
+# Sint Maarten, Saba, Curaao, Republic of Artsakh, eswatini, North Macedonia, North Cyprus, South Ossetia, Sao Tome and Principe, State of Palestine

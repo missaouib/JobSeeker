@@ -324,8 +324,6 @@ public class JobServiceImp implements JobService {
                 new Country("Mongolia", 3000000, 1564100),
                 new Country("Greenland", 55877, 2166000)
         );
-        // Black list that broke linkedin search:
-        // Sint Maarten, Saba, Curaao, Republic of Artsakh, eswatini, North Macedonia, North Cyprus, South Ossetia, Sao Tome and Principe
     }
 
     public List<City> getItJobOffersInPoland(ModelMap technology) {

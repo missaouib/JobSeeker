@@ -14,7 +14,7 @@ public class City {
         this.name = name;
         this.population = population;
         this.averageFlatPrice = averageFlatPrice;
-        this.areaSquareKilometers = areaSquareKilometers;
+        this.area = areaSquareKilometers;
     }
 
     @Id
@@ -22,14 +22,15 @@ public class City {
     Long id;
 
     String name;
+    int population;
+    double area;
+    int density;
+
     int linkedinOffers;
     int pracujOffers;
     int noFluffJobsOffers;
     int justJoinOffers;
     int totalJobOffers;
-    int population;
     int averageFlatPrice;
-    int destinyOfPopulation;
-    double areaSquareKilometers;
     double jobOfferPer100kCitizens;
 }
