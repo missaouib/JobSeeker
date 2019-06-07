@@ -26,22 +26,22 @@ public class JobServiceImp implements JobService {
 
     private List<City> initCities() {
         return List.of(
-                new City("Warszawa", 1764615, 517.24, 9300),
-                new City("Kraków", 767348, 326.85, 9200),
-                new City("Łódź", 690422, 293.25, 5200),
-                new City("Wrocław", 638586, 292.82, 8400),
-                new City("Poznań", 538633, 261.91, 7600),
-                new City("Gdańsk", 464254, 261.96, 8600),
-                new City("Szczecin", 403883, 300.60, 5800),
-                new City("Bydgoszcz", 352313, 175.98, 5400),
-                new City("Lublin", 339850, 147.5, 6070),
-                new City("Białystok", 297288, 102.12, 5860),
-                new City("Katowice", 296262, 164.64, 5460),
-                new City("Rzeszów", 193631, 126.57, 6100),
-                new City("Kielce", 195774, 109.45, 5000),
-                new City("Olsztyn", 173125, 88.33, 5350),
-                new City("Zielona Góra", 140113, 278.32, 5000),
-                new City("Opole", 128140, 148.99, 5340)
+                new City("Warszawa", 1764615, 517.24),
+                new City("Kraków", 767348, 326.85),
+                new City("Łódź", 690422, 293.25),
+                new City("Wrocław", 638586, 292.82),
+                new City("Poznań", 538633, 261.91),
+                new City("Gdańsk", 464254, 261.96),
+                new City("Szczecin", 403883, 300.60),
+                new City("Bydgoszcz", 352313, 175.98),
+                new City("Lublin", 339850, 147.5),
+                new City("Białystok", 297288, 102.12),
+                new City("Katowice", 296262, 164.64),
+                new City("Rzeszów", 193631, 126.57),
+                new City("Kielce", 195774, 109.45),
+                new City("Olsztyn", 173125, 88.33),
+                new City("Zielona Góra", 140113, 278.32),
+                new City("Opole", 128140, 148.99)
         );
     }
 
@@ -391,7 +391,7 @@ public class JobServiceImp implements JobService {
 
                     city.setTotalJobOffers(city.getLinkedinOffers() + city.getPracujOffers() + city.getNoFluffJobsOffers() + city.getJustJoinOffers());
                     city.setJobOfferPer100kCitizens((double) Math.round(((city.getPracujOffers() + city.getLinkedinOffers() + city.getJustJoinOffers() + city.getNoFluffJobsOffers()) / 4.0 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100) / 100);
-                    city.setDestinyOfPopulation((int) Math.round(city.getPopulation() / city.getAreaSquareKilometers()));
+                    city.setDensity((int) Math.round(city.getPopulation() / city.getArea()));
                 }
         );
 
@@ -424,7 +424,7 @@ public class JobServiceImp implements JobService {
 
             country.setLinkedinOffers(getLinkedinOffers(linkedinURL));
             country.setJobOfferPer100kCitizens((double) Math.round(country.getLinkedinOffers() * 1.0 / (country.getPopulation() * 1.0 / 100000) * 100) / 100);
-            country.setDestinyOfPopulation((double)Math.round(country.getPopulation() / country.getAreaSquareKilometers() * 100) / 100);
+            country.setDensity((double)Math.round(country.getPopulation() / country.getArea() * 100) / 100);
         });
 
         return countries;

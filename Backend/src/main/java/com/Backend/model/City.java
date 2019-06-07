@@ -6,19 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Data
 @Entity
 public class City {
 
-    public City(String name, int population, double areaSquareKilometers, int averageFlatPrice) {
+    public City(String name, int population, double areaSquareKilometers) {
         this.name = name;
         this.population = population;
-        this.averageFlatPrice = averageFlatPrice;
         this.area = areaSquareKilometers;
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     Long id;
 
     String name;
@@ -31,6 +32,4 @@ public class City {
     int noFluffJobsOffers;
     int justJoinOffers;
     int totalJobOffers;
-    int averageFlatPrice;
-    double jobOfferPer100kCitizens;
 }

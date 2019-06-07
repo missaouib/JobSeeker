@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Data
 @Entity
 public class Country {
@@ -13,17 +15,17 @@ public class Country {
     public Country(String name, int population, double areaSquareKilometers) {
         this.name = name;
         this.population = population;
-        this.areaSquareKilometers = areaSquareKilometers;
+        this.area = areaSquareKilometers;
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     Long id;
 
     String name;
-    int linkedinOffers;
     int population;
-    double destinyOfPopulation;
-    double areaSquareKilometers;
+    double area;
+    double density;
+    int linkedinOffers;
     double jobOfferPer100kCitizens;
 }
