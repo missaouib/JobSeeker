@@ -16,5 +16,5 @@ public class CityDto {
     int noFluffJobs;
     int justJoin;
     int total;
-    double jobOfferPer100kCitizens;
+    double per100k;
 }

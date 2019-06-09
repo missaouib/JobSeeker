@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+@NoArgsConstructor
 @Data
 @Entity
 public class City {
