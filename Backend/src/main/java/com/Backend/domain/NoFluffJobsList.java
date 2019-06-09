@@ -1,6 +1,5 @@
-package com.Backend.model;
+package com.Backend.domain;
 
-import com.Backend.model.dto.NoFluffJobsDto;
 import lombok.Data;
 
 import java.util.List;

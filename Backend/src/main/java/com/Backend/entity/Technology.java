@@ -1,4 +1,4 @@
-package com.Backend.model;
+package com.Backend.entity;
 
 import lombok.Data;
 
@@ -12,20 +12,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Technology {
 
-    public Technology(String name, String type) {
-        this.name = name;
-        this.type = type;
-    }
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
     String name;
     String type;
-    int linkedinOffers;
-    int pracujOffers;
-    int noFluffJobsOffers;
-    int justJoinOffers;
-    int totalJobOffers;
+//    int linkedinOffers;
+//    int pracujOffers;
+//    int noFluffJobsOffers;
+//    int justJoinOffers;
+//    int totalJobOffers;
 }

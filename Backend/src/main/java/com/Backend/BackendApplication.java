@@ -10,8 +10,20 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
+	//[CURRENT SPRINT]
+	//add input front to db
+	//fix psql
+	//remove black list countries in python script
+	//add all categories on it world jobs
+	//check if init database is not duplicating
+	//consider removing pk from relational tables
+	//update package-json tar, fstream
+	//fix devtools
+	//dont save to db the same requests at the same day
+
 	//[BACKEND] TODO
-	//[FEAT] database, init methods, localDate
+	//[FEAT] add database
+	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[FEAT] implement apartments scraping

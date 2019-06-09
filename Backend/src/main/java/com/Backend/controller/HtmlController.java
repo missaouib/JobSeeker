@@ -1,10 +1,10 @@
 package com.Backend.controller;
 
-import com.Backend.model.City;
-import com.Backend.model.Country;
-import com.Backend.model.Technology;
-import com.Backend.model.dto.CategoryDto;
-import com.Backend.service.JobService;
+import com.Backend.entity.City;
+import com.Backend.entity.Country;
+import com.Backend.entity.Technology;
+import com.Backend.dto.CategoryDto;
+import com.Backend.service.ScrapJobService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,29 +18,29 @@ import java.util.Objects;
 @RestController
 public class HtmlController {
 
-    private JobService jobService;
+    private ScrapJobService scrapJobService;
 
-    HtmlController (JobService jobService){
-        this.jobService = Objects.requireNonNull(jobService);
+    HtmlController (ScrapJobService scrapJobService){
+        this.scrapJobService = Objects.requireNonNull(scrapJobService);
     }
 
     @PostMapping("/itJobOffersInPoland")
     public List<City> ItJobOffers(@RequestBody ModelMap technology) {
-        return jobService.getItJobOffersInPoland(technology);
+        return scrapJobService.getItJobOffersInPoland(technology);
     }
 
     @PostMapping("/itJobOffersInWorld")
     public List<Country> itJobOffersInWorld(@RequestBody ModelMap technology){
-        return jobService.getItJobOffersInWorld(technology);
+        return scrapJobService.getItJobOffersInWorld(technology);
     }
 
     @PostMapping("/technologyStatistics")
     public List<Technology> TechnologyStatistics(@RequestBody ModelMap city){
-        return jobService.getTechnologyStatistics(city);
+        return scrapJobService.getTechnologyStatistics(city);
     }
 
     @PostMapping("/categoryStatistics")
     public List<CategoryDto> CategoryStatistics(@RequestBody ModelMap city){
-        return jobService.getCategoryStatistics(city);
+        return scrapJobService.getCategoryStatistics(city);
     }
 }

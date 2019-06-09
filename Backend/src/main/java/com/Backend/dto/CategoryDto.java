@@ -1,10 +1,13 @@
-package com.Backend.model.dto;
+package com.Backend.dto;
 
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class CategoryDto {
     String polishName;
     String englishName;
-    int pracujOffers;
+    LocalDate date;
+    int pracuj;
 }

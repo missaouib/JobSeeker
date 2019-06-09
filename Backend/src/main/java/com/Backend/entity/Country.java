@@ -1,4 +1,4 @@
-package com.Backend.model;
+package com.Backend.entity;
 
 import lombok.Data;
 
@@ -12,12 +12,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Country {
 
-    public Country(String name, int population, double areaSquareKilometers) {
-        this.name = name;
-        this.population = population;
-        this.area = areaSquareKilometers;
-    }
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     Long id;
@@ -25,7 +19,8 @@ public class Country {
     String name;
     int population;
     double area;
-    double density;
-    int linkedinOffers;
-    double jobOfferPer100kCitizens;
+    int density;
+
+//    int linkedinOffers;
+//    double jobOfferPer100kCitizens;
 }
