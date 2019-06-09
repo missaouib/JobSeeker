@@ -22,9 +22,9 @@ export class TechnologiesListComponent {
   devOpsData = null;
   displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total'];
 
-  @ViewChild('languageTable') public languageTable: MatSort;
-  @ViewChild('frameworkTable') public frameworkTable: MatSort;
-  @ViewChild('devOpsTable') public devOpsTable: MatSort;
+  @ViewChild('languageTable', { static: true }) public languageTable: MatSort;
+  @ViewChild('frameworkTable', { static: true }) public frameworkTable: MatSort;
+  @ViewChild('devOpsTable', { static: true }) public devOpsTable: MatSort;
 
   constructor(private resultInputService: ResultInputService) {
     this.resultInputService.showSpinner$.subscribe(() => {

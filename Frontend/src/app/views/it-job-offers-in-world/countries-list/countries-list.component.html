@@ -27,17 +27,17 @@
       </ng-container>
 
       <ng-container matColumnDef="per100k">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>per 100k citizens</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="1 Job Offer per 100k citizens" matTooltipPosition="above">per 100k</th>
         <td mat-cell *matCellDef="let country"> {{country.per100k}} </td>
       </ng-container>
 
       <ng-container matColumnDef="area">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Area in km<sup>2</sup> </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="area in km2" matTooltipPosition="above">Area</th>
         <td mat-cell *matCellDef="let country"> {{country.area.toLocaleString('en-US').replace(',', ' ').replace(',', ' ')}} </td>
       </ng-container>
 
       <ng-container matColumnDef="density">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Destiny of population</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="population / area" matTooltipPosition="above">Density</th>
         <td mat-cell *matCellDef="let country"> {{country.density.toLocaleString('en-US').replace(',', ' ')}} </td>
       </ng-container>
 

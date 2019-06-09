@@ -11,8 +11,7 @@ public class BackendApplication {
 	}
 
 	//[CURRENT SPRINT]
-	//rename header tables
-	//unify date on rest side
+	//unify date on backend rest side
 	//add input front to db
 	//dont save to db the same requests at the same day
 	//update package-json tar, fstream
@@ -33,5 +32,7 @@ public class BackendApplication {
 
 	//[FRONTEND] TODO
 	//[REFACTOR] update to angular 8
-	//[FEAT] add diagrams
+	//[FEAT] add store
+	//[FEAT] About tab?
+	//[FEAT] history tab and diagrams
 }
