@@ -1,10 +1,12 @@
 package com.Backend.entity.offers;
 
 import com.Backend.entity.City;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Data
 @Entity
 public class CityOffers {
 
@@ -18,8 +20,13 @@ public class CityOffers {
     LocalDate date;
     int linkedin;
     int pracuj;
-    int nofluffJobs;
+    int noFluffJobs;
     int justJoin;
     int total;
-    double jobOfferPer100kCitizens;
+    double per100k;
+
+    public CityOffers(City city, LocalDate date) {
+        this.city = city;
+        this.date = date;
+    }
 }

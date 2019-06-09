@@ -16,10 +16,10 @@ public class Technology {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
+    String name;
+    String type;
+
     public Technology(String name) {
         this.name = name;
     }
-
-    String name;
-    String type;
 }

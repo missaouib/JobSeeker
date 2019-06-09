@@ -15,19 +15,15 @@ public class CategoryOffers {
     @GeneratedValue
     Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Category category;
+
+    private LocalDate date;
+    private int pracuj;
+
     public CategoryOffers(Category category, LocalDate date, int pracuj) {
         this.category = category;
         this.date = date;
         this.pracuj = pracuj;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Category category;
-
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private City city;
-
-    private LocalDate date;
-
-    private int pracuj;
 }

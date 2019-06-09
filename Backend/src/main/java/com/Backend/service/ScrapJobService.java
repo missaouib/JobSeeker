@@ -1,7 +1,6 @@
 package com.Backend.service;
 
 import com.Backend.domain.JustJoin;
-import com.Backend.entity.City;
 import com.Backend.entity.Country;
 import com.Backend.entity.Technology;
 import org.springframework.ui.ModelMap;
@@ -10,7 +9,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 public interface ScrapJobService {
-    List<City> getItJobOffersInPoland(ModelMap technology);
     List<Country> getItJobOffersInWorld(ModelMap technology);
     List<Technology> getTechnologyStatistics(ModelMap city);
 

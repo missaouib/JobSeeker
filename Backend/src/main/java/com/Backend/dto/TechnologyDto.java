@@ -11,7 +11,7 @@ public class TechnologyDto {
     String type;
     int linkedin;
     int pracuj;
-    int nofluffJobs;
+    int noFluffJobs;
     int justJoin;
     int total;
 }

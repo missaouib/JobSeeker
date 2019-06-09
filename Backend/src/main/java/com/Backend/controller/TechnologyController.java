@@ -1,7 +1,7 @@
 package com.Backend.controller;
 
-import com.Backend.entity.Technology;
-import com.Backend.service.ScrapJobService;
+import com.Backend.dto.TechnologyDto;
+import com.Backend.service.TechnologyService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +15,14 @@ import java.util.Objects;
 @RestController
 public class TechnologyController {
 
-    private ScrapJobService scrapJobService;
+    private TechnologyService technologyService;
 
-    TechnologyController (ScrapJobService scrapJobService){
-        this.scrapJobService = Objects.requireNonNull(scrapJobService);
+    TechnologyController (TechnologyService technologyService){
+        this.technologyService = Objects.requireNonNull(technologyService);
     }
 
     @PostMapping("/technologyStatistics")
-    public List<Technology> TechnologyStatistics(@RequestBody ModelMap city){
-        return scrapJobService.getTechnologyStatistics(city);
+    public List<TechnologyDto> TechnologyStatistics(@RequestBody ModelMap city){
+        return technologyService.scrapTechnologyStatistics(city);
     }
 }

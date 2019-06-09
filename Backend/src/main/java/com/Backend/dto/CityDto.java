@@ -13,7 +13,7 @@ public class CityDto {
     int density;
     int linkedin;
     int pracuj;
-    int nofluffJobs;
+    int noFluffJobs;
     int justJoin;
     int total;
     double jobOfferPer100kCitizens;

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
-public class NoFluffJobsDto {
+public class NoFluffJobs {
     String title;
     String technology;
     List<String> cities;

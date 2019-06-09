@@ -42,7 +42,7 @@ public class CategoryServiceImp implements CategoryService {
         }
     };
 
-    public List<CategoryDto> getCategoryStatistics(ModelMap city) {
+    public List<CategoryDto> scrapCategoryStatistics(ModelMap city) {
         String selectedCityUTF8 = city.get("city").toString().toLowerCase();
         String selectedCityASCII = scrapJobService.removePolishSigns(selectedCityUTF8);
         List<Category> categories = categoryRepository.findAll();

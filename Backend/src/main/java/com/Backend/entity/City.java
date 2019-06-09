@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@NoArgsConstructor
 @Data
 @Entity
 public class City {
@@ -18,12 +17,12 @@ public class City {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
-    public City(String name) {
-        this.name = name;
-    }
-
     String name;
     int population;
     double area;
     int density;
+
+    public City(String name) {
+        this.name = name;
+    }
 }

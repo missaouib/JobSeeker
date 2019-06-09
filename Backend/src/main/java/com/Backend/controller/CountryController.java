@@ -1,7 +1,7 @@
 package com.Backend.controller;
 
-import com.Backend.entity.Country;
-import com.Backend.service.ScrapJobService;
+import com.Backend.dto.CountryDto;
+import com.Backend.service.CountryService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +15,14 @@ import java.util.Objects;
 @RestController
 public class CountryController {
 
-    private ScrapJobService scrapJobService;
+    private CountryService countryService;
 
-    CountryController (ScrapJobService scrapJobService){
-        this.scrapJobService = Objects.requireNonNull(scrapJobService);
+    CountryController (CountryService countryService){
+        this.countryService = Objects.requireNonNull(countryService);
     }
 
     @PostMapping("/itJobOffersInWorld")
-    public List<Country> itJobOffersInWorld(@RequestBody ModelMap technology){
-        return scrapJobService.getItJobOffersInWorld(technology);
+    public List<CountryDto> itJobOffersInWorld(@RequestBody ModelMap technology){
+        return countryService.scrapItJobOffersInWorld(technology);
     }
 }

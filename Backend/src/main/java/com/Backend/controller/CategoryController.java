@@ -23,6 +23,6 @@ public class CategoryController {
 
     @PostMapping("/categoryStatistics")
     public List<CategoryDto> CategoryStatistics(@RequestBody ModelMap city){
-        return categoryService.getCategoryStatistics(city);
+        return categoryService.scrapCategoryStatistics(city);
     }
 }

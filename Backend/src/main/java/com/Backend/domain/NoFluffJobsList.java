@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class NoFluffJobsList {
-    List<NoFluffJobsDto> postings;
+    List<NoFluffJobs> postings;
 }
