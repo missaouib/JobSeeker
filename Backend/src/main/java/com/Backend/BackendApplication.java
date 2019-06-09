@@ -24,7 +24,6 @@ public class BackendApplication {
 	//fix devtools
 
 	//[BACKEND] TODO
-	//[FEAT] add database
 	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
@@ -33,5 +32,6 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
+	//[REFACTOR] update to angular 8
 	//[FEAT] add diagrams
 }

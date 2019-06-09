@@ -1,6 +1,6 @@
-import { ResultInputService } from './../../../services/result-input.service';
+import { ResultInputService } from '../../../services/result-input.service';
 import { MatTableDataSource, MatSort } from '@angular/material';
-import { Category } from './../../../models/category.model';
+import { Category } from '../../../models/category.model';
 import { Component, ViewChild } from '@angular/core';
 
 @Component({
@@ -14,7 +14,7 @@ export class CategoriesListComponent {
   showSpinner = false;
   categoriesList: Category[] = [];
   dataSource = new MatTableDataSource(this.categoriesList);
-  displayedColumns: string[] = ['position', 'polishName', 'pracujOffers'];
+  displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
   isLanguage: boolean;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -31,7 +31,7 @@ export class CategoriesListComponent {
       this.dataSource.sort = this.sort;
       this.sort.disableClear = true;
 
-      this.totalOffers = this.categoriesList.map(category => category.pracujOffers).reduce((sum, current) => sum + current);
+      this.totalOffers = this.categoriesList.map(category => category.pracuj).reduce((sum, current) => sum + current);
       this.showSpinner = false;
     });
   }

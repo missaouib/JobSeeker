@@ -4,7 +4,7 @@
   </mat-form-field>
 
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort matSortActive="linkedinOffers" matSortDirection="desc">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="linkedin" matSortDirection="desc">
 
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> No.</th>
@@ -16,9 +16,9 @@
         <td mat-cell *matCellDef="let country"> {{country.name}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="linkedinOffers">
+      <ng-container matColumnDef="linkedin">
         <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="300USD" matTooltipPosition="above">Linkedin</th>
-        <td mat-cell *matCellDef="let country"> {{country.linkedinOffers.toLocaleString('en-US').replace(',', ' ')}} </td>
+        <td mat-cell *matCellDef="let country"> {{country.linkedin.toLocaleString('en-US').replace(',', ' ')}} </td>
       </ng-container>
 
       <ng-container matColumnDef="population">
@@ -26,19 +26,19 @@
         <td mat-cell *matCellDef="let country"> {{country.population.toLocaleString('en-US').replace(',', ' ').replace(',', ' ').replace(',', ' ')}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="jobOfferPer100kCitizens">
+      <ng-container matColumnDef="per100k">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>per 100k citizens</th>
-        <td mat-cell *matCellDef="let country"> {{country.jobOfferPer100kCitizens}} </td>
+        <td mat-cell *matCellDef="let country"> {{country.per100k}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="areaSquareKilometers">
+      <ng-container matColumnDef="area">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Area in km<sup>2</sup> </th>
-        <td mat-cell *matCellDef="let country"> {{country.areaSquareKilometers.toLocaleString('en-US').replace(',', ' ').replace(',', ' ')}} </td>
+        <td mat-cell *matCellDef="let country"> {{country.area.toLocaleString('en-US').replace(',', ' ').replace(',', ' ')}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="destinyOfPopulation">
+      <ng-container matColumnDef="density">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Destiny of population</th>
-        <td mat-cell *matCellDef="let country"> {{country.destinyOfPopulation.toLocaleString('en-US').replace(',', ' ')}} </td>
+        <td mat-cell *matCellDef="let country"> {{country.density.toLocaleString('en-US').replace(',', ' ')}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,5 +1,5 @@
-import { ResultInputService } from './../../../services/result-input.service';
-import { Country } from './../../../models/country.model';
+import { ResultInputService } from '../../../services/result-input.service';
+import { Country } from '../../../models/country.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Component, ViewChild, DoCheck } from '@angular/core';
 
@@ -16,7 +16,7 @@ export class CountriesListComponent implements DoCheck {
   pageLimit: number;
   countriesList: Country[] = [];
   dataSource = new MatTableDataSource(this.countriesList);
-  displayedColumns: string[] = ['position', 'name', 'linkedinOffers', 'population', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation'];
+  displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator
@@ -39,7 +39,7 @@ export class CountriesListComponent implements DoCheck {
       this.dataSource.paginator = this.paginator;
       this.sort.disableClear = true;
 
-      this.totalOffers = this.countriesList.map(city => city.linkedinOffers).reduce((sum, current) => sum + current);
+      this.totalOffers = this.countriesList.map(city => city.linkedin).reduce((sum, current) => sum + current);
       this.paginator._intl.itemsPerPageLabel = 'Total: ' + this.totalOffers;
       this.showSpinner = false;
     });

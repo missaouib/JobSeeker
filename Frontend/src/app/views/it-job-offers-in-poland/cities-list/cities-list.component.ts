@@ -1,4 +1,4 @@
-import { ResultInputService } from './../../../services/result-input.service';
+import { ResultInputService } from '../../../services/result-input.service';
 import { City } from '../../../models/city.model';
 import { Component, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
@@ -17,8 +17,7 @@ export class CitiesListComponent {
   citiesList: City[] = [];
   dataSource = new MatTableDataSource(this.citiesList);
   displayedColumns: string[] = [
-    'position', 'name', 'linkedinOffers', 'pracujOffers', 'noFluffJobsOffers', 'justJoinOffers', 'totalJobOffers',
-    'population', 'jobOfferPer100kCitizens', 'areaSquareKilometers', 'destinyOfPopulation', 'averageFlatPrice'];
+    'position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -34,11 +33,11 @@ export class CitiesListComponent {
       this.dataSource.sort = this.sort;
       this.sort.disableClear = true;
 
-      this.totalOffers[0] = this.citiesList.map(city => city.linkedinOffers).reduce((sum, current) => sum + current);
-      this.totalOffers[1] = this.citiesList.map(city => city.pracujOffers).reduce((sum, current) => sum + current);
-      this.totalOffers[2] = this.citiesList.map(city => city.noFluffJobsOffers).reduce((sum, current) => sum + current);
-      this.totalOffers[3] = this.citiesList.map(city => city.justJoinOffers).reduce((sum, current) => sum + current);
-      this.totalJobOffersSum = this.citiesList.map(city => city.totalJobOffers).reduce((sum, current) => sum + current);
+      this.totalOffers[0] = this.citiesList.map(city => city.linkedin).reduce((sum, current) => sum + current);
+      this.totalOffers[1] = this.citiesList.map(city => city.pracuj).reduce((sum, current) => sum + current);
+      this.totalOffers[2] = this.citiesList.map(city => city.noFluffJobs).reduce((sum, current) => sum + current);
+      this.totalOffers[3] = this.citiesList.map(city => city.justJoin).reduce((sum, current) => sum + current);
+      this.totalJobOffersSum = this.citiesList.map(city => city.total).reduce((sum, current) => sum + current);
 
       this.showSpinner = false;
     });

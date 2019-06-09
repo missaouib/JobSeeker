@@ -1,6 +1,6 @@
 <div class="tables" [style.display]="categoriesList.length === 0 ? 'none' : 'flex'">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"
-    matSortActive="pracujOffers" matSortDirection="desc">
+    matSortActive="pracuj" matSortDirection="desc">
 
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> No.</th>
@@ -14,9 +14,9 @@
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
 
-    <ng-container matColumnDef="pracujOffers">
+    <ng-container matColumnDef="pracuj">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Pracujpl </th>
-      <td mat-cell *matCellDef="let category"> {{category.pracujOffers}} </td>
+      <td mat-cell *matCellDef="let category"> {{category.pracuj}} </td>
       <td mat-footer-cell *matFooterCellDef> {{totalOffers}} </td>
     </ng-container>
 

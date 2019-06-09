@@ -1,5 +1,5 @@
 <div class="tables" [style.display]="technologiesList.length === 0 ? 'none' : 'flex'">
-  <table mat-table [dataSource]="languageData" #languageTable="matSort" matSort class="mat-elevation-z8" matSortActive="totalJobOffers"
+  <table mat-table [dataSource]="languageData" #languageTable="matSort" matSort class="mat-elevation-z8" matSortActive="total"
     matSortDirection="desc">
 
     <ng-container matColumnDef="name">
@@ -8,33 +8,33 @@
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
 
-    <ng-container matColumnDef="linkedinOffers">
+    <ng-container matColumnDef="linkedin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Linkedin </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.linkedinOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.linkedin}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalLinkedin[0]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="pracujOffers">
+    <ng-container matColumnDef="pracuj">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Pracuj </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.pracujOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.pracuj}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalPracuj[0]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="noFluffJobsOffers">
+    <ng-container matColumnDef="noFluffJobs">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> NoFluffJobs </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.noFluffJobsOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.noFluffJobs}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalNoFluffJobs[0]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="justJoinOffers">
+    <ng-container matColumnDef="justJoin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> JustJoin </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.justJoinOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.justJoin}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalJustJoin[0]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="totalJobOffers">
+    <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Offers </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.totalJobOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.total}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[0]}} </td>
     </ng-container>
 
@@ -43,7 +43,7 @@
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </table>
 
-  <table mat-table [dataSource]="frameworkData" #frameworkTable="matSort" matSort class="mat-elevation-z8" matSortActive="totalJobOffers"
+  <table mat-table [dataSource]="frameworkData" #frameworkTable="matSort" matSort class="mat-elevation-z8" matSortActive="total"
     matSortDirection="desc">
 
     <ng-container matColumnDef="name">
@@ -52,33 +52,33 @@
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
 
-    <ng-container matColumnDef="linkedinOffers">
+    <ng-container matColumnDef="linkedin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Linkedin </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.linkedinOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.linkedin}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalLinkedin[1]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="pracujOffers">
+    <ng-container matColumnDef="pracuj">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Pracuj </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.pracujOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.pracuj}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalPracuj[1]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="noFluffJobsOffers">
+    <ng-container matColumnDef="noFluffJobs">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> NoFluffJobs </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.noFluffJobsOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.noFluffJobs}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalNoFluffJobs[1]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="justJoinOffers">
+    <ng-container matColumnDef="justJoin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> JustJoin </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.justJoinOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.justJoin}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalJustJoin[1]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="totalJobOffers">
+    <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Offers </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.totalJobOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.total}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[1]}} </td>
     </ng-container>
 
@@ -87,7 +87,7 @@
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </table>
 
-  <table mat-table [dataSource]="devOpsData" #devOpsTable="matSort" matSort class="mat-elevation-z8" matSortActive="totalJobOffers"
+  <table mat-table [dataSource]="devOpsData" #devOpsTable="matSort" matSort class="mat-elevation-z8" matSortActive="total"
     matSortDirection="desc">
 
     <ng-container matColumnDef="name">
@@ -96,33 +96,33 @@
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
 
-    <ng-container matColumnDef="linkedinOffers">
+    <ng-container matColumnDef="linkedin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Linkedin </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.linkedinOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.linkedin}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalLinkedin[2]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="pracujOffers">
+    <ng-container matColumnDef="pracuj">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Pracuj </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.pracujOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.pracuj}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalPracuj[2]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="noFluffJobsOffers">
+    <ng-container matColumnDef="noFluffJobs">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> NoFluffJobs </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.noFluffJobsOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.noFluffJobs}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalNoFluffJobs[1]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="justJoinOffers">
+    <ng-container matColumnDef="justJoin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> JustJoin </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.justJoinOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.justJoin}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalJustJoin[2]}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="totalJobOffers">
+    <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Offers </th>
-      <td mat-cell *matCellDef="let technology"> {{technology.totalJobOffers}} </td>
+      <td mat-cell *matCellDef="let technology"> {{technology.total}} </td>
       <td mat-footer-cell *matFooterCellDef> {{this.totalOffers[2]}} </td>
     </ng-container>
 

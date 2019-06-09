@@ -1,10 +1,11 @@
 export class Country {
   constructor(
+    public date: Date,
     public name: string,
-    public linkedinOffers: number,
     public population: number,
-    public areaSquareKilometers: number,
-    public destinyOfPopulation: number,
-    public jobOfferPer100kCitizens: number
+    public area: number,
+    public density: number,
+    public linkedin: number,
+    public per100k: number
   ) {}
 }

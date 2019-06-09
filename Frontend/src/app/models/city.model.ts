@@ -1,15 +1,15 @@
 export class City {
   constructor(
+    public date: Date,
     public name: string,
     public population: number,
-    public linkedinOffers: number,
-    public pracujOffers: number,
-    public noFluffJobsOffers: number,
-    public justJoinOffers: number,
-    public averageFlatPrice: number,
-    public areaSquareKilometers: number,
-    public jobOfferPer100kCitizens: number,
-    public destinyOfPopulation: number,
-    public totalJobOffers: number
+    public area: number,
+    public density: number,
+    public linkedin: number,
+    public pracuj: number,
+    public noFluffJobs: number,
+    public justJoin: number,
+    public total: number,
+    public per100k: number
   ) {}
   }
