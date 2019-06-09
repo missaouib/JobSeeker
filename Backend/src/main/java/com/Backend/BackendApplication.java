@@ -12,15 +12,14 @@ public class BackendApplication {
 
 	//[CURRENT SPRINT]
 	//unify date on backend rest side
-	//add input front to db
+	//add input front to db / small polish signs
 	//dont save to db the same requests at the same day
-	//update package-json tar, fstream
 	//remove black list countries in python script
 	//add all categories on it world jobs
 	//check if init database is not duplicating????
 	//consider removing pk from relational tables
-	//fix psql
 	//fix devtools
+	//run psql
 
 	//[BACKEND] TODO
 	//[FEAT] deploy v1.0
@@ -31,8 +30,7 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[REFACTOR] update to angular 8
 	//[FEAT] add store
-	//[FEAT] About tab?
+	//[FEAT] About tab
 	//[FEAT] history tab and diagrams
 }
