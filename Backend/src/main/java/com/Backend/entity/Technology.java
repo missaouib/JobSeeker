@@ -16,11 +16,10 @@ public class Technology {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
+    public Technology(String name) {
+        this.name = name;
+    }
+
     String name;
     String type;
-//    int linkedinOffers;
-//    int pracujOffers;
-//    int noFluffJobsOffers;
-//    int justJoinOffers;
-//    int totalJobOffers;
 }

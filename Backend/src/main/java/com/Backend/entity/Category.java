@@ -19,6 +19,4 @@ public class Category {
     int pracujId;
     String polishName;
     String englishName;
-
-    //int pracujOffers;
 }

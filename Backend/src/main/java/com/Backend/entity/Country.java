@@ -20,7 +20,4 @@ public class Country {
     int population;
     double area;
     int density;
-
-//    int linkedinOffers;
-//    double jobOfferPer100kCitizens;
 }

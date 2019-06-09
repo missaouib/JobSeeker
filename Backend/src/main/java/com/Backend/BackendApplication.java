@@ -11,6 +11,8 @@ public class BackendApplication {
 	}
 
 	//[CURRENT SPRINT]
+	//unify date on rest side
+	//update package-json tar, fstream
 	//remove average flat price from frontend end add date also rename all
 	//add input front to db
 	//fix psql
@@ -18,9 +20,9 @@ public class BackendApplication {
 	//add all categories on it world jobs
 	//check if init database is not duplicating
 	//consider removing pk from relational tables
-	//update package-json tar, fstream
 	//fix devtools
 	//dont save to db the same requests at the same day
+
 
 	//[BACKEND] TODO
 	//[FEAT] add database

@@ -26,10 +26,4 @@ public class City {
     int population;
     double area;
     int density;
-
-//    int linkedinOffers;
-//    int pracujOffers;
-//    int noFluffJobsOffers;
-//    int justJoinOffers;
-//    int totalJobOffers;
 }

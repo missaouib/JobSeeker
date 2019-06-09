@@ -39,43 +39,20 @@ public class ScrapJobServiceImp implements ScrapJobService {
     private CityRepository cityRepository;
     private CountryRepository countryRepository;
     private TechnologyRepository technologyRepository;
-    private CategoryRepository categoryRepository;
     private CityOffersRepository cityOffersRepository;
     private CountryOffersRepository countryOffersRepository;
     private TechnologyOffersRepository technologyOffersRepository;
-    private CategoryOffersRepository categoryOffersRepository;
 
-    ScrapJobServiceImp(ModelMapper modelMapper, CityRepository cityRepository, CountryRepository countryRepository, TechnologyRepository technologyRepository, CategoryRepository categoryRepository,
-                       CityOffersRepository cityOffersRepository, CountryOffersRepository countryOffersRepository, TechnologyOffersRepository technologyOffersRepository, CategoryOffersRepository categoryOffersRepository){
+    ScrapJobServiceImp(ModelMapper modelMapper, CityRepository cityRepository, CountryRepository countryRepository, TechnologyRepository technologyRepository,
+                       CityOffersRepository cityOffersRepository, CountryOffersRepository countryOffersRepository, TechnologyOffersRepository technologyOffersRepository){
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.countryRepository = Objects.requireNonNull(countryRepository);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
-        this.categoryRepository = Objects.requireNonNull(categoryRepository);
         this.cityOffersRepository = Objects.requireNonNull(cityOffersRepository);
         this.countryOffersRepository = Objects.requireNonNull(countryOffersRepository);
         this.technologyOffersRepository = Objects.requireNonNull(technologyOffersRepository);
-        this.categoryOffersRepository = Objects.requireNonNull(categoryOffersRepository);
-
-        //this.modelMapper = modelMapper;
-        this.modelMapper.addMappings(warehouseFieldMapping);
-        //this.modelMapper.addMappings(warehouseMapping);
     }
-
-//    private PropertyMap<CategoryDto, CategoryOffers> warehouseMapping = new PropertyMap<>() {
-//        protected void configure() {
-//            map().getCategory().setPolishName(source.getPolishName());
-//            map().getCategory().setEnglishName(source.getEnglishName());
-//        }
-//    };
-
-    PropertyMap<CategoryOffers, CategoryDto> warehouseFieldMapping = new PropertyMap<>() {
-        protected void configure() {
-            map().setPolishName(source.getCategory().getPolishName());
-            map().setEnglishName(source.getCategory().getEnglishName());
-            //map().setPracuj(source.getPracuj());
-        }
-    };
 
     public List<City> getItJobOffersInPoland(ModelMap technology) {
 
@@ -236,23 +213,7 @@ public class ScrapJobServiceImp implements ScrapJobService {
         return technologies;
     }
 
-    public List<CategoryDto> getCategoryStatistics(ModelMap city){
-
-        String selectedCityUTF8 = city.get("city").toString().toLowerCase();
-        String selectedCityASCII = removePolishSigns(selectedCityUTF8);
-        List<Category> categories = categoryRepository.findAll();
-        //City selectedCity = cityRepository.findByName(selectedCityUTF8).orElse(cityRepository.save(new City(selectedCityUTF8)));
-        List<CategoryOffers> categoriesOffers = new ArrayList<>();
-
-        categories.forEach(category -> {
-            String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
-            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/" + categoryName + ";cc," + category.getPracujId());
-            categoriesOffers.add(new CategoryOffers(category, LocalDate.now(), getPracujOffers(pracujURL)));
-        });
-        return categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList());
-    }
-
-    private int getLinkedinOffers(WebClient url) {
+    public int getLinkedinOffers(WebClient url) {
 
         Mono<ClientResponse> result = url.get()
                 .exchange();
@@ -271,7 +232,7 @@ public class ScrapJobServiceImp implements ScrapJobService {
         return jobAmount;
     }
 
-    private int getPracujOffers(WebClient url) {
+    public int getPracujOffers(WebClient url) {
 
         Mono<ClientResponse> result = url.get()
                 .accept(MediaType.TEXT_PLAIN)
@@ -291,7 +252,7 @@ public class ScrapJobServiceImp implements ScrapJobService {
         return jobAmount;
     }
 
-    private int getNoFluffJobsOffers(WebClient url) {
+    public int getNoFluffJobsOffers(WebClient url) {
 
         NoFluffJobsList postings =  url
                 .get()
@@ -303,7 +264,7 @@ public class ScrapJobServiceImp implements ScrapJobService {
         return Objects.requireNonNull(postings).getPostings().size();
     }
 
-    private List<JustJoin> getJustJoin() {
+    public List<JustJoin> getJustJoin() {
 
         WebClient justJoinURL = WebClient.create("https://justjoin.it/api/offers");
 
@@ -315,7 +276,7 @@ public class ScrapJobServiceImp implements ScrapJobService {
                 .block();
     }
 
-    private String removePolishSigns(String city){
+    public String removePolishSigns(String city){
         return Normalizer.normalize(city, Normalizer.Form.NFD)
                 .replaceAll("\\p{M}", "")
                 .replaceAll("ł", "l");
