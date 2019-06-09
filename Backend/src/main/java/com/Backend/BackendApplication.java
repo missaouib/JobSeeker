@@ -11,6 +11,7 @@ public class BackendApplication {
 	}
 
 	//[CURRENT SPRINT]
+	//remove average flat price from frontend end add date also rename all
 	//add input front to db
 	//fix psql
 	//remove black list countries in python script

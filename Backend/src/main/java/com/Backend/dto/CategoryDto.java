@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 @Data
 public class CategoryDto {
+    LocalDate date;
     String polishName;
     String englishName;
-    LocalDate date;
     int pracuj;
 }
