@@ -20,7 +20,7 @@ export class TechnologyInputComponent {
   isDisabled = false;
   cityList: City[] = [];
   countryList: Country[] = [];
-  searchTechnology = new FormControl('IT category');
+  searchTechnology = new FormControl('All IT Jobs');
 
   getData() {
 

@@ -60,7 +60,7 @@ public class CityServiceImp implements CityService {
                     WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology);
 
                     switch(selectedTechnology){
-                        case "it category":
+                        case "all it jobs":
                             linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?location=" + selectedCityASCII + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
                             pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
                             noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII);
@@ -79,7 +79,7 @@ public class CityServiceImp implements CityService {
                     cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
 
-                    if(selectedTechnology.equals("it category")){
+                    if(selectedTechnology.equals("all it jobs")){
                         cityOffer.setJustJoin((int) justJoinOffers
                                 .stream()
                                 .filter(filterCity -> {

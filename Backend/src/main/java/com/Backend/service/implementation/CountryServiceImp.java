@@ -55,7 +55,10 @@ public class CountryServiceImp implements CountryService {
             WebClient linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCountry);
 
             switch(selectedTechnology){
-                case "it category":
+                case "all jobs":
+                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=&location=" + selectedCountry);
+                    break;
+                case "all it jobs":
                     linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?location=" + selectedCountry + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
                     break;
                 case "c++":

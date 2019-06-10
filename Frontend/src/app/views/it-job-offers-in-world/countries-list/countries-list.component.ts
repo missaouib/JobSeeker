@@ -18,8 +18,8 @@ export class CountriesListComponent implements DoCheck {
   dataSource = new MatTableDataSource(this.countriesList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
   ngDoCheck(){
     this.pageIndex = this.paginator.pageIndex;

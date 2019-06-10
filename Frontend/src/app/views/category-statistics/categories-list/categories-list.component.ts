@@ -1,6 +1,6 @@
-import { ResultInputService } from '../../../services/result-input.service';
+import { ResultInputService } from './../../../services/result-input.service';
 import { MatTableDataSource, MatSort } from '@angular/material';
-import { Category } from '../../../models/category.model';
+import { Category } from './../../../models/category.model';
 import { Component, ViewChild } from '@angular/core';
 
 @Component({
@@ -17,7 +17,7 @@ export class CategoriesListComponent {
   displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
   isLanguage: boolean;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService) {
     this.resultInputService.showSpinner$.subscribe(() => {
