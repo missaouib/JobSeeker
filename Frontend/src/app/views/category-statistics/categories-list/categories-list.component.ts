@@ -17,7 +17,7 @@ export class CategoriesListComponent {
   displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
   isLanguage: boolean;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService) {
     this.resultInputService.showSpinner$.subscribe(() => {

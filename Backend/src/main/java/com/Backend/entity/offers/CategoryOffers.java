@@ -18,11 +18,15 @@ public class CategoryOffers {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Category category;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private City city;
+
     private LocalDate date;
     private int pracuj;
 
-    public CategoryOffers(Category category, LocalDate date, int pracuj) {
+    public CategoryOffers(Category category, City city, LocalDate date, int pracuj) {
         this.category = category;
+        this.city = city;
         this.date = date;
         this.pracuj = pracuj;
     }

@@ -74,8 +74,4 @@ public class CountryServiceImp implements CountryService {
 
         return countriesOffers.stream().map(country -> modelMapper.map(countryOffersRepository.save(country), CountryDto.class)).collect(Collectors.toList());
     }
-
-    public List<CountryDto> getLastDataFromDB() {
-        return null;
-    }
 }

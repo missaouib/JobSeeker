@@ -117,8 +117,4 @@ public class CityServiceImp implements CityService {
 
         return citiesOffers.stream().map(city -> modelMapper.map(cityOffersRepository.save(city), CityDto.class)).collect(Collectors.toList());
     }
-
-    public List<CityDto> getLastDataFromDB() {
-        return null;
-    }
 }

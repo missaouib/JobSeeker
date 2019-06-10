@@ -101,8 +101,4 @@ public class TechnologyServiceImp implements TechnologyService {
 
         return technologiesOffers.stream().map(technology -> modelMapper.map(technologyOffersRepository.save(technology), TechnologyDto.class)).collect(Collectors.toList());
     }
-
-    public List<TechnologyDto> getLastDataFromDB() {
-        return null;
-    }
 }

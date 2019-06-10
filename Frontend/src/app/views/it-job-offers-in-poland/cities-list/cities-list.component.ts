@@ -19,7 +19,7 @@ export class CitiesListComponent {
   displayedColumns: string[] = [
     'position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService) {
     this.resultInputService.showSpinner$.subscribe( () => {

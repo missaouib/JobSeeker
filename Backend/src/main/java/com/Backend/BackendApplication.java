@@ -11,15 +11,15 @@ public class BackendApplication {
 	}
 
 	//[CURRENT SPRINT]
-	//unify date on backend rest side
-	//add input front to db / small polish signs
-	//dont save to db the same requests at the same day
-	//remove black list countries in python script
-	//add all categories on it world jobs
-	//check if init database is not duplicating????
-	//consider removing pk from relational tables
-	//fix devtools
-	//run psql
+	//[FEAT] All jobs -> All IT Jobs
+	//[FEAT] add input front to db
+	//[FEAT] dont save to db the same requests at the same day
+	//[CHORE] check if init database is not duplicating at starting point
+	//[CHORE] consider removing pk from relational tables
+	//[REFACTOR] separate table for date
+	//[FIX] fix no polish signs to DB functionality
+	//[FIX] devtools
+	//[FIX] psql
 
 	//[BACKEND] TODO
 	//[FEAT] deploy v1.0

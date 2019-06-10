@@ -41,11 +41,10 @@ for x in range(0, len(countryNames)):
     countryArea[x] = countryArea[x].replace(',', '')
     countryDensity[x] = countryDensity[x].replace(',', '')
 
+blackListCountries = ['Sint Maarten', 'Saba', 'Curaao', 'Republic of Artsakh', 'Eswatini', 'North Macedonia',
+                      'Northern Cyprus', 'South Ossetia', 'Sao Tome and Principe', 'State of Palestine', 'Runion', 'Faroe Islands']
 
 with open('data.txt', 'w') as file:
     for x in range(0, len(countryNames)):
-        file.write('INSERT INTO country(name, population, area, density) VALUES (\'' + str(countryNames[x]) + '\', ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' + countryDensity[x] + '),\n')
-
-# Black list countries that broke linkedin search engine:
-# Sint Maarten, Saba, Curaao, Republic of Artsakh, eswatini, North Macedonia, North Cyprus, South Ossetia, Sao Tome and Principe, State of Palestine, Runion, Fraore Islands
-# North Macedonia to FYRO Macedonia
+        if countryNames[x] not in blackListCountries:
+            file.write('INSERT INTO country(name, population, area, density) VALUES (\'' + str(countryNames[x]) + '\', ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' + countryDensity[x] + '),\n')

@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface CountryService {
     List<CountryDto> scrapItJobOffersInWorld(ModelMap technology);
-    List<CountryDto> getLastDataFromDB();
 }

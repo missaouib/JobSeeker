@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface TechnologyService {
     List<TechnologyDto> scrapTechnologyStatistics(ModelMap city);
-    List<TechnologyDto> getLastDataFromDB();
 }

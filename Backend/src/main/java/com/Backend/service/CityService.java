@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface CityService {
     List<CityDto> scrapItJobOffersInPoland(ModelMap technology);
-    List<CityDto> getLastDataFromDB();
 }
