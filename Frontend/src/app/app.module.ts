@@ -33,6 +33,9 @@ import { CategoriesListComponent } from './views/category-statistics/categories-
 import { CountriesListComponent } from './views/it-job-offers-in-world/countries-list/countries-list.component';
 import { CityInputComponent } from './shared/city-input/city-input.component';
 import { TechnologyInputComponent } from './shared/technology-input/technology-input.component';
+import { SpaceBetween3Chars } from './pipes/space-between-3-chars.pipe';
+import { AboutComponent } from './views/about/about.component';
+import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagrams.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import { TechnologyInputComponent } from './shared/technology-input/technology-i
     ItJobOffersInWorldComponent,
     CategoriesListComponent,
     CityInputComponent,
-    CountriesListComponent
+    CountriesListComponent,
+    SpaceBetween3Chars,
+    AboutComponent,
+    HistoryDiagramsComponent
   ],
   imports: [
     BrowserModule,

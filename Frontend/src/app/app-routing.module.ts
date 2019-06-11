@@ -1,3 +1,5 @@
+import { AboutComponent } from './views/about/about.component';
+import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagrams.component';
 import { ItJobOffersInPolandComponent } from './views/it-job-offers-in-poland/it-job-offers-in-poland.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryStatisticsComponent
+  },
+  {
+    path: 'history',
+    component: HistoryDiagramsComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   }
 ];
 

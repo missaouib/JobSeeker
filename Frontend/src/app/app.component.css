@@ -1,0 +1,7 @@
+nav a:nth-last-child(3) {
+  margin-left: auto;
+}
+
+nav a:nth-last-child(2) {
+  margin-right: 0;
+}

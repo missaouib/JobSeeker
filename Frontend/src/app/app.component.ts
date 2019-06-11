@@ -13,7 +13,9 @@ export class AppComponent {
     { path: '', label: 'IT Job Offers in Poland' },
     { path: 'world', label: 'IT Job Offers in World' },
     { path: 'technology', label: 'Technology Statistics' },
-    { path: 'category', label: 'Category Statistics' }
+    { path: 'category', label: 'Category Statistics' },
+    { path: 'history', label: 'History Diagrams' },
+    { path: 'about', label: 'About' }
   ];
 
   public getRouterOutletState(outlet) {

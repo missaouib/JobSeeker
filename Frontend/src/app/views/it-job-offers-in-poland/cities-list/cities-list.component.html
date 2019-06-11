@@ -15,37 +15,37 @@
 
     <ng-container matColumnDef="linkedin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="300USD" matTooltipPosition="above">Linkedin</th>
-      <td mat-cell *matCellDef="let city"> {{city.linkedin.toLocaleString('en-US').replace(',', ' ')}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{totalOffers[0]}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.linkedin | spaceBetween3Chars}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{totalOffers[0] | spaceBetween3Chars}} </td>
     </ng-container>
 
     <ng-container matColumnDef="pracuj">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="499PLN" matTooltipPosition="above">Pracuj</th>
-      <td mat-cell *matCellDef="let city"> {{city.pracuj.toLocaleString('en-US').replace(',', ' ')}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{totalOffers[1]}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.pracuj | spaceBetween3Chars}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{totalOffers[1] | spaceBetween3Chars}} </td>
     </ng-container>
 
     <ng-container matColumnDef="noFluffJobs">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="490PLN" matTooltipPosition="above">NoFluffJobs</th>
-      <td mat-cell *matCellDef="let city"> {{city.noFluffJobs.toLocaleString('en-US').replace(',', ' ')}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{totalOffers[2]}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.noFluffJobs | spaceBetween3Chars}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{totalOffers[2] | spaceBetween3Chars}} </td>
     </ng-container>
 
     <ng-container matColumnDef="justJoin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="290PLN" matTooltipPosition="above">JustJoin</th>
-      <td mat-cell *matCellDef="let city"> {{city.justJoin.toLocaleString('en-US').replace(',', ' ')}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{totalOffers[3]}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.justJoin | spaceBetween3Chars}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{totalOffers[3] | spaceBetween3Chars}} </td>
     </ng-container>
 
     <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Offers</th>
-      <td mat-cell *matCellDef="let city"> {{city.total.toLocaleString('en-US').replace(',', ' ')}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{totalJobOffersSum}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.total | spaceBetween3Chars}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{totalJobOffersSum | spaceBetween3Chars}} </td>
     </ng-container>
 
     <ng-container matColumnDef="population">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Population</th>
-      <td mat-cell *matCellDef="let city"> {{city.population.toLocaleString('en-US').replace(',', ' ').replace(',', ' ')}}</td>
+      <td mat-cell *matCellDef="let city"> {{city.population | spaceBetween3Chars}}</td>
       <td mat-footer-cell *matFooterCellDef> </td>
     </ng-container>
 
@@ -57,13 +57,13 @@
 
     <ng-container matColumnDef="area">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="area in km2" matTooltipPosition="above"> Area </th>
-      <td mat-cell *matCellDef="let city"> {{city.area.toLocaleString('en-US').replace(',', ' ')}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.area | spaceBetween3Chars}} </td>
       <td mat-footer-cell *matFooterCellDef> </td>
     </ng-container>
 
     <ng-container matColumnDef="density">
       <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="population / area" matTooltipPosition="above">Density</th>
-      <td mat-cell *matCellDef="let city"> {{city.density.toLocaleString('en-US').replace(',', ' ')}} </td>
+      <td mat-cell *matCellDef="let city"> {{city.density | spaceBetween3Chars}} </td>
       <td mat-footer-cell *matFooterCellDef> </td>
     </ng-container>
 

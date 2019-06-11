@@ -11,13 +11,13 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[FEAT] add All Jobs ON CITIES ??????
-	//[FEAT] add special case for poland/all jobs/ all it jobs on DB
 	//[FEAT] dont save to db the same requests at the same day
+	//[FEAT] add special case for poland/all jobs/ all it jobs on DB
 	//[CHORE] check if init database is not duplicating at starting point
 	//[CHORE] consider removing pk from relational tables
 	//[REFACTOR] separate table for date
-	//[FIX] fix no polish signs on DB functionality
+	//[REFACTOR] response entity in controllers
+	//[FIX] fix no polish signs on DB functionality?????
 	//[FIX] psql
 	//[FIX] devtools
 	//[FEAT] deploy v1.0
@@ -28,8 +28,10 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[REFACTOR] consider autocomplete on technology-input
-	//[FEAT] create about tab
+	//[REFACTOR] rename componens and variables
+	//[FIX] subsribe to router and remove boiler components
+	//[FEAT] fill about with all the tooltips
+	//[REFACTOR] per100k on frontend?
 	//[FEAT] add store
 	//[FEAT] history tab and diagrams
 }
