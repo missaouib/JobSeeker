@@ -14,8 +14,8 @@ export class ItJobOffersInWorldComponent implements DoCheck {
   showSpinner = false;
   pageIndex: number;
   pageLimit: number;
-  countriesList: Country[] = [];
-  dataSource = new MatTableDataSource(this.countriesList);
+  countryList: Country[] = [];
+  dataSource = new MatTableDataSource(this.countryList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -28,18 +28,18 @@ export class ItJobOffersInWorldComponent implements DoCheck {
 
   constructor(private resultInputService: ResultInputService) {
     this.resultInputService.showSpinner$.subscribe(() => {
-      this.countriesList.length = 0;
+      this.countryList.length = 0;
       this.showSpinner = true;
     });
 
     this.resultInputService.fillCountryTable$.subscribe(countries => {
-      this.countriesList = countries;
-      this.dataSource = new MatTableDataSource(this.countriesList);
+      this.countryList = countries;
+      this.dataSource = new MatTableDataSource(this.countryList);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.sort.disableClear = true;
 
-      this.totalOffers = this.countriesList.map(city => city.linkedin).reduce((sum, current) => sum + current);
+      this.totalOffers = this.countryList.map(city => city.linkedin).reduce((sum, current) => sum + current);
       this.paginator._intl.itemsPerPageLabel = 'Total: ' + this.totalOffers;
       this.showSpinner = false;
     });

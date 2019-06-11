@@ -12,8 +12,8 @@ export class CategoryStatisticsComponent {
 
   totalOffers: number;
   showSpinner = false;
-  categoriesList: Category[] = [];
-  dataSource = new MatTableDataSource(this.categoriesList);
+  categoryList: Category[] = [];
+  dataSource = new MatTableDataSource(this.categoryList);
   displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
   isLanguage: boolean;
 
@@ -21,17 +21,17 @@ export class CategoryStatisticsComponent {
 
   constructor(private resultInputService: ResultInputService) {
     this.resultInputService.showSpinner$.subscribe(() => {
-      this.categoriesList.length = 0;
+      this.categoryList.length = 0;
       this.showSpinner = true;
     });
 
     this.resultInputService.fillCategoryTable$.subscribe(categories => {
-      this.categoriesList = categories;
-      this.dataSource = new MatTableDataSource(this.categoriesList);
+      this.categoryList = categories;
+      this.dataSource = new MatTableDataSource(this.categoryList);
       this.dataSource.sort = this.sort;
       this.sort.disableClear = true;
 
-      this.totalOffers = this.categoriesList.map(category => category.pracuj).reduce((sum, current) => sum + current);
+      this.totalOffers = this.categoryList.map(category => category.pracuj).reduce((sum, current) => sum + current);
       this.showSpinner = false;
     });
   }

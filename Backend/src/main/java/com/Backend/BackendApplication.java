@@ -11,6 +11,7 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[REFACTOR] per100k on frontend consider a lot of future history data
 	//[FEAT] dont save to db the same requests at the same day
 	//[FEAT] add special case for poland/all jobs/ all it jobs on DB
 	//[CHORE] check if init database is not duplicating at starting point
@@ -28,9 +29,6 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[REFACTOR] rename componens and variables
-	//[FIX] subsribe to router in input
-	//[FEAT] fill about with all the tooltips
-	//[REFACTOR] per100k on frontend?
+	//[FEAT] fill about view with all the tooltips
 	//[FEAT] add store
 }

@@ -29,14 +29,14 @@ export class MainInputFieldComponent implements OnInit {
   technologyInputList = ['All IT Jobs', 'All Jobs', 'Java', 'Javascript', 'Typescript', '.NET', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Groovy', 'Swift', 'Objective-C', 'Viual Basic',
                          'Spring', 'Java EE', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
                           'SQL', 'Linux', 'Git', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'HTML', 'Maven', 'Gradle', 'Junit', 'Jira', 'Scrum'];
-  filteredCities: Observable<string[]>
+  filteredInputs: Observable<string[]>
 
   constructor(private httpService: HttpService,
     private resultInputService: ResultInputService,
     private router: Router) { }
 
   ngOnInit(){
-    this.filteredCities = this.searchInput.valueChanges.pipe(
+    this.filteredInputs = this.searchInput.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
@@ -44,9 +44,9 @@ export class MainInputFieldComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    if (this.router.url === '/technology' || this.router.url === '/category') {
+    if (this.isCityOrTechnologyLabel()) {
       return this.cityInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-    } else if (this.router.url === '/' || this.router.url === '/world') {
+    } else if (!this.isCityOrTechnologyLabel()) {
       return this.technologyInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
     }
   }
@@ -63,22 +63,6 @@ export class MainInputFieldComponent implements OnInit {
       this.resultInputService.showSpinner();
 
       switch(this.router.url){
-        case '/technology': {
-          this.httpService.getTechnologies(this.searchInput.value)
-            .subscribe(technologyList => {
-              this.technologyList = technologyList;
-              this.resultInputService.fillTechnologyTable(technologyList);
-            });
-          break;
-        }
-        case '/category': {
-          this.httpService.getCategories(this.searchInput.value)
-            .subscribe(categoryList => {
-              this.categoryList = categoryList;
-              this.resultInputService.fillCategoryTable(categoryList);
-            });
-          break;
-        }
         case '/': {
           this.httpService.getCities(this.searchInput.value)
             .subscribe(cityList => {
@@ -95,8 +79,33 @@ export class MainInputFieldComponent implements OnInit {
             });
           break;
         }
+        case '/technology': {
+          this.httpService.getTechnologies(this.searchInput.value)
+            .subscribe(technologyList => {
+              this.technologyList = technologyList;
+              this.resultInputService.fillTechnologyTable(technologyList);
+            });
+          break;
+        }
+        case '/category': {
+          this.httpService.getCategories(this.searchInput.value)
+            .subscribe(categoryList => {
+              this.categoryList = categoryList;
+              this.resultInputService.fillCategoryTable(categoryList);
+            });
+          break;
+        }
       }
     }
+  }
+
+  isCityOrTechnologyLabel(): Boolean {
+    if (this.router.url === '/technology' || this.router.url === '/category') {
+      return true;
+    } else if (this.router.url === '/' || this.router.url === '/world') {
+      return false;
+    }
+    return null;
   }
 
 }
