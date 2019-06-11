@@ -11,7 +11,8 @@ public class BackendApplication {
 	}
 
 	//[CURRENT SPRINT]
-	//[FEAT] add input front to db
+	//[FEAT] add input front to db (GATE FOR POLAND and alljobs)
+	//[FEAT] add All Jobs ON CITIES ??????
 	//[FEAT] dont save to db the same requests at the same day
 	//[CHORE] check if init database is not duplicating at starting point
 	//[CHORE] consider removing pk from relational tables
@@ -29,7 +30,6 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FEAT] add All Jobs placeholder
 	//[FEAT] add store
 	//[FEAT] About tab
 	//[FEAT] history tab and diagrams

@@ -2,8 +2,10 @@ package com.Backend.service.implementation;
 
 import com.Backend.dto.CountryDto;
 import com.Backend.entity.Country;
+import com.Backend.entity.Technology;
 import com.Backend.entity.offers.CountryOffers;
 import com.Backend.repository.CountryRepository;
+import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.CountryOffersRepository;
 import com.Backend.service.CountryService;
 import com.Backend.service.ScrapJobService;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,13 +29,16 @@ public class CountryServiceImp implements CountryService {
     private ScrapJobService scrapJobService;
     private CountryRepository countryRepository;
     private CountryOffersRepository countryOffersRepository;
+    private TechnologyRepository technologyRepository;
 
-    public CountryServiceImp(ModelMapper modelMapper, ScrapJobService scrapJobService, CountryRepository countryRepository, CountryOffersRepository countryOffersRepository) {
+    public CountryServiceImp(ModelMapper modelMapper, ScrapJobService scrapJobService, CountryRepository countryRepository,
+                             CountryOffersRepository countryOffersRepository, TechnologyRepository technologyRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(countryMapping);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
         this.countryRepository = Objects.requireNonNull(countryRepository);
         this.countryOffersRepository = Objects.requireNonNull(countryOffersRepository);
+        this.technologyRepository = technologyRepository;
     }
 
     private PropertyMap<CountryOffers, CountryDto> countryMapping = new PropertyMap<>() {
@@ -48,6 +54,8 @@ public class CountryServiceImp implements CountryService {
         String selectedTechnology = technology.get("technology").toString().toLowerCase();
         List<Country> countries = countryRepository.findAll();
         List<CountryOffers> countriesOffers = new ArrayList<>();
+        Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
+
         countries.forEach(country -> {
 
             String selectedCountry = country.getName().toLowerCase();
@@ -69,12 +77,14 @@ public class CountryServiceImp implements CountryService {
                     break;
             }
 
-            CountryOffers countryOffers = new CountryOffers(country, LocalDate.now());
+            CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
             countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
             countryOffers.setPer100k((double) Math.round((countryOffers.getLinkedin() * 1.0 / (country.getPopulation() * 1.0 / 100000)) * 100) / 100);
             countriesOffers.add(countryOffers);
         });
 
-        return countriesOffers.stream().map(country -> modelMapper.map(countryOffersRepository.save(country), CountryDto.class)).collect(Collectors.toList());
+        return technologyOptional
+                .map(ignored -> countriesOffers.stream().map(country -> modelMapper.map(countryOffersRepository.save(country), CountryDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> countriesOffers.stream().map(country -> modelMapper.map(country, CountryDto.class)).collect(Collectors.toList()));
     }
 }

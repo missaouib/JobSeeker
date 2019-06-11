@@ -3,8 +3,10 @@ package com.Backend.service.implementation;
 import com.Backend.domain.JustJoin;
 import com.Backend.dto.CityDto;
 import com.Backend.entity.City;
+import com.Backend.entity.Technology;
 import com.Backend.entity.offers.CityOffers;
 import com.Backend.repository.CityRepository;
+import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.CityOffersRepository;
 import com.Backend.service.CityService;
 import com.Backend.service.ScrapJobService;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,13 +30,16 @@ public class CityServiceImp implements CityService {
     private ScrapJobService scrapJobService;
     private CityRepository cityRepository;
     private CityOffersRepository cityOffersRepository;
+    private TechnologyRepository technologyRepository;
 
-    public CityServiceImp(ModelMapper modelMapper, ScrapJobService scrapJobService, CityRepository cityRepository, CityOffersRepository cityOffersRepository) {
+    public CityServiceImp(ModelMapper modelMapper, ScrapJobService scrapJobService, CityRepository cityRepository,
+                          CityOffersRepository cityOffersRepository, TechnologyRepository technologyRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(cityMapping);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.cityOffersRepository = Objects.requireNonNull(cityOffersRepository);
+        this.technologyRepository = technologyRepository;
     }
 
     private PropertyMap<CityOffers, CityDto> cityMapping = new PropertyMap<>() {
@@ -50,6 +56,7 @@ public class CityServiceImp implements CityService {
         List<City> cities = cityRepository.findAll();
         List<JustJoin> justJoinOffers = scrapJobService.getJustJoin();
         List<CityOffers> citiesOffers = new ArrayList<>();
+        Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
 
         cities.forEach(city -> {
 
@@ -74,7 +81,7 @@ public class CityServiceImp implements CityService {
                             break;
                     }
 
-                    CityOffers cityOffer = new CityOffers(city, LocalDate.now());
+                    CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
                     cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
                     cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
@@ -115,6 +122,8 @@ public class CityServiceImp implements CityService {
                 }
         );
 
-        return citiesOffers.stream().map(city -> modelMapper.map(cityOffersRepository.save(city), CityDto.class)).collect(Collectors.toList());
+        return technologyOptional
+                .map(ignored -> citiesOffers.stream().map(city -> modelMapper.map(cityOffersRepository.save(city), CityDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> citiesOffers.stream().map(city -> modelMapper.map(city, CityDto.class)).collect(Collectors.toList()));
     }
 }

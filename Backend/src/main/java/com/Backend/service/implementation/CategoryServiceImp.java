@@ -31,8 +31,8 @@ public class CategoryServiceImp implements CategoryService {
     private CategoryOffersRepository categoryOffersRepository;
     private CityRepository cityRepository;
 
-    public CategoryServiceImp(ModelMapper modelMapper, ScrapJobService scrapJobService, CategoryRepository categoryRepository, CategoryOffersRepository categoryOffersRepository
-    , CityRepository cityRepository) {
+    public CategoryServiceImp(ModelMapper modelMapper, ScrapJobService scrapJobService, CategoryRepository categoryRepository,
+                              CategoryOffersRepository categoryOffersRepository, CityRepository cityRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(categoryMapping);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
@@ -53,13 +53,16 @@ public class CategoryServiceImp implements CategoryService {
         String selectedCityASCII = scrapJobService.removePolishSigns(selectedCityUTF8);
         List<Category> categories = categoryRepository.findAll();
         List<CategoryOffers> categoriesOffers = new ArrayList<>();
-        Optional<City > selectedCity = cityRepository.findCityByName(selectedCityUTF8);
+        Optional<City> cityOptional = cityRepository.findCityByName(selectedCityUTF8);
 
         categories.forEach(category -> {
             String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
             WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/" + categoryName + ";cc," + category.getPracujId());
-            categoriesOffers.add(new CategoryOffers(category, selectedCity.orElse(new City(selectedCityUTF8)), LocalDate.now(), scrapJobService.getPracujOffers(pracujURL)));
+            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), scrapJobService.getPracujOffers(pracujURL)));
         });
-        return categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList());
+
+        return cityOptional
+                .map(ignored -> categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList()));
     }
 }

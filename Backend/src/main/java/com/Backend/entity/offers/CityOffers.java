@@ -1,6 +1,7 @@
 package com.Backend.entity.offers;
 
 import com.Backend.entity.City;
+import com.Backend.entity.Technology;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +18,9 @@ public class CityOffers {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     City city;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Technology technology;
+
     LocalDate date;
     int linkedin;
     int pracuj;
@@ -25,8 +29,9 @@ public class CityOffers {
     int total;
     double per100k;
 
-    public CityOffers(City city, LocalDate date) {
+    public CityOffers(City city, Technology technology, LocalDate date) {
         this.city = city;
+        this.technology = technology;
         this.date = date;
     }
 }
