@@ -6,7 +6,7 @@ export const fadeAnimation =
           query(':enter',
               [
                   style({ opacity: 0 }),
-                  animate('1.5s', style({ opacity: 1 }))
+                  animate('1s', style({ opacity: 1 }))
               ],
               { optional: true }
           )
