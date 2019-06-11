@@ -10,17 +10,15 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	//[CURRENT SPRINT]
-	//[FEAT] add input front to db (GATE FOR POLAND and alljobs)
+	//[BACKEND] TODO
 	//[FEAT] add All Jobs ON CITIES ??????
+	//[FEAT] add special case for poland/all jobs/ all it jobs on DB
 	//[FEAT] dont save to db the same requests at the same day
 	//[CHORE] check if init database is not duplicating at starting point
 	//[CHORE] consider removing pk from relational tables
 	//[REFACTOR] separate table for date
-	//[FIX] fix no polish signs to DB functionality
+	//[FIX] fix no polish signs on DB functionality
 	//[FIX] psql
-
-	//[BACKEND] TODO
 	//[FIX] devtools
 	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
@@ -30,7 +28,8 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
+	//[REFACTOR] consider autocomplete on technology-input
+	//[FEAT] create about tab
 	//[FEAT] add store
-	//[FEAT] About tab
 	//[FEAT] history tab and diagrams
 }
