@@ -29,9 +29,8 @@ public class BackendApplication {
 
 	//[FRONTEND] TODO
 	//[REFACTOR] rename componens and variables
-	//[FIX] subsribe to router and remove boiler components
+	//[FIX] subsribe to router in input
 	//[FEAT] fill about with all the tooltips
 	//[REFACTOR] per100k on frontend?
 	//[FEAT] add store
-	//[FEAT] history tab and diagrams
 }

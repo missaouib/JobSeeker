@@ -1,9 +1,8 @@
 .about {
   display: flex;
   justify-content: center;
-  margin: auto;
   width: 50%;
   border: 1px solid #ccc;
   border-radius: 1rem;
-  margin-top: 2%;
+  margin: 2% auto auto;
 }

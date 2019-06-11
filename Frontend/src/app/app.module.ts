@@ -27,12 +27,7 @@ import { ItJobOffersInPolandComponent } from "./views/it-job-offers-in-poland/it
 import { ItJobOffersInWorldComponent } from './views/it-job-offers-in-world/it-job-offers-in-world.component';
 import { TechnologyStatisticsComponent } from './views/technology-statistics/technology-statistics.component';
 import { CategoryStatisticsComponent } from './views/category-statistics/category-statistics.component';
-import { CitiesListComponent } from './views/it-job-offers-in-poland/cities-list/cities-list.component';
-import { TechnologiesListComponent } from './views/technology-statistics/technologies-list/technologies-list.component';
-import { CategoriesListComponent } from './views/category-statistics/categories-list/categories-list.component';
-import { CountriesListComponent } from './views/it-job-offers-in-world/countries-list/countries-list.component';
-import { CityInputComponent } from './shared/city-input/city-input.component';
-import { TechnologyInputComponent } from './shared/technology-input/technology-input.component';
+import { MainInputFieldComponent } from './shared/main-input-field/main-input-field.component';
 import { SpaceBetween3Chars } from './pipes/space-between-3-chars.pipe';
 import { AboutComponent } from './views/about/about.component';
 import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagrams.component';
@@ -40,19 +35,14 @@ import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagr
 @NgModule({
   declarations: [
     AppComponent,
+    MainInputFieldComponent,
     ItJobOffersInPolandComponent,
+    ItJobOffersInWorldComponent,
     TechnologyStatisticsComponent,
     CategoryStatisticsComponent,
-    TechnologiesListComponent,
-    CitiesListComponent,
-    TechnologyInputComponent,
-    ItJobOffersInWorldComponent,
-    CategoriesListComponent,
-    CityInputComponent,
-    CountriesListComponent,
-    SpaceBetween3Chars,
+    HistoryDiagramsComponent,
     AboutComponent,
-    HistoryDiagramsComponent
+    SpaceBetween3Chars
   ],
   imports: [
     BrowserModule,

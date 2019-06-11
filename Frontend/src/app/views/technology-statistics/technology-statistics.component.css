@@ -9,3 +9,20 @@
   margin: auto;
   width: 90%;
 }
+
+.tables {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+table {
+  width: 30%;
+  margin-bottom: 1rem;
+}
+
+.spinner {
+  padding-top: 10%;
+  display: flex;
+  justify-content: center;
+}

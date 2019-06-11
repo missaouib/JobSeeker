@@ -9,3 +9,17 @@
   margin: auto;
   width: 70%;
 }
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.spinner {
+  padding-top: 10%;
+  display: flex;
+  justify-content: center;
+}

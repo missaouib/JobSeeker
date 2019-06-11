@@ -1,22 +1,22 @@
-import { Country } from './../../models/country.model';
-import { City } from './../../models/city.model';
-import { ResultInputService } from './../../services/result-input.service';
+import { Country } from '../../models/country.model';
+import { City } from '../../models/city.model';
+import { ResultInputService } from '../../services/result-input.service';
 import { Observable } from 'rxjs';
-import { Category } from './../../models/category.model';
-import { HttpService } from './../../services/http.service';
-import { Technology } from './../../models/technology.model';
+import { Category } from '../../models/category.model';
+import { HttpService } from '../../services/http.service';
+import { Technology } from '../../models/technology.model';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-city-input',
-  templateUrl: './city-input.component.html',
-  styleUrls: ['./city-input.component.css']
+  selector: 'app-main-input-field',
+  templateUrl: './main-input-field.component.html',
+  styleUrls: ['./main-input-field.component.css']
 })
 
-export class CityInputComponent implements OnInit {
+export class MainInputFieldComponent implements OnInit {
 
   isDisabled = false;
   categoryList: Category[] = [];
@@ -60,35 +60,41 @@ export class CityInputComponent implements OnInit {
         this.isDisabled = false;
       }, 3000);
 
-      if(this.router.url === '/technology'){
-        this.resultInputService.showSpinner();
-        this.httpService.getTechnologies(this.searchInput.value)
-          .subscribe(technologyList => {
-            this.technologyList = technologyList;
-            this.resultInputService.fillTechnologyTable(technologyList);
-          });
-      } else if (this.router.url === '/category'){
-        this.resultInputService.showSpinner();
-        this.httpService.getCategories(this.searchInput.value)
-          .subscribe(categoryList => {
-            this.categoryList = categoryList;
-            this.resultInputService.fillCategoryTable(categoryList);
-          });
-      }
-      else if (this.router.url === '/') {
-        this.resultInputService.showSpinner();
-        this.httpService.getCities(this.searchInput.value)
-          .subscribe(cityList => {
-            this.cityList = cityList;
-            this.resultInputService.fillCityTable(cityList);
-          });
-      } else if (this.router.url === '/world') {
-        this.resultInputService.showSpinner();
-        this.httpService.getCountries(this.searchInput.value)
-          .subscribe(countryList => {
-            this.countryList = countryList;
-            this.resultInputService.fillCountryTable(countryList);
-          });
+      this.resultInputService.showSpinner();
+
+      switch(this.router.url){
+        case '/technology': {
+          this.httpService.getTechnologies(this.searchInput.value)
+            .subscribe(technologyList => {
+              this.technologyList = technologyList;
+              this.resultInputService.fillTechnologyTable(technologyList);
+            });
+          break;
+        }
+        case '/category': {
+          this.httpService.getCategories(this.searchInput.value)
+            .subscribe(categoryList => {
+              this.categoryList = categoryList;
+              this.resultInputService.fillCategoryTable(categoryList);
+            });
+          break;
+        }
+        case '/': {
+          this.httpService.getCities(this.searchInput.value)
+            .subscribe(cityList => {
+              this.cityList = cityList;
+              this.resultInputService.fillCityTable(cityList);
+            });
+          break;
+        }
+        case '/world': {
+          this.httpService.getCountries(this.searchInput.value)
+            .subscribe(countryList => {
+              this.countryList = countryList;
+              this.resultInputService.fillCountryTable(countryList);
+            });
+          break;
+        }
       }
     }
   }
