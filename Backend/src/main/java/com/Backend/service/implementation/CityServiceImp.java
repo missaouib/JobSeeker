@@ -125,7 +125,13 @@ public class CityServiceImp implements CityService {
         );
 
         return technologyOptional
-                .map(ignored -> citiesOffers.stream().map(city -> modelMapper.map(cityOffersRepository.save(city), CityDto.class)).collect(Collectors.toList()))
+                .map(ignoredTechnology -> {
+                    if(cityOffersRepository.findFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology).isPresent()){
+                        return null;
+                    } else {
+                        return citiesOffers.stream().map(city -> modelMapper.map(cityOffersRepository.save(city), CityDto.class)).collect(Collectors.toList());
+                    }
+                })
                 .orElseGet(() -> citiesOffers.stream().map(city -> modelMapper.map(city, CityDto.class)).collect(Collectors.toList()));
     }
 }

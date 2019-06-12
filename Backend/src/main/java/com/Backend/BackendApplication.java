@@ -11,10 +11,8 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[REFACTOR] separate table for date
-	//[FIX] dont save to db the same requests at the same day
-	//[FEAT] add special case for poland/all jobs/ all it jobs on DB
-	//[FIX] devtools
+	//[REFACTOR] separate table for date?
+	//[FEAT] add special case for poland -> all cities?/all jobs/ all it jobs on DB
 	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
