@@ -23,7 +23,6 @@ public class CountryOffers {
 
     LocalDate date;
     int linkedin;
-    double per100k;
 
     public CountryOffers(Country country, Technology technology, LocalDate date) {
         this.country = country;

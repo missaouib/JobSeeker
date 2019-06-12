@@ -79,7 +79,6 @@ public class CountryServiceImp implements CountryService {
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
             countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
-            countryOffers.setPer100k((double) Math.round((countryOffers.getLinkedin() * 1.0 / (country.getPopulation() * 1.0 / 100000)) * 100) / 100);
             countriesOffers.add(countryOffers);
         });
 

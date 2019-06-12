@@ -39,6 +39,7 @@ export class ItJobOffersInWorldComponent implements DoCheck {
       this.dataSource.paginator = this.paginator;
       this.sort.disableClear = true;
 
+      this.countryList.map(country => country.per100k = Number((country.linkedin / (country.population / 100000)).toFixed(2)));
       this.totalOffers = this.countryList.map(city => city.linkedin).reduce((sum, current) => sum + current);
       this.paginator._intl.itemsPerPageLabel = 'Total: ' + this.totalOffers;
       this.showSpinner = false;

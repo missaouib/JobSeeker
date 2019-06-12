@@ -101,8 +101,6 @@ public class TechnologyServiceImp implements TechnologyService {
                         })
                         .count());
             }
-
-            technologyOffers.setTotal(technologyOffers.getLinkedin() + technologyOffers.getPracuj() + technologyOffers.getNoFluffJobs() + technologyOffers.getJustJoin());
             technologiesOffers.add(technologyOffers);
         });
 

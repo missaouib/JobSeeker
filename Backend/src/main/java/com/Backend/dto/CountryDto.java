@@ -12,5 +12,4 @@ public class CountryDto {
     double area;
     int density;
     int linkedin;
-    double per100k;
 }

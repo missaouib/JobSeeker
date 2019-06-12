@@ -35,6 +35,7 @@ export class TechnologyStatisticsComponent {
     this.resultInputService.fillTechnologyTable$.subscribe(technologies => {
       this.technologyList = technologies;
 
+      this.technologyList.map(technology => technology.total = technology.linkedin + technology.pracuj + technology.noFluffJobs);
       this.technologyList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
 
       this.languageData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'language'));

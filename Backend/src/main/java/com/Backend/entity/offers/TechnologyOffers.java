@@ -26,7 +26,6 @@ public class TechnologyOffers {
     int pracuj;
     int noFluffJobs;
     int justJoin;
-    int total;
 
     public TechnologyOffers(Technology technology, City city, LocalDate date) {
         this.technology = technology;

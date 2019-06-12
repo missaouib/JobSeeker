@@ -13,5 +13,4 @@ public class TechnologyDto {
     int pracuj;
     int noFluffJobs;
     int justJoin;
-    int total;
 }

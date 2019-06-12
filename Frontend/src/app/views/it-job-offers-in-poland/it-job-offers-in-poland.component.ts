@@ -32,6 +32,9 @@ export class ItJobOffersInPolandComponent {
       this.dataSource.sort = this.sort;
       this.sort.disableClear = true;
 
+      this.cityList.map(city => city.total = city.linkedin + city.pracuj + city.noFluffJobs + city.justJoin);
+      this.cityList.map(city => city.per100k = Number((city.total / (city.population / 100000)).toFixed(2)));
+
       this.totalOffers[0] = this.cityList.map(city => city.linkedin).reduce((sum, current) => sum + current);
       this.totalOffers[1] = this.cityList.map(city => city.pracuj).reduce((sum, current) => sum + current);
       this.totalOffers[2] = this.cityList.map(city => city.noFluffJobs).reduce((sum, current) => sum + current);

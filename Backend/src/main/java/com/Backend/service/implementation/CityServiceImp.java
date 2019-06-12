@@ -120,9 +120,6 @@ public class CityServiceImp implements CityService {
                                 })
                                 .count());
                     }
-
-                    cityOffer.setTotal(cityOffer.getLinkedin() + cityOffer.getPracuj() + cityOffer.getNoFluffJobs() + cityOffer.getJustJoin());
-                    cityOffer.setPer100k((double) Math.round((cityOffer.getTotal() / 4.0 * 1.0 / (city.getPopulation() * 1.0 / 100000)) * 100) / 100);
                     citiesOffers.add(cityOffer);
                 }
         );

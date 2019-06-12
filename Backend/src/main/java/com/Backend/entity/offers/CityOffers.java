@@ -26,8 +26,6 @@ public class CityOffers {
     int pracuj;
     int noFluffJobs;
     int justJoin;
-    int total;
-    double per100k;
 
     public CityOffers(City city, Technology technology, LocalDate date) {
         this.city = city;
