@@ -28,6 +28,8 @@ export class ItJobOffersInPolandComponent {
 
     this.resultInputService.fillCityTable$.subscribe( cities => {
       this.cityList = cities;
+      this.cityList = this.cityList.filter(city => city.name !== 'All Cities');
+
       this.dataSource = new MatTableDataSource(this.cityList);
       this.dataSource.sort = this.sort;
       this.sort.disableClear = true;
