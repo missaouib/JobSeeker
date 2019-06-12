@@ -6,3 +6,7 @@
   border-radius: 1rem;
   margin: 2% auto auto;
 }
+
+  .about-list {
+    list-style-type: none;
+  }

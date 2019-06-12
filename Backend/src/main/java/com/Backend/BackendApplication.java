@@ -11,13 +11,10 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[FEAT] dont save to db the same requests at the same day
+	//[REFACTOR] separate table for date
+	//[FIX] dont save to db the same requests at the same day
 	//[FEAT] add special case for poland/all jobs/ all it jobs on DB
 	//[CHORE] check if init database is not duplicating at starting point
-	//[CHORE] consider removing pk from relational tables
-	//[REFACTOR] separate table for date
-	//[REFACTOR] response entity in controllers
-	//[FIX] fix no polish signs on DB functionality?????
 	//[FIX] psql
 	//[FIX] devtools
 	//[FEAT] deploy v1.0

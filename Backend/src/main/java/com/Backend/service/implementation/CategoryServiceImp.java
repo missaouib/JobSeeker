@@ -62,7 +62,14 @@ public class CategoryServiceImp implements CategoryService {
         });
 
         return cityOptional
-                .map(ignored -> categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList()))
+                .map(ignoredCity -> {
+                            if (categoryOffersRepository.findFirstByDateAndCity(LocalDate.now(), ignoredCity).isPresent()) {
+                                return null;
+                            } else {
+                                return categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList());
+                            }
+                        }
+                )
                 .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList()));
     }
 }

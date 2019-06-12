@@ -3,10 +3,12 @@ package com.Backend.entity.offers;
 import com.Backend.entity.Category;
 import com.Backend.entity.City;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@NoArgsConstructor
 @Data
 @Entity
 public class CategoryOffers {
