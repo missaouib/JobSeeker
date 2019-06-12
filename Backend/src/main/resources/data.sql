@@ -1,341 +1,341 @@
- INSERT INTO city (name, population, area, density) VALUES ('Warszawa', 1764615, 517.24, 3412),
- INSERT INTO city (name, population, area, density) VALUES ('Kraków', 767348, 326.85, 2348),
- INSERT INTO city (name, population, area, density) VALUES ('Łódź', 690422, 293.25, 2354),
- INSERT INTO city (name, population, area, density) VALUES ('Wrocław', 638586, 292.82, 2181),
- INSERT INTO city (name, population, area, density) VALUES ('Poznań', 538633, 261.91, 2057),
- INSERT INTO city (name, population, area, density) VALUES ('Gdańsk', 464254, 261.96, 1772),
- INSERT INTO city (name, population, area, density) VALUES ('Szczecin', 403883, 300.60, 1344),
- INSERT INTO city (name, population, area, density) VALUES ('Bydgoszcz', 352313, 175.98, 2002),
- INSERT INTO city (name, population, area, density) VALUES ('Lublin', 339850, 147.5, 2305),
- INSERT INTO city (name, population, area, density) VALUES ('Białystok', 297288, 102.12, 2911),
- INSERT INTO city (name, population, area, density) VALUES ('Katowice', 296262, 164.64, 1799),
- INSERT INTO city (name, population, area, density) VALUES ('Rzeszów', 193631, 126.57, 1575),
- INSERT INTO city (name, population, area, density) VALUES ('Kielce', 195774, 109.45, 1795),
- INSERT INTO city (name, population, area, density) VALUES ('Toruń', 202562, 115.72, 1750),
- INSERT INTO city (name, population, area, density) VALUES ('Olsztyn', 173125, 88.33, 1959),
- INSERT INTO city (name, population, area, density) VALUES ('Gorzów Wielkopolski', 124295, 85.72, 1450),
- INSERT INTO city (name, population, area, density) VALUES ('Opole', 128140, 148.99, 861),
- INSERT INTO city (name, population, area, density) VALUES ('Zielona Góra', 140113, 278.32, 502),
+ INSERT INTO city (name, population, area, density) VALUES ('Warszawa', 1764615, 517.24, 3412);
+ INSERT INTO city (name, population, area, density) VALUES ('Kraków', 767348, 326.85, 2348);
+ INSERT INTO city (name, population, area, density) VALUES ('Łódź', 690422, 293.25, 2354);
+ INSERT INTO city (name, population, area, density) VALUES ('Wrocław', 638586, 292.82, 2181);
+ INSERT INTO city (name, population, area, density) VALUES ('Poznań', 538633, 261.91, 2057);
+ INSERT INTO city (name, population, area, density) VALUES ('Gdańsk', 464254, 261.96, 1772);
+ INSERT INTO city (name, population, area, density) VALUES ('Szczecin', 403883, 300.60, 1344);
+ INSERT INTO city (name, population, area, density) VALUES ('Bydgoszcz', 352313, 175.98, 2002);
+ INSERT INTO city (name, population, area, density) VALUES ('Lublin', 339850, 147.5, 2305);
+ INSERT INTO city (name, population, area, density) VALUES ('Białystok', 297288, 102.12, 2911);
+ INSERT INTO city (name, population, area, density) VALUES ('Katowice', 296262, 164.64, 1799);
+ INSERT INTO city (name, population, area, density) VALUES ('Rzeszów', 193631, 126.57, 1575);
+ INSERT INTO city (name, population, area, density) VALUES ('Kielce', 195774, 109.45, 1795);
+ INSERT INTO city (name, population, area, density) VALUES ('Toruń', 202562, 115.72, 1750);
+ INSERT INTO city (name, population, area, density) VALUES ('Olsztyn', 173125, 88.33, 1959);
+ INSERT INTO city (name, population, area, density) VALUES ('Gorzów Wielkopolski', 124295, 85.72, 1450);
+ INSERT INTO city (name, population, area, density) VALUES ('Opole', 128140, 148.99, 861);
+ INSERT INTO city (name, population, area, density) VALUES ('Zielona Góra', 140113, 278.32, 502);
 
- INSERT INTO technology(name, type) VALUES ('Java', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Javascript', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Typescript', 'Language'),
- INSERT INTO technology(name, type) VALUES ('.NET', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Python', 'Language'),
- INSERT INTO technology(name, type) VALUES ('PHP', 'Language'),
- INSERT INTO technology(name, type) VALUES ('C++', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Ruby', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Kotlin', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Scala', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Groovy', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Swift', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Objective-C', 'Language'),
- INSERT INTO technology(name, type) VALUES ('Visual Basic', 'Language'),
+ INSERT INTO technology(name, type) VALUES ('Java', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Javascript', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Typescript', 'Language');
+ INSERT INTO technology(name, type) VALUES ('.NET', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Python', 'Language');
+ INSERT INTO technology(name, type) VALUES ('PHP', 'Language');
+ INSERT INTO technology(name, type) VALUES ('C++', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Ruby', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Kotlin', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Scala', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Groovy', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Swift', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Objective-C', 'Language');
+ INSERT INTO technology(name, type) VALUES ('Visual Basic', 'Language');
 
-INSERT INTO technology(name, type) VALUES ('Spring', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Java EE', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Android', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Angular', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('React', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Vue', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Node', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('JQuery', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Symfony', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Laravel', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('iOS', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Asp.net', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Django', 'Framework'),
-INSERT INTO technology(name, type) VALUES ('Unity', 'Framework'),
+INSERT INTO technology(name, type) VALUES ('Spring', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Java EE', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Android', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Angular', 'Framework');
+INSERT INTO technology(name, type) VALUES ('React', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Vue', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Node', 'Framework');
+INSERT INTO technology(name, type) VALUES ('JQuery', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Symfony', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Laravel', 'Framework');
+INSERT INTO technology(name, type) VALUES ('iOS', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Asp.net', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Django', 'Framework');
+INSERT INTO technology(name, type) VALUES ('Unity', 'Framework');
 
-INSERT INTO technology(name, type) VALUES ('SQL', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Linux', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Git', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Docker', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Jenkins', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Kubernetes', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('AWS', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Azure', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('HTML', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Maven', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Gradle', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('JUnit', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Jira', 'DevOps'),
-INSERT INTO technology(name, type) VALUES ('Scrum', 'DevOps'),
+INSERT INTO technology(name, type) VALUES ('SQL', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Linux', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Git', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Docker', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Jenkins', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Kubernetes', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('AWS', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Azure', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('HTML', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Maven', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Gradle', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('JUnit', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Jira', 'DevOps');
+INSERT INTO technology(name, type) VALUES ('Scrum', 'DevOps');
 
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5001, 'Administracja biurowa','Office administration'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5037, 'Doradztwo / Konsulting','Consulting'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5002, 'Badania i rozwój','Research and development'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5003, 'Bankowość','Banking'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5004, 'BHP / Ochrona środowiska','Health and Safety / Environmental protection'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5005, 'Budownictwo','Architecture'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5006, 'Call Center','Call Center'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5007, 'Edukacja / Szkolenia','Education / Training'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5008, 'Finanse / Ekonomia','Finance / Economy'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5009, 'Franczyza / Własny biznes','Own business'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5010, 'Hotelarstwo / Gastronomia / Turystyka','Hospitality / Gastronomy / Tourism'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5011, 'Human Resources / Zasoby ludzkie','Human Resources'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5013, 'Internet / e-Commerce / Nowe media','Internet / e-Commerce / New media'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5014, 'Inżynieria','Engineering'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5015, 'IT - Administracja','IT - Administration'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5016, 'IT - Rozwój oprogramowania','IT - Software development'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5017, 'Łańcuch dostaw','Supply chain'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5018, 'Marketing','Marketing'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5019, 'Media / Sztuka / Rozrywka','Media / Arts / Entertainment'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5020, 'Nieruchomości','Real estate'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5021, 'Obsługa klienta','Customer service'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5022, 'Praca fizyczna','Physical work'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5023, 'Prawo','Law'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5024, 'Produkcja','Production'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5025, 'Public Relations','Public Relations'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5026, 'Reklama / Grafika / Kreacja / Fotografia','Advertisement / Graphic / Photography'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5027, 'Sektor publiczny','Public sector'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5028, 'Sprzedaż','Sale'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5031, 'Transport / Spedycja','Transport / Shipping'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5032, 'Ubezpieczenia','Insurance'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5033, 'Zakupy','Shopping'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5034, 'Kontrola jakości','Quality control'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5035, 'Zdrowie / Uroda / Rekreacja','Health / Beauty / Recreation'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5036, 'Energetyka','Energetics'),
-INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5012, 'Inne','Other')
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5001, 'Administracja biurowa','Office administration');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5037, 'Doradztwo / Konsulting','Consulting');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5002, 'Badania i rozwój','Research and development');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5003, 'Bankowość','Banking');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5004, 'BHP / Ochrona środowiska','Health and Safety / Environmental protection');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5005, 'Budownictwo','Architecture');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5006, 'Call Center','Call Center');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5007, 'Edukacja / Szkolenia','Education / Training');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5008, 'Finanse / Ekonomia','Finance / Economy');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5009, 'Franczyza / Własny biznes','Own business');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5010, 'Hotelarstwo / Gastronomia / Turystyka','Hospitality / Gastronomy / Tourism');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5011, 'Human Resources / Zasoby ludzkie','Human Resources');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5013, 'Internet / e-Commerce / Nowe media','Internet / e-Commerce / New media');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5014, 'Inżynieria','Engineering');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5015, 'IT - Administracja','IT - Administration');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5016, 'IT - Rozwój oprogramowania','IT - Software development');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5017, 'Łańcuch dostaw','Supply chain');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5018, 'Marketing','Marketing');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5019, 'Media / Sztuka / Rozrywka','Media / Arts / Entertainment');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5020, 'Nieruchomości','Real estate');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5021, 'Obsługa klienta','Customer service');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5022, 'Praca fizyczna','Physical work');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5023, 'Prawo','Law');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5024, 'Produkcja','Production');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5025, 'Public Relations','Public Relations');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5026, 'Reklama / Grafika / Kreacja / Fotografia','Advertisement / Graphic / Photography');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5027, 'Sektor publiczny','Public sector');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5028, 'Sprzedaż','Sale');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5031, 'Transport / Spedycja','Transport / Shipping');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5032, 'Ubezpieczenia','Insurance');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5033, 'Zakupy','Shopping');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5034, 'Kontrola jakości','Quality control');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5035, 'Zdrowie / Uroda / Rekreacja','Health / Beauty / Recreation');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5036, 'Energetyka','Energetics');
+INSERT INTO category(pracuj_id, polish_name, english_name) VALUES (5012, 'Inne','Other');
 
-INSERT INTO country(name, population, area, density) VALUES ('Macau', 667400, 32.9, 20286),
-INSERT INTO country(name, population, area, density) VALUES ('Monaco', 38300, 2.02, 18960),
-INSERT INTO country(name, population, area, density) VALUES ('Singapore', 5638700, 722.5, 7804),
-INSERT INTO country(name, population, area, density) VALUES ('Hong Kong', 7482500, 1106, 6765),
-INSERT INTO country(name, population, area, density) VALUES ('Gibraltar', 33140, 6.8, 4874),
-INSERT INTO country(name, population, area, density) VALUES ('Vatican City', 1000, 0.44, 2273),
-INSERT INTO country(name, population, area, density) VALUES ('Bahrain', 1566993, 778, 2013),
-INSERT INTO country(name, population, area, density) VALUES ('Malta', 475701, 315, 1510),
-INSERT INTO country(name, population, area, density) VALUES ('Maldives', 378114, 298, 1269),
-INSERT INTO country(name, population, area, density) VALUES ('Bermuda', 63779, 52, 1227),
-INSERT INTO country(name, population, area, density) VALUES ('Sint Maarten', 40614, 34, 1195),
-INSERT INTO country(name, population, area, density) VALUES ('Bangladesh', 166684120, 143998, 1158),
-INSERT INTO country(name, population, area, density) VALUES ('Jersey', 104200, 116, 898),
-INSERT INTO country(name, population, area, density) VALUES ('Guernsey', 62723, 78, 804),
-INSERT INTO country(name, population, area, density) VALUES ('Mayotte', 256518, 374, 686),
-INSERT INTO country(name, population, area, density) VALUES ('Barbados', 287010, 430, 667),
-INSERT INTO country(name, population, area, density) VALUES ('Collectivity of Saint Martin', 35107, 53.2, 660),
-INSERT INTO country(name, population, area, density) VALUES ('Taiwan', 23590744, 36197, 652),
-INSERT INTO country(name, population, area, density) VALUES ('Mauritius', 1265577, 2040, 620),
-INSERT INTO country(name, population, area, density) VALUES ('Aruba', 111482, 180, 619),
-INSERT INTO country(name, population, area, density) VALUES ('Lebanon', 6065922, 10452, 595),
-INSERT INTO country(name, population, area, density) VALUES ('San Marino', 33407, 61, 548),
-INSERT INTO country(name, population, area, density) VALUES ('Nauru', 11000, 21, 524),
-INSERT INTO country(name, population, area, density) VALUES ('South Korea', 51811167, 100210, 517),
-INSERT INTO country(name, population, area, density) VALUES ('Rwanda', 12374397, 26338, 470),
-INSERT INTO country(name, population, area, density) VALUES ('Comoros', 873724, 1861, 469),
-INSERT INTO country(name, population, area, density) VALUES ('Saint Barthelemy', 9427, 21, 449),
-INSERT INTO country(name, population, area, density) VALUES ('Netherlands', 17323268, 41526, 417),
-INSERT INTO country(name, population, area, density) VALUES ('Haiti', 11242856, 27065, 415),
-INSERT INTO country(name, population, area, density) VALUES ('India', 1348171200, 3287240, 410),
-INSERT INTO country(name, population, area, density) VALUES ('Israel', 9039829, 22072, 410),
-INSERT INTO country(name, population, area, density) VALUES ('Burundi', 10953317, 27816, 394),
-INSERT INTO country(name, population, area, density) VALUES ('Tuvalu', 10200, 26, 392),
-INSERT INTO country(name, population, area, density) VALUES ('Belgium', 11467362, 30528, 376),
-INSERT INTO country(name, population, area, density) VALUES ('Philippines', 107750000, 300000, 359),
-INSERT INTO country(name, population, area, density) VALUES ('Puerto Rico', 3195153, 9104, 351),
-INSERT INTO country(name, population, area, density) VALUES ('Japan', 126220000, 377944, 334),
-INSERT INTO country(name, population, area, density) VALUES ('Sri Lanka', 21670000, 65610, 330),
-INSERT INTO country(name, population, area, density) VALUES ('Martinique', 371246, 1128, 329),
-INSERT INTO country(name, population, area, density) VALUES ('Guam', 172400, 541, 319),
-INSERT INTO country(name, population, area, density) VALUES ('El Salvador', 6704864, 21040, 319),
-INSERT INTO country(name, population, area, density) VALUES ('Grenada', 108825, 344, 316),
-INSERT INTO country(name, population, area, density) VALUES ('Marshall Islands', 55500, 181, 307),
-INSERT INTO country(name, population, area, density) VALUES ('United States Virgin Islands', 104909, 352, 298),
-INSERT INTO country(name, population, area, density) VALUES ('Saint Lucia', 180454, 617, 292),
-INSERT INTO country(name, population, area, density) VALUES ('American Samoa', 56700, 197, 288),
-INSERT INTO country(name, population, area, density) VALUES ('Vietnam', 94660000, 331212, 286),
-INSERT INTO country(name, population, area, density) VALUES ('Saint Vincent and the Grenadines', 110520, 389, 284),
-INSERT INTO country(name, population, area, density) VALUES ('United Kingdom', 66040229, 242910, 272),
-INSERT INTO country(name, population, area, density) VALUES ('Trinidad and Tobago', 1359193, 5155, 264),
-INSERT INTO country(name, population, area, density) VALUES ('Pakistan', 204919217, 803940, 255),
-INSERT INTO country(name, population, area, density) VALUES ('Jamaica', 2726667, 10991, 248),
-INSERT INTO country(name, population, area, density) VALUES ('Cayman Islands', 63415, 259, 245),
-INSERT INTO country(name, population, area, density) VALUES ('Guadeloupe', 395725, 1628.4, 243),
-INSERT INTO country(name, population, area, density) VALUES ('Liechtenstein', 38380, 160, 240),
-INSERT INTO country(name, population, area, density) VALUES ('Kuwait', 4226920, 17818, 237),
-INSERT INTO country(name, population, area, density) VALUES ('Luxembourg', 613894, 2586, 237),
-INSERT INTO country(name, population, area, density) VALUES ('Antigua and Barbuda', 104084, 442, 235),
-INSERT INTO country(name, population, area, density) VALUES ('Qatar', 2700390, 11571, 233),
-INSERT INTO country(name, population, area, density) VALUES ('Germany', 82979100, 357168, 232),
-INSERT INTO country(name, population, area, density) VALUES ('Nigeria', 200962000, 923768, 218),
-INSERT INTO country(name, population, area, density) VALUES ('Dominican Republic', 10358320, 47875, 216),
-INSERT INTO country(name, population, area, density) VALUES ('Seychelles', 96762, 455, 213),
-INSERT INTO country(name, population, area, density) VALUES ('British Virgin Islands', 32206, 151, 213),
-INSERT INTO country(name, population, area, density) VALUES ('North Korea', 25450000, 120540, 211),
-INSERT INTO country(name, population, area, density) VALUES ('Saint Kitts and Nevis', 56345, 270, 209),
-INSERT INTO country(name, population, area, density) VALUES ('The Gambia', 2228075, 10690, 208),
-INSERT INTO country(name, population, area, density) VALUES ('Switzerland', 8542323, 41285, 207),
-INSERT INTO country(name, population, area, density) VALUES ('Nepal', 29609623, 147181, 201),
-INSERT INTO country(name, population, area, density) VALUES ('Italy', 60375749, 301308, 200),
-INSERT INTO country(name, population, area, density) VALUES ('Uganda', 40006700, 241551, 166),
-INSERT INTO country(name, population, area, density) VALUES ('Andorra', 76177, 464, 164),
-INSERT INTO country(name, population, area, density) VALUES ('Guatemala', 17679735, 108889, 162),
-INSERT INTO country(name, population, area, density) VALUES ('Sint Eustatius', 3193, 21, 152),
-INSERT INTO country(name, population, area, density) VALUES ('Tokelau', 1499, 10, 150),
-INSERT INTO country(name, population, area, density) VALUES ('Saba', 1947, 13, 150),
-INSERT INTO country(name, population, area, density) VALUES ('Federated States of Micronesia', 105300, 701, 150),
-INSERT INTO country(name, population, area, density) VALUES ('Malawi', 17563749, 118484, 148),
-INSERT INTO country(name, population, area, density) VALUES ('Kiribati', 120100, 811, 148),
-INSERT INTO country(name, population, area, density) VALUES ('Cyprus', 864200, 5896, 147),
-INSERT INTO country(name, population, area, density) VALUES ('Isle of Man', 83314, 572, 146),
-INSERT INTO country(name, population, area, density) VALUES ('China', 1397674160, 9640821, 145),
-INSERT INTO country(name, population, area, density) VALUES ('Indonesia', 268074600, 1904569, 141),
-INSERT INTO country(name, population, area, density) VALUES ('Tonga', 100651, 720, 140),
-INSERT INTO country(name, population, area, density) VALUES ('Anguilla', 13452, 96, 140),
-INSERT INTO country(name, population, area, density) VALUES ('Czech Republic', 10649800, 78867, 135),
-INSERT INTO country(name, population, area, density) VALUES ('Thailand', 69183173, 513120, 135),
-INSERT INTO country(name, population, area, density) VALUES ('Denmark', 5806081, 43098, 135),
-INSERT INTO country(name, population, area, density) VALUES ('Cape Verde', 544081, 4033, 133),
-INSERT INTO country(name, population, area, density) VALUES ('Togo', 7352000, 56600, 130),
-INSERT INTO country(name, population, area, density) VALUES ('Ghana', 30280811, 238533, 127),
-INSERT INTO country(name, population, area, density) VALUES ('France', 66998000, 543965, 123),
-INSERT INTO country(name, population, area, density) VALUES ('Poland', 38413000, 312685, 123),
-INSERT INTO country(name, population, area, density) VALUES ('Northern Mariana Islands', 56200, 457, 123),
-INSERT INTO country(name, population, area, density) VALUES ('Jordan', 10432196, 89342, 117),
-INSERT INTO country(name, population, area, density) VALUES ('Azerbaijan', 9981457, 86600, 115),
-INSERT INTO country(name, population, area, density) VALUES ('United Arab Emirates', 9541615, 83600, 114),
-INSERT INTO country(name, population, area, density) VALUES ('Transnistria', 469000, 4163, 113),
-INSERT INTO country(name, population, area, density) VALUES ('Portugal', 10291027, 92090, 112),
-INSERT INTO country(name, population, area, density) VALUES ('Slovakia', 5443120, 49036, 111),
-INSERT INTO country(name, population, area, density) VALUES ('Austria', 8869537, 83879, 106),
-INSERT INTO country(name, population, area, density) VALUES ('Turkey', 82003882, 783562, 105),
-INSERT INTO country(name, population, area, density) VALUES ('Hungary', 9764000, 93029, 105),
-INSERT INTO country(name, population, area, density) VALUES ('Moldova', 3547539, 33843, 105),
-INSERT INTO country(name, population, area, density) VALUES ('Cuba', 11221060, 109884, 102),
-INSERT INTO country(name, population, area, density) VALUES ('Slovenia', 2066880, 20273, 102),
-INSERT INTO country(name, population, area, density) VALUES ('Ethiopia', 107534882, 1063652, 101),
-INSERT INTO country(name, population, area, density) VALUES ('Benin', 11362269, 112622, 101),
-INSERT INTO country(name, population, area, density) VALUES ('Dominica', 74308, 739, 101),
-INSERT INTO country(name, population, area, density) VALUES ('Armenia', 2969200, 29743, 100),
-INSERT INTO country(name, population, area, density) VALUES ('Albania', 2870324, 28703, 100),
-INSERT INTO country(name, population, area, density) VALUES ('Syria', 18284407, 185180, 99),
-INSERT INTO country(name, population, area, density) VALUES ('Sierra Leone', 7075641, 71740, 99),
-INSERT INTO country(name, population, area, density) VALUES ('Malaysia', 32754204, 330803, 99),
-INSERT INTO country(name, population, area, density) VALUES ('Egypt', 98778535, 1002450, 99),
-INSERT INTO country(name, population, area, density) VALUES ('Costa Rica', 5003393, 51100, 98),
-INSERT INTO country(name, population, area, density) VALUES ('Iraq', 40877898, 437072, 94),
-INSERT INTO country(name, population, area, density) VALUES ('Spain', 46733038, 505990, 92),
-INSERT INTO country(name, population, area, density) VALUES ('Kenya', 52950879, 581834, 91),
-INSERT INTO country(name, population, area, density) VALUES ('Cambodia', 16561944, 181035, 91),
-INSERT INTO country(name, population, area, density) VALUES ('Serbia', 6901188, 77474, 89),
-INSERT INTO country(name, population, area, density) VALUES ('Wallis & Futuna', 11700, 142, 82),
-INSERT INTO country(name, population, area, density) VALUES ('Romania', 19524000, 238391, 82),
-INSERT INTO country(name, population, area, density) VALUES ('Greece', 10741165, 131957, 81),
-INSERT INTO country(name, population, area, density) VALUES ('FYRO Macedonia', 2075301, 25713, 81),
-INSERT INTO country(name, population, area, density) VALUES ('Senegal', 15726037, 196722, 80),
-INSERT INTO country(name, population, area, density) VALUES ('Honduras', 9012229, 112492, 80),
-INSERT INTO country(name, population, area, density) VALUES ('Myanmar', 53862731, 676577, 80),
-INSERT INTO country(name, population, area, density) VALUES ('Ivory Coast', 25823071, 322921, 80),
-INSERT INTO country(name, population, area, density) VALUES ('French Polynesia', 277100, 3521, 79),
-INSERT INTO country(name, population, area, density) VALUES ('Morocco', 35041669, 446550, 78),
-INSERT INTO country(name, population, area, density) VALUES ('East Timor', 1167242, 14919, 78),
-INSERT INTO country(name, population, area, density) VALUES ('Turks and Caicos Islands', 37910, 497, 76),
-INSERT INTO country(name, population, area, density) VALUES ('Lesotho', 2263010, 30355, 75),
-INSERT INTO country(name, population, area, density) VALUES ('Burkina Faso', 20244080, 270764, 75),
-INSERT INTO country(name, population, area, density) VALUES ('Uzbekistan', 32653900, 447400, 73),
-INSERT INTO country(name, population, area, density) VALUES ('Brunei', 421300, 5765, 73),
-INSERT INTO country(name, population, area, density) VALUES ('Croatia', 4105493, 56542, 73),
-INSERT INTO country(name, population, area, density) VALUES ('Tunisia', 11551448, 163610, 71),
-INSERT INTO country(name, population, area, density) VALUES ('Samoa', 199052, 2831, 70),
-INSERT INTO country(name, population, area, density) VALUES ('Ukraine', 42101650, 603000, 70),
-INSERT INTO country(name, population, area, density) VALUES ('Bosnia and Herzegovina', 3511372, 51209, 69),
-INSERT INTO country(name, population, area, density) VALUES ('Republic of Ireland', 4857000, 70273, 69),
-INSERT INTO country(name, population, area, density) VALUES ('Bonaire', 18905, 288, 66),
-INSERT INTO country(name, population, area, density) VALUES ('Yemen', 28915284, 455000, 64),
-INSERT INTO country(name, population, area, density) VALUES ('Cook Islands', 15200, 237, 64),
-INSERT INTO country(name, population, area, density) VALUES ('Mexico', 125327797, 1967138, 64),
-INSERT INTO country(name, population, area, density) VALUES ('Bulgaria', 7000039, 111002, 63),
-INSERT INTO country(name, population, area, density) VALUES ('Tajikistan', 8931000, 143100, 62),
-INSERT INTO country(name, population, area, density) VALUES ('Ecuador', 17253924, 276841, 62),
-INSERT INTO country(name, population, area, density) VALUES ('Tanzania', 55890747, 945087, 59),
-INSERT INTO country(name, population, area, density) VALUES ('Panama', 4158783, 74177, 56),
-INSERT INTO country(name, population, area, density) VALUES ('Georgia (country)', 3729600, 69700, 54),
-INSERT INTO country(name, population, area, density) VALUES ('Nicaragua', 6393824, 121428, 53),
-INSERT INTO country(name, population, area, density) VALUES ('Cameroon', 24348251, 466050, 52),
-INSERT INTO country(name, population, area, density) VALUES ('Iran', 82512604, 1648195, 50),
-INSERT INTO country(name, population, area, density) VALUES ('Norfolk Island', 1748, 35, 50),
-INSERT INTO country(name, population, area, density) VALUES ('Guinea', 12218357, 245857, 50),
-INSERT INTO country(name, population, area, density) VALUES ('Afghanistan', 31575018, 645807, 49),
-INSERT INTO country(name, population, area, density) VALUES ('Montserrat', 4922, 102, 48),
-INSERT INTO country(name, population, area, density) VALUES ('Fiji', 884887, 18333, 48),
-INSERT INTO country(name, population, area, density) VALUES ('South Africa', 57725600, 1220813, 47),
-INSERT INTO country(name, population, area, density) VALUES ('Djibouti', 1078373, 23000, 47),
-INSERT INTO country(name, population, area, density) VALUES ('Belarus', 9465300, 207600, 46),
-INSERT INTO country(name, population, area, density) VALUES ('Montenegro', 622359, 13812, 45),
-INSERT INTO country(name, population, area, density) VALUES ('Liberia', 4382387, 97036, 45),
-INSERT INTO country(name, population, area, density) VALUES ('Madagascar', 26262810, 587041, 45),
-INSERT INTO country(name, population, area, density) VALUES ('Equatorial Guinea', 1222442, 28051, 44),
-INSERT INTO country(name, population, area, density) VALUES ('Guinea-Bissau', 1584763, 36125, 44),
-INSERT INTO country(name, population, area, density) VALUES ('Eritrea', 5187948, 121100, 43),
-INSERT INTO country(name, population, area, density) VALUES ('Lithuania', 2793986, 65300, 43),
-INSERT INTO country(name, population, area, density) VALUES ('Colombia', 45803800, 1141748, 40),
-INSERT INTO country(name, population, area, density) VALUES ('Palau', 17900, 444, 40),
-INSERT INTO country(name, population, area, density) VALUES ('Cocos (Keeling) Islands', 544, 14, 39),
-INSERT INTO country(name, population, area, density) VALUES ('Zimbabwe', 14848905, 390757, 38),
-INSERT INTO country(name, population, area, density) VALUES ('Democratic Republic of the Congo', 84004989, 2345095, 36),
-INSERT INTO country(name, population, area, density) VALUES ('Mozambique', 28861863, 799380, 36),
-INSERT INTO country(name, population, area, density) VALUES ('Venezuela', 31828110, 916445, 35),
-INSERT INTO country(name, population, area, density) VALUES ('United States', 329334261, 9833517, 33),
-INSERT INTO country(name, population, area, density) VALUES ('Kyrgyzstan', 6309300, 199945, 32),
-INSERT INTO country(name, population, area, density) VALUES ('Latvia', 1918500, 64562, 30),
-INSERT INTO country(name, population, area, density) VALUES ('Estonia', 1315635, 45339, 29),
-INSERT INTO country(name, population, area, density) VALUES ('The Bahamas', 386870, 13940, 28),
-INSERT INTO country(name, population, area, density) VALUES ('Abkhazia', 243206, 8660, 28),
-INSERT INTO country(name, population, area, density) VALUES ('Laos', 6492400, 236800, 27),
-INSERT INTO country(name, population, area, density) VALUES ('Saint Pierre and Miquelon', 6081, 242, 25),
-INSERT INTO country(name, population, area, density) VALUES ('Peru', 32162184, 1285216, 25),
-INSERT INTO country(name, population, area, density) VALUES ('Vanuatu', 304500, 12281, 25),
-INSERT INTO country(name, population, area, density) VALUES ('Brazil', 210006711, 8515767, 25),
-INSERT INTO country(name, population, area, density) VALUES ('Somalia', 15181925, 637657, 24),
-INSERT INTO country(name, population, area, density) VALUES ('Solomon Islands', 682500, 28370, 24),
-INSERT INTO country(name, population, area, density) VALUES ('Angola', 29250009, 1246700, 23),
-INSERT INTO country(name, population, area, density) VALUES ('Chile', 17373831, 756096, 23),
-INSERT INTO country(name, population, area, density) VALUES ('Sweden', 10280205, 450295, 23),
-INSERT INTO country(name, population, area, density) VALUES ('Zambia', 16405229, 752612, 22),
-INSERT INTO country(name, population, area, density) VALUES ('Sudan', 40782742, 1839542, 22),
-INSERT INTO country(name, population, area, density) VALUES ('Bhutan', 813888, 38394, 21),
-INSERT INTO country(name, population, area, density) VALUES ('South Sudan', 12575714, 644329, 20),
-INSERT INTO country(name, population, area, density) VALUES ('Somaliland', 3508180, 176120, 20),
-INSERT INTO country(name, population, area, density) VALUES ('land Islands', 28502, 1552, 18),
-INSERT INTO country(name, population, area, density) VALUES ('Algeria', 42545964, 2381741, 18),
-INSERT INTO country(name, population, area, density) VALUES ('Niger', 21466863, 1186408, 18),
-INSERT INTO country(name, population, area, density) VALUES ('New Zealand', 4966984, 270467, 18),
-INSERT INTO country(name, population, area, density) VALUES ('Papua New Guinea', 8558800, 462840, 18),
-INSERT INTO country(name, population, area, density) VALUES ('Uruguay', 2990452, 176215, 17),
-INSERT INTO country(name, population, area, density) VALUES ('Paraguay', 7052983, 406752, 17),
-INSERT INTO country(name, population, area, density) VALUES ('Belize', 398050, 22965, 17),
-INSERT INTO country(name, population, area, density) VALUES ('Norway', 5328212, 323782, 16),
-INSERT INTO country(name, population, area, density) VALUES ('Finland', 5521773, 338424, 16),
-INSERT INTO country(name, population, area, density) VALUES ('Argentina', 44494502, 2780400, 16),
-INSERT INTO country(name, population, area, density) VALUES ('Saudi Arabia', 33413660, 2149690, 16),
-INSERT INTO country(name, population, area, density) VALUES ('Republic of the Congo', 5399895, 342000, 16),
-INSERT INTO country(name, population, area, density) VALUES ('Mali', 19107706, 1248574, 15),
-INSERT INTO country(name, population, area, density) VALUES ('Christmas Island', 2072, 137, 15),
-INSERT INTO country(name, population, area, density) VALUES ('New Caledonia', 258958, 18575, 14),
-INSERT INTO country(name, population, area, density) VALUES ('Oman', 4183841, 309500, 14),
-INSERT INTO country(name, population, area, density) VALUES ('Saint Helena, Ascension and Tristan da Cunha', 5633, 394, 14),
-INSERT INTO country(name, population, area, density) VALUES ('Turkmenistan', 5851466, 491210, 12),
-INSERT INTO country(name, population, area, density) VALUES ('Chad', 15353184, 1284000, 12),
-INSERT INTO country(name, population, area, density) VALUES ('Bolivia', 11307314, 1098581, 10),
-INSERT INTO country(name, population, area, density) VALUES ('Russia', 146877088, 17125242, 9),
-INSERT INTO country(name, population, area, density) VALUES ('Gabon', 2067561, 267667, 8),
-INSERT INTO country(name, population, area, density) VALUES ('Central African Republic', 4737423, 622436, 8),
-INSERT INTO country(name, population, area, density) VALUES ('Kazakhstan', 18356900, 2724900, 7),
-INSERT INTO country(name, population, area, density) VALUES ('Niue', 1613, 261, 6),
-INSERT INTO country(name, population, area, density) VALUES ('Botswana', 2302878, 581730, 4),
-INSERT INTO country(name, population, area, density) VALUES ('Mauritania', 3984233, 1030700, 4),
-INSERT INTO country(name, population, area, density) VALUES ('Canada', 37504020, 9984670, 4),
-INSERT INTO country(name, population, area, density) VALUES ('Libya', 6470956, 1770060, 3.7),
-INSERT INTO country(name, population, area, density) VALUES ('Guyana', 782225, 214999, 3.6),
-INSERT INTO country(name, population, area, density) VALUES ('Suriname', 568301, 163820, 3.5),
-INSERT INTO country(name, population, area, density) VALUES ('Iceland', 357050, 102775, 3.5),
-INSERT INTO country(name, population, area, density) VALUES ('Australia', 25386648, 7692024, 3),
-INSERT INTO country(name, population, area, density) VALUES ('Namibia', 2413643, 825118, 2.9),
-INSERT INTO country(name, population, area, density) VALUES ('French Guiana', 244118, 86504, 2.8),
-INSERT INTO country(name, population, area, density) VALUES ('Sahrawi Arab Democratic Republic', 567421, 252120, 2.3),
-INSERT INTO country(name, population, area, density) VALUES ('Mongolia', 3000000, 1564100, 1.9),
-INSERT INTO country(name, population, area, density) VALUES ('Pitcairn Islands', 56, 47.3, 1.2),
-INSERT INTO country(name, population, area, density) VALUES ('Falkland Islands', 2563, 12173, 0.21),
-INSERT INTO country(name, population, area, density) VALUES ('Svalbard and Jan Mayen', 2655, 61399, 0.04),
-INSERT INTO country(name, population, area, density) VALUES ('Greenland', 55877, 2166000, 0.03),
+INSERT INTO country(name, population, area, density) VALUES ('Macau', 667400, 32.9, 20286);
+INSERT INTO country(name, population, area, density) VALUES ('Monaco', 38300, 2.02, 18960);
+INSERT INTO country(name, population, area, density) VALUES ('Singapore', 5638700, 722.5, 7804);
+INSERT INTO country(name, population, area, density) VALUES ('Hong Kong', 7482500, 1106, 6765);
+INSERT INTO country(name, population, area, density) VALUES ('Gibraltar', 33140, 6.8, 4874);
+INSERT INTO country(name, population, area, density) VALUES ('Vatican City', 1000, 0.44, 2273);
+INSERT INTO country(name, population, area, density) VALUES ('Bahrain', 1566993, 778, 2013);
+INSERT INTO country(name, population, area, density) VALUES ('Malta', 475701, 315, 1510);
+INSERT INTO country(name, population, area, density) VALUES ('Maldives', 378114, 298, 1269);
+INSERT INTO country(name, population, area, density) VALUES ('Bermuda', 63779, 52, 1227);
+INSERT INTO country(name, population, area, density) VALUES ('Sint Maarten', 40614, 34, 1195);
+INSERT INTO country(name, population, area, density) VALUES ('Bangladesh', 166684120, 143998, 1158);
+INSERT INTO country(name, population, area, density) VALUES ('Jersey', 104200, 116, 898);
+INSERT INTO country(name, population, area, density) VALUES ('Guernsey', 62723, 78, 804);
+INSERT INTO country(name, population, area, density) VALUES ('Mayotte', 256518, 374, 686);
+INSERT INTO country(name, population, area, density) VALUES ('Barbados', 287010, 430, 667);
+INSERT INTO country(name, population, area, density) VALUES ('Collectivity of Saint Martin', 35107, 53.2, 660);
+INSERT INTO country(name, population, area, density) VALUES ('Taiwan', 23590744, 36197, 652);
+INSERT INTO country(name, population, area, density) VALUES ('Mauritius', 1265577, 2040, 620);
+INSERT INTO country(name, population, area, density) VALUES ('Aruba', 111482, 180, 619);
+INSERT INTO country(name, population, area, density) VALUES ('Lebanon', 6065922, 10452, 595);
+INSERT INTO country(name, population, area, density) VALUES ('San Marino', 33407, 61, 548);
+INSERT INTO country(name, population, area, density) VALUES ('Nauru', 11000, 21, 524);
+INSERT INTO country(name, population, area, density) VALUES ('South Korea', 51811167, 100210, 517);
+INSERT INTO country(name, population, area, density) VALUES ('Rwanda', 12374397, 26338, 470);
+INSERT INTO country(name, population, area, density) VALUES ('Comoros', 873724, 1861, 469);
+INSERT INTO country(name, population, area, density) VALUES ('Saint Barthelemy', 9427, 21, 449);
+INSERT INTO country(name, population, area, density) VALUES ('Netherlands', 17323268, 41526, 417);
+INSERT INTO country(name, population, area, density) VALUES ('Haiti', 11242856, 27065, 415);
+INSERT INTO country(name, population, area, density) VALUES ('India', 1348171200, 3287240, 410);
+INSERT INTO country(name, population, area, density) VALUES ('Israel', 9039829, 22072, 410);
+INSERT INTO country(name, population, area, density) VALUES ('Burundi', 10953317, 27816, 394);
+INSERT INTO country(name, population, area, density) VALUES ('Tuvalu', 10200, 26, 392);
+INSERT INTO country(name, population, area, density) VALUES ('Belgium', 11467362, 30528, 376);
+INSERT INTO country(name, population, area, density) VALUES ('Philippines', 107750000, 300000, 359);
+INSERT INTO country(name, population, area, density) VALUES ('Puerto Rico', 3195153, 9104, 351);
+INSERT INTO country(name, population, area, density) VALUES ('Japan', 126220000, 377944, 334);
+INSERT INTO country(name, population, area, density) VALUES ('Sri Lanka', 21670000, 65610, 330);
+INSERT INTO country(name, population, area, density) VALUES ('Martinique', 371246, 1128, 329);
+INSERT INTO country(name, population, area, density) VALUES ('Guam', 172400, 541, 319);
+INSERT INTO country(name, population, area, density) VALUES ('El Salvador', 6704864, 21040, 319);
+INSERT INTO country(name, population, area, density) VALUES ('Grenada', 108825, 344, 316);
+INSERT INTO country(name, population, area, density) VALUES ('Marshall Islands', 55500, 181, 307);
+INSERT INTO country(name, population, area, density) VALUES ('United States Virgin Islands', 104909, 352, 298);
+INSERT INTO country(name, population, area, density) VALUES ('Saint Lucia', 180454, 617, 292);
+INSERT INTO country(name, population, area, density) VALUES ('American Samoa', 56700, 197, 288);
+INSERT INTO country(name, population, area, density) VALUES ('Vietnam', 94660000, 331212, 286);
+INSERT INTO country(name, population, area, density) VALUES ('Saint Vincent and the Grenadines', 110520, 389, 284);
+INSERT INTO country(name, population, area, density) VALUES ('United Kingdom', 66040229, 242910, 272);
+INSERT INTO country(name, population, area, density) VALUES ('Trinidad and Tobago', 1359193, 5155, 264);
+INSERT INTO country(name, population, area, density) VALUES ('Pakistan', 204919217, 803940, 255);
+INSERT INTO country(name, population, area, density) VALUES ('Jamaica', 2726667, 10991, 248);
+INSERT INTO country(name, population, area, density) VALUES ('Cayman Islands', 63415, 259, 245);
+INSERT INTO country(name, population, area, density) VALUES ('Guadeloupe', 395725, 1628.4, 243);
+INSERT INTO country(name, population, area, density) VALUES ('Liechtenstein', 38380, 160, 240);
+INSERT INTO country(name, population, area, density) VALUES ('Kuwait', 4226920, 17818, 237);
+INSERT INTO country(name, population, area, density) VALUES ('Luxembourg', 613894, 2586, 237);
+INSERT INTO country(name, population, area, density) VALUES ('Antigua and Barbuda', 104084, 442, 235);
+INSERT INTO country(name, population, area, density) VALUES ('Qatar', 2700390, 11571, 233);
+INSERT INTO country(name, population, area, density) VALUES ('Germany', 82979100, 357168, 232);
+INSERT INTO country(name, population, area, density) VALUES ('Nigeria', 200962000, 923768, 218);
+INSERT INTO country(name, population, area, density) VALUES ('Dominican Republic', 10358320, 47875, 216);
+INSERT INTO country(name, population, area, density) VALUES ('Seychelles', 96762, 455, 213);
+INSERT INTO country(name, population, area, density) VALUES ('British Virgin Islands', 32206, 151, 213);
+INSERT INTO country(name, population, area, density) VALUES ('North Korea', 25450000, 120540, 211);
+INSERT INTO country(name, population, area, density) VALUES ('Saint Kitts and Nevis', 56345, 270, 209);
+INSERT INTO country(name, population, area, density) VALUES ('The Gambia', 2228075, 10690, 208);
+INSERT INTO country(name, population, area, density) VALUES ('Switzerland', 8542323, 41285, 207);
+INSERT INTO country(name, population, area, density) VALUES ('Nepal', 29609623, 147181, 201);
+INSERT INTO country(name, population, area, density) VALUES ('Italy', 60375749, 301308, 200);
+INSERT INTO country(name, population, area, density) VALUES ('Uganda', 40006700, 241551, 166);
+INSERT INTO country(name, population, area, density) VALUES ('Andorra', 76177, 464, 164);
+INSERT INTO country(name, population, area, density) VALUES ('Guatemala', 17679735, 108889, 162);
+INSERT INTO country(name, population, area, density) VALUES ('Sint Eustatius', 3193, 21, 152);
+INSERT INTO country(name, population, area, density) VALUES ('Tokelau', 1499, 10, 150);
+INSERT INTO country(name, population, area, density) VALUES ('Saba', 1947, 13, 150);
+INSERT INTO country(name, population, area, density) VALUES ('Federated States of Micronesia', 105300, 701, 150);
+INSERT INTO country(name, population, area, density) VALUES ('Malawi', 17563749, 118484, 148);
+INSERT INTO country(name, population, area, density) VALUES ('Kiribati', 120100, 811, 148);
+INSERT INTO country(name, population, area, density) VALUES ('Cyprus', 864200, 5896, 147);
+INSERT INTO country(name, population, area, density) VALUES ('Isle of Man', 83314, 572, 146);
+INSERT INTO country(name, population, area, density) VALUES ('China', 1397674160, 9640821, 145);
+INSERT INTO country(name, population, area, density) VALUES ('Indonesia', 268074600, 1904569, 141);
+INSERT INTO country(name, population, area, density) VALUES ('Tonga', 100651, 720, 140);
+INSERT INTO country(name, population, area, density) VALUES ('Anguilla', 13452, 96, 140);
+INSERT INTO country(name, population, area, density) VALUES ('Czech Republic', 10649800, 78867, 135);
+INSERT INTO country(name, population, area, density) VALUES ('Thailand', 69183173, 513120, 135);
+INSERT INTO country(name, population, area, density) VALUES ('Denmark', 5806081, 43098, 135);
+INSERT INTO country(name, population, area, density) VALUES ('Cape Verde', 544081, 4033, 133);
+INSERT INTO country(name, population, area, density) VALUES ('Togo', 7352000, 56600, 130);
+INSERT INTO country(name, population, area, density) VALUES ('Ghana', 30280811, 238533, 127);
+INSERT INTO country(name, population, area, density) VALUES ('France', 66998000, 543965, 123);
+INSERT INTO country(name, population, area, density) VALUES ('Poland', 38413000, 312685, 123);
+INSERT INTO country(name, population, area, density) VALUES ('Northern Mariana Islands', 56200, 457, 123);
+INSERT INTO country(name, population, area, density) VALUES ('Jordan', 10432196, 89342, 117);
+INSERT INTO country(name, population, area, density) VALUES ('Azerbaijan', 9981457, 86600, 115);
+INSERT INTO country(name, population, area, density) VALUES ('United Arab Emirates', 9541615, 83600, 114);
+INSERT INTO country(name, population, area, density) VALUES ('Transnistria', 469000, 4163, 113);
+INSERT INTO country(name, population, area, density) VALUES ('Portugal', 10291027, 92090, 112);
+INSERT INTO country(name, population, area, density) VALUES ('Slovakia', 5443120, 49036, 111);
+INSERT INTO country(name, population, area, density) VALUES ('Austria', 8869537, 83879, 106);
+INSERT INTO country(name, population, area, density) VALUES ('Turkey', 82003882, 783562, 105);
+INSERT INTO country(name, population, area, density) VALUES ('Hungary', 9764000, 93029, 105);
+INSERT INTO country(name, population, area, density) VALUES ('Moldova', 3547539, 33843, 105);
+INSERT INTO country(name, population, area, density) VALUES ('Cuba', 11221060, 109884, 102);
+INSERT INTO country(name, population, area, density) VALUES ('Slovenia', 2066880, 20273, 102);
+INSERT INTO country(name, population, area, density) VALUES ('Ethiopia', 107534882, 1063652, 101);
+INSERT INTO country(name, population, area, density) VALUES ('Benin', 11362269, 112622, 101);
+INSERT INTO country(name, population, area, density) VALUES ('Dominica', 74308, 739, 101);
+INSERT INTO country(name, population, area, density) VALUES ('Armenia', 2969200, 29743, 100);
+INSERT INTO country(name, population, area, density) VALUES ('Albania', 2870324, 28703, 100);
+INSERT INTO country(name, population, area, density) VALUES ('Syria', 18284407, 185180, 99);
+INSERT INTO country(name, population, area, density) VALUES ('Sierra Leone', 7075641, 71740, 99);
+INSERT INTO country(name, population, area, density) VALUES ('Malaysia', 32754204, 330803, 99);
+INSERT INTO country(name, population, area, density) VALUES ('Egypt', 98778535, 1002450, 99);
+INSERT INTO country(name, population, area, density) VALUES ('Costa Rica', 5003393, 51100, 98);
+INSERT INTO country(name, population, area, density) VALUES ('Iraq', 40877898, 437072, 94);
+INSERT INTO country(name, population, area, density) VALUES ('Spain', 46733038, 505990, 92);
+INSERT INTO country(name, population, area, density) VALUES ('Kenya', 52950879, 581834, 91);
+INSERT INTO country(name, population, area, density) VALUES ('Cambodia', 16561944, 181035, 91);
+INSERT INTO country(name, population, area, density) VALUES ('Serbia', 6901188, 77474, 89);
+INSERT INTO country(name, population, area, density) VALUES ('Wallis & Futuna', 11700, 142, 82);
+INSERT INTO country(name, population, area, density) VALUES ('Romania', 19524000, 238391, 82);
+INSERT INTO country(name, population, area, density) VALUES ('Greece', 10741165, 131957, 81);
+INSERT INTO country(name, population, area, density) VALUES ('FYRO Macedonia', 2075301, 25713, 81);
+INSERT INTO country(name, population, area, density) VALUES ('Senegal', 15726037, 196722, 80);
+INSERT INTO country(name, population, area, density) VALUES ('Honduras', 9012229, 112492, 80);
+INSERT INTO country(name, population, area, density) VALUES ('Myanmar', 53862731, 676577, 80);
+INSERT INTO country(name, population, area, density) VALUES ('Ivory Coast', 25823071, 322921, 80);
+INSERT INTO country(name, population, area, density) VALUES ('French Polynesia', 277100, 3521, 79);
+INSERT INTO country(name, population, area, density) VALUES ('Morocco', 35041669, 446550, 78);
+INSERT INTO country(name, population, area, density) VALUES ('East Timor', 1167242, 14919, 78);
+INSERT INTO country(name, population, area, density) VALUES ('Turks and Caicos Islands', 37910, 497, 76);
+INSERT INTO country(name, population, area, density) VALUES ('Lesotho', 2263010, 30355, 75);
+INSERT INTO country(name, population, area, density) VALUES ('Burkina Faso', 20244080, 270764, 75);
+INSERT INTO country(name, population, area, density) VALUES ('Uzbekistan', 32653900, 447400, 73);
+INSERT INTO country(name, population, area, density) VALUES ('Brunei', 421300, 5765, 73);
+INSERT INTO country(name, population, area, density) VALUES ('Croatia', 4105493, 56542, 73);
+INSERT INTO country(name, population, area, density) VALUES ('Tunisia', 11551448, 163610, 71);
+INSERT INTO country(name, population, area, density) VALUES ('Samoa', 199052, 2831, 70);
+INSERT INTO country(name, population, area, density) VALUES ('Ukraine', 42101650, 603000, 70);
+INSERT INTO country(name, population, area, density) VALUES ('Bosnia and Herzegovina', 3511372, 51209, 69);
+INSERT INTO country(name, population, area, density) VALUES ('Republic of Ireland', 4857000, 70273, 69);
+INSERT INTO country(name, population, area, density) VALUES ('Bonaire', 18905, 288, 66);
+INSERT INTO country(name, population, area, density) VALUES ('Yemen', 28915284, 455000, 64);
+INSERT INTO country(name, population, area, density) VALUES ('Cook Islands', 15200, 237, 64);
+INSERT INTO country(name, population, area, density) VALUES ('Mexico', 125327797, 1967138, 64);
+INSERT INTO country(name, population, area, density) VALUES ('Bulgaria', 7000039, 111002, 63);
+INSERT INTO country(name, population, area, density) VALUES ('Tajikistan', 8931000, 143100, 62);
+INSERT INTO country(name, population, area, density) VALUES ('Ecuador', 17253924, 276841, 62);
+INSERT INTO country(name, population, area, density) VALUES ('Tanzania', 55890747, 945087, 59);
+INSERT INTO country(name, population, area, density) VALUES ('Panama', 4158783, 74177, 56);
+INSERT INTO country(name, population, area, density) VALUES ('Georgia (country)', 3729600, 69700, 54);
+INSERT INTO country(name, population, area, density) VALUES ('Nicaragua', 6393824, 121428, 53);
+INSERT INTO country(name, population, area, density) VALUES ('Cameroon', 24348251, 466050, 52);
+INSERT INTO country(name, population, area, density) VALUES ('Iran', 82512604, 1648195, 50);
+INSERT INTO country(name, population, area, density) VALUES ('Norfolk Island', 1748, 35, 50);
+INSERT INTO country(name, population, area, density) VALUES ('Guinea', 12218357, 245857, 50);
+INSERT INTO country(name, population, area, density) VALUES ('Afghanistan', 31575018, 645807, 49);
+INSERT INTO country(name, population, area, density) VALUES ('Montserrat', 4922, 102, 48);
+INSERT INTO country(name, population, area, density) VALUES ('Fiji', 884887, 18333, 48);
+INSERT INTO country(name, population, area, density) VALUES ('South Africa', 57725600, 1220813, 47);
+INSERT INTO country(name, population, area, density) VALUES ('Djibouti', 1078373, 23000, 47);
+INSERT INTO country(name, population, area, density) VALUES ('Belarus', 9465300, 207600, 46);
+INSERT INTO country(name, population, area, density) VALUES ('Montenegro', 622359, 13812, 45);
+INSERT INTO country(name, population, area, density) VALUES ('Liberia', 4382387, 97036, 45);
+INSERT INTO country(name, population, area, density) VALUES ('Madagascar', 26262810, 587041, 45);
+INSERT INTO country(name, population, area, density) VALUES ('Equatorial Guinea', 1222442, 28051, 44);
+INSERT INTO country(name, population, area, density) VALUES ('Guinea-Bissau', 1584763, 36125, 44);
+INSERT INTO country(name, population, area, density) VALUES ('Eritrea', 5187948, 121100, 43);
+INSERT INTO country(name, population, area, density) VALUES ('Lithuania', 2793986, 65300, 43);
+INSERT INTO country(name, population, area, density) VALUES ('Colombia', 45803800, 1141748, 40);
+INSERT INTO country(name, population, area, density) VALUES ('Palau', 17900, 444, 40);
+INSERT INTO country(name, population, area, density) VALUES ('Cocos (Keeling) Islands', 544, 14, 39);
+INSERT INTO country(name, population, area, density) VALUES ('Zimbabwe', 14848905, 390757, 38);
+INSERT INTO country(name, population, area, density) VALUES ('Democratic Republic of the Congo', 84004989, 2345095, 36);
+INSERT INTO country(name, population, area, density) VALUES ('Mozambique', 28861863, 799380, 36);
+INSERT INTO country(name, population, area, density) VALUES ('Venezuela', 31828110, 916445, 35);
+INSERT INTO country(name, population, area, density) VALUES ('United States', 329334261, 9833517, 33);
+INSERT INTO country(name, population, area, density) VALUES ('Kyrgyzstan', 6309300, 199945, 32);
+INSERT INTO country(name, population, area, density) VALUES ('Latvia', 1918500, 64562, 30);
+INSERT INTO country(name, population, area, density) VALUES ('Estonia', 1315635, 45339, 29);
+INSERT INTO country(name, population, area, density) VALUES ('The Bahamas', 386870, 13940, 28);
+INSERT INTO country(name, population, area, density) VALUES ('Abkhazia', 243206, 8660, 28);
+INSERT INTO country(name, population, area, density) VALUES ('Laos', 6492400, 236800, 27);
+INSERT INTO country(name, population, area, density) VALUES ('Saint Pierre and Miquelon', 6081, 242, 25);
+INSERT INTO country(name, population, area, density) VALUES ('Peru', 32162184, 1285216, 25);
+INSERT INTO country(name, population, area, density) VALUES ('Vanuatu', 304500, 12281, 25);
+INSERT INTO country(name, population, area, density) VALUES ('Brazil', 210006711, 8515767, 25);
+INSERT INTO country(name, population, area, density) VALUES ('Somalia', 15181925, 637657, 24);
+INSERT INTO country(name, population, area, density) VALUES ('Solomon Islands', 682500, 28370, 24);
+INSERT INTO country(name, population, area, density) VALUES ('Angola', 29250009, 1246700, 23);
+INSERT INTO country(name, population, area, density) VALUES ('Chile', 17373831, 756096, 23);
+INSERT INTO country(name, population, area, density) VALUES ('Sweden', 10280205, 450295, 23);
+INSERT INTO country(name, population, area, density) VALUES ('Zambia', 16405229, 752612, 22);
+INSERT INTO country(name, population, area, density) VALUES ('Sudan', 40782742, 1839542, 22);
+INSERT INTO country(name, population, area, density) VALUES ('Bhutan', 813888, 38394, 21);
+INSERT INTO country(name, population, area, density) VALUES ('South Sudan', 12575714, 644329, 20);
+INSERT INTO country(name, population, area, density) VALUES ('Somaliland', 3508180, 176120, 20);
+INSERT INTO country(name, population, area, density) VALUES ('land Islands', 28502, 1552, 18);
+INSERT INTO country(name, population, area, density) VALUES ('Algeria', 42545964, 2381741, 18);
+INSERT INTO country(name, population, area, density) VALUES ('Niger', 21466863, 1186408, 18);
+INSERT INTO country(name, population, area, density) VALUES ('New Zealand', 4966984, 270467, 18);
+INSERT INTO country(name, population, area, density) VALUES ('Papua New Guinea', 8558800, 462840, 18);
+INSERT INTO country(name, population, area, density) VALUES ('Uruguay', 2990452, 176215, 17);
+INSERT INTO country(name, population, area, density) VALUES ('Paraguay', 7052983, 406752, 17);
+INSERT INTO country(name, population, area, density) VALUES ('Belize', 398050, 22965, 17);
+INSERT INTO country(name, population, area, density) VALUES ('Norway', 5328212, 323782, 16);
+INSERT INTO country(name, population, area, density) VALUES ('Finland', 5521773, 338424, 16);
+INSERT INTO country(name, population, area, density) VALUES ('Argentina', 44494502, 2780400, 16);
+INSERT INTO country(name, population, area, density) VALUES ('Saudi Arabia', 33413660, 2149690, 16);
+INSERT INTO country(name, population, area, density) VALUES ('Republic of the Congo', 5399895, 342000, 16);
+INSERT INTO country(name, population, area, density) VALUES ('Mali', 19107706, 1248574, 15);
+INSERT INTO country(name, population, area, density) VALUES ('Christmas Island', 2072, 137, 15);
+INSERT INTO country(name, population, area, density) VALUES ('New Caledonia', 258958, 18575, 14);
+INSERT INTO country(name, population, area, density) VALUES ('Oman', 4183841, 309500, 14);
+INSERT INTO country(name, population, area, density) VALUES ('Saint Helena, Ascension and Tristan da Cunha', 5633, 394, 14);
+INSERT INTO country(name, population, area, density) VALUES ('Turkmenistan', 5851466, 491210, 12);
+INSERT INTO country(name, population, area, density) VALUES ('Chad', 15353184, 1284000, 12);
+INSERT INTO country(name, population, area, density) VALUES ('Bolivia', 11307314, 1098581, 10);
+INSERT INTO country(name, population, area, density) VALUES ('Russia', 146877088, 17125242, 9);
+INSERT INTO country(name, population, area, density) VALUES ('Gabon', 2067561, 267667, 8);
+INSERT INTO country(name, population, area, density) VALUES ('Central African Republic', 4737423, 622436, 8);
+INSERT INTO country(name, population, area, density) VALUES ('Kazakhstan', 18356900, 2724900, 7);
+INSERT INTO country(name, population, area, density) VALUES ('Niue', 1613, 261, 6);
+INSERT INTO country(name, population, area, density) VALUES ('Botswana', 2302878, 581730, 4);
+INSERT INTO country(name, population, area, density) VALUES ('Mauritania', 3984233, 1030700, 4);
+INSERT INTO country(name, population, area, density) VALUES ('Canada', 37504020, 9984670, 4);
+INSERT INTO country(name, population, area, density) VALUES ('Libya', 6470956, 1770060, 3.7);
+INSERT INTO country(name, population, area, density) VALUES ('Guyana', 782225, 214999, 3.6);
+INSERT INTO country(name, population, area, density) VALUES ('Suriname', 568301, 163820, 3.5);
+INSERT INTO country(name, population, area, density) VALUES ('Iceland', 357050, 102775, 3.5);
+INSERT INTO country(name, population, area, density) VALUES ('Australia', 25386648, 7692024, 3);
+INSERT INTO country(name, population, area, density) VALUES ('Namibia', 2413643, 825118, 2.9);
+INSERT INTO country(name, population, area, density) VALUES ('French Guiana', 244118, 86504, 2.8);
+INSERT INTO country(name, population, area, density) VALUES ('Sahrawi Arab Democratic Republic', 567421, 252120, 2.3);
+INSERT INTO country(name, population, area, density) VALUES ('Mongolia', 3000000, 1564100, 1.9);
+INSERT INTO country(name, population, area, density) VALUES ('Pitcairn Islands', 56, 47.3, 1.2);
+INSERT INTO country(name, population, area, density) VALUES ('Falkland Islands', 2563, 12173, 0.21);
+INSERT INTO country(name, population, area, density) VALUES ('Svalbard and Jan Mayen', 2655, 61399, 0.04);
+INSERT INTO country(name, population, area, density) VALUES ('Greenland', 55877, 2166000, 0.03);

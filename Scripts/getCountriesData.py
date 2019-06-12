@@ -47,4 +47,4 @@ blackListCountries = ['Sint Maarten', 'Saba', 'Curaao', 'Republic of Artsakh', '
 with open('data.txt', 'w') as file:
     for x in range(0, len(countryNames)):
         if countryNames[x] not in blackListCountries:
-            file.write('INSERT INTO country(name, population, area, density) VALUES (\'' + str(countryNames[x]) + '\', ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' + countryDensity[x] + '),\n')
+            file.write('INSERT INTO country(name, population, area, density) VALUES (\'' + str(countryNames[x]) + '\', ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' + countryDensity[x] + ');\n')

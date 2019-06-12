@@ -14,13 +14,10 @@ public class BackendApplication {
 	//[REFACTOR] separate table for date
 	//[FIX] dont save to db the same requests at the same day
 	//[FEAT] add special case for poland/all jobs/ all it jobs on DB
-	//[CHORE] check if init database is not duplicating at starting point
-	//[FIX] psql
 	//[FIX] devtools
 	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
-	//[FEAT] implement apartments scraping
 	//[FEAT] add json web token
 	//[TEST] add tests
 
