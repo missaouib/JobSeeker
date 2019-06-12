@@ -65,11 +65,15 @@ public class TechnologyServiceImp implements TechnologyService {
             WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp");
             WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology);
 
-            if(selectedCityASCII.equals("poland")) {
+            if(selectedCityASCII.equals("all cities")) {
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw");
                 noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=" + selectedTechnology);
+                linkedinURL = WebClient.create("https://www.linkedin.com/jobs/" + selectedTechnology + "-jobs-poland");
             }
-            if(selectedTechnology.equals("c++")) {
+            if(selectedCityASCII.equals("all cities") && selectedTechnology.equals("c++")){
+                linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-poland");
+            }
+            else if(selectedTechnology.equals("c++")) {
                 linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + selectedCityASCII);
             }
 
@@ -79,7 +83,7 @@ public class TechnologyServiceImp implements TechnologyService {
             technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujURL));
             technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
 
-            if(selectedCityASCII.equals("poland")){
+            if(selectedCityASCII.equals("all cities")){
                 technologyOffers.setJustJoin((int) justJoinOffers
                         .stream()
                         .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
