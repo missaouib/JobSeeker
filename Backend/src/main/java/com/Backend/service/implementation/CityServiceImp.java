@@ -62,6 +62,11 @@ public class CityServiceImp implements CityService {
 
                     String selectedCityUTF8 = city.getName().toLowerCase();
                     String selectedCityASCII = scrapJobService.removePolishSigns(selectedCityUTF8);
+
+                    if(selectedCityASCII.equals("all cities")){
+                        selectedCityASCII = selectedCityASCII.replaceAll("all cities", "poland");
+                    }
+
                     WebClient linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII);
                     WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp");
                     WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology);
@@ -71,11 +76,17 @@ public class CityServiceImp implements CityService {
                             linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=&location=" + selectedCityASCII);
                             pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp");
                             noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII);
+                            if(selectedCityASCII.equals("poland")) {
+                                noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting");
+                            }
                             break;
                         case "all it jobs":
                             linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?location=" + selectedCityASCII + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
                             pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
                             noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII);
+                            if(selectedCityASCII.equals("poland")) {
+                                noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting");
+                            }
                             break;
                         case "c++":
                             linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + selectedCityASCII);
@@ -86,21 +97,28 @@ public class CityServiceImp implements CityService {
                             break;
                     }
 
+                    if(selectedCityASCII.equals("poland") && !selectedTechnology.equals("all it jobs") && !selectedTechnology.equals("all jobs")) {
+                        noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=" + selectedTechnology);
+                    }
+
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
                     cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
                     cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
 
+                    String finalSelectedCityASCII = selectedCityASCII;
                     if(selectedTechnology.equals("all it jobs") || selectedTechnology.equals("all jobs") ){
                         cityOffer.setJustJoin((int) justJoinOffers
                                 .stream()
                                 .filter(filterCity -> {
                                     if(selectedCityUTF8.equals("warszawa")){
-                                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
-                                        } else if (selectedCityUTF8.equals("kraków")){
-                                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
+                                        } else if (selectedCityUTF8.equals("kraków")) {
+                                              return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                                        } else if(finalSelectedCityASCII.equals("poland")) {
+                                            return true;
                                         } else {
-                                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII));
+                                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII));
                                         }
                                     })
                                 .count());
@@ -111,11 +129,13 @@ public class CityServiceImp implements CityService {
                                     || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology))
                                 .filter(filterCity -> {
                                     if(selectedCityUTF8.equals("warszawa")){
-                                        return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
+                                        return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
                                     } else if (selectedCityUTF8.equals("kraków")){
-                                        return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                                        return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                                    } else if(finalSelectedCityASCII.equals("poland")) {
+                                        return true;
                                     } else {
-                                        return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII));
+                                        return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII));
                                     }
                                 })
                                 .count());

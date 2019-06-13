@@ -58,23 +58,54 @@ public class TechnologyServiceImp implements TechnologyService {
         List<TechnologyOffers> technologiesOffers = new ArrayList<>();
         Optional<City> cityOptional = cityRepository.findCityByName(selectedCityUTF8);
 
+        if(selectedCityASCII.equals("all cities")){
+            selectedCityASCII = selectedCityASCII.replaceAll("all cities", "poland");
+        }
+        String finalSelectedCityASCII = selectedCityASCII;
+
         technologies.forEach(technology -> {
 
             String selectedTechnology = technology.getName().toLowerCase();
-            WebClient linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII);
-            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp");
-            WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology);
+            WebClient linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + finalSelectedCityASCII);
+            WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + finalSelectedCityASCII + ";wp");
+            WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + finalSelectedCityASCII + "+" + selectedTechnology);
 
-            if(selectedCityASCII.equals("all cities")) {
+            switch(selectedTechnology){
+                case "all jobs":
+                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=&location=" + finalSelectedCityASCII);
+                    pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + finalSelectedCityASCII + ";wp");
+                    noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + finalSelectedCityASCII);
+                    if(finalSelectedCityASCII.equals("poland")) {
+                        noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting");
+                    }
+                    break;
+                case "all it jobs":
+                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?location=" + finalSelectedCityASCII + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
+                    pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + finalSelectedCityASCII + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
+                    noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + finalSelectedCityASCII);
+                    if(finalSelectedCityASCII.equals("poland")) {
+                        noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting");
+                    }
+                    break;
+                case "c++":
+                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + finalSelectedCityASCII);
+                    break;
+                case "c#":
+                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=C%23&location=" + finalSelectedCityASCII);
+                    pracujURL = WebClient.create("https://www.pracuj.pl/praca/c%23;kw/" + finalSelectedCityASCII + ";wp");
+                    break;
+            }
+
+            if(finalSelectedCityASCII.equals("poland") && !selectedTechnology.equals("all it jobs") && !selectedTechnology.equals("all jobs")) {
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw");
                 noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=" + selectedTechnology);
                 linkedinURL = WebClient.create("https://www.linkedin.com/jobs/" + selectedTechnology + "-jobs-poland");
             }
-            if(selectedCityASCII.equals("all cities") && selectedTechnology.equals("c++")){
+            if(finalSelectedCityASCII.equals("poland") && selectedTechnology.equals("c++")){
                 linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-poland");
             }
             else if(selectedTechnology.equals("c++")) {
-                linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + selectedCityASCII);
+                linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + finalSelectedCityASCII);
             }
 
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
@@ -83,24 +114,36 @@ public class TechnologyServiceImp implements TechnologyService {
             technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujURL));
             technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
 
-            if(selectedCityASCII.equals("all cities")){
+            if(finalSelectedCityASCII.equals("poland")){
                 technologyOffers.setJustJoin((int) justJoinOffers
                         .stream()
-                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
-                                || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology))
+                        .filter(filterTechnology -> {
+                            if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")){
+                                return true;
+                            } else {
+                                return filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
+                                        || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology);
+                            }
+                        })
                         .count());
             } else {
                 technologyOffers.setJustJoin((int) justJoinOffers
                         .stream()
-                        .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
-                                || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology))
-                        .filter(filterCity -> {
-                            if(selectedCityASCII.equals("warszawa")){
-                                return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
-                            } else if (selectedCityASCII.equals("kraków")){
-                                return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                        .filter(filterTechnology -> {
+                            if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")) {
+                                return true;
                             } else {
-                                return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII));
+                                return filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
+                                        || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology);
+                            }
+                        })
+                        .filter(filterCity -> {
+                            if(finalSelectedCityASCII.equals("warszawa")){
+                                return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
+                            } else if (finalSelectedCityASCII.equals("kraków")){
+                                return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                            } else {
+                                return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(finalSelectedCityASCII));
                             }
                         })
                         .count());

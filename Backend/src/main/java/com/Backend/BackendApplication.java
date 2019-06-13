@@ -11,8 +11,6 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[FIX] all it jobs save db
-	//[REFACTOR] separate table for date?
 	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
