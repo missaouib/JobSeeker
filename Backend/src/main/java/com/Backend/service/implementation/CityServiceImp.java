@@ -102,6 +102,7 @@ public class CityServiceImp implements CityService {
                     }
 
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
+
                     cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
                     cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
@@ -145,13 +146,8 @@ public class CityServiceImp implements CityService {
         );
 
         return technologyOptional
-                .map(ignoredTechnology -> {
-                    if(cityOffersRepository.findFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology).isPresent()){
-                        return null;
-                    } else {
-                        return citiesOffers.stream().map(city -> modelMapper.map(cityOffersRepository.save(city), CityDto.class)).collect(Collectors.toList());
-                    }
-                })
+                .filter(ignoredTechnology -> !cityOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
+                .map(ignoredCity -> citiesOffers.stream().map(category -> modelMapper.map(cityOffersRepository.save(category), CityDto.class)).collect(Collectors.toList()))
                 .orElseGet(() -> citiesOffers.stream().map(city -> modelMapper.map(city, CityDto.class)).collect(Collectors.toList()));
     }
 }

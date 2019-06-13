@@ -152,14 +152,8 @@ public class TechnologyServiceImp implements TechnologyService {
         });
 
         return cityOptional
-                .map(ignoredCity -> {
-                            if (technologyOffersRepository.findFirstByDateAndCity(LocalDate.now(), ignoredCity).isPresent()) {
-                                return null;
-                            } else {
-                                return technologiesOffers.stream().map(category -> modelMapper.map(technologyOffersRepository.save(category), TechnologyDto.class)).collect(Collectors.toList());
-                            }
-                        }
-                )
-                .orElseGet(() -> technologiesOffers.stream().map(technology -> modelMapper.map(technology, TechnologyDto.class)).collect(Collectors.toList()));
+                .filter(ignoredCity -> !technologyOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
+                .map(ignoredCity -> technologiesOffers.stream().map(category -> modelMapper.map(technologyOffersRepository.save(category), TechnologyDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> technologiesOffers.stream().map(category -> modelMapper.map(category, TechnologyDto.class)).collect(Collectors.toList()));
     }
 }

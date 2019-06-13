@@ -63,18 +63,15 @@ public class CategoryServiceImp implements CategoryService {
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId());
             }
 
-            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), scrapJobService.getPracujOffers(pracujURL)));
+            WebClient finalPracujURL = pracujURL;
+            cityOptional.map(x -> new CategoryOffers(category, x, LocalDate.now(), scrapJobService.getPracujOffers(finalPracujURL)))
+                    .ifPresent(categoriesOffers::add);
         });
 
         return cityOptional
-                .map(ignoredCity -> {
-                            if (categoryOffersRepository.findFirstByDateAndCity(LocalDate.now(), ignoredCity).isPresent()) {
-                                return null;
-                            } else {
-                                return categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList());
-                            }
-                        }
-                )
+                .filter(ignoredCity -> !categoryOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
+                .map(ignoredCity -> categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList()))
                 .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList()));
+
     }
 }

@@ -1,12 +1,23 @@
 .about {
-  display: flex;
-  justify-content: center;
-  width: 50%;
-  border: 1px solid #ccc;
-  border-radius: 1rem;
-  margin: 2% auto auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 50%;
+border: 1px solid #ccc;
+border-radius: 1rem;
+margin: 2% auto auto;
 }
 
-  .about-list {
-    list-style-type: none;
-  }
+.about-info {
+  padding-top: 4%;
+}
+
+.about-list {
+  display: flex;
+  padding: 2%;
+}
+
+.about-list ul {
+  list-style-type: none;
+}
+

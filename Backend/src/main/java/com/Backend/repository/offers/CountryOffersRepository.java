@@ -8,5 +8,5 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface CountryOffersRepository extends JpaRepository<CountryOffers, Long> {
-    Optional<CountryOffers> findFirstByDateAndTechnology(LocalDate date, Technology technology);
+    Boolean existsFirstByDateAndTechnology(LocalDate date, Technology technology);
 }

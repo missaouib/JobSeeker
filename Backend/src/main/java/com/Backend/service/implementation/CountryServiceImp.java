@@ -83,13 +83,8 @@ public class CountryServiceImp implements CountryService {
         });
 
         return technologyOptional
-                .map(ignoredTechnology -> {
-                    if(countryOffersRepository.findFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology).isPresent()){
-                        return null;
-                    } else {
-                        return countriesOffers.stream().map(city -> modelMapper.map(countryOffersRepository.save(city), CountryDto.class)).collect(Collectors.toList());
-                    }
-                })
-                .orElseGet(() -> countriesOffers.stream().map(country -> modelMapper.map(country, CountryDto.class)).collect(Collectors.toList()));
+                .filter(ignoredTechnology -> !countryOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
+                .map(ignoredCity -> countriesOffers.stream().map(category -> modelMapper.map(countryOffersRepository.save(category), CountryDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> countriesOffers.stream().map(city -> modelMapper.map(city, CountryDto.class)).collect(Collectors.toList()));
     }
 }
