@@ -35,7 +35,7 @@ export class MainInputFieldComponent implements OnInit {
     private resultInputService: ResultInputService,
     private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.filteredInputs = this.searchInput.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
