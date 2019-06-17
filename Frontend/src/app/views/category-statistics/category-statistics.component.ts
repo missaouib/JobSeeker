@@ -34,10 +34,12 @@ export class CategoryStatisticsComponent {
 
       this.totalOffers = this.categoryList.map(category => category.pracuj).reduce((sum, current) => sum + current);
       this.showSpinner = false;
+
+      categoryService.updateCategories(categories);
     });
   }
 
-  switchLanguage(){
+  switchLanguage() {
     this.isLanguage = !this.isLanguage;
   }
 

@@ -45,6 +45,7 @@ public class CategoryServiceImp implements CategoryService {
         protected void configure() {
             map().setPolishName(source.getCategory().getPolishName());
             map().setEnglishName(source.getCategory().getEnglishName());
+            map().setId(source.getCategory().getId());
         }
     };
 
@@ -63,9 +64,7 @@ public class CategoryServiceImp implements CategoryService {
                 pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId());
             }
 
-            WebClient finalPracujURL = pracujURL;
-            cityOptional.map(x -> new CategoryOffers(category, x, LocalDate.now(), scrapJobService.getPracujOffers(finalPracujURL)))
-                    .ifPresent(categoriesOffers::add);
+            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), scrapJobService.getPracujOffers(pracujURL)));
         });
 
         return cityOptional
