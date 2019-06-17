@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import {Technology} from "../../models/technology.model";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
@@ -8,7 +8,7 @@ import {ResultInputService} from "../../services/result-input.service";
   templateUrl: './technology-statistics.component.html',
   styleUrls: ['./technology-statistics.component.css']
 })
-export class TechnologyStatisticsComponent {
+export class TechnologyStatisticsComponent implements OnInit {
 
   totalPracuj: number[] = [];
   totalLinkedin: number[] = [];
@@ -72,6 +72,10 @@ export class TechnologyStatisticsComponent {
 
       this.showSpinner = false;
     });
+  }
+
+  ngOnInit() {
+
   }
 
   getTotalLinkedin(type: String): number {

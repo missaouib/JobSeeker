@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class TechnologyDto {
+    Long id;
     LocalDate date;
     String name;
     String type;

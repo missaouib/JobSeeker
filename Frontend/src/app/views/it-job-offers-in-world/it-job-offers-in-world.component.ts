@@ -1,4 +1,4 @@
-import {Component, DoCheck, ViewChild} from '@angular/core';
+import { Component, DoCheck, ViewChild, OnInit } from '@angular/core';
 import {Country} from "../../models/country.model";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
@@ -8,7 +8,7 @@ import {ResultInputService} from "../../services/result-input.service";
   templateUrl: './it-job-offers-in-world.component.html',
   styleUrls: ['./it-job-offers-in-world.component.css']
 })
-export class ItJobOffersInWorldComponent implements DoCheck {
+export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
 
   totalOffers: number;
   showSpinner = false;
@@ -24,6 +24,10 @@ export class ItJobOffersInWorldComponent implements DoCheck {
   ngDoCheck(){
     this.pageIndex = this.paginator.pageIndex;
     this.pageLimit = this.paginator.pageSize;
+  }
+
+  ngOnInit() {
+
   }
 
   constructor(private resultInputService: ResultInputService) {

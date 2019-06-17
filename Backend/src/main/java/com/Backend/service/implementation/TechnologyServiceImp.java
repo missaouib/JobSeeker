@@ -46,6 +46,7 @@ public class TechnologyServiceImp implements TechnologyService {
         protected void configure() {
             map().setName(source.getTechnology().getName());
             map().setType(source.getTechnology().getType());
+            map().setId(source.getTechnology().getId());
         }
     };
 

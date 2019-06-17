@@ -47,6 +47,7 @@ public class CountryServiceImp implements CountryService {
             map().setPopulation(source.getCountry().getPopulation());
             map().setArea(source.getCountry().getArea());
             map().setDensity(source.getCountry().getDensity());
+            map().setId(source.getCountry().getId());
         }
     };
 

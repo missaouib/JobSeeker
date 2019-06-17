@@ -48,6 +48,7 @@ public class CityServiceImp implements CityService {
             map().setPopulation(source.getCity().getPopulation());
             map().setArea(source.getCity().getArea());
             map().setDensity(source.getCity().getDensity());
+            map().setId(source.getCity().getId());
         }
     };
 

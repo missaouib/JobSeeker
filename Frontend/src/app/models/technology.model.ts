@@ -1,5 +1,8 @@
+import { ID } from '@datorama/akita';
+
 export class Technology {
   constructor(
+    public id: ID,
     public date: Date,
     public name: string,
     public type: string,

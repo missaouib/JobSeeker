@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class CityDto {
+    Long id;
     LocalDate date;
     String name;
     int population;
