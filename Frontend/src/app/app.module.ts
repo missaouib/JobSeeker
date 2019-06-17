@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { environment } from '../environments/environment';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -65,7 +67,8 @@ import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagr
     MatCardModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot()
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

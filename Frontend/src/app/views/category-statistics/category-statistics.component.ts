@@ -1,3 +1,4 @@
+import { CategoryService } from './../../store/category/category.service';
 import {Component, ViewChild} from '@angular/core';
 import {Category} from "../../models/category.model";
 import {MatSort, MatTableDataSource} from "@angular/material";
@@ -19,7 +20,7 @@ export class CategoryStatisticsComponent {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private resultInputService: ResultInputService) {
+  constructor(private resultInputService: ResultInputService, private categoryService: CategoryService) {
     this.resultInputService.showSpinner$.subscribe(() => {
       this.categoryList.length = 0;
       this.showSpinner = true;

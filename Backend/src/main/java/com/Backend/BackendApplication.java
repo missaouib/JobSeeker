@@ -18,6 +18,6 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FEAT] fill about view with all the tooltips
+	//[FEAT] style about view
 	//[FEAT] add store
 }

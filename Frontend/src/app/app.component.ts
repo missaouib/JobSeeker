@@ -1,5 +1,6 @@
 import { fadeAnimation } from './animations/fade.animation';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { akitaDevtools } from '@datorama/akita';
 
 @Component({
   selector: 'app-root',
@@ -20,5 +21,9 @@ export class AppComponent {
 
   public getRouterOutletState(outlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';
+  }
+
+  constructor(private ngZone: NgZone){
+    akitaDevtools(ngZone);
   }
 }
