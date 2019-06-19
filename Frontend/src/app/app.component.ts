@@ -22,8 +22,4 @@ export class AppComponent {
   public getRouterOutletState(outlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';
   }
-
-  constructor(private ngZone: NgZone){
-    akitaDevtools(ngZone);
-  }
 }

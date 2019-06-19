@@ -1,3 +1,7 @@
+import { CategoryQuery } from './../../store/category/category.query';
+import { TechnologyQuery } from './../../store/technology/technology.query';
+import { CountryQuery } from './../../store/country/country.query';
+import { CityQuery } from './../../store/city/city.query';
 import { Country } from '../../models/country.model';
 import { City } from '../../models/city.model';
 import { ResultInputService } from '../../services/result-input.service';
@@ -33,7 +37,46 @@ export class MainInputFieldComponent implements OnInit {
 
   constructor(private httpService: HttpService,
     private resultInputService: ResultInputService,
-    private router: Router) { }
+    private router: Router,
+    private cityQuery: CityQuery,
+    private categoryQuery: CategoryQuery,
+    private technologyQuery: TechnologyQuery,
+    private countryQuery: CountryQuery) {
+      switch (this.router.url) {
+        case '/': {
+          this.cityQuery.select(state => {
+            return state.input
+          }).subscribe(input => {
+            this.searchInput.setValue(input);
+          });
+          break;
+        }
+        case '/world': {
+          this.countryQuery.select(state => {
+            return state.input
+          }).subscribe(input => {
+            this.searchInput.setValue(input);
+          });
+          break;
+        }
+        case '/technology': {
+          this.technologyQuery.select(state => {
+            return state.input
+          }).subscribe(input => {
+            this.searchInput.setValue(input);
+          });
+          break;
+        }
+        case '/category': {
+          this.categoryQuery.select(state => {
+            return state.input
+          }).subscribe(input => {
+            this.searchInput.setValue(input);
+          });
+          break;
+        }
+      }
+     }
 
   ngOnInit() {
     this.filteredInputs = this.searchInput.valueChanges.pipe(
@@ -69,6 +112,7 @@ export class MainInputFieldComponent implements OnInit {
               this.cityList = cityList;
               this.resultInputService.fillCityTable(cityList);
             });
+          this.cityQuery.updateMainInput(this.searchInput.value);
           break;
         }
         case '/world': {
@@ -77,6 +121,7 @@ export class MainInputFieldComponent implements OnInit {
               this.countryList = countryList;
               this.resultInputService.fillCountryTable(countryList);
             });
+          this.countryQuery.updateMainInput(this.searchInput.value);
           break;
         }
         case '/technology': {
@@ -85,6 +130,7 @@ export class MainInputFieldComponent implements OnInit {
               this.technologyList = technologyList;
               this.resultInputService.fillTechnologyTable(technologyList);
             });
+          this.technologyQuery.updateMainInput(this.searchInput.value);
           break;
         }
         case '/category': {
@@ -93,6 +139,7 @@ export class MainInputFieldComponent implements OnInit {
               this.categoryList = categoryList;
               this.resultInputService.fillCategoryTable(categoryList);
             });
+          this.categoryQuery.updateMainInput(this.searchInput.value);
           break;
         }
       }

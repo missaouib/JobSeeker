@@ -28,9 +28,12 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillCountryTable$.subscribe(countries => {
+    this.resultInputService.fillCountryTable$.subscribe((countries: Country[]) => {
       this.countryList = countries;
-      this.countryList.map(country => country.per100k = Number((country.linkedin / (country.population / 100000)).toFixed(2)));
+      this.countryList.map(country => {
+        const per100k = Number((country.linkedin / (country.population / 100000)).toFixed(2));
+        country.per100k = per100k;
+      });
       this.fillTable(this.countryList);
 
       this.showSpinner = false;

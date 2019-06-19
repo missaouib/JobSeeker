@@ -1,6 +1,6 @@
 import { ID } from '@datorama/akita';
 
-export type Category = {
+export interface Category {
   id: ID;
   date: Date;
   polishName: String;

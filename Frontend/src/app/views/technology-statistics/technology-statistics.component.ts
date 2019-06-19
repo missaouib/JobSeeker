@@ -33,10 +33,12 @@ export class TechnologyStatisticsComponent implements OnInit {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillTechnologyTable$.subscribe(technologies => {
+    this.resultInputService.fillTechnologyTable$.subscribe((technologies: Technology[]) => {
       this.technologyList = technologies;
 
-      this.technologyList.map(technology => technology.total = technology.linkedin + technology.pracuj + technology.noFluffJobs);
+      this.technologyList.map(technology => {
+        technology.total = technology.linkedin + technology.pracuj + technology.noFluffJobs + technology.justJoin
+      });
       this.technologyList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
 
       this.showSpinner = false;

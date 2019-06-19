@@ -26,7 +26,7 @@ export class CategoryStatisticsComponent implements OnInit {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillCategoryTable$.subscribe(categories => {
+    this.resultInputService.fillCategoryTable$.subscribe((categories: Category[]) => {
       this.fillTable(categories);
       this.categoryQuery.updateCategories(categories);
     });

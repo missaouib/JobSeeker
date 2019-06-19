@@ -19,9 +19,15 @@ public class BackendApplication {
 
 	//[FRONTEND] TODO
 	//[FEAT] style about view
-	//[FEAT] add store
+	//[FEAT] add spiner when switching cards
+	//rename models -> interfaceas
+	//fix empty input
+	//ngondestroy unsubscribe
 
 	//[OPTIMIZATION]
-	//responsive tables
+	//responsive table
 	//send only one date per request
+	//update only changing value in store
+	//remove switch and pass arguments with share component input
+	//put queries logic in query files
 }

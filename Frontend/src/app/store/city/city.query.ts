@@ -11,6 +11,14 @@ export class CityQuery extends QueryEntity<CityState, City> {
   }
 
   updateCities(cityState: City[]) {
-    this.store.set(cityState);
+    this.store.set({...cityState});
+  }
+
+  updateMainInput(mainInput: String){
+    this.store.update(() => {
+      return {
+        input: mainInput,
+      };
+    });
   }
 }

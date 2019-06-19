@@ -11,6 +11,14 @@ export class CountryQuery extends QueryEntity<CountryState, Country> {
   }
 
   updateCountries(countryState: Country[]) {
-    this.store.set(countryState);
+    this.store.set({...countryState});
+  }
+
+  updateMainInput(mainInput: String) {
+    this.store.update(() => {
+      return {
+        input: mainInput,
+      };
+    });
   }
 }

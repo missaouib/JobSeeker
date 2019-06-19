@@ -1,3 +1,4 @@
+import { map, first } from 'rxjs/operators';
 import { CityQuery } from './../../store/city/city.query';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import {City} from "../../models/city.model";
@@ -28,12 +29,19 @@ export class ItJobOffersInPolandComponent implements OnInit {
       this.showSpinner = true;
     });
 
-    this.resultInputService.fillCityTable$.subscribe( cities => {
-      this.cityList = cities;
+    this.resultInputService.fillCityTable$.pipe(first()).subscribe( (cities: City[]) => {
+      this.cityList = [...cities];
       this.cityList = this.cityList.filter(city => city.name !== 'All Cities');
 
-      this.cityList.map(city => city.total = city.linkedin + city.pracuj + city.noFluffJobs + city.justJoin);
-      this.cityList.map(city => city.per100k = Number((city.total / (city.population / 100000)).toFixed(2)));
+      this.cityList.map(city => {
+        console.log(Object.isSealed(city));
+        const total = city.linkedin + city.pracuj + city.noFluffJobs + city.justJoin;
+        city.total = total;
+      });
+      this.cityList.map(city => {
+        const per100k = Number((city.total / (city.population / 100000)).toFixed(2));
+        city.per100k = per100k;
+      });
 
       this.fillTable(this.cityList);
       this.showSpinner = false;
@@ -52,7 +60,7 @@ export class ItJobOffersInPolandComponent implements OnInit {
   }
 
   fillTable(cities: City[]) {
-    this.cityList = cities;
+    this.cityList = [...cities];
 
     this.totalOffers[0] = this.cityList.map(city => city.linkedin).reduce((sum, current) => sum + current);
     this.totalOffers[1] = this.cityList.map(city => city.pracuj).reduce((sum, current) => sum + current);

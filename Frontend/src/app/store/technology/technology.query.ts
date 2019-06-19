@@ -12,6 +12,14 @@ export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
   }
 
   updateTechnologies(technologyState: Technology[]) {
-    this.store.set(technologyState);
+    this.store.set({...technologyState});
+  }
+
+  updateMainInput(mainInput: String) {
+    this.store.update(() => {
+      return {
+        input: mainInput,
+      };
+    });
   }
 }

@@ -11,6 +11,14 @@ export class CategoryQuery extends QueryEntity<CategoryState, Category> {
   }
 
   updateCategories(categoryState: Category[]) {
-    this.store.set(categoryState);
+    this.store.set({...categoryState});
+  }
+
+  updateMainInput(mainInput: String) {
+    this.store.update(() => {
+      return {
+        input: mainInput,
+      };
+    });
   }
 }
