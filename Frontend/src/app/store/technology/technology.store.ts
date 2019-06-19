@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export interface TechnologyState extends EntityState<Technology> {}
 
 @Injectable({providedIn: 'root'})
-@StoreConfig({name: 'categories'})
+@StoreConfig({name: 'technologies'})
 export class TechnologyStore extends EntityStore<TechnologyState, Technology> {
 
   constructor(){

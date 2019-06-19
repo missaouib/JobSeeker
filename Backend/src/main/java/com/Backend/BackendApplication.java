@@ -20,4 +20,8 @@ public class BackendApplication {
 	//[FRONTEND] TODO
 	//[FEAT] style about view
 	//[FEAT] add store
+
+	//[OPTIMIZATION]
+	//responsive tables
+	//send only one date per request
 }

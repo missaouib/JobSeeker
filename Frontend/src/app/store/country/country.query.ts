@@ -10,7 +10,7 @@ export class CountryQuery extends QueryEntity<CountryState, Country> {
     super(store);
   }
 
-  updateCategories(CountryState: Country[]) {
-    this.store.set(CountryState);
+  updateCountries(countryState: Country[]) {
+    this.store.set(countryState);
   }
 }

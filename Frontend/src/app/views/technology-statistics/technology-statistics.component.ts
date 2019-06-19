@@ -1,3 +1,4 @@
+import { TechnologyQuery } from './../../store/technology/technology.query';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import {Technology} from "../../models/technology.model";
 import {MatSort, MatTableDataSource} from "@angular/material";
@@ -26,7 +27,7 @@ export class TechnologyStatisticsComponent implements OnInit {
   @ViewChild('frameworkTable', { static: true }) public frameworkTable: MatSort;
   @ViewChild('devOpsTable', { static: true }) public devOpsTable: MatSort;
 
-  constructor(private resultInputService: ResultInputService) {
+  constructor(private resultInputService: ResultInputService, private technologyQuery: TechnologyQuery) {
     this.resultInputService.showSpinner$.subscribe(() => {
       this.technologyList.length = 0;
       this.showSpinner = true;
@@ -38,44 +39,55 @@ export class TechnologyStatisticsComponent implements OnInit {
       this.technologyList.map(technology => technology.total = technology.linkedin + technology.pracuj + technology.noFluffJobs);
       this.technologyList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
 
-      this.languageData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'language'));
-      this.frameworkData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'framework'));
-      this.devOpsData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'devops'));
-
-      this.languageData.sort = this.languageTable;
-      this.frameworkData.sort = this.frameworkTable;
-      this.devOpsData.sort = this.devOpsTable;
-
-      this.languageTable.disableClear = true;
-      this.frameworkTable.disableClear = true;
-      this.devOpsTable.disableClear = true;
-
-      this.totalLinkedin[0] = this.getTotalLinkedin('language');
-      this.totalLinkedin[1] = this.getTotalLinkedin('framework');
-      this.totalLinkedin[2] = this.getTotalLinkedin('devops');
-
-      this.totalPracuj[0] = this.getTotalPracuj('language');
-      this.totalPracuj[1] = this.getTotalPracuj('framework');
-      this.totalPracuj[2] = this.getTotalPracuj('devops');
-
-      this.totalNoFluffJobs[0] = this.getTotalNoFluffJobs('language');
-      this.totalNoFluffJobs[1] = this.getTotalNoFluffJobs('framework');
-      this.totalNoFluffJobs[2] = this.getTotalNoFluffJobs('devops');
-
-      this.totalJustJoin[0] = this.getTotalJustJoin('language');
-      this.totalJustJoin[1] = this.getTotalJustJoin('framework');
-      this.totalJustJoin[2] = this.getTotalJustJoin('devops');
-
-      this.totalOffers[0] = this.getTotalOverall('language');
-      this.totalOffers[1] = this.getTotalOverall('framework');
-      this.totalOffers[2] = this.getTotalOverall('devops');
-
       this.showSpinner = false;
+      this.fillTable(this.technologyList);
+      this.technologyQuery.updateTechnologies(this.technologyList);
     });
   }
 
   ngOnInit() {
+    this.technologyQuery.selectAll()
+      .subscribe(technologies => {
+        if (technologies.length !== 0) {
+          this.fillTable(technologies);
+        }
+      });
+  }
 
+  fillTable(technologies: Technology[]){
+    this.technologyList = technologies;
+
+    this.languageData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'language'));
+    this.frameworkData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'framework'));
+    this.devOpsData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'devops'));
+
+    this.languageData.sort = this.languageTable;
+    this.frameworkData.sort = this.frameworkTable;
+    this.devOpsData.sort = this.devOpsTable;
+
+    this.languageTable.disableClear = true;
+    this.frameworkTable.disableClear = true;
+    this.devOpsTable.disableClear = true;
+
+    this.totalLinkedin[0] = this.getTotalLinkedin('language');
+    this.totalLinkedin[1] = this.getTotalLinkedin('framework');
+    this.totalLinkedin[2] = this.getTotalLinkedin('devops');
+
+    this.totalPracuj[0] = this.getTotalPracuj('language');
+    this.totalPracuj[1] = this.getTotalPracuj('framework');
+    this.totalPracuj[2] = this.getTotalPracuj('devops');
+
+    this.totalNoFluffJobs[0] = this.getTotalNoFluffJobs('language');
+    this.totalNoFluffJobs[1] = this.getTotalNoFluffJobs('framework');
+    this.totalNoFluffJobs[2] = this.getTotalNoFluffJobs('devops');
+
+    this.totalJustJoin[0] = this.getTotalJustJoin('language');
+    this.totalJustJoin[1] = this.getTotalJustJoin('framework');
+    this.totalJustJoin[2] = this.getTotalJustJoin('devops');
+
+    this.totalOffers[0] = this.getTotalOverall('language');
+    this.totalOffers[1] = this.getTotalOverall('framework');
+    this.totalOffers[2] = this.getTotalOverall('devops');
   }
 
   getTotalLinkedin(type: String): number {

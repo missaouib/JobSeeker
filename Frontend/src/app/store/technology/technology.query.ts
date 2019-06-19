@@ -11,7 +11,7 @@ export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
     super(store);
   }
 
-  updateCategories(TechnologyState: Technology[]) {
-    this.store.set(TechnologyState);
+  updateTechnologies(technologyState: Technology[]) {
+    this.store.set(technologyState);
   }
 }
