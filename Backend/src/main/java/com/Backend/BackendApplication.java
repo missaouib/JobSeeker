@@ -19,10 +19,8 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FIX] fix empty input
-	//[REFACTOR] remove route switch and pass arguments with share component input
+	//[FEAT] handle internal 500?
 	//[FEAT] style about view
-	//[FEAT] add spinner when switching cards
 	//[OPTIMIZATION] responsive table
 	//[OPTIMIZATION] update only changing value in store
 }

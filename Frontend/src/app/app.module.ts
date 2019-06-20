@@ -47,6 +47,7 @@ import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagr
     SpaceBetween3Chars
   ],
   imports: [
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
     BrowserModule,
     FormsModule,
     AppRoutingModule,
@@ -67,8 +68,7 @@ import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagr
     MatCardModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
-    MatPaginatorModule,
-    environment.production ? [] : AkitaNgDevtools.forRoot()
+    MatPaginatorModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

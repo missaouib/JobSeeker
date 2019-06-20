@@ -1,7 +1,7 @@
-import {CategoryQuery} from './../../store/category/category.query';
-import {TechnologyQuery} from './../../store/technology/technology.query';
-import {CountryQuery} from './../../store/country/country.query';
-import {CityQuery} from './../../store/city/city.query';
+import {CategoryQuery} from '../../store/category/category.query';
+import {TechnologyQuery} from '../../store/technology/technology.query';
+import {CountryQuery} from '../../store/country/country.query';
+import {CityQuery} from '../../store/city/city.query';
 import {ResultInputService} from '../../services/result-input.service';
 import {Observable} from 'rxjs';
 import {HttpService} from '../../services/http.service';
@@ -84,7 +84,7 @@ export class MainInputFieldComponent implements OnInit {
   }
 
   getData() {
-    if (this.searchInput.value !== '') {
+    if (this.searchInput.value !== '' && this.searchInput.value !== undefined) {
 
       this.isDisabled = true;
 

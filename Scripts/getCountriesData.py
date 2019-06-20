@@ -41,7 +41,7 @@ for x in range(0, len(countryNames)):
     countryArea[x] = countryArea[x].replace(',', '')
     countryDensity[x] = countryDensity[x].replace(',', '')
 
-blackListCountries = ['Sint Maarten', 'Saba', 'Curaao', 'Republic of Artsakh', 'Eswatini', 'North Macedonia',
+blackListCountries = ['Sint Maarten', 'Saba', 'Curaao', 'Republic of Artsakh', 'Eswatini', 'North Macedonia', 'Saba', 'Sint Maarten',
                       'Northern Cyprus', 'South Ossetia', 'Sao Tome and Principe', 'State of Palestine', 'Runion', 'Faroe Islands']
 
 with open('data.txt', 'w') as file:
