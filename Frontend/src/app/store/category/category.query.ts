@@ -16,12 +16,26 @@ export class CategoryQuery extends QueryEntity<CategoryState, Category> {
     })
   }
 
+  getSpinner(){
+    return this.select((state) => {
+      return state.showSpinner;
+    });
+  }
+
   getCategories() {
     return this.selectAll();
   }
 
   updateCategories(categoryState: Category[]) {
     this.store.set({...categoryState});
+  }
+
+  updateSpinner(showSpinner: boolean){
+    this.store.update(() => {
+      return {
+        showSpinner: showSpinner,
+      };
+    });
   }
 
   updateMainInput(mainInput: String) {

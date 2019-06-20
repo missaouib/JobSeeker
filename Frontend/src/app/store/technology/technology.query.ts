@@ -17,8 +17,22 @@ export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
     })
   }
 
+  getSpinner(){
+    return this.select((state) => {
+      return state.showSpinner;
+    });
+  }
+
   getTechnologies() {
     return this.selectAll();
+  }
+
+  updateSpinner(showSpinner: boolean){
+    this.store.update(() => {
+      return {
+        showSpinner: showSpinner,
+      };
+    });
   }
 
   updateTechnologies(technologyState: Technology[]) {

@@ -18,15 +18,26 @@ export class ResultInputService {
   private fillTechnologyTableSubject = new Subject<any>();
   private fillCategoryTableSubject = new Subject<any>();
 
-  showSpinner$: Observable<any>;
-  private showSpinnerSubject = new Subject<any>();
+  showSpinnerCity$: Observable<any>;
+  showSpinnerCountry$: Observable<any>;
+  showSpinnerTechnology$: Observable<any>;
+  showSpinnerCategory$: Observable<any>;
+
+  private showSpinnerCitySubject = new Subject<any>();
+  private showSpinnerCountrySubject = new Subject<any>();
+  private showSpinnerTechnologySubject = new Subject<any>();
+  private showSpinnerCategorySubject = new Subject<any>();
 
   constructor() {
     this.fillCityTable$ = this.fillCityTableSubject.asObservable();
     this.fillCountryTable$ = this.fillCountryTableSubject.asObservable();
     this.fillTechnologyTable$ = this.fillTechnologyTableSubject.asObservable();
     this.fillCategoryTable$ = this.fillCategoryTableSubject.asObservable();
-    this.showSpinner$ = this.showSpinnerSubject.asObservable();
+
+    this.showSpinnerCity$ = this.showSpinnerCitySubject.asObservable();
+    this.showSpinnerCountry$ = this.showSpinnerCountrySubject.asObservable();
+    this.showSpinnerTechnology$ = this.showSpinnerTechnologySubject.asObservable();
+    this.showSpinnerCategory$ = this.showSpinnerCategorySubject.asObservable();
   }
 
   fillCityTable(data: City[]) {
@@ -45,7 +56,19 @@ export class ResultInputService {
     this.fillCategoryTableSubject.next(data);
   }
 
-  showSpinner() {
-    this.showSpinnerSubject.next();
+  showSpinnerCity() {
+    this.showSpinnerCitySubject.next();
   }
+
+  showSpinnerCountry() {
+    this.showSpinnerCountrySubject.next();
+  }
+  showSpinnerTechnology() {
+    this.showSpinnerTechnologySubject.next();
+  }
+
+  showSpinnerCategory() {
+    this.showSpinnerCategorySubject.next();
+  }
+
 }

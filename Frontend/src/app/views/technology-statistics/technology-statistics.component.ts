@@ -1,15 +1,16 @@
 import {TechnologyQuery} from '../../store/technology/technology.query';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Technology} from "../../models/technology.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-technology-statistics-view',
   templateUrl: './technology-statistics.component.html',
   styleUrls: ['./technology-statistics.component.css']
 })
-export class TechnologyStatisticsComponent implements OnInit {
+export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
 
   totalPracuj: number[] = [];
   totalLinkedin: number[] = [];
@@ -22,34 +23,45 @@ export class TechnologyStatisticsComponent implements OnInit {
   frameworkData = null;
   devOpsData = null;
   displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total'];
+  private subscriptions: Subscription[] = [];
+  private subscription: Subscription;
 
   @ViewChild('languageTable', { static: true }) public languageTable: MatSort;
   @ViewChild('frameworkTable', { static: true }) public frameworkTable: MatSort;
   @ViewChild('devOpsTable', { static: true }) public devOpsTable: MatSort;
 
   constructor(private resultInputService: ResultInputService, private technologyQuery: TechnologyQuery) {
-    this.resultInputService.showSpinner$.subscribe(() => {
-      this.technologyList.length = 0;
-      this.showSpinner = true;
-    });
 
-    this.resultInputService.fillTechnologyTable$.subscribe((technologies: Technology[]) => {
+    this.subscriptions.push(this.technologyQuery.getSpinner()
+      .subscribe(spinnerStatus => {
+        this.showSpinner = spinnerStatus;
+      }));
+
+    this.subscriptions.push(this.resultInputService.showSpinnerTechnology$.subscribe(() => {
+      this.technologyList.length = 0;
+      this.technologyQuery.updateSpinner(true);
+      this.showSpinner = true;
+    }));
+
+    this.subscription = this.resultInputService.fillTechnologyTable$.subscribe((technologies: Technology[]) => {
       this.technologyList = technologies;
       this.technologyList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
-
-      this.showSpinner = false;
       this.fillTable(this.technologyList);
+
+      this.technologyQuery.updateSpinner(false);
+      this.showSpinner = false;
+
       this.technologyQuery.updateTechnologies(this.technologyList);
     });
   }
 
   ngOnInit() {
-    this.technologyQuery.getTechnologies()
+    this.subscriptions.push(this.technologyQuery.getTechnologies()
       .subscribe(technologies => {
-        if (technologies.length !== 0) {
+        if (technologies.length !== 0 && !this.showSpinner) {
           this.fillTable(technologies);
         }
-      });
+      }));
   }
 
   fillTable(technologies: Technology[]){
@@ -112,6 +124,14 @@ export class TechnologyStatisticsComponent implements OnInit {
     return this.technologyList.filter(technology => technology.type.toLocaleLowerCase() === type)
       .map(t => t.linkedin + t.pracuj + t.noFluffJobs + t.justJoin)
       .reduce((sum, current) => sum + current);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+
+    if(!this.showSpinner){
+      this.subscription.unsubscribe();
+    }
   }
 
 }

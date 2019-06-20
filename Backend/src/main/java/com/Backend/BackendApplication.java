@@ -19,9 +19,6 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[REFACTOR] calculate data on backend side and send by DTO
-	//[REFACTOR] replace resultinput service by store
-	//[FIX] add unsubsribe methods
 	//[FIX] fix empty input
 	//[REFACTOR] remove route switch and pass arguments with share component input
 	//[FEAT] style about view

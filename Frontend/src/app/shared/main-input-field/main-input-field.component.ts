@@ -1,18 +1,14 @@
-import { CategoryQuery } from './../../store/category/category.query';
-import { TechnologyQuery } from './../../store/technology/technology.query';
-import { CountryQuery } from './../../store/country/country.query';
-import { CityQuery } from './../../store/city/city.query';
-import { Country } from '../../models/country.interfaces';
-import { City } from '../../models/city.interfaces';
-import { ResultInputService } from '../../services/result-input.service';
-import { Observable } from 'rxjs';
-import { Category } from '../../models/category.interfaces';
-import { HttpService } from '../../services/http.service';
-import { Technology } from '../../models/technology.interfaces';
-import { FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { map, startWith } from 'rxjs/operators';
+import {CategoryQuery} from './../../store/category/category.query';
+import {TechnologyQuery} from './../../store/technology/technology.query';
+import {CountryQuery} from './../../store/country/country.query';
+import {CityQuery} from './../../store/city/city.query';
+import {ResultInputService} from '../../services/result-input.service';
+import {Observable} from 'rxjs';
+import {HttpService} from '../../services/http.service';
+import {FormControl} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-input-field',
@@ -23,10 +19,6 @@ import { map, startWith } from 'rxjs/operators';
 export class MainInputFieldComponent implements OnInit {
 
   isDisabled = false;
-  categoryList: Category[] = [];
-  technologyList: Technology[] = [];
-  cityList: City[] = [];
-  countryList: Country[] = [];
   searchInput = new FormControl('');
   cityInputList = ['All Cities', 'Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin', 'Bydgoszcz',
                    'Białystok', 'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole'];
@@ -100,41 +92,43 @@ export class MainInputFieldComponent implements OnInit {
         this.isDisabled = false;
       }, 3000);
 
-      this.resultInputService.showSpinner();
-
       switch(this.router.url){
         case '/': {
+          this.resultInputService.showSpinnerCity();
           this.httpService.getCities(this.searchInput.value)
-            .subscribe(cityList => {
-              this.cityList = cityList;
-              this.resultInputService.fillCityTable(cityList);
+            .subscribe(cities => {
+              this.cityQuery.updateSpinner(false);
+              this.resultInputService.fillCityTable(cities);
             });
           this.cityQuery.updateMainInput(this.searchInput.value);
           break;
         }
         case '/world': {
+          this.resultInputService.showSpinnerCountry();
           this.httpService.getCountries(this.searchInput.value)
-            .subscribe(countryList => {
-              this.countryList = countryList;
-              this.resultInputService.fillCountryTable(countryList);
+            .subscribe(countries => {
+              this.countryQuery.updateSpinner(false);
+              this.resultInputService.fillCountryTable(countries);
             });
           this.countryQuery.updateMainInput(this.searchInput.value);
           break;
         }
         case '/technology': {
+          this.resultInputService.showSpinnerTechnology();
           this.httpService.getTechnologies(this.searchInput.value)
-            .subscribe(technologyList => {
-              this.technologyList = technologyList;
-              this.resultInputService.fillTechnologyTable(technologyList);
+            .subscribe(technologies => {
+              this.technologyQuery.updateSpinner(false);
+              this.resultInputService.fillTechnologyTable(technologies);
             });
           this.technologyQuery.updateMainInput(this.searchInput.value);
           break;
         }
         case '/category': {
+          this.resultInputService.showSpinnerCategory();
           this.httpService.getCategories(this.searchInput.value)
-            .subscribe(categoryList => {
-              this.categoryList = categoryList;
-              this.resultInputService.fillCategoryTable(categoryList);
+            .subscribe(categories => {
+              this.categoryQuery.updateSpinner(false);
+              this.resultInputService.fillCategoryTable(categories);
             });
           this.categoryQuery.updateMainInput(this.searchInput.value);
           break;

@@ -1,15 +1,16 @@
 import { CountryQuery } from '../../store/country/country.query';
-import { Component, DoCheck, ViewChild, OnInit } from '@angular/core';
+import {Component, DoCheck, ViewChild, OnInit, OnDestroy} from '@angular/core';
 import {Country} from "../../models/country.interfaces";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-it-job-offers-in-world',
   templateUrl: './it-job-offers-in-world.component.html',
   styleUrls: ['./it-job-offers-in-world.component.css']
 })
-export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
+export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
 
   totalOffers: number;
   showSpinner = false;
@@ -18,20 +19,31 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
   countryList: Country[] = [];
   dataSource = new MatTableDataSource(this.countryList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
+  private subscriptions: Subscription[] = [];
+  private subscription: Subscription;
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private resultInputService: ResultInputService, private countryQuery: CountryQuery) {
-    this.resultInputService.showSpinner$.subscribe(() => {
-      this.countryList.length = 0;
-      this.showSpinner = true;
-    });
 
-    this.resultInputService.fillCountryTable$.subscribe((countries: Country[]) => {
+    this.subscriptions.push(this.countryQuery.getSpinner()
+      .subscribe(spinnerStatus => {
+        this.showSpinner = spinnerStatus;
+      }));
+
+    this.subscriptions.push(this.resultInputService.showSpinnerCountry$.subscribe(() => {
+      this.countryList.length = 0;
+      this.countryQuery.updateSpinner(true);
+      this.showSpinner = true;
+    }));
+
+    this.subscription = this.resultInputService.fillCountryTable$.subscribe((countries: Country[]) => {
       this.countryList = countries;
       this.fillTable(this.countryList);
-
+      this.countryQuery.updateSpinner(false);
       this.showSpinner = false;
+
       this.countryQuery.updateCountries(this.countryList);
     });
   }
@@ -42,12 +54,12 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
   }
 
   ngOnInit() {
-    this.countryQuery.getCountries()
+    this.subscriptions.push(this.countryQuery.getCountries()
       .subscribe(countries => {
-        if (countries.length !== 0) {
+        if (countries.length !== 0 && !this.showSpinner) {
           this.fillTable(countries);
         }
-      });
+      }));
   }
 
   fillTable(countries: Country[]){
@@ -67,6 +79,14 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+
+    if(!this.showSpinner){
+      this.subscription.unsubscribe();
     }
   }
 }

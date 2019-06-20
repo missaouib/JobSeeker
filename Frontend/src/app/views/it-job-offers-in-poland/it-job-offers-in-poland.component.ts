@@ -1,16 +1,16 @@
-import {first} from 'rxjs/operators';
 import {CityQuery} from '../../store/city/city.query';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {City} from "../../models/city.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-it-job-offers-view',
   templateUrl: './it-job-offers-in-poland.component.html',
   styleUrls: ['./it-job-offers-in-poland.component.css']
 })
-export class ItJobOffersInPolandComponent implements OnInit {
+export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
 
   totalOffers: number[] = [];
   totalJobOffersSum: number;
@@ -18,20 +18,30 @@ export class ItJobOffersInPolandComponent implements OnInit {
   cityList: City[] = [];
   dataSource = new MatTableDataSource(this.cityList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
+  private subscriptions: Subscription[] = [];
+  private subscription: Subscription;
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService, private cityQuery: CityQuery) {
 
-    this.resultInputService.showSpinner$.subscribe( () => {
-      this.cityList.length = 0;
-      this.showSpinner = true;
-    });
+    this.subscriptions.push(this.cityQuery.getSpinner()
+      .subscribe(spinnerStatus => {
+        this.showSpinner = spinnerStatus;
+      }));
 
-    this.resultInputService.fillCityTable$.pipe(first()).subscribe( (cities: City[]) => {
+    this.subscriptions.push(this.resultInputService.showSpinnerCity$.subscribe( () => {
+      this.cityList.length = 0;
+      this.cityQuery.updateSpinner(true);
+      this.showSpinner = true;
+    }));
+
+    this.subscription = this.resultInputService.fillCityTable$.subscribe( (cities: City[]) => {
       this.cityList = [...cities];
       this.cityList = this.cityList.filter(city => city.name !== 'All Cities');
 
       this.fillTable(this.cityList);
+      this.cityQuery.updateSpinner(false);
       this.showSpinner = false;
 
       this.cityQuery.updateCities(this.cityList);
@@ -39,12 +49,12 @@ export class ItJobOffersInPolandComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cityQuery.getCities()
+    this.subscriptions.push(this.cityQuery.getCities()
       .subscribe(cities => {
-        if (cities.length !== 0) {
+        if (cities.length !== 0 && !this.showSpinner) {
           this.fillTable(cities);
         }
-      });
+      }));
   }
 
   fillTable(cities: City[]) {
@@ -59,6 +69,14 @@ export class ItJobOffersInPolandComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.cityList);
     this.dataSource.sort = this.sort;
     this.sort.disableClear = true;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+
+    if(!this.showSpinner){
+      this.subscription.unsubscribe();
+    }
   }
 
 }

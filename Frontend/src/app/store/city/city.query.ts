@@ -13,7 +13,13 @@ export class CityQuery extends QueryEntity<CityState, City> {
   getInput(){
     return this.select((state) => {
       return state.input;
-    })
+    });
+  }
+
+  getSpinner(){
+    return this.select((state) => {
+      return state.showSpinner;
+    });
   }
 
   getCities() {
@@ -22,6 +28,14 @@ export class CityQuery extends QueryEntity<CityState, City> {
 
   updateCities(cityState: City[]) {
     this.store.set({...cityState});
+  }
+
+  updateSpinner(showSpinner: boolean){
+    this.store.update(() => {
+      return {
+        showSpinner: showSpinner,
+      };
+    });
   }
 
   updateMainInput(mainInput: String){

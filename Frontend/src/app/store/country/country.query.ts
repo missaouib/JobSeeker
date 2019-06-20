@@ -16,12 +16,26 @@ export class CountryQuery extends QueryEntity<CountryState, Country> {
     })
   }
 
+  getSpinner(){
+    return this.select((state) => {
+      return state.showSpinner;
+    });
+  }
+
   getCountries() {
     return this.selectAll();
   }
 
   updateCountries(countryState: Country[]) {
     this.store.set({...countryState});
+  }
+
+  updateSpinner(showSpinner: boolean){
+    this.store.update(() => {
+      return {
+        showSpinner: showSpinner,
+      };
+    });
   }
 
   updateMainInput(mainInput: String) {
