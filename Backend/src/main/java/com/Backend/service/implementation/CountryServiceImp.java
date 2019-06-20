@@ -3,12 +3,14 @@ package com.Backend.service.implementation;
 import com.Backend.dto.CountryDto;
 import com.Backend.entity.Country;
 import com.Backend.entity.Technology;
+import com.Backend.entity.offers.CityOffers;
 import com.Backend.entity.offers.CountryOffers;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.CountryOffersRepository;
 import com.Backend.service.CountryService;
 import com.Backend.service.ScrapJobService;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class CountryServiceImp implements CountryService {
                              CountryOffersRepository countryOffersRepository, TechnologyRepository technologyRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(countryMapping);
+        this.modelMapper.addConverter(per100kConverter);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
         this.countryRepository = Objects.requireNonNull(countryRepository);
         this.countryOffersRepository = Objects.requireNonNull(countryOffersRepository);
@@ -48,7 +51,13 @@ public class CountryServiceImp implements CountryService {
             map().setArea(source.getCountry().getArea());
             map().setDensity(source.getCountry().getDensity());
             map().setId(source.getCountry().getId());
+            using(per100kConverter).map(map().getPer100k());
         }
+    };
+
+    private Converter<Double, Double> per100kConverter = context -> {
+        CountryOffers country = (CountryOffers) context.getParent().getSource();
+        return (Math.round(country.getLinkedin() * 1.0 / (country.getCountry().getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
     };
 
     public List<CountryDto> scrapItJobOffersInWorld(ModelMap technology) {

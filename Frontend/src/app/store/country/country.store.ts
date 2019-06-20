@@ -1,4 +1,4 @@
-import { Country } from './../../models/country.model';
+import { Country } from '../../models/country.interfaces';
 import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 

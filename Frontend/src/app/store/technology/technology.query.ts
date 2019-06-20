@@ -1,4 +1,4 @@
-import { Technology } from './../../models/technology.model';
+import { Technology } from '../../models/technology.interfaces';
 
 import { TechnologyState, TechnologyStore } from './technology.store';
 import { Injectable } from '@angular/core';
@@ -9,6 +9,16 @@ export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
 
   constructor(protected store: TechnologyStore){
     super(store);
+  }
+
+  getInput(){
+    return this.select((state) => {
+      return state.input;
+    })
+  }
+
+  getTechnologies() {
+    return this.selectAll();
   }
 
   updateTechnologies(technologyState: Technology[]) {

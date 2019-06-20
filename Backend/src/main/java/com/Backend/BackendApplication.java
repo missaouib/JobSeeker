@@ -11,6 +11,7 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[OPTIMIZATION] send only one date per request
 	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
@@ -18,16 +19,13 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
+	//[REFACTOR] calculate data on backend side and send by DTO
+	//[REFACTOR] replace resultinput service by store
+	//[FIX] add unsubsribe methods
+	//[FIX] fix empty input
+	//[REFACTOR] remove route switch and pass arguments with share component input
 	//[FEAT] style about view
-	//[FEAT] add spiner when switching cards
-	//rename models -> interfaceas
-	//fix empty input
-	//ngondestroy unsubscribe
-
-	//[OPTIMIZATION]
-	//responsive table
-	//send only one date per request
-	//update only changing value in store
-	//remove switch and pass arguments with share component input
-	//put queries logic in query files
+	//[FEAT] add spinner when switching cards
+	//[OPTIMIZATION] responsive table
+	//[OPTIMIZATION] update only changing value in store
 }

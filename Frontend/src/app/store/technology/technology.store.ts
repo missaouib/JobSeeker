@@ -1,4 +1,4 @@
-import { Technology } from './../../models/technology.model';
+import { Technology } from '../../models/technology.interfaces';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { Injectable } from '@angular/core';
 

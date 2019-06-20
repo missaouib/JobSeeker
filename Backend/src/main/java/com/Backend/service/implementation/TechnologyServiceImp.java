@@ -4,12 +4,14 @@ import com.Backend.domain.JustJoin;
 import com.Backend.dto.TechnologyDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
+import com.Backend.entity.offers.CityOffers;
 import com.Backend.entity.offers.TechnologyOffers;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.TechnologyOffersRepository;
 import com.Backend.service.ScrapJobService;
 import com.Backend.service.TechnologyService;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,7 @@ public class TechnologyServiceImp implements TechnologyService {
                                 TechnologyOffersRepository technologyOffersRepository, CityRepository cityRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(technologyMapping);
+        this.modelMapper.addConverter(totalConverter);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
         this.technologyOffersRepository = Objects.requireNonNull(technologyOffersRepository);
@@ -47,7 +50,13 @@ public class TechnologyServiceImp implements TechnologyService {
             map().setName(source.getTechnology().getName());
             map().setType(source.getTechnology().getType());
             map().setId(source.getTechnology().getId());
+            using(totalConverter).map(map().getTotal());
         }
+    };
+
+    private Converter<Integer, Integer> totalConverter = context -> {
+        TechnologyOffers technology = (TechnologyOffers) context.getParent().getSource();
+        return technology.getLinkedin() + technology.getPracuj() + technology.getNoFluffJobs() + technology.getJustJoin();
     };
 
     public List<TechnologyDto> scrapTechnologyStatistics(ModelMap city) {

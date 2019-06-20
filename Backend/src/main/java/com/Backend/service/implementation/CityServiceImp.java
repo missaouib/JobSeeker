@@ -10,8 +10,10 @@ import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.CityOffersRepository;
 import com.Backend.service.CityService;
 import com.Backend.service.ScrapJobService;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -36,6 +38,7 @@ public class CityServiceImp implements CityService {
                           CityOffersRepository cityOffersRepository, TechnologyRepository technologyRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(cityMapping);
+        this.modelMapper.addConverter(totalConverter);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.cityOffersRepository = Objects.requireNonNull(cityOffersRepository);
@@ -44,12 +47,19 @@ public class CityServiceImp implements CityService {
 
     private PropertyMap<CityOffers, CityDto> cityMapping = new PropertyMap<>() {
         protected void configure() {
+
             map().setName(source.getCity().getName());
             map().setPopulation(source.getCity().getPopulation());
             map().setArea(source.getCity().getArea());
             map().setDensity(source.getCity().getDensity());
             map().setId(source.getCity().getId());
+            using(totalConverter).map(map().getTotal());
         }
+    };
+
+    private Converter<Integer, Integer> totalConverter = context -> {
+        CityOffers city = (CityOffers) context.getParent().getSource();
+        return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoin();
     };
 
     public List<CityDto> scrapItJobOffersInPoland(ModelMap technology) {
@@ -148,7 +158,15 @@ public class CityServiceImp implements CityService {
 
         return technologyOptional
                 .filter(ignoredTechnology -> !cityOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
-                .map(ignoredCity -> citiesOffers.stream().map(category -> modelMapper.map(cityOffersRepository.save(category), CityDto.class)).collect(Collectors.toList()))
-                .orElseGet(() -> citiesOffers.stream().map(city -> modelMapper.map(city, CityDto.class)).collect(Collectors.toList()));
+                .map(ignoredCity -> citiesOffers.stream().map(city -> {
+                    CityDto cityDto = modelMapper.map(cityOffersRepository.save(city), CityDto.class);
+                    cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
+                    return cityDto;
+                }).collect(Collectors.toList()))
+                .orElseGet(() -> citiesOffers.stream().map(city -> {
+                    CityDto cityDto = modelMapper.map(city, CityDto.class);
+                    cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
+                    return cityDto;
+                }).collect(Collectors.toList()));
     }
 }

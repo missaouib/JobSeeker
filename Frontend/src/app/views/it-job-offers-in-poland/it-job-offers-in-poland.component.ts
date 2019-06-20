@@ -1,8 +1,8 @@
-import { map, first } from 'rxjs/operators';
-import { CityQuery } from './../../store/city/city.query';
-import { Component, ViewChild, OnInit } from '@angular/core';
-import {City} from "../../models/city.model";
-import {MatSort, MatTableDataSource, getMatIconFailedToSanitizeLiteralError} from "@angular/material";
+import {first} from 'rxjs/operators';
+import {CityQuery} from '../../store/city/city.query';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {City} from "../../models/city.interfaces";
+import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 
 @Component({
@@ -17,9 +17,7 @@ export class ItJobOffersInPolandComponent implements OnInit {
   showSpinner = false;
   cityList: City[] = [];
   dataSource = new MatTableDataSource(this.cityList);
-  displayedColumns: string[] = [
-    'position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
-
+  displayedColumns: string[] = ['position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService, private cityQuery: CityQuery) {
@@ -33,16 +31,6 @@ export class ItJobOffersInPolandComponent implements OnInit {
       this.cityList = [...cities];
       this.cityList = this.cityList.filter(city => city.name !== 'All Cities');
 
-      this.cityList.map(city => {
-        console.log(Object.isSealed(city));
-        const total = city.linkedin + city.pracuj + city.noFluffJobs + city.justJoin;
-        city.total = total;
-      });
-      this.cityList.map(city => {
-        const per100k = Number((city.total / (city.population / 100000)).toFixed(2));
-        city.per100k = per100k;
-      });
-
       this.fillTable(this.cityList);
       this.showSpinner = false;
 
@@ -51,7 +39,7 @@ export class ItJobOffersInPolandComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cityQuery.selectAll()
+    this.cityQuery.getCities()
       .subscribe(cities => {
         if (cities.length !== 0) {
           this.fillTable(cities);

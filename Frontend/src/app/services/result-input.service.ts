@@ -1,14 +1,11 @@
-import { Country } from '../models/country.model';
-import { Technology } from '../models/technology.model';
-import { Category } from '../models/category.model';
+import { Country } from '../models/country.interfaces';
+import { Technology } from '../models/technology.interfaces';
+import { Category } from '../models/category.interfaces';
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { City } from '../models/city.model';
+import { City } from '../models/city.interfaces';
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable({providedIn: 'root'})
 export class ResultInputService {
 
   fillCityTable$: Observable<any>;

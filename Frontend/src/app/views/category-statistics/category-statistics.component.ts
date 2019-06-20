@@ -1,6 +1,6 @@
-import { CategoryQuery } from './../../store/category/category.query';
+import { CategoryQuery } from '../../store/category/category.query';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import {Category} from "../../models/category.model";
+import {Category} from "../../models/category.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 
@@ -21,6 +21,7 @@ export class CategoryStatisticsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService, private categoryQuery: CategoryQuery) {
+
     this.resultInputService.showSpinner$.subscribe(() => {
       this.categoryList.length = 0;
       this.showSpinner = true;
@@ -33,7 +34,7 @@ export class CategoryStatisticsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryQuery.selectAll()
+    this.categoryQuery.getCategories()
     .subscribe(categories => {
       if (categories.length !== 0) {
         this.fillTable(categories);

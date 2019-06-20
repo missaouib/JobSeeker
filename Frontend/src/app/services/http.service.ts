@@ -1,11 +1,11 @@
-import { Category } from '../models/category.model';
+import { Category } from '../models/category.interfaces';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { City } from '../models/city.model';
+import { City } from '../models/city.interfaces';
 import { HttpHeaders } from '@angular/common/http';
-import { Technology } from '../models/technology.model';
-import { Country } from '../models/country.model';
+import { Technology } from '../models/technology.interfaces';
+import { Country } from '../models/country.interfaces';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,9 +13,7 @@ const httpOptions = {
   })
 };
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 
 export class HttpService {
 

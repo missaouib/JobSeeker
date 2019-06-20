@@ -1,4 +1,4 @@
-import { City } from './../../models/city.model';
+import { City } from '../../models/city.interfaces';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { Injectable } from '@angular/core';
 

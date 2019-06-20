@@ -2,13 +2,13 @@ import { CategoryQuery } from './../../store/category/category.query';
 import { TechnologyQuery } from './../../store/technology/technology.query';
 import { CountryQuery } from './../../store/country/country.query';
 import { CityQuery } from './../../store/city/city.query';
-import { Country } from '../../models/country.model';
-import { City } from '../../models/city.model';
+import { Country } from '../../models/country.interfaces';
+import { City } from '../../models/city.interfaces';
 import { ResultInputService } from '../../services/result-input.service';
 import { Observable } from 'rxjs';
-import { Category } from '../../models/category.model';
+import { Category } from '../../models/category.interfaces';
 import { HttpService } from '../../services/http.service';
-import { Technology } from '../../models/technology.model';
+import { Technology } from '../../models/technology.interfaces';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -33,7 +33,7 @@ export class MainInputFieldComponent implements OnInit {
   technologyInputList = ['All IT Jobs', 'All Jobs', 'Java', 'Javascript', 'Typescript', '.NET', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Groovy', 'Swift', 'Objective-C', 'Viual Basic',
                          'Spring', 'Java EE', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
                           'SQL', 'Linux', 'Git', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'HTML', 'Maven', 'Gradle', 'Junit', 'Jira', 'Scrum'];
-  filteredInputs: Observable<string[]>
+  filteredInputs: Observable<string[]>;
 
   constructor(private httpService: HttpService,
     private resultInputService: ResultInputService,
@@ -42,35 +42,32 @@ export class MainInputFieldComponent implements OnInit {
     private categoryQuery: CategoryQuery,
     private technologyQuery: TechnologyQuery,
     private countryQuery: CountryQuery) {
+
       switch (this.router.url) {
         case '/': {
-          this.cityQuery.select(state => {
-            return state.input
-          }).subscribe(input => {
+          this.cityQuery.getInput()
+            .subscribe(input => {
             this.searchInput.setValue(input);
           });
           break;
         }
         case '/world': {
-          this.countryQuery.select(state => {
-            return state.input
-          }).subscribe(input => {
+          this.countryQuery.getInput()
+            .subscribe(input => {
             this.searchInput.setValue(input);
           });
           break;
         }
         case '/technology': {
-          this.technologyQuery.select(state => {
-            return state.input
-          }).subscribe(input => {
+          this.technologyQuery.getInput()
+            .subscribe(input => {
             this.searchInput.setValue(input);
           });
           break;
         }
         case '/category': {
-          this.categoryQuery.select(state => {
-            return state.input
-          }).subscribe(input => {
+          this.categoryQuery.getInput()
+            .subscribe(input => {
             this.searchInput.setValue(input);
           });
           break;

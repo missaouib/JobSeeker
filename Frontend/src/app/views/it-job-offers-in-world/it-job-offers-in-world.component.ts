@@ -1,6 +1,6 @@
-import { CountryQuery } from './../../store/country/country.query';
+import { CountryQuery } from '../../store/country/country.query';
 import { Component, DoCheck, ViewChild, OnInit } from '@angular/core';
-import {Country} from "../../models/country.model";
+import {Country} from "../../models/country.interfaces";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 
@@ -18,9 +18,8 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
   countryList: Country[] = [];
   dataSource = new MatTableDataSource(this.countryList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
-
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private resultInputService: ResultInputService, private countryQuery: CountryQuery) {
     this.resultInputService.showSpinner$.subscribe(() => {
@@ -30,10 +29,6 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
 
     this.resultInputService.fillCountryTable$.subscribe((countries: Country[]) => {
       this.countryList = countries;
-      this.countryList.map(country => {
-        const per100k = Number((country.linkedin / (country.population / 100000)).toFixed(2));
-        country.per100k = per100k;
-      });
       this.fillTable(this.countryList);
 
       this.showSpinner = false;
@@ -47,7 +42,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit {
   }
 
   ngOnInit() {
-    this.countryQuery.selectAll()
+    this.countryQuery.getCountries()
       .subscribe(countries => {
         if (countries.length !== 0) {
           this.fillTable(countries);

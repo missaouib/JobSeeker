@@ -1,4 +1,4 @@
-import { Category } from './../../models/category.model';
+import { Category } from '../../models/category.interfaces';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { Injectable } from '@angular/core';
 

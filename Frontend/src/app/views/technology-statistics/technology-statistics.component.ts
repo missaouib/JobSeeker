@@ -1,6 +1,6 @@
-import { TechnologyQuery } from './../../store/technology/technology.query';
-import { Component, ViewChild, OnInit } from '@angular/core';
-import {Technology} from "../../models/technology.model";
+import {TechnologyQuery} from '../../store/technology/technology.query';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Technology} from "../../models/technology.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 
@@ -35,10 +35,6 @@ export class TechnologyStatisticsComponent implements OnInit {
 
     this.resultInputService.fillTechnologyTable$.subscribe((technologies: Technology[]) => {
       this.technologyList = technologies;
-
-      this.technologyList.map(technology => {
-        technology.total = technology.linkedin + technology.pracuj + technology.noFluffJobs + technology.justJoin
-      });
       this.technologyList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
 
       this.showSpinner = false;
@@ -48,7 +44,7 @@ export class TechnologyStatisticsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.technologyQuery.selectAll()
+    this.technologyQuery.getTechnologies()
       .subscribe(technologies => {
         if (technologies.length !== 0) {
           this.fillTable(technologies);

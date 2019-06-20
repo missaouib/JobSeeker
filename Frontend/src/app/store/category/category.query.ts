@@ -1,4 +1,4 @@
-import { Category } from './../../models/category.model';
+import { Category } from '../../models/category.interfaces';
 import { CategoryState, CategoryStore } from './category.store';
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
@@ -8,6 +8,16 @@ export class CategoryQuery extends QueryEntity<CategoryState, Category> {
 
   constructor(protected store: CategoryStore){
     super(store);
+  }
+
+  getInput(){
+    return this.select((state) => {
+      return state.input;
+    })
+  }
+
+  getCategories() {
+    return this.selectAll();
   }
 
   updateCategories(categoryState: Category[]) {
