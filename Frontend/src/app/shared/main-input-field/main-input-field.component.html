@@ -1,5 +1,5 @@
 <mat-form-field class="inputField">
-  <input type="text" placeholder="{{isCityOrTechnologyLabel() ? 'City' : 'Technology'}}" aria-label="Number" matInput [formControl]="searchInput" [matAutocomplete]="auto">
+  <input type="text" placeholder="{{isCityOrTechnologyLabel() ? 'City' : 'Technology'}}" (keyup.enter)='getData()' aria-label="Number" matInput [formControl]="searchInput" [matAutocomplete]="auto">
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
     <mat-option *ngFor="let inputHint of filteredInputs | async" [value]="inputHint">
       {{inputHint}}

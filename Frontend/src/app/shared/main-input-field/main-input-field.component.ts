@@ -3,10 +3,10 @@ import {TechnologyQuery} from '../../store/technology/technology.query';
 import {CountryQuery} from '../../store/country/country.query';
 import {CityQuery} from '../../store/city/city.query';
 import {ResultInputService} from '../../services/result-input.service';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {HttpService} from '../../services/http.service';
 import {FormControl} from '@angular/forms';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from "@angular/material";
@@ -17,7 +17,7 @@ import {MatSnackBar} from "@angular/material";
   styleUrls: ['./main-input-field.component.css']
 })
 
-export class MainInputFieldComponent implements OnInit {
+export class MainInputFieldComponent implements OnInit, OnDestroy {
 
   isDisabled = false;
   searchInput = new FormControl('');
@@ -27,6 +27,7 @@ export class MainInputFieldComponent implements OnInit {
                          'Spring', 'Java EE', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
                           'SQL', 'Linux', 'Git', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'HTML', 'Maven', 'Gradle', 'Junit', 'Jira', 'Scrum'];
   filteredInputs: Observable<string[]>;
+  subscriptions: Subscription[] = [];
 
   constructor(private httpService: HttpService,
               private resultInputService: ResultInputService,
@@ -39,31 +40,31 @@ export class MainInputFieldComponent implements OnInit {
 
       switch (this.router.url) {
         case '/': {
-          this.cityQuery.getInput()
+          this.subscriptions.push(this.cityQuery.getInput()
             .subscribe(input => {
             this.searchInput.setValue(input);
-          });
+          }));
           break;
         }
         case '/world': {
-          this.countryQuery.getInput()
+          this.subscriptions.push(this.countryQuery.getInput()
             .subscribe(input => {
             this.searchInput.setValue(input);
-          });
+          }));
           break;
         }
         case '/technology': {
-          this.technologyQuery.getInput()
+          this.subscriptions.push(this.technologyQuery.getInput()
             .subscribe(input => {
             this.searchInput.setValue(input);
-          });
+          }));
           break;
         }
         case '/category': {
-          this.categoryQuery.getInput()
+          this.subscriptions.push(this.categoryQuery.getInput()
             .subscribe(input => {
             this.searchInput.setValue(input);
-          });
+          }));
           break;
         }
       }
@@ -161,7 +162,11 @@ export class MainInputFieldComponent implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open('Server is not responding. Please try again later.', 'Close', {});
+    this.snackBar.open('Server is not responding, please try again later.', 'Close', {});
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 }

@@ -11,15 +11,15 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[OPTIMIZATION] send only one date per request
 	//[FEAT] deploy v1.0
 	//[FEAT] add auto play requests script
+	//[OPTIMIZATION] send only one date per request
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[FEAT] add json web token
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FEAT] handle internal 500
+	//[FEAT] add history diagram functionality
 	//[OPTIMIZATION] responsive table
 	//[OPTIMIZATION] update only changing value in store
 }
