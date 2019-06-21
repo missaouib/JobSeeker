@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HttpService } from './services/http.service';
 import { ItJobOffersInPolandComponent } from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
@@ -68,7 +69,8 @@ import { HistoryDiagramsComponent } from './views/history-diagrams/history-diagr
     MatCardModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

@@ -9,6 +9,7 @@ import {FormControl} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {map, startWith} from 'rxjs/operators';
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-main-input-field',
@@ -28,12 +29,13 @@ export class MainInputFieldComponent implements OnInit {
   filteredInputs: Observable<string[]>;
 
   constructor(private httpService: HttpService,
-    private resultInputService: ResultInputService,
-    private router: Router,
-    private cityQuery: CityQuery,
-    private categoryQuery: CategoryQuery,
-    private technologyQuery: TechnologyQuery,
-    private countryQuery: CountryQuery) {
+              private resultInputService: ResultInputService,
+              private router: Router,
+              private cityQuery: CityQuery,
+              private categoryQuery: CategoryQuery,
+              private technologyQuery: TechnologyQuery,
+              private countryQuery: CountryQuery,
+              private snackBar: MatSnackBar) {
 
       switch (this.router.url) {
         case '/': {
@@ -99,6 +101,9 @@ export class MainInputFieldComponent implements OnInit {
             .subscribe(cities => {
               this.cityQuery.updateSpinner(false);
               this.resultInputService.fillCityTable(cities);
+            }, () => {
+              this.cityQuery.updateSpinner(false);
+              this.openSnackBar();
             });
           this.cityQuery.updateMainInput(this.searchInput.value);
           break;
@@ -109,6 +114,9 @@ export class MainInputFieldComponent implements OnInit {
             .subscribe(countries => {
               this.countryQuery.updateSpinner(false);
               this.resultInputService.fillCountryTable(countries);
+            }, () => {
+              this.countryQuery.updateSpinner(false);
+              this.openSnackBar();
             });
           this.countryQuery.updateMainInput(this.searchInput.value);
           break;
@@ -119,6 +127,9 @@ export class MainInputFieldComponent implements OnInit {
             .subscribe(technologies => {
               this.technologyQuery.updateSpinner(false);
               this.resultInputService.fillTechnologyTable(technologies);
+            }, () => {
+              this.technologyQuery.updateSpinner(false);
+              this.openSnackBar();
             });
           this.technologyQuery.updateMainInput(this.searchInput.value);
           break;
@@ -129,6 +140,9 @@ export class MainInputFieldComponent implements OnInit {
             .subscribe(categories => {
               this.categoryQuery.updateSpinner(false);
               this.resultInputService.fillCategoryTable(categories);
+            }, () => {
+              this.categoryQuery.updateSpinner(false);
+              this.openSnackBar();
             });
           this.categoryQuery.updateMainInput(this.searchInput.value);
           break;
@@ -144,6 +158,10 @@ export class MainInputFieldComponent implements OnInit {
       return false;
     }
     return null;
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Server is not responding. Please try again later.', 'Close', {});
   }
 
 }
