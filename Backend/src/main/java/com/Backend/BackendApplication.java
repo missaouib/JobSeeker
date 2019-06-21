@@ -19,8 +19,7 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
-	//[FEAT] handle internal 500?
-	//[FEAT] style about view
+	//[FEAT] handle internal 500
 	//[OPTIMIZATION] responsive table
 	//[OPTIMIZATION] update only changing value in store
 }

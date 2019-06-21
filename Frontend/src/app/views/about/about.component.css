@@ -1,23 +1,27 @@
 .about {
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 50%;
-border: 1px solid #ccc;
-border-radius: 1rem;
-margin: 2% auto auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  margin: 2% auto auto;
+  font-size: 1.2rem;
 }
 
 .about-info {
-  padding-top: 4%;
+  padding: 4% 0 2% 0;
 }
 
-.about-list {
-  display: flex;
-  padding: 2%;
+.about-table {
+  width: 90%;
+  padding-bottom: 4%;
 }
 
-.about-list ul {
-  list-style-type: none;
+table th,td {
+  text-align: left;
+  padding: 0 1% 1% 0;
+  word-wrap: break-word;
+  max-width: 10%;
+  border-bottom: 1px solid #ddd;
 }
-
