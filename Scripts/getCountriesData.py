@@ -7,7 +7,7 @@ import requests
 import re
 
 website_url = requests.get('https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area,_population_and_population_density').text
-soup = BeautifulSoup(website_url, 'lxml')
+soup = BeautifulSoup(website_url, l'lxml')
 
 countryTable = soup.find('table', {'class': 'sortable wikitable'})
 
