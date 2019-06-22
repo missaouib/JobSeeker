@@ -9,13 +9,9 @@
   font-size: 1.2rem;
 }
 
-.about-info {
-  padding: 4% 0 2% 0;
-}
-
 .about-table {
   width: 90%;
-  padding-bottom: 4%;
+  padding: 4%;
 }
 
 table th,td {
