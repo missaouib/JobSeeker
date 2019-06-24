@@ -93,7 +93,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
 
       setTimeout(() => {
         this.isDisabled = false;
-      }, 3000);
+      }, 1000);
 
       switch(this.router.url){
         case '/': {

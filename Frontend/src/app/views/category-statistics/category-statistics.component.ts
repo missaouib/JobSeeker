@@ -20,6 +20,7 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource(this.categoryList);
   displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
   private subscriptions: Subscription[] = [];
+  private subscription: Subscription;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -36,7 +37,7 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
       this.categoryList.length = 0;
     }));
 
-    this.resultInputService.fillCategoryTable$.pipe(first()).subscribe((categories: Category[]) => {
+    this.subscription = this.resultInputService.fillCategoryTable$.subscribe((categories: Category[]) => {
       this.categoryQuery.updateSpinner(false);
       this.showSpinner = false;
       this.fillTable(categories);
@@ -69,6 +70,10 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+
+    if(!this.showSpinner){
+      this.subscription.unsubscribe();
+    }
   }
 
 }

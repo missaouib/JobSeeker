@@ -20,6 +20,7 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource(this.cityList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
   private subscriptions: Subscription[] = [];
+  private subscription: Subscription;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -36,7 +37,7 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
       this.showSpinner = true;
     }));
 
-    this.resultInputService.fillCityTable$.pipe(first()).subscribe( (cities: City[]) => {
+    this.subscription = this.resultInputService.fillCityTable$.subscribe( (cities: City[]) => {
       this.cityList = [...cities];
       this.cityList = this.cityList.filter(city => city.name !== 'All Cities');
 
@@ -73,6 +74,10 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+
+    if(!this.showSpinner){
+      this.subscription.unsubscribe();
+    }
   }
 
 }
