@@ -2,7 +2,6 @@ import { ID } from '@datorama/akita';
 
 export interface City {
     id: ID,
-    date: Date,
     name: string,
     population: number,
     area: number,

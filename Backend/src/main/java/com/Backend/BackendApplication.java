@@ -2,7 +2,9 @@ package com.Backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @SpringBootApplication
 public class BackendApplication {
 
@@ -12,8 +14,7 @@ public class BackendApplication {
 
 	//[BACKEND] TODO
 	//[FEAT] deploy v1.0
-	//[FEAT] add auto play requests script
-	//[OPTIMIZATION] send only one date per request
+	//[FEAT] add database docker and maybe aws?
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[FEAT] add json web token
 	//[TEST] add tests

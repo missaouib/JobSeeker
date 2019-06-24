@@ -59,10 +59,9 @@ public class TechnologyServiceImp implements TechnologyService {
         return technology.getLinkedin() + technology.getPracuj() + technology.getNoFluffJobs() + technology.getJustJoin();
     };
 
-    public List<TechnologyDto> scrapTechnologyStatistics(ModelMap city) {
-
-        String selectedCityUTF8 = city.get("city").toString().toLowerCase();
-        String selectedCityASCII = scrapJobService.removePolishSigns(city.get("city").toString().toLowerCase());
+    public List<TechnologyDto> scrapTechnologyStatistics(String city) {
+        String selectedCityUTF8 = city.toLowerCase();
+        String selectedCityASCII = scrapJobService.removePolishSigns(selectedCityUTF8);
         List<Technology> technologies = technologyRepository.findAll();
         List<JustJoin> justJoinOffers = scrapJobService.getJustJoin();
         List<TechnologyOffers> technologiesOffers = new ArrayList<>();

@@ -60,8 +60,8 @@ public class CountryServiceImp implements CountryService {
         return (Math.round(country.getLinkedin() * 1.0 / (country.getCountry().getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
     };
 
-    public List<CountryDto> scrapItJobOffersInWorld(ModelMap technology) {
-        String selectedTechnology = technology.get("technology").toString().toLowerCase();
+    public List<CountryDto> scrapItJobOffersInWorld(String technology) {
+        String selectedTechnology = technology.toLowerCase();
         List<Country> countries = countryRepository.findAll();
         List<CountryOffers> countriesOffers = new ArrayList<>();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);

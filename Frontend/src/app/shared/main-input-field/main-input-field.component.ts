@@ -162,7 +162,9 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar() {
-    this.snackBar.open('Server is not responding, please try again later.', 'Close', {});
+    this.snackBar.open('Server is not responding, please try again later.', 'Close', {
+      duration: 10000,
+    });
   }
 
   ngOnDestroy() {

@@ -62,8 +62,8 @@ public class CityServiceImp implements CityService {
         return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoin();
     };
 
-    public List<CityDto> scrapItJobOffersInPoland(ModelMap technology) {
-        String selectedTechnology = technology.get("technology").toString().toLowerCase();
+    public List<CityDto> scrapItJobOffersInPoland(String technology) {
+        String selectedTechnology = technology.toLowerCase();
         List<City> cities = cityRepository.findAll();
         List<JustJoin> justJoinOffers = scrapJobService.getJustJoin();
         List<CityOffers> citiesOffers = new ArrayList<>();

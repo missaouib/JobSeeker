@@ -6,5 +6,5 @@ import org.springframework.ui.ModelMap;
 import java.util.List;
 
 public interface CategoryService {
-    List<CategoryDto> scrapCategoryStatistics(ModelMap city);
+    List<CategoryDto> scrapCategoryStatistics(String city);
 }

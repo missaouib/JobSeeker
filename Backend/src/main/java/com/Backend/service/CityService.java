@@ -6,5 +6,5 @@ import org.springframework.ui.ModelMap;
 import java.util.List;
 
 public interface CityService {
-    List<CityDto> scrapItJobOffersInPoland(ModelMap technology);
+    List<CityDto> scrapItJobOffersInPoland(String technology);
 }

@@ -6,5 +6,5 @@ import org.springframework.ui.ModelMap;
 import java.util.List;
 
 public interface TechnologyService {
-    List<TechnologyDto> scrapTechnologyStatistics(ModelMap city);
+    List<TechnologyDto> scrapTechnologyStatistics(String city);
 }

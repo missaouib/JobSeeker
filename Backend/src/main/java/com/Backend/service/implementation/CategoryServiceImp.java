@@ -49,8 +49,8 @@ public class CategoryServiceImp implements CategoryService {
         }
     };
 
-    public List<CategoryDto> scrapCategoryStatistics(ModelMap city) {
-        String selectedCityUTF8 = city.get("city").toString().toLowerCase();
+    public List<CategoryDto> scrapCategoryStatistics(String city) {
+        String selectedCityUTF8 = city.toLowerCase();
         String selectedCityASCII = scrapJobService.removePolishSigns(selectedCityUTF8);
         List<Category> categories = categoryRepository.findAll();
         List<CategoryOffers> categoriesOffers = new ArrayList<>();

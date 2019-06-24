@@ -23,6 +23,7 @@ public class CountryController {
 
     @PostMapping("/itJobOffersInWorld")
     public List<CountryDto> itJobOffersInWorld(@RequestBody ModelMap technology){
-        return countryService.scrapItJobOffersInWorld(technology);
+        String selectedTechnology = technology.get("technology").toString();
+        return countryService.scrapItJobOffersInWorld(selectedTechnology);
     }
 }
