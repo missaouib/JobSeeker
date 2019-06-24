@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import {TechnologyQuery} from '../../store/technology/technology.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Technology} from "../../models/technology.interfaces";
@@ -24,7 +25,6 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
   devOpsData = null;
   displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total'];
   private subscriptions: Subscription[] = [];
-  private subscription: Subscription;
 
   @ViewChild('languageTable', { static: true }) public languageTable: MatSort;
   @ViewChild('frameworkTable', { static: true }) public frameworkTable: MatSort;
@@ -43,7 +43,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
       this.showSpinner = true;
     }));
 
-    this.subscription = this.resultInputService.fillTechnologyTable$.subscribe((technologies: Technology[]) => {
+    this.resultInputService.fillTechnologyTable$.pipe(first()).subscribe((technologies: Technology[]) => {
       this.technologyList = technologies;
       this.technologyList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
       this.fillTable(this.technologyList);
@@ -128,10 +128,6 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
-
-    if(!this.showSpinner){
-      this.subscription.unsubscribe();
-    }
   }
 
 }

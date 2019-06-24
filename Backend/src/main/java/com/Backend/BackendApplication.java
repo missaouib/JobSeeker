@@ -13,8 +13,9 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[FEAT] get data from db
+	//[FEAT] add database docker
 	//[FEAT] deploy v1.0
-	//[FEAT] add database docker and maybe aws?
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[FEAT] add json web token
 	//[TEST] add tests

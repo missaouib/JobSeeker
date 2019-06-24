@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { CountryQuery } from '../../store/country/country.query';
 import {Component, DoCheck, ViewChild, OnInit, OnDestroy} from '@angular/core';
 import {Country} from "../../models/country.interfaces";
@@ -20,7 +21,6 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
   dataSource = new MatTableDataSource(this.countryList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
   private subscriptions: Subscription[] = [];
-  private subscription: Subscription;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -38,7 +38,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
       this.showSpinner = true;
     }));
 
-    this.subscription = this.resultInputService.fillCountryTable$.subscribe((countries: Country[]) => {
+    this.resultInputService.fillCountryTable$.pipe(first()).subscribe((countries: Country[]) => {
       this.countryList = countries;
       this.fillTable(this.countryList);
       this.countryQuery.updateSpinner(false);
@@ -84,9 +84,5 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
-
-    if(!this.showSpinner){
-      this.subscription.unsubscribe();
-    }
   }
 }

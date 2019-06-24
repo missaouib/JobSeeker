@@ -9,6 +9,7 @@ import com.Backend.repository.CityRepository;
 import com.Backend.repository.offers.CategoryOffersRepository;
 import com.Backend.service.CategoryService;
 import com.Backend.service.ScrapJobService;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,18 @@ public class CategoryServiceImp implements CategoryService {
             map().setId(source.getCategory().getId());
         }
     };
+
+    public List<CategoryDto> getCategoryStatistics(String city){
+
+        List<CategoryOffers> list =  categoryOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city).orElse(null));
+        System.out.println(list);
+
+        if(list.isEmpty()){
+            return scrapCategoryStatistics(city);
+        } else {
+            return list.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
+        }
+    }
 
     public List<CategoryDto> scrapCategoryStatistics(String city) {
         String selectedCityUTF8 = city.toLowerCase();

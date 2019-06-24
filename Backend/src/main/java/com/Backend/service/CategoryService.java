@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CategoryService {
     List<CategoryDto> scrapCategoryStatistics(String city);
+    List<CategoryDto> getCategoryStatistics(String city);
 }
