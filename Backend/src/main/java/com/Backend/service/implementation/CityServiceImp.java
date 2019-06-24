@@ -2,6 +2,7 @@ package com.Backend.service.implementation;
 
 import com.Backend.domain.JustJoin;
 import com.Backend.dto.CityDto;
+import com.Backend.dto.TechnologyDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
 import com.Backend.entity.offers.CityOffers;
@@ -62,6 +63,19 @@ public class CityServiceImp implements CityService {
         return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoin();
     };
 
+    @Override
+    public List<CityDto> getItJobOffersInPoland(String technology) {
+
+        List<CityOffers> list = cityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technology).orElse(null));
+
+        if(list.isEmpty()){
+            return scrapItJobOffersInPoland(technology);
+        } else {
+            return list.stream().map(category -> modelMapper.map(category, CityDto.class)).collect(Collectors.toList());
+        }
+    }
+
+    @Override
     public List<CityDto> scrapItJobOffersInPoland(String technology) {
         String selectedTechnology = technology.toLowerCase();
         List<City> cities = cityRepository.findAll();
@@ -169,4 +183,5 @@ public class CityServiceImp implements CityService {
                     return cityDto;
                 }).collect(Collectors.toList()));
     }
+
 }

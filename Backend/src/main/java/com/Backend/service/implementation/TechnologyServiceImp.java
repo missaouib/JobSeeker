@@ -4,7 +4,6 @@ import com.Backend.domain.JustJoin;
 import com.Backend.dto.TechnologyDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
-import com.Backend.entity.offers.CityOffers;
 import com.Backend.entity.offers.TechnologyOffers;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.TechnologyRepository;
@@ -15,7 +14,6 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
@@ -59,6 +57,19 @@ public class TechnologyServiceImp implements TechnologyService {
         return technology.getLinkedin() + technology.getPracuj() + technology.getNoFluffJobs() + technology.getJustJoin();
     };
 
+    @Override
+    public List<TechnologyDto> getTechnologyStatistics(String city) {
+
+        List<TechnologyOffers> list = technologyOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city).orElse(null));
+
+        if(list.isEmpty()){
+            return scrapTechnologyStatistics(city);
+        } else {
+            return list.stream().map(category -> modelMapper.map(category, TechnologyDto.class)).collect(Collectors.toList());
+        }
+    }
+
+    @Override
     public List<TechnologyDto> scrapTechnologyStatistics(String city) {
         String selectedCityUTF8 = city.toLowerCase();
         String selectedCityASCII = scrapJobService.removePolishSigns(selectedCityUTF8);
@@ -165,4 +176,5 @@ public class TechnologyServiceImp implements TechnologyService {
                 .map(ignoredCity -> technologiesOffers.stream().map(category -> modelMapper.map(technologyOffersRepository.save(category), TechnologyDto.class)).collect(Collectors.toList()))
                 .orElseGet(() -> technologiesOffers.stream().map(category -> modelMapper.map(category, TechnologyDto.class)).collect(Collectors.toList()));
     }
+
 }

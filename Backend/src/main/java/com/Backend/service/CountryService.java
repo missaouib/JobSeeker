@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CountryService {
     List<CountryDto> scrapItJobOffersInWorld(String technology);
+    List<CountryDto> getItJobOffersInWorld(String technology);
 }

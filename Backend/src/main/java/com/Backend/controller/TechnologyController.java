@@ -24,6 +24,6 @@ public class TechnologyController {
     @PostMapping("/technologyStatistics")
     public List<TechnologyDto> TechnologyStatistics(@RequestBody ModelMap city){
         String selectedCityUTF8 = city.get("city").toString();
-        return technologyService.scrapTechnologyStatistics(selectedCityUTF8);
+        return technologyService.getTechnologyStatistics(selectedCityUTF8);
     }
 }

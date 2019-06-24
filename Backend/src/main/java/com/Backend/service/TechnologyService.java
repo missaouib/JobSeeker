@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TechnologyService {
     List<TechnologyDto> scrapTechnologyStatistics(String city);
+    List<TechnologyDto> getTechnologyStatistics(String city);
 }

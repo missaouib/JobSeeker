@@ -13,8 +13,7 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[FEAT] get data from db
-	//[FEAT] add database docker
+	//[FEAT] add docker to all projects
 	//[FEAT] deploy v1.0
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[FEAT] add json web token

@@ -50,10 +50,10 @@ public class CategoryServiceImp implements CategoryService {
         }
     };
 
+    @Override
     public List<CategoryDto> getCategoryStatistics(String city){
 
-        List<CategoryOffers> list =  categoryOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city).orElse(null));
-        System.out.println(list);
+        List<CategoryOffers> list = categoryOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city).orElse(null));
 
         if(list.isEmpty()){
             return scrapCategoryStatistics(city);
@@ -62,6 +62,7 @@ public class CategoryServiceImp implements CategoryService {
         }
     }
 
+    @Override
     public List<CategoryDto> scrapCategoryStatistics(String city) {
         String selectedCityUTF8 = city.toLowerCase();
         String selectedCityASCII = scrapJobService.removePolishSigns(selectedCityUTF8);

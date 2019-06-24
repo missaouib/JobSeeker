@@ -1,5 +1,6 @@
 package com.Backend.service.implementation;
 
+import com.Backend.dto.CityDto;
 import com.Backend.dto.CountryDto;
 import com.Backend.entity.Country;
 import com.Backend.entity.Technology;
@@ -60,6 +61,19 @@ public class CountryServiceImp implements CountryService {
         return (Math.round(country.getLinkedin() * 1.0 / (country.getCountry().getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
     };
 
+    @Override
+    public List<CountryDto> getItJobOffersInWorld(String technology) {
+
+        List<CountryOffers> list = countryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technology).orElse(null));
+
+        if(list.isEmpty()){
+            return scrapItJobOffersInWorld(technology);
+        } else {
+            return list.stream().map(category -> modelMapper.map(category, CountryDto.class)).collect(Collectors.toList());
+        }
+    }
+
+    @Override
     public List<CountryDto> scrapItJobOffersInWorld(String technology) {
         String selectedTechnology = technology.toLowerCase();
         List<Country> countries = countryRepository.findAll();
@@ -97,4 +111,5 @@ public class CountryServiceImp implements CountryService {
                 .map(ignoredCity -> countriesOffers.stream().map(category -> modelMapper.map(countryOffersRepository.save(category), CountryDto.class)).collect(Collectors.toList()))
                 .orElseGet(() -> countriesOffers.stream().map(city -> modelMapper.map(city, CountryDto.class)).collect(Collectors.toList()));
     }
+
 }
