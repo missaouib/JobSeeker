@@ -9,11 +9,9 @@ import com.Backend.repository.CityRepository;
 import com.Backend.repository.offers.CategoryOffersRepository;
 import com.Backend.service.CategoryService;
 import com.Backend.service.ScrapJobService;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
