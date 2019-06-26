@@ -3,6 +3,7 @@ package com.Backend.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ public class Technology {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
+    @Column(unique = true)
     String name;
     String type;
 

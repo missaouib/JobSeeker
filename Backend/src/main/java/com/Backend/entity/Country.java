@@ -2,6 +2,7 @@ package com.Backend.entity;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ public class Country {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
+    @Column(unique = true)
     String name;
     int population;
     double area;
