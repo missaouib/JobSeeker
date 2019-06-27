@@ -35,6 +35,14 @@ public class TechnologyServiceImp implements TechnologyService {
     public TechnologyServiceImp(ModelMapper modelMapper, ScrapJobService scrapJobService, TechnologyRepository technologyRepository,
                                 TechnologyOffersRepository technologyOffersRepository, CityRepository cityRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
+        PropertyMap<TechnologyOffers, TechnologyDto> technologyMapping = new PropertyMap<TechnologyOffers, TechnologyDto>() {
+            protected void configure() {
+                map().setName(source.getTechnology().getName());
+                map().setType(source.getTechnology().getType());
+                map().setId(source.getTechnology().getId());
+                using(totalConverter).map(map().getTotal());
+            }
+        };
         this.modelMapper.addMappings(technologyMapping);
         this.modelMapper.addConverter(totalConverter);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
@@ -42,15 +50,6 @@ public class TechnologyServiceImp implements TechnologyService {
         this.technologyOffersRepository = Objects.requireNonNull(technologyOffersRepository);
         this.cityRepository = cityRepository;
     }
-
-    private PropertyMap<TechnologyOffers, TechnologyDto> technologyMapping = new PropertyMap<>() {
-        protected void configure() {
-            map().setName(source.getTechnology().getName());
-            map().setType(source.getTechnology().getType());
-            map().setId(source.getTechnology().getId());
-            using(totalConverter).map(map().getTotal());
-        }
-    };
 
     private Converter<Integer, Integer> totalConverter = context -> {
         TechnologyOffers technology = (TechnologyOffers) context.getParent().getSource();

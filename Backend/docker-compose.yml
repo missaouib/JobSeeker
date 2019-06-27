@@ -6,6 +6,8 @@ services:
   postgres:
     container_name: postgres_container
     image: postgres
+    ports:
+      - "5433:5432"
     environment:
       - POSTGRES_HOST=localhost
       - POSTGRES_DB=postgres
@@ -13,14 +15,19 @@ services:
       - POSTGRES_PASSWORD=12345
     volumes:
       - postgres:/data/postgres
-    ports:
-      - "5433:5432"
-    networks:
-      - postgres
-
-networks:
-  postgres:
-    driver: bridge
+#  backend:
+#    build: .
+#    ports:
+#      - "8080:8080"
 
 volumes:
   postgres:
+
+#    networks:
+#      - postgres
+#
+#networks:
+#  postgres:
+#    driver: bridge
+
+

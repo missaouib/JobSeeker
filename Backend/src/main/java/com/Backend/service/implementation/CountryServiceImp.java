@@ -45,7 +45,7 @@ public class CountryServiceImp implements CountryService {
         this.technologyRepository = technologyRepository;
     }
 
-    private PropertyMap<CountryOffers, CountryDto> countryMapping = new PropertyMap<>() {
+    private PropertyMap<CountryOffers, CountryDto> countryMapping = new PropertyMap<CountryOffers, CountryDto>() {
         protected void configure() {
             map().setName(source.getCountry().getName());
             map().setPopulation(source.getCountry().getPopulation());

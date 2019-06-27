@@ -40,7 +40,7 @@ public class CategoryServiceImp implements CategoryService {
         this.cityRepository = Objects.requireNonNull(cityRepository);
     }
 
-    private PropertyMap<CategoryOffers, CategoryDto> categoryMapping = new PropertyMap<>() {
+    private PropertyMap<CategoryOffers, CategoryDto> categoryMapping = new PropertyMap<CategoryOffers, CategoryDto>() {
         protected void configure() {
             map().setPolishName(source.getCategory().getPolishName());
             map().setEnglishName(source.getCategory().getEnglishName());

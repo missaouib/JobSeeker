@@ -46,7 +46,7 @@ public class CityServiceImp implements CityService {
         this.technologyRepository = technologyRepository;
     }
 
-    private PropertyMap<CityOffers, CityDto> cityMapping = new PropertyMap<>() {
+    private PropertyMap<CityOffers, CityDto> cityMapping = new PropertyMap<CityOffers, CityDto>() {
         protected void configure() {
 
             map().setName(source.getCity().getName());
