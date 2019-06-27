@@ -3,28 +3,24 @@
 version: '3.5'
 
 services:
-#  app:
-#    build: .
-#    ports:
-#      - "8080:8080"
-  postgres:
-    container_name: postgres_container
+  app:
+    container_name: backend
+    build: .
+    ports:
+      - 8081:8081
+    depends_on:
+      - database
+  database:
+    container_name: database
     image: postgres
+    ports:
+      - 5433:5433
     environment:
-      - POSTGRES_HOST=localhost
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345
     volumes:
       - postgres:/data/postgres
-    ports:
-      - "5433:5432"
-    networks:
-      - postgres
-
-networks:
-  postgres:
-    driver: bridge
 
 volumes:
   postgres:
