@@ -19,7 +19,6 @@ public class Technology {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
-    @Column(unique = true)
     String name;
     String type;
 

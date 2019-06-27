@@ -17,7 +17,6 @@ public class Category {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
-    @Column(unique = true)
     String englishName;
     int pracujId;
     String polishName;

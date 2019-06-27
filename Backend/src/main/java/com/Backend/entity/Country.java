@@ -17,7 +17,6 @@ public class Country {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
-    @Column(unique = true)
     String name;
     int population;
     double area;

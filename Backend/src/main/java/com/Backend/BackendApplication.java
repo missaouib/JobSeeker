@@ -13,7 +13,6 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[FEAT] init db if empty
 	//[FEAT] add docker to all projects
 	//[FEAT] deploy v1.0
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
