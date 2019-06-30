@@ -69,7 +69,7 @@ public class CountryServiceImp implements CountryService {
         if(list.isEmpty()){
             return scrapItJobOffersInWorld(technology);
         } else {
-            return list.stream().map(category -> modelMapper.map(category, CountryDto.class)).collect(Collectors.toList());
+            return list.stream().map(country -> modelMapper.map(country, CountryDto.class)).collect(Collectors.toList());
         }
     }
 

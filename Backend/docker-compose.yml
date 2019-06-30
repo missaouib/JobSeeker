@@ -3,19 +3,27 @@
 version: '3.5'
 
 services:
-  app:
-    container_name: backend
-    build: .
-    ports:
-      - 8081:8081
-    depends_on:
-      - database
+#  backend:
+#    container_name: spring
+#    build: .
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - database
+#  frontend:
+#    container_name: anguar
+#    build: ./Frontend
+#    ports:
+#      - 4200:4200
+#    depends_on:
+#      - backend
   database:
-    container_name: database
+    container_name: psql
     image: postgres
     ports:
-      - 5433:5433
+      - 5433:5432
     environment:
+      - POSTGRES_HOST=localhost
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345

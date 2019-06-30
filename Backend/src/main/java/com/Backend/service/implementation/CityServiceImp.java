@@ -48,7 +48,6 @@ public class CityServiceImp implements CityService {
 
     private PropertyMap<CityOffers, CityDto> cityMapping = new PropertyMap<CityOffers, CityDto>() {
         protected void configure() {
-
             map().setName(source.getCity().getName());
             map().setPopulation(source.getCity().getPopulation());
             map().setArea(source.getCity().getArea());
@@ -68,10 +67,27 @@ public class CityServiceImp implements CityService {
 
         List<CityOffers> list = cityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technology).orElse(null));
 
+//        return Optional.of(cityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technology).orElse(null)))
+//                //.stream()
+//                .map(city -> {
+//                    CityDto cityDto = modelMapper.map(city, CityDto.class);
+//                    cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
+//                    return cityDto;
+//                })
+//                .orElseGet(() -> scrapItJobOffersInPoland(technology).stream().peek(
+//                    cityDto -> cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0)
+//                ).collect(Collectors.toList()));
+
         if(list.isEmpty()){
-            return scrapItJobOffersInPoland(technology);
+            return scrapItJobOffersInPoland(technology).stream().peek(
+                    cityDto -> cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0)
+            ).collect(Collectors.toList());
         } else {
-            return list.stream().map(category -> modelMapper.map(category, CityDto.class)).collect(Collectors.toList());
+            return list.stream().map(city -> {
+                CityDto cityDto = modelMapper.map(city, CityDto.class);
+                cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
+                return cityDto;
+            }).collect(Collectors.toList());
         }
     }
 
@@ -172,16 +188,12 @@ public class CityServiceImp implements CityService {
 
         return technologyOptional
                 .filter(ignoredTechnology -> !cityOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
-                .map(ignoredCity -> citiesOffers.stream().map(city -> {
-                    CityDto cityDto = modelMapper.map(cityOffersRepository.save(city), CityDto.class);
-                    cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
-                    return cityDto;
-                }).collect(Collectors.toList()))
-                .orElseGet(() -> citiesOffers.stream().map(city -> {
-                    CityDto cityDto = modelMapper.map(city, CityDto.class);
-                    cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
-                    return cityDto;
-                }).collect(Collectors.toList()));
+                .map(ignoredCity -> citiesOffers.stream()
+                        .map(city -> modelMapper.map(cityOffersRepository.save(city), CityDto.class))
+                        .collect(Collectors.toList()))
+                .orElseGet(() -> citiesOffers.stream()
+                        .map(city -> modelMapper.map(city, CityDto.class))
+                        .collect(Collectors.toList()));
     }
 
 }

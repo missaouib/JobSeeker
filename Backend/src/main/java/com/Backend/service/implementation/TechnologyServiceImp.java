@@ -65,7 +65,7 @@ public class TechnologyServiceImp implements TechnologyService {
         if(list.isEmpty()){
             return scrapTechnologyStatistics(city);
         } else {
-            return list.stream().map(category -> modelMapper.map(category, TechnologyDto.class)).collect(Collectors.toList());
+            return list.stream().map(technology -> modelMapper.map(technology, TechnologyDto.class)).collect(Collectors.toList());
         }
     }
 

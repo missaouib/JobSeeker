@@ -166,7 +166,6 @@ INSERT INTO country(id, name, population, area, density) VALUES (68, 'North Kore
 INSERT INTO country(id, name, population, area, density) VALUES (69, 'Saint Kitts and Nevis', 56345, 270, 209) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, population, area, density) VALUES (70, 'The Gambia', 2228075, 10690, 208) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, population, area, density) VALUES (71, 'Switzerland', 8542323, 41285, 207) ON CONFLICT DO NOTHING;
-INSERT INTO country(id, name, population, area, density) VALUES (72, 'So Tom and Prncipe', 201784, 1001, 202) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, population, area, density) VALUES (73, 'Nepal', 29609623, 147181, 201) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, population, area, density) VALUES (74, 'Italy', 60375749, 301308, 200) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, population, area, density) VALUES (75, 'Uganda', 40006700, 241551, 166) ON CONFLICT DO NOTHING;
