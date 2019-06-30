@@ -1,13 +1,11 @@
 ### JobSeeker
 WebScrapper
 
-#### Backend
-- Java 11 Spring Boot 2
-- PostgreSQL configure or select H2 in properties
-- Lombok configure
-- `docker-compose up`
+- Backend
+  - Java 11 Spring Boot 2 PostgreSQL
+- Frontend
+  - Typescript 3 Angular 8
 
-#### Frontend
-- Typescript 3 Angular 8
-- npm install
+##### Run
+- `./gradlew bootJar`
 - `docker-compose up`

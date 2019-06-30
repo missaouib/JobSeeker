@@ -40,6 +40,7 @@ public class CityServiceImp implements CityService {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(cityMapping);
         this.modelMapper.addConverter(totalConverter);
+        //this.modelMapper.addConverter(per100kConverter);
         this.scrapJobService = Objects.requireNonNull(scrapJobService);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.cityOffersRepository = Objects.requireNonNull(cityOffersRepository);
@@ -54,6 +55,7 @@ public class CityServiceImp implements CityService {
             map().setDensity(source.getCity().getDensity());
             map().setId(source.getCity().getId());
             using(totalConverter).map(map().getTotal());
+            //using(per100kConverter).map(map().getPer100k());
         }
     };
 
@@ -61,6 +63,12 @@ public class CityServiceImp implements CityService {
         CityOffers city = (CityOffers) context.getParent().getSource();
         return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoin();
     };
+
+//    private Converter<Double, Double> per100kConverter = context -> {
+//        City city = (City) context.getParent().getSource();
+//        CityOffers cityOffers = (CityOffers) context.getParent().getSource();
+//        return Math.round(cityOffers.getJustJoin() * 1.0 / (city.getPopulation() * 1.0 / 100000) * 100.0) / 100.0;
+//    };
 
     @Override
     public List<CityDto> getItJobOffersInPoland(String technology) {
