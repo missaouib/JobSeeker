@@ -13,6 +13,7 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[FEAT] switch to production mode before release
 	//[REFACTOR] get methods & modelmapper converter
 	//[FIX] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$53763105] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 	//[FEAT] add docker to all projects
