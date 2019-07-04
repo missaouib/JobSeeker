@@ -7,5 +7,4 @@ WebScrapper
   - Typescript 3 Angular 8
 
 ##### Run
-- `./gradlew bootJar`
-- `docker-compose up`
+- `docker-compose up --build`

@@ -20,25 +20,25 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   getCities(technologyName: string): Observable <City[]> {
-    return this.http.post<City[]>('http://localhost:8080/itJobOffersInPoland', {
+    return this.http.post<City[]>('http://localhost:8081/itJobOffersInPoland', {
       technology: technologyName
     }, httpOptions);
   }
 
   getCountries(technologyName: string): Observable <Country[]> {
-    return this.http.post<Country[]>('http://localhost:8080/itJobOffersInWorld', {
+    return this.http.post<Country[]>('http://localhost:8081/itJobOffersInWorld', {
       technology: technologyName
     }, httpOptions);
   }
 
   getTechnologies(cityName: string): Observable <Technology[]>{
-    return this.http.post<Technology[]>('http://localhost:8080/technologyStatistics', {
+    return this.http.post<Technology[]>('http://localhost:8081/technologyStatistics', {
       city: cityName
     }, httpOptions)
   }
 
   getCategories(cityName: string): Observable <Category[]>{
-    return this.http.post<Category[]>('http://localhost:8080/categoryStatistics', {
+    return this.http.post<Category[]>('http://localhost:8081/categoryStatistics', {
       city: cityName
     }, httpOptions)
   }

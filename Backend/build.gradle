@@ -10,6 +10,10 @@ repositories {
 	mavenCentral()
 }
 
+bootJar {
+	mainClassName = 'com.Backend.BackendApplication'
+}
+
 dependencies {
 	//Spring
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -18,14 +22,12 @@ dependencies {
 	//Database
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'org.postgresql:postgresql'
-	//runtimeOnly 'com.h2database:h2'
 
 	//Tests
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 
 	//External tools
-	//implementation 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok:1.18.6'
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 	compile 'org.modelmapper:modelmapper:2.3.4'
