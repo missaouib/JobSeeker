@@ -5,7 +5,7 @@ services:
     container_name: spring
     build: ./Backend
     ports:
-     - 8081:8080
+     - 8080:8080
     depends_on:
      - database
     volumes:
@@ -14,14 +14,14 @@ services:
     container_name: angular
     build: ./Frontend
     ports:
-     - 81:80
+     - 80:80
     volumes:
      - ./Frontend:/app
   database:
     container_name: psql
     image: postgres
     ports:
-      - 5433:5432
+      - 5432:5432
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres

@@ -1,4 +1,4 @@
-FROM openjdk:11-jre AS TEMP_BUILD_IMAGE
+FROM openjdk:11 AS TEMP_BUILD_IMAGE
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 COPY build.gradle settings.gradle gradlew $APP_HOME
@@ -7,7 +7,7 @@ RUN ./gradlew build || return 0
 COPY . .
 RUN ./gradlew build
 
-FROM openjdk:11-jre
+FROM openjdk:11
 ENV ARTIFACT_NAME=Backend.jar
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
