@@ -24,6 +24,7 @@ public class BackendApplication {
 	//[TEST] add tests
 
 	//[FRONTEND] TODO
+	//[FIX] refresh router on docker
 	//[FEAT] switch to production mode before release
 	//[FEAT] add history diagram functionality
 	//[OPTIMIZATION] responsive table
