@@ -10,18 +10,18 @@
 
 ##### Deploy to heroku
 1. Backend
-  - Create heroku app
-  - Add postgres plugin
-  - Change port in properties to dynamic ${PORT}
-  - Set up the valid credentials in properties to postgres heroku
+    - Create heroku app
+    - Add postgres plugin
+    - Change port in properties to dynamic ${PORT}
+    - Set up the valid credentials in properties to postgres heroku
 2. Frontend
-  - Create heroku app
-  - Change all ports in nginx and docker to dynamic ${PORT}
-  - make sure u have valid path in dockerfile
+    - Create heroku app
+    - Change all ports in nginx and docker to dynamic ${PORT}
+    - make sure u have valid path in dockerfile
 3. Deploy
-  - heroku login
-  - git init
-  - heroku git:remote -a <\appname>\
-  - heroku container:login
-  - heroku container:push web
-  - heroku container:release web
+    - heroku login
+    - git init
+    - heroku git:remote -a <\appname>\
+    - heroku container:login
+    - heroku container:push web
+    - heroku container:release web
