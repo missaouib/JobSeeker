@@ -16,6 +16,7 @@
     - Set up the valid credentials in properties to postgres heroku
 2. Frontend
     - Create heroku app
+    - Switch between production and develop mode in env
     - Change all ports in nginx and docker to dynamic ${PORT}
     - make sure u have valid path in dockerfile
 3. Deploy
