@@ -18,7 +18,8 @@
     - Create heroku app
     - Switch between production and develop mode in env
     - Change all ports in nginx and docker to dynamic ${PORT}
-    - make sure u have valid paths in dockerfile
+    - Make sure u have valid paths in dockerfile
+    - Set up valid http urls to backend
 3. Deploy
     - heroku login
     - git init
