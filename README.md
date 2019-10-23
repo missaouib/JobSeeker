@@ -1,14 +1,23 @@
 ##### Technology stack
 - Backend
-  - Java 11 Spring Boot 2 PostgreSQL
+  - Java 11
+  - Spring Boot 2
+  - PostgreSQL
 - Frontend
-  - Typescript 3 Angular 8
-
+  - Typescript 3
+  - Angular 8
+- Requirements
+  - Java
+  - Docker
+  - Node
+  - Npm
+  
 ##### Run demo locally
 - make sure u have a specific ports in dockerfiles and nginx
-- `docker-compose up --build`
+- `docker-compose up`
+- `docker run -p 5432:5432 -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker -d postgres`
 
-##### Deploy to heroku
+##### Deploy to heroku(not recommended)
 1. Backend
     - Create heroku app
     - Add postgres plugin
@@ -23,7 +32,7 @@
 3. Deploy
     - heroku login
     - git init
-    - heroku git:remote -a <\appname>\
+    - heroku git:remote -a <\appname>
     - heroku container:login
     - heroku container:push web
     - heroku container:release web
