@@ -11,11 +11,11 @@
   - Docker
   - Node
   - Npm
-  
+
 ##### Run demo locally
 - make sure u have a specific ports in dockerfiles and nginx
 - `docker-compose up`
-- `docker run -p 5432:5432 -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker -d postgres`
+- `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
 
 ##### Deploy to heroku(not recommended)
 1. Backend
