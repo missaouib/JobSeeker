@@ -20,6 +20,8 @@
 ##### Deploy to Aws using Elastic Beanstalk
 1. Backend
     - Create RDS Instance
+    - Set up the valid credentials in properties to postgres RDS
+    - Set up static PORT in Dockerfile EXPOSE 8080
 2. Frontend
     - Set up static PORT in Dockerfile EXPOSE 80(https) or 443(https)
 3. Deploy
