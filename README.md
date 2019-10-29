@@ -18,7 +18,7 @@
 - `docker-compose up`
 - `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
 
-##### Deploy to Aws using Elastic Beanstalk
+##### Deploy Docker to Aws using Elastic Beanstalk
 1. Backend
     - Create RDS Instance
         - Make sure u have checked "public accesibility" to "Yes"
@@ -33,7 +33,7 @@
     - Upload zip one by one
     - Check on EC2 instances
   
-##### Deploy to Heroku (not recommended)
+##### Deploy Docker to Heroku
 1. Backend
     - Create heroku app
     - Add postgres plugin
