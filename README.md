@@ -1,4 +1,4 @@
-##### Technology stack
+## Technology stack
 - Backend
   - Java 11
   - Spring Boot 2
@@ -8,11 +8,12 @@
   - Angular 8
 - Requirements
   - Java
-  - Docker
   - Node
-  - Npm
+  - Docker
 
-##### Run demo locally
+## DEMO 
+
+##### Run locally
 - make sure u have a specific ports in dockerfiles and nginx
 - `docker-compose up`
 - `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
