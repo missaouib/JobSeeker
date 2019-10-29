@@ -19,14 +19,14 @@
 
 ##### Deploy to aws using Elastic Beanstalk
 1. Backend
-  - Create RDS Instance
+    - Create RDS Instance
 2. Frontend
-  - Set up static PORT in Dockerfile EXPOSE 80(https) or 443(https)
+    - Set up static PORT in Dockerfile EXPOSE 80(https) or 443(https)
 3. Deploy
-  - Create Elastic Beanstalk app
-  - zip whole folders with Dockerfile on top
-  - Upload zip one by one
-  - Check on EC2 instances
+    - Create Elastic Beanstalk app
+    - zip whole folders with Dockerfile on top
+    - Upload zip one by one
+    - Check on EC2 instances
   
 ##### Deploy to heroku(not recommended)
 1. Backend
