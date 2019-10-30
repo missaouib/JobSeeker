@@ -38,10 +38,14 @@
 1. Create RDS Instance like in previous instruction
 2. Create ECR repository and push your two images
     - Configure IAM Security with some online guide
+      - Go to IAM -> Policies
+      - Attach `AmazonEC2ContainerRegistryReadOnly` for Elastic Beanstalk roles
     - install AWS CLI
     - login with `aws configure`
     - Follow the instruction commands on ECR repository 
-3. Create Dockerrun.aws.json ane push it with the Elastic BeanStalk
+3. Create Elastic Beanstalk app with multi-containers docker platform
+4. Set up the http url for requesting backend 
+4. Upload Dockerrun.aws.json
   
 #### Deploy Docker to Aws using EC2 ECS
 #### Deploy Docker to Aws using clean EC2
