@@ -37,8 +37,14 @@
 #### Deploy Docker to Aws using Elastic Beanstalk Multi-Container
 1. Create RDS Instance like in previous instruction
 2. Create ECR repository and push your two images
-    - doddd
+  - Configure IAM Security with some online guide
+  - install AWS CLI
+  - login with `aws configure`
+  - Follow the instruction commands on ECR repository 
 3. Create Dockerrun.aws.json ane push it with the Elastic BeanStalk
+  
+#### Deploy Docker to Aws using EC2 ECS
+#### Deploy Docker to Aws using clean EC2
   
 #### Deploy Docker to Heroku
 1. Backend
