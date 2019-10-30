@@ -22,12 +22,12 @@
 1. Backend
     - Create RDS Instance
         - Make sure u have checked "public accesibility" to "Yes"
-        - Change security group for anywhere*
+        - Change security group for PSQL TCP 5432 (or for anywhere)
     - Set up the valid credentials in properties to postgres RDS
-    - Set up static PORT in Dockerfile EXPOSE
+    - Set up static PORT in Dockerfile EXPOSE 8080
 2. Frontend
-    - Set up the http url for requesting backend 
-    - Set up static PORT in Dockerfile EXPOSE
+    - Set up the http url for requesting backend
+    - Set up static PORT in Dockerfile EXPOSE 80
 3. Deploy
     - Create Elastic Beanstalk app
     - Create two environments with docker platform
