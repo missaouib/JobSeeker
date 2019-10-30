@@ -18,6 +18,8 @@
 - `docker-compose up`
 - `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
 
+#### Deploy Docker to Aws using EC2 ECS (recomendded)
+
 #### Deploy Docker to Aws using Elastic Beanstalk Single-Container
 1. Backend
     - Create RDS Instance
@@ -46,9 +48,6 @@
 3. Create Elastic Beanstalk app with multi-containers docker platform
 4. Set up the http url for requesting backend 
 4. Upload Dockerrun.aws.json
-  
-#### Deploy Docker to Aws using EC2 ECS
-#### Deploy Docker to Aws using clean EC2
   
 #### Deploy Docker to Heroku
 1. Backend
