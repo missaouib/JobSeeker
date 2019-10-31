@@ -19,6 +19,18 @@
 - `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
 
 #### Deploy Docker to Aws using EC2 ECS (recomendded)
+1. Create RDS Instance like in previous instruction
+   - Make sure u have checked "public accesibility" to "Yes"
+   - Change security group for PSQL TCP 5432 (or for anywhere)
+   - Set up the valid credentials in properties to postgres RDS
+2. Create ECR repository and push your two images
+    - Configure IAM Security with some online guide
+      - Go to IAM -> Policies
+      - Attach `AmazonEC2ContainerRegistryReadOnly` for Elastic Beanstalk roles
+    - install AWS CLI
+    - login with `aws configure`
+    - Follow the instruction commands on ECR repository 
+3. Create ECS Cluster
 
 #### Deploy Docker to Aws using Elastic Beanstalk Single-Container
 1. Backend
@@ -38,6 +50,9 @@
   
 #### Deploy Docker to Aws using Elastic Beanstalk Multi-Container
 1. Create RDS Instance like in previous instruction
+   - Make sure u have checked "public accesibility" to "Yes"
+   - Change security group for PSQL TCP 5432 (or for anywhere)
+   - Set up the valid credentials in properties to postgres RDS
 2. Create ECR repository and push your two images
     - Configure IAM Security with some online guide
       - Go to IAM -> Policies
@@ -47,7 +62,7 @@
     - Follow the instruction commands on ECR repository 
 3. Create Elastic Beanstalk app with multi-containers docker platform
 4. Set up the http url for requesting backend 
-4. Upload Dockerrun.aws.json
+4. Create and upload Dockerrun.aws.json
   
 #### Deploy Docker to Heroku
 1. Backend
