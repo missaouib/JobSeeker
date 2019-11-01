@@ -18,6 +18,15 @@
 - `docker-compose up`
 - `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
 
+### Config AWS CLI
+1. install `apt install awscli`
+2. configure IAM
+3. aws configure login
+4. debug ec2 via console
+  - open port 22
+  - create key pair
+  - ssh -i file dns
+
 #### Deploy Docker to Aws using EC2 ECS (recomendded)
 1. Create RDS Instance like in previous instruction
    - Make sure u have checked "public accesibility" to "Yes"
@@ -31,6 +40,8 @@
     - login with `aws configure`
     - Follow the instruction commands on ECR repository 
 3. Create ECS Cluster
+4. Create ECS Task definitions 
+5. Run task
 
 #### Deploy Docker to Aws using Elastic Beanstalk Single-Container
 1. Backend
