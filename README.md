@@ -6,10 +6,6 @@
 - Frontend
   - Typescript 3
   - Angular 8
-- Requirements
-  - Java
-  - Node
-  - Docker
 
 # DEMO 
 
