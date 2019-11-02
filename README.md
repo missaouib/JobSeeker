@@ -14,16 +14,18 @@
 - `docker-compose up`
 - `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
 
-#### Configure AWS CLI
-1. Create admin user in IAM with all permissions
-2. Install `apt install awscli`
-3. Login with admin credentials `aws configure`
-4. Connect to EC2 
-   - Open port 22 in Security Group for EC2
-   - Create KeyPair for EC2
-   - Set up only read rights `chmod 400 key.pem`
-   - `ssh -i <key.pem> <ec2 dns>`
-5. Create Postgres RDS Instance
+#### Config
+1. AWS CLI
+   - Create admin user in IAM with all permissions
+   - Install `apt install awscli`
+   - Login with admin credentials `aws configure`
+   - Connect to EC2 
+      - Open port 22 in Security Group for EC2
+      - Create KeyPair for EC2
+      - Set up only read rights `chmod 400 key.pem`
+      - `ssh -i <key.pem> ec-2user@<ec2 dns>`
+2. Postgres RDS Instance
+   - Create instance
    - Make sure u have checked "public accesibility" to "Yes"
    - Change security group for PSQL TCP 5432 (or for anywhere)
 
