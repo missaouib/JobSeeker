@@ -30,9 +30,6 @@
 #### Deploy Docker to Aws using EC2 ECS (recomendded)
 1. Set up the valid credentials in properties for RDS
 2. Create ECR repository and push your two images
-    - Go to IAM -> Policies
-    - Attach `AmazonEC2ContainerRegistryReadOnly` for Elastic Beanstalk roles
-    - Follow the instruction commands on ECR repository 
 3. Create ECS Cluster
 4. Create ECS Task definitions (select 80 and 8080 ports)
 5. Run tasks
