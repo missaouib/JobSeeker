@@ -57,11 +57,11 @@ INSERT INTO technology(id, name, type) VALUES (36, 'Kubernetes', 'DevOps') ON CO
 INSERT INTO technology(id, name, type) VALUES (37, 'AWS', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (38, 'Azure', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (39, 'HTML', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (40, 'Maven', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (41, 'Gradle', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (40, 'NoSQL', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (41, 'Selenium', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (42, 'JUnit', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (43, 'Jira', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (44, 'Scrum', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (43, 'Nginx', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (44, 'Tomcat', 'DevOps') ON CONFLICT DO NOTHING;
 
 INSERT INTO category(id, pracuj_id, polish_name, english_name) VALUES (1, 5001, 'Administracja biurowa','Office administration') ON CONFLICT DO NOTHING;
 INSERT INTO category(id, pracuj_id, polish_name, english_name) VALUES (2, 5037, 'Doradztwo / Konsulting','Consulting') ON CONFLICT DO NOTHING;
