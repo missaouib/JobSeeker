@@ -116,41 +116,45 @@ public class CityServiceImp implements CityService {
                         selectedCityASCII = selectedCityASCII.replaceAll("all cities", "poland");
                     }
 
-                    WebClient linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII);
-                    WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp");
-                    WebClient noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology);
+                    String linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII;
+                    String pracujDynamicURL = "https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp";
+                    String noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology;
 
                     switch(selectedTechnology){
                         case "all jobs":
-                            linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=&location=" + selectedCityASCII);
-                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp");
-                            noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII);
+                            linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=&location=" + selectedCityASCII;
+                            pracujDynamicURL = "https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp";
+                            noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII;
                             if(selectedCityASCII.equals("poland")) {
-                                noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting");
+                                noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting";
                             }
                             break;
                         case "all it jobs":
-                            linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?location=" + selectedCityASCII + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
-                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016");
-                            noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII);
+                            linkedinDynamicURL = "https://www.linkedin.com/jobs/search?location=" + selectedCityASCII + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96";
+                            pracujDynamicURL = "https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016";
+                            noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII;
                             if(selectedCityASCII.equals("poland")) {
-                                noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting");
+                                noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting";
                             }
                             break;
                         case "c++":
-                            linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + selectedCityASCII);
+                            linkedinDynamicURL = "https://www.linkedin.com/jobs/c++-jobs-" + selectedCityASCII;
                             break;
                         case "c#":
-                            linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=C%23&location=" + selectedCityASCII);
-                            pracujURL = WebClient.create("https://www.pracuj.pl/praca/c%23;kw/" + selectedCityASCII + ";wp");
+                            linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=C%23&location=" + selectedCityASCII;
+                            pracujDynamicURL = "https://www.pracuj.pl/praca/c%23;kw/" + selectedCityASCII + ";wp";
                             break;
                     }
 
                     if(selectedCityASCII.equals("poland") && !selectedTechnology.equals("all it jobs") && !selectedTechnology.equals("all jobs")) {
-                        noFluffJobsURL = WebClient.create("https://nofluffjobs.com/api/search/posting?criteria=" + selectedTechnology);
+                        noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting?criteria=" + selectedTechnology;
                     }
 
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
+
+                    WebClient linkedinURL = WebClient.create(linkedinDynamicURL);
+                    WebClient pracujURL = WebClient.create(pracujDynamicURL);
+                    WebClient noFluffJobsURL = WebClient.create(noFluffJobsDynamicURL);
 
                     cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
                     cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujURL));

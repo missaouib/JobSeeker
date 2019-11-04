@@ -84,24 +84,25 @@ public class CountryServiceImp implements CountryService {
 
             String selectedCountry = country.getName().toLowerCase();
 
-            WebClient linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCountry);
+            String linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCountry;
 
             switch(selectedTechnology){
                 case "all jobs":
-                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=&location=" + selectedCountry);
+                    linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=&location=" + selectedCountry;
                     break;
                 case "all it jobs":
-                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?location=" + selectedCountry + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96");
+                    linkedinDynamicURL = "https://www.linkedin.com/jobs/search?location=" + selectedCountry + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96";
                     break;
                 case "c++":
-                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/c++-jobs-" + selectedCountry);
+                    linkedinDynamicURL = "https://www.linkedin.com/jobs/c++-jobs-" + selectedCountry;
                     break;
                 case "c#":
-                    linkedinURL = WebClient.create("https://www.linkedin.com/jobs/search?keywords=C%23&location=" + selectedCountry);
+                    linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=C%23&location=" + selectedCountry;
                     break;
             }
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
+            WebClient linkedinURL = WebClient.create(linkedinDynamicURL);
             countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
             countriesOffers.add(countryOffers);
         });
