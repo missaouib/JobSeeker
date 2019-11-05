@@ -30,12 +30,12 @@ INSERT INTO technology(id, name, type) VALUES (9, 'C++', 'Language') ON CONFLICT
 INSERT INTO technology(id, name, type) VALUES (10, 'Ruby', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (11, 'Kotlin', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (12, 'Scala', 'Language') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (13, 'Groovy', 'Language') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (13, 'Golang', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (14, 'Swift', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (15, 'Objective-C', 'Language') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (16, 'Visual Basic', 'Language') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (16, 'Bash', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (17, 'Spring', 'Framework') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (18, 'Java EE', 'Framework') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (18, 'Selenium', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (19, 'Android', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (20, 'Angular', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (21, 'React', 'Framework') ON CONFLICT DO NOTHING;
@@ -50,7 +50,7 @@ INSERT INTO technology(id, name, type) VALUES (29, 'Django', 'Framework') ON CON
 INSERT INTO technology(id, name, type) VALUES (30, 'Unity', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (31, 'SQL', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (32, 'Linux', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (33, 'Git', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (33, 'Google Cloud', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (34, 'Docker', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (35, 'Jenkins', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (36, 'Kubernetes', 'DevOps') ON CONFLICT DO NOTHING;
@@ -58,10 +58,10 @@ INSERT INTO technology(id, name, type) VALUES (37, 'AWS', 'DevOps') ON CONFLICT 
 INSERT INTO technology(id, name, type) VALUES (38, 'Azure', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (39, 'HTML', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (40, 'NoSQL', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (41, 'Selenium', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (42, 'JUnit', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (43, 'Nginx', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (44, 'Tomcat', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (41, 'Ansible', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (42, 'Terraform', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (43, 'TeamCity', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (44, 'Nginx', 'DevOps') ON CONFLICT DO NOTHING;
 
 INSERT INTO category(id, pracuj_id, polish_name, english_name) VALUES (1, 5001, 'Administracja biurowa','Office administration') ON CONFLICT DO NOTHING;
 INSERT INTO category(id, pracuj_id, polish_name, english_name) VALUES (2, 5037, 'Doradztwo / Konsulting','Consulting') ON CONFLICT DO NOTHING;
