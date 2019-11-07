@@ -12,6 +12,7 @@
 #### Run locally
 - make sure u have a specific ports in dockerfiles and nginx
 - `docker-compose up`
+- `docker run -p 4444:4444 selenium/standalone-firefox`
 - `docker run -p 5432:5432 -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker postgres`
 
 #### Config
