@@ -13,6 +13,10 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[REFACTOR] Make selenium much more faster
+	//[FEAT] add glassdor & indeed
+	//[FEAT] add 'All World' functionality in Technology stats
+	//[FEAT] Consider adding green/red indexing arrows
 	//[REFACTOR] get methods & modelmapper converter
 	//[FEAT] nofluff/justjoin {category, experience} + {salary}
 	//[FEAT] add json web token
