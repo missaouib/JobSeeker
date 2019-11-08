@@ -40,7 +40,7 @@ public class RequestCreater {
         this.technologies = technologyRepository.findAllNames();
     }
 
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void sendRequests() {
 
         cities.forEach(city -> {
