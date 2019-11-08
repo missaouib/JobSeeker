@@ -6,9 +6,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 public interface ScrapJobService {
-    int getLinkedinOffers(WebClient url);
-    int getPracujOffers(WebClient url);
-    int getNoFluffJobsOffers(WebClient url);
+    int getLinkedinOffers(String url);
+    int getPracujOffers(String url);
+    int getNoFluffJobsOffers(String url);
     List<JustJoin> getJustJoin();
     String removePolishSigns(String city);
 

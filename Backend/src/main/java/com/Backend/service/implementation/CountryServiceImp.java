@@ -102,8 +102,7 @@ public class CountryServiceImp implements CountryService {
             }
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
-            WebClient linkedinURL = WebClient.create(linkedinDynamicURL);
-            countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
+            countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
             countriesOffers.add(countryOffers);
         });
 

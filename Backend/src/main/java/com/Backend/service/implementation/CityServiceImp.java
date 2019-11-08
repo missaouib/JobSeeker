@@ -152,13 +152,9 @@ public class CityServiceImp implements CityService {
 
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
-                    WebClient linkedinURL = WebClient.create(linkedinDynamicURL);
-                    WebClient pracujURL = WebClient.create(pracujDynamicURL);
-                    WebClient noFluffJobsURL = WebClient.create(noFluffJobsDynamicURL);
-
-                    cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
-                    cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujURL));
-                    cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
+                    cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+                    cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
+                    cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 
                     String finalSelectedCityASCII = selectedCityASCII;
                     if(selectedTechnology.equals("all it jobs") || selectedTechnology.equals("all jobs") ){

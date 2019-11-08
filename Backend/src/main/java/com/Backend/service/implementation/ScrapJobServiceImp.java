@@ -16,14 +16,16 @@ import java.util.Objects;
 @Service
 public class ScrapJobServiceImp implements ScrapJobService {
 
-    public int getLinkedinOffers(WebClient url) {
+    public int getLinkedinOffers(String url) {
 
-        Mono<ClientResponse> result = url.get()
+        WebClient linkedinURL = WebClient.create(url);
+
+        Mono<ClientResponse> result = linkedinURL.get()
+                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
                 .exchange();
 
         String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
 
-        // Can be changed in future by site owner
         String htmlFirstTag = "Past Month <span class=\"filter-list__label-count\">(";
         String htmlLastTag = ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>";
 
@@ -35,15 +37,18 @@ public class ScrapJobServiceImp implements ScrapJobService {
         return jobAmount;
     }
 
-    public int getPracujOffers(WebClient url) {
+    public int getPracujOffers(String url) {
 
-        Mono<ClientResponse> result = url.get()
+        WebClient pracujURL = WebClient.create(url);
+
+        Mono<ClientResponse> result = pracujURL
+                .get()
+                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
                 .accept(MediaType.TEXT_PLAIN)
                 .exchange();
 
         String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
 
-        // Can be changed in future by site owner
         String htmlFirstTag = "<span class=\"results-header__offer-count-text-number\">";
         String htmlLastTag = "</span> ofert";
 
@@ -55,10 +60,13 @@ public class ScrapJobServiceImp implements ScrapJobService {
         return jobAmount;
     }
 
-    public int getNoFluffJobsOffers(WebClient url) {
+    public int getNoFluffJobsOffers(String url) {
 
-        NoFluffJobsList postings =  url
+        WebClient noFluffJobsURL = WebClient.create(url);
+
+        NoFluffJobsList postings =  noFluffJobsURL
                 .get()
+                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
                 .bodyToMono(NoFluffJobsList.class)
