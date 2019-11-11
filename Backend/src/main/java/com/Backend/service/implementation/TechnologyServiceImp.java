@@ -131,13 +131,9 @@ public class TechnologyServiceImp implements TechnologyService {
 
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
 
-            WebClient linkedinURL = WebClient.create(linkedinDynamicURL);
-            WebClient pracujURL = WebClient.create(pracujDynamicURL);
-            WebClient noFluffJobsURL = WebClient.create(noFluffJobsDynamicURL);
-
-            technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinURL));
-            technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujURL));
-            technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsURL));
+            technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
+            technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 
             if(finalSelectedCityASCII.equals("poland")){
                 technologyOffers.setJustJoin((int) justJoinOffers
