@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,8 +153,12 @@ public class CityServiceImp implements CityService {
 
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
-                    cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
-                    cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
+            try {
+                cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 
                     String finalSelectedCityASCII = selectedCityASCII;

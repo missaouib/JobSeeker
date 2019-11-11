@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +103,11 @@ public class CountryServiceImp implements CountryService {
             }
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
-            countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            try {
+                countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             countriesOffers.add(countryOffers);
         });
 

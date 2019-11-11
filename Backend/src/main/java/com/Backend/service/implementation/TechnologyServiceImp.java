@@ -16,6 +16,7 @@ import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +132,11 @@ public class TechnologyServiceImp implements TechnologyService {
 
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
 
-            technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            try {
+                technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
             technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 

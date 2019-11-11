@@ -50,6 +50,10 @@ public class RequestCreater {
 
         technologies.forEach(technology -> {
             cityService.scrapItJobOffersInPoland(technology);
+            //countryService.scrapItJobOffersInWorld(technology);
+        });
+
+        technologies.forEach(technology -> {
             countryService.scrapItJobOffersInWorld(technology);
         });
     }

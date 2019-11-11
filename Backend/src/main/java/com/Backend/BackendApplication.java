@@ -13,6 +13,7 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[REFACTOR] create env variables also for front
 	//[FIX] Make selenium much more faster
 	//[FEAT] add glassdor & indeed
 	//[FEAT] add 'All World' functionality in Technology stats
