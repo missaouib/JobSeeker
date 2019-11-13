@@ -132,11 +132,7 @@ public class TechnologyServiceImp implements TechnologyService {
 
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
 
-            try {
-                technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
             technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
             technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 

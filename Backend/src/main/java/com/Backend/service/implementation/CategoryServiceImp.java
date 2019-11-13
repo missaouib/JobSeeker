@@ -75,7 +75,6 @@ public class CategoryServiceImp implements CategoryService {
 
             if(selectedCityUTF8.equals("all cities")){
                 pracujDynamicURL = "https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId();
-                //pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId());
             }
 
             categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), scrapJobService.getPracujOffers(pracujDynamicURL)));

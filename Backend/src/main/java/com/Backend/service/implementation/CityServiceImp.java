@@ -153,12 +153,8 @@ public class CityServiceImp implements CityService {
 
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
-            try {
-                cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
+                    cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+                    cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 
                     String finalSelectedCityASCII = selectedCityASCII;

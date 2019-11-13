@@ -6,6 +6,7 @@ import { City } from '../models/city.interfaces';
 import { HttpHeaders } from '@angular/common/http';
 import { Technology } from '../models/technology.interfaces';
 import { Country } from '../models/country.interfaces';
+import {environment} from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,25 +21,25 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   getCities(technologyName: string): Observable <City[]> {
-    return this.http.post<City[]>('http://localhost:8080/itJobOffersInPoland', {
+    return this.http.post<City[]>(environment.backendURL + '/itJobOffersInPoland', {
       technology: technologyName
     }, httpOptions);
   }
 
   getCountries(technologyName: string): Observable <Country[]> {
-    return this.http.post<Country[]>('http://localhost:8080/itJobOffersInWorld', {
+    return this.http.post<Country[]>(environment.backendURL + '/itJobOffersInWorld', {
       technology: technologyName
     }, httpOptions);
   }
 
   getTechnologies(cityName: string): Observable <Technology[]>{
-    return this.http.post<Technology[]>('http://localhost:8080/technologyStatistics', {
+    return this.http.post<Technology[]>(environment.backendURL + '/technologyStatistics', {
       city: cityName
     }, httpOptions)
   }
 
   getCategories(cityName: string): Observable <Category[]>{
-    return this.http.post<Category[]>('http://localhost:8080/categoryStatistics', {
+    return this.http.post<Category[]>(environment.backendURL + '/categoryStatistics', {
       city: cityName
     }, httpOptions)
   }

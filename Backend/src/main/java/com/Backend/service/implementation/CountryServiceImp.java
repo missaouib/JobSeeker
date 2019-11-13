@@ -103,11 +103,7 @@ public class CountryServiceImp implements CountryService {
             }
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
-            try {
-                countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
             countriesOffers.add(countryOffers);
         });
 

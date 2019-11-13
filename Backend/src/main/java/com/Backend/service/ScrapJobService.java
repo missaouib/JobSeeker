@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 public interface ScrapJobService {
-    int getLinkedinOffers(String url) throws MalformedURLException;
+    int getLinkedinOffers(String url);
     int getPracujOffers(String url);
     int getNoFluffJobsOffers(String url);
     List<JustJoin> getJustJoin();
