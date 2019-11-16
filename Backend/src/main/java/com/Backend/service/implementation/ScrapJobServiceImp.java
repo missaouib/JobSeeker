@@ -3,22 +3,14 @@ package com.Backend.service.implementation;
 import com.Backend.domain.JustJoin;
 import com.Backend.domain.NoFluffJobsList;
 import com.Backend.service.ScrapJobService;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.Normalizer;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Service
@@ -39,7 +31,7 @@ public class ScrapJobServiceImp implements ScrapJobService {
 
         int jobAmount = 0;
         if (resultString != null && resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)) {
-            jobAmount = Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)).replaceAll(",", ""));
+            jobAmount = Integer.parseInt(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)).replaceAll(",", ""));
         }
 
         return jobAmount;
@@ -61,9 +53,8 @@ public class ScrapJobServiceImp implements ScrapJobService {
         String htmlLastTag = "</span> ofert";
 
         int jobAmount = 0;
-        if (resultString != null && resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)) {
-            jobAmount = Integer.valueOf(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)));
-        }
+        if (resultString != null && resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag))
+            jobAmount = Integer.parseInt(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)));
 
         return jobAmount;
     }

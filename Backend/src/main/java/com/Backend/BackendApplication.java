@@ -13,18 +13,17 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
-	//[REFACTOR] create env variables also for front
-	//[FIX] Make selenium much more faster
-	//[FEAT] add glassdor & indeed
-	//[FEAT] add 'All World' functionality in Technology stats
-	//[FEAT] Consider adding green/red indexing arrows
-	//[REFACTOR] get methods & modelmapper converter
-	//[FEAT] nofluff/justjoin {category, experience} + {salary}
-	//[FEAT] add json web token
-	//[TEST] add tests
+	//[FEAT] Add Indeed
+	//[REFACTOR] Change Security groups on aws
+	//[REFACTOR] Optimize nofluffjobs scrap by one request
+	//[FEAT] Add 'All World' functionality in Technology stats
+	//[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
+	//[FEAT] Login selenium or proxy
+	//[FEAT] Add Glasdor
+	//[REFACTOR] Get methods & modelmapper converter
 
 	//[FRONTEND] TODO
-	//[FEAT] add history diagram functionality
-	//[OPTIMIZATION] responsive table
-	//[OPTIMIZATION] update only changing value in store
+	//[FEAT] Add history diagram functionality
+	//[OPTIMIZATION] Responsive table
+	//[OPTIMIZATION] Update only changing value in store
 }

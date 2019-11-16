@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Configuration
-public class RequestCreater {
+public class RequestCreator {
 
     private CityService cityService;
     private CountryService countryService;
@@ -24,7 +24,7 @@ public class RequestCreater {
     private List<String> cities;
     private List<String> technologies;
 
-    public RequestCreater(CityService cityService, CountryService countryService, TechnologyService technologyService, CategoryService categoryService,
+    public RequestCreator(CityService cityService, CountryService countryService, TechnologyService technologyService, CategoryService categoryService,
                           CityRepository cityRepository, TechnologyRepository technologyRepository) {
         this.cityService = cityService;
         this.countryService = countryService;
