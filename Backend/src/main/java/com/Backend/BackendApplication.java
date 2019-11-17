@@ -13,6 +13,8 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[FEAT] Timeout per request for production?
+	//[FEAT] Try dockerhub and test selenium on localhost
 	//[FEAT] Add Indeed
 	//[REFACTOR] Change Security groups on aws
 	//[REFACTOR] Optimize nofluffjobs scrap by one request
@@ -23,6 +25,8 @@ public class BackendApplication {
 	//[REFACTOR] Get methods & modelmapper converter
 
 	//[FRONTEND] TODO
+	//[FEAT] Technology stats <-> if all rows equals to 0 then hide with information popup
+	//[FIX] Counting ids in World tab view
 	//[FEAT] Add history diagram functionality
 	//[OPTIMIZATION] Responsive table
 	//[OPTIMIZATION] Update only changing value in store

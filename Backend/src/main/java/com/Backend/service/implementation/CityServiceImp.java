@@ -2,7 +2,6 @@ package com.Backend.service.implementation;
 
 import com.Backend.domain.JustJoin;
 import com.Backend.dto.CityDto;
-import com.Backend.dto.TechnologyDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
 import com.Backend.entity.offers.CityOffers;
@@ -14,12 +13,8 @@ import com.Backend.service.ScrapJobService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
-import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +113,7 @@ public class CityServiceImp implements CityService {
                     }
 
                     String linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCityASCII;
+                    String indeedDynamicURL = "https://pl.indeed.com/Praca-" + selectedTechnology + "-w-" + selectedCityASCII;
                     String pracujDynamicURL = "https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + selectedCityASCII + ";wp";
                     String noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting?criteria=city=" + selectedCityASCII + "+" + selectedTechnology;
 
@@ -154,6 +150,7 @@ public class CityServiceImp implements CityService {
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
                     cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+                    cityOffer.setIndeed(scrapJobService.getIndeedOffers(indeedDynamicURL));
                     cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 

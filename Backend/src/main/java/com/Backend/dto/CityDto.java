@@ -10,6 +10,7 @@ public class CityDto {
     double area;
     int density;
     int linkedin;
+    int indeed;
     int pracuj;
     int noFluffJobs;
     int justJoin;

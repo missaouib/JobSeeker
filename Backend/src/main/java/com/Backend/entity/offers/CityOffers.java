@@ -25,6 +25,7 @@ public class CityOffers {
 
     LocalDate date;
     int linkedin;
+    int indeed;
     int pracuj;
     int noFluffJobs;
     int justJoin;

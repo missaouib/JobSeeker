@@ -26,37 +26,33 @@ public class ScrapJobServiceImp implements ScrapJobService {
 
         String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
 
-        String htmlFirstTag = "Past Month <span class=\"filter-list__label-count\">(";
-        String htmlLastTag = ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>";
+        return getHtmlSubstring(resultString, "Past Month <span class=\"filter-list__label-count\">(",
+                ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>");
+    }
 
-        int jobAmount = 0;
-        if (resultString != null && resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag)) {
-            jobAmount = Integer.parseInt(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)).replaceAll(",", ""));
-        }
+    public int getIndeedOffers(String url) {
+        WebClient indeedURL = WebClient.create(url);
 
-        return jobAmount;
+        Mono<ClientResponse> result = indeedURL.get()
+                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+                .exchange();
+
+        String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
+
+        return getHtmlSubstring(resultString, "Strona 1 - ", " ofert<");
     }
 
     public int getPracujOffers(String url) {
 
         WebClient pracujURL = WebClient.create(url);
 
-        Mono<ClientResponse> result = pracujURL
-                .get()
+        Mono<ClientResponse> result = pracujURL.get()
                 .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
-                .accept(MediaType.TEXT_PLAIN)
                 .exchange();
 
         String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
 
-        String htmlFirstTag = "<span class=\"results-header__offer-count-text-number\">";
-        String htmlLastTag = "</span> ofert";
-
-        int jobAmount = 0;
-        if (resultString != null && resultString.contains(htmlFirstTag) && resultString.contains(htmlLastTag))
-            jobAmount = Integer.parseInt(resultString.substring(resultString.indexOf(htmlFirstTag) + htmlFirstTag.length(), resultString.indexOf(htmlLastTag)));
-
-        return jobAmount;
+        return getHtmlSubstring(resultString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
     }
 
     public int getNoFluffJobsOffers(String url) {
@@ -90,5 +86,16 @@ public class ScrapJobServiceImp implements ScrapJobService {
         return Normalizer.normalize(city, Normalizer.Form.NFD)
                 .replaceAll("\\p{M}", "")
                 .replaceAll("ł", "l");
+    }
+
+    private int getHtmlSubstring(String resultString, String htmlFirstPart, String htmlSecondPart){
+        int jobAmount = 0;
+        if (resultString != null && resultString.contains(htmlFirstPart) && resultString.contains(htmlSecondPart))
+            jobAmount = Integer.parseInt(resultString
+                    .substring(resultString.indexOf(htmlFirstPart) + htmlFirstPart.length(), resultString.indexOf(htmlSecondPart))
+                    .replaceAll(",", "")
+                    .replaceAll("[^\\x00-\\x7F]", ""));
+
+        return jobAmount;
     }
 }

@@ -1,34 +1,22 @@
-//package com.Backend.controller;
-//
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeOptions;
-//import org.openqa.selenium.firefox.FirefoxOptions;
-//import org.openqa.selenium.remote.DesiredCapabilities;
-//import org.openqa.selenium.remote.RemoteWebDriver;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.web.bind.annotation.CrossOrigin;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import java.net.MalformedURLException;
-//import java.net.URL;
-//import java.util.concurrent.TimeUnit;
-//
-//@CrossOrigin
-//@RestController
-//public class SeleniumController {
-//
-//    //Add bean config
-//    //Change to chrome
-//    //Change code
-//    //Clean build.gradle
-//
+package com.Backend.controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
+
+@CrossOrigin
+@RestController
+public class SeleniumController {
+
+    //Add bean config
+    //Change to chrome
+    //Change code
+    //Clean build.gradle
+
 //    @Value("${aws.selenium.url}")
 //    private String seleniumUrl;
-//
+
 //    private WebDriver webDriver;
-//
+
 //    public SeleniumController(WebDriver webDriver) {
 //        this.webDriver = webDriver;
 //    }
@@ -58,4 +46,4 @@
 //        return webDriver.getPageSource();
 //        //return webDriver.findElement(By.className("filter-list__label-count")).getText();
 //    }
-//}
+}
