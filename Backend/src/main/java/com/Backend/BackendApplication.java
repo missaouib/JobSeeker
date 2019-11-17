@@ -14,7 +14,7 @@ public class BackendApplication {
 
 	//[BACKEND] TODO
 	//[FEAT] Timeout per request for production?
-	//[FEAT] Try dockerhub and test selenium on localhost
+	//[FEAT] Selenium localhost/Dockerhub/Diff ports
 	//[FEAT] Add Indeed
 	//[REFACTOR] Change Security groups on aws
 	//[REFACTOR] Optimize nofluffjobs scrap by one request

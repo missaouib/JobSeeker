@@ -12,7 +12,6 @@ import com.Backend.service.ScrapJobService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -71,7 +70,6 @@ public class CategoryServiceImp implements CategoryService {
         categories.forEach(category -> {
             String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
             String pracujDynamicURL = "https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/" + categoryName + ";cc," + category.getPracujId();
-            //WebClient pracujURL = WebClient.create("https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/" + categoryName + ";cc," + category.getPracujId());
 
             if(selectedCityUTF8.equals("all cities")){
                 pracujDynamicURL = "https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId();
