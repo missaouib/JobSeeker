@@ -25,6 +25,7 @@ public class TechnologyOffers {
 
     LocalDate date;
     int linkedin;
+    int indeed;
     int pracuj;
     int noFluffJobs;
     int justJoin;

@@ -57,6 +57,8 @@ public class ScrapJobServiceImp implements ScrapJobService {
 
     public int getNoFluffJobsOffers(String url) {
 
+        //https://nofluffjobs.com/api/posting
+
         WebClient noFluffJobsURL = WebClient.create(url);
 
         NoFluffJobsList postings =  noFluffJobsURL

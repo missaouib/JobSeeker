@@ -8,11 +8,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
-public class NoFluffJobs {
+class NoFluffJobs {
     String title;
     String technology;
     List<String> cities;
     List<String> seniority;
+    //location.get("fullyRemote")
+
 
     @SuppressWarnings("unchecked")
     @JsonProperty("location")

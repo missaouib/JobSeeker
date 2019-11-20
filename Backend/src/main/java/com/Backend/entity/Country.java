@@ -18,6 +18,7 @@ public class Country {
     Long id;
 
     String name;
+    String code;
     int population;
     double area;
     int density;

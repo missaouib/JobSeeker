@@ -87,6 +87,7 @@ public class TechnologyServiceImp implements TechnologyService {
             String selectedTechnology = technology.getName().toLowerCase();
 
             String linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + finalSelectedCityASCII;
+            String indeedDynamicURL = "https://pl.indeed.com/Praca-" + selectedTechnology + "-w-" + finalSelectedCityASCII;
             String pracujDynamicURL = "https://www.pracuj.pl/praca/" + selectedTechnology + ";kw/" + finalSelectedCityASCII + ";wp";
             String noFluffJobsDynamicURL = "https://nofluffjobs.com/api/search/posting?criteria=city=" + finalSelectedCityASCII + "+" + selectedTechnology;
 
@@ -131,6 +132,7 @@ public class TechnologyServiceImp implements TechnologyService {
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
 
             technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            technologyOffers.setIndeed(scrapJobService.getIndeedOffers(indeedDynamicURL));
             technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
             technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 

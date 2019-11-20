@@ -10,4 +10,8 @@ public class JustJoin {
     String title;
     String city;
     List<Map<String, String>> skills;
+//    boolean isRemote;
+//    String experience_level;
+//    int salary_from;
+//    int salary_to;
 }

@@ -1,13 +1,11 @@
-# install requests
-# install beautifulsoup4
-# install lxml
+# install requests, beautifulsoup4
 
 from bs4 import BeautifulSoup
 import requests
 import re
 
 website_url = requests.get('https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area,_population_and_population_density').text
-soup = BeautifulSoup(website_url, l'lxml')
+soup = BeautifulSoup(website_url, 'html.parser')
 
 countryTable = soup.find('table', {'class': 'sortable wikitable'})
 
@@ -49,4 +47,4 @@ blackListCountries = ['Sint Maarten', 'Saba', 'Curaao', 'Republic of Artsakh', '
 with open('data.txt', 'w') as file:
     for x in range(0, len(countryNames)):
         if countryNames[x] not in blackListCountries:
-            file.write('INSERT INTO country(name, population, area, density) VALUES (\'' + str(countryNames[x]) + '\', ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' + countryDensity[x] + ');\n')
+            file.write('INSERT INTO country(name, code, population, area, density) VALUES (\'' + str(countryNames[x]) + '\', '+ 'null, ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' + countryDensity[x] + ');\n')

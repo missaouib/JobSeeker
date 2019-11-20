@@ -25,7 +25,7 @@ public class BackendApplication {
 	//[REFACTOR] Get methods & modelmapper converter
 
 	//[FRONTEND] TODO
-	//[FEAT] add countries in technology view
+	//[FEAT] Add countries in technology view
 	//[FEAT] Technology stats <-> if all rows equals to 0 then hide with information popup
 	//[FIX] Counting ids in World tab view
 	//[FEAT] Add history diagram functionality
