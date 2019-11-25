@@ -1,10 +1,8 @@
 package com.Backend.service.implementation;
 
-import com.Backend.dto.CityDto;
 import com.Backend.dto.CountryDto;
 import com.Backend.entity.Country;
 import com.Backend.entity.Technology;
-import com.Backend.entity.offers.CityOffers;
 import com.Backend.entity.offers.CountryOffers;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
@@ -15,10 +13,7 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +73,7 @@ public class CountryServiceImp implements CountryService {
     public List<CountryDto> scrapItJobOffersInWorld(String technology) {
         String selectedTechnology = technology.toLowerCase();
         List<Country> countries = countryRepository.findAll();
+        List<Country> countries2 = countryRepository.findAllCountriesWithCode();
         List<CountryOffers> countriesOffers = new ArrayList<>();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
 

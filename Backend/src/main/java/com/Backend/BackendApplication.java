@@ -13,15 +13,17 @@ public class BackendApplication {
 	}
 
 	//[BACKEND] TODO
+	//[FEAT]  Python script on conflict
+	//[FEAT] Add 'All World' functionality in Technology stats //in polish one more shot jj??
+	//[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
+	//[FEAT] Add Indeed category
+	//[REFACTOR] Optimize nofluffjobs scrap by one request
 	//[FEAT] Timeout per request for production?
 	//[FEAT] Selenium localhost/Dockerhub/Diff ports
-	//[FEAT] Add Indeed
 	//[REFACTOR] Change Security groups on aws
-	//[REFACTOR] Optimize nofluffjobs scrap by one request
-	//[FEAT] Add 'All World' functionality in Technology stats
-	//[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
 	//[FEAT] Login selenium or proxy
 	//[FEAT] Add Glasdor
+	//[REFACTOR] Change all Posts to Gets xD
 	//[REFACTOR] Get methods & modelmapper converter
 
 	//[FRONTEND] TODO

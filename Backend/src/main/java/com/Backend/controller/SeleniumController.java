@@ -1,22 +1,17 @@
-package com.Backend.controller;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
-
-@CrossOrigin
-@RestController
-public class SeleniumController {
-
-    //Add bean config
-    //Change to chrome
-    //Change code
-    //Clean build.gradle
-
+//package com.Backend.controller;
+//
+//import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//@CrossOrigin
+//@RestController
+//public class SeleniumController {
+//
 //    @Value("${aws.selenium.url}")
 //    private String seleniumUrl;
-
+//
 //    private WebDriver webDriver;
-
+//
 //    public SeleniumController(WebDriver webDriver) {
 //        this.webDriver = webDriver;
 //    }
@@ -46,4 +41,4 @@ public class SeleniumController {
 //        return webDriver.getPageSource();
 //        //return webDriver.findElement(By.className("filter-list__label-count")).getText();
 //    }
-}
+//}
