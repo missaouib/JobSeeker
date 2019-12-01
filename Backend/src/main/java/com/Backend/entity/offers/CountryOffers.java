@@ -25,6 +25,7 @@ public class CountryOffers {
 
     LocalDate date;
     int linkedin;
+    int indeed;
 
     public CountryOffers(Country country, Technology technology, LocalDate date) {
         this.country = country;

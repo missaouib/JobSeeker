@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -150,8 +151,12 @@ public class CityServiceImp implements CityService {
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
                     cityOffer.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
-                    cityOffer.setIndeed(scrapJobService.getIndeedOffers(indeedDynamicURL));
-                    cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
+            try {
+                cityOffer.setIndeed(scrapJobService.getIndeedOffers(indeedDynamicURL));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            cityOffer.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
                     cityOffer.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 
                     String finalSelectedCityASCII = selectedCityASCII;

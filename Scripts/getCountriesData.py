@@ -60,7 +60,7 @@ countryCodes = {
     'Ireland': 'ie', 'Israel': 'il', 'Italy': 'it', 'Japan': 'jp', 'Korea': 'kr',
     'Kuwait': 'kw', 'Luxembourg': 'lu', 'Malaysia': 'my', 'Mexico': 'mx', 'Netherlands': 'nl',
     'New Zealand': 'nz', 'Norway': 'no', 'Oman': 'om', 'Pakistan': 'pk', 'Peru': 'pe', 'Philippines': 'ph',
-    'Poland': 'pl', 'Portugal': 'pt', 'Qatar': 'qt', 'Romania': 'ro', 'Russia': 'ru',
+    'Poland': 'pl', 'Portugal': 'pt', 'Qatar': 'qa', 'Romania': 'ro', 'Russia': 'ru',
     'Saudi Arabia': 'sa', 'Singapore': 'sg', 'South Africa': 'za', 'Spain': 'es', 'Sweden': 'se',
     'Switzerland': 'ch', 'Taiwan': 'tw', 'Thailand': 'th', 'Turkey': 'tr', 'United Arab Emirates': 'ae',
     'United Kingdom': 'gb', 'United States': 'us', 'Venezuela': 've', 'Vietnam': 'vn'

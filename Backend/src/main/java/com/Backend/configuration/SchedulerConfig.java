@@ -50,11 +50,10 @@ public class SchedulerConfig {
 
         technologies.forEach(technology -> {
             cityService.scrapItJobOffersInPoland(technology);
-            //countryService.scrapItJobOffersInWorld(technology);
-        });
-
-        technologies.forEach(technology -> {
             countryService.scrapItJobOffersInWorld(technology);
         });
+
+        //foreach Country?
+
     }
 }

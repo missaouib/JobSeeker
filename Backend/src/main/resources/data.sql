@@ -155,7 +155,7 @@ INSERT INTO country(id, name, code, population, area, density) VALUES ('57', 'Ca
 INSERT INTO country(id, name, code, population, area, density) VALUES ('58', 'Guadeloupe', null, 395725, 1628.4, 243) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('59', 'Liechtenstein', null, 38380, 160, 240) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('60', 'Luxembourg', 'lu', 613894, 2586, 237) ON CONFLICT DO NOTHING;
-INSERT INTO country(id, name, code, population, area, density) VALUES ('61', 'Qatar', 'qt', 2740479, 11571, 237) ON CONFLICT DO NOTHING;
+INSERT INTO country(id, name, code, population, area, density) VALUES ('61', 'Qatar', 'qa', 2740479, 11571, 237) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('62', 'Antigua and Barbuda', null, 104084, 442, 235) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('63', 'Germany', 'de', 83073100, 357168, 233) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('64', 'Nigeria', null, 200962000, 923768, 218) ON CONFLICT DO NOTHING;

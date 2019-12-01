@@ -2,8 +2,6 @@ package com.Backend.dto;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 public class CountryDto {
     Long id;
@@ -12,5 +10,6 @@ public class CountryDto {
     double area;
     int density;
     int linkedin;
+    int indeed;
     double per100k;
 }

@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +133,11 @@ public class TechnologyServiceImp implements TechnologyService {
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
 
             technologyOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
-            technologyOffers.setIndeed(scrapJobService.getIndeedOffers(indeedDynamicURL));
+            try {
+                technologyOffers.setIndeed(scrapJobService.getIndeedOffers(indeedDynamicURL));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             technologyOffers.setPracuj(scrapJobService.getPracujOffers(pracujDynamicURL));
             technologyOffers.setNoFluffJobs(scrapJobService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
 

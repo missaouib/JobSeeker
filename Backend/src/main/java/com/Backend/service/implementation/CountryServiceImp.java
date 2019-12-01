@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,11 +78,18 @@ public class CountryServiceImp implements CountryService {
         List<CountryOffers> countriesOffers = new ArrayList<>();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
 
-        countries.forEach(country -> {
+        countries2.forEach(country -> {
 
             String selectedCountry = country.getName().toLowerCase();
 
             String linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCountry;
+            String IndeedDynamicURL = "https://" + country.getCode() + ".indeed.com/" + selectedTechnology + "-jobs";
+
+            if(country.getCode().equals("us")){
+                IndeedDynamicURL = "https://indeed.com/" + selectedTechnology + "-jobs";
+            }
+
+            System.out.println(IndeedDynamicURL);
 
             switch(selectedTechnology){
                 case "all jobs":
@@ -100,6 +108,12 @@ public class CountryServiceImp implements CountryService {
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
             countryOffers.setLinkedin(scrapJobService.getLinkedinOffers(linkedinDynamicURL));
+            try {
+                countryOffers.setIndeed(scrapJobService.getIndeedOffers(IndeedDynamicURL));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             countriesOffers.add(countryOffers);
         });
 
