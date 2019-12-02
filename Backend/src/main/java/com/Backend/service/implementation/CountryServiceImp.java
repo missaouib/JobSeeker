@@ -55,7 +55,7 @@ public class CountryServiceImp implements CountryService {
 
     private Converter<Double, Double> per100kConverter = context -> {
         CountryOffers country = (CountryOffers) context.getParent().getSource();
-        return (Math.round(country.getLinkedin() * 1.0 / (country.getCountry().getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
+        return (Math.round((country.getLinkedin() + country.getIndeed()) * 1.0 / (country.getCountry().getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
     };
 
     @Override
@@ -85,11 +85,13 @@ public class CountryServiceImp implements CountryService {
             String linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCountry;
             String IndeedDynamicURL = "https://" + country.getCode() + ".indeed.com/" + selectedTechnology + "-jobs";
 
-            if(country.getCode().equals("us")){
-                IndeedDynamicURL = "https://indeed.com/" + selectedTechnology + "-jobs";
+            switch(country.getCode()) {
+                case "us":
+                    IndeedDynamicURL = "https://indeed.com/" + selectedTechnology + "-jobs";
+                    break;
+                case "my":
+                    IndeedDynamicURL = "https://indeed.com.my/" + selectedTechnology + "-jobs";
             }
-
-            System.out.println(IndeedDynamicURL);
 
             switch(selectedTechnology){
                 case "all jobs":

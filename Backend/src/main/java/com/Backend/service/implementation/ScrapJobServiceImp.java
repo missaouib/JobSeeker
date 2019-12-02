@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class ScrapJobServiceImp implements ScrapJobService {
@@ -37,37 +35,32 @@ public class ScrapJobServiceImp implements ScrapJobService {
     }
 
     public int getIndeedOffers(String url) throws IOException {
-        WebClient indeedURL = WebClient.create(url);
 
-        Mono<ClientResponse> result = indeedURL.get()
-                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
-                .exchange();
+        Document htmlDoc = Jsoup.connect(url).get();
+        Elements htmlDiv = htmlDoc.select("div#searchCountPages");
+        String div = htmlDiv.text();
 
-        String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
-
-        System.out.println(resultString);
-
-        Document document = Jsoup.connect(url).get();
-        Elements info = document.select("div#Document document");
-
-        resultString = info.toString();
-
-        resultString
+        div = div
                 .replaceAll(",", "")
-                //.replaceAll(".", "")
-                .replaceAll("[^\\x00-\\x7F]", "");
+                .replaceAll("\\.", "")
+                .replaceAll("'", "")
+                .replaceAll("\\s+", "");
 
-        Pattern p = Pattern.compile("[^\\d]*[\\d]+[^\\d]+([\\d]+)");
-        Matcher m = p.matcher(resultString);
+        div = div.replaceAll("[^0-9]+", ",");
 
-        System.out.println(resultString);
-
-        if (m.find()) {
-            System.out.println(m.group(1));
+        if(div.charAt(0) == ',') {
+            div = div.substring(1, div.length() - 1);
+        } else {
+            div = div.substring(0, div.length() - 1);
         }
 
-        return Integer.parseInt(m.group(1));
-        //return getHtmlSubstring(resultString, "Strona 1 - ", " ofert<");
+        String[] numbers = div.split("\\s*,\\s*");
+
+        if(Integer.parseInt(numbers[0]) == 0 || Integer.parseInt(numbers[1]) == 0){
+            return 0;
+        } else {
+            return Math.max(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
+        }
     }
 
     public int getPracujOffers(String url) {

@@ -1,6 +1,7 @@
 package com.Backend.configuration;
 
 import com.Backend.repository.CityRepository;
+import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.service.CategoryService;
 import com.Backend.service.CityService;
@@ -21,23 +22,27 @@ public class SchedulerConfig {
     private CategoryService categoryService;
     private CityRepository cityRepository;
     private TechnologyRepository technologyRepository;
+    private CountryRepository countryRepository;
     private List<String> cities;
     private List<String> technologies;
+    private List<String> countries;
 
     public SchedulerConfig(CityService cityService, CountryService countryService, TechnologyService technologyService, CategoryService categoryService,
-                           CityRepository cityRepository, TechnologyRepository technologyRepository) {
+                           CityRepository cityRepository, TechnologyRepository technologyRepository, CountryRepository countryRepository) {
         this.cityService = cityService;
         this.countryService = countryService;
         this.technologyService = technologyService;
         this.categoryService = categoryService;
         this.cityRepository = cityRepository;
         this.technologyRepository = technologyRepository;
+        this.countryRepository = countryRepository;
     }
 
     @PostConstruct
     public void init(){
         this.cities = cityRepository.findAllNames();
         this.technologies = technologyRepository.findAllNames();
+        this.countries = countryRepository.findAllNames();
     }
 
     @Scheduled(cron = "0 1 * * * *")
@@ -53,7 +58,9 @@ public class SchedulerConfig {
             countryService.scrapItJobOffersInWorld(technology);
         });
 
-        //foreach Country?
+        countries.forEach(country -> {
+            technologyService.scrapTechnologyStatistics(country);
+        });
 
     }
 }

@@ -58,7 +58,7 @@ public class CityServiceImp implements CityService {
 
     private Converter<Integer, Integer> totalConverter = context -> {
         CityOffers city = (CityOffers) context.getParent().getSource();
-        return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoin();
+        return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoin() + city.getIndeed();
     };
 
 //    private Converter<Double, Double> per100kConverter = context -> {
