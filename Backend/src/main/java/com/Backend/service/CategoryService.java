@@ -71,7 +71,7 @@ public class CategoryService {
                 pracujDynamicURL = "https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId();
             }
 
-            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), scrapService.getPracujOffers(pracujDynamicURL)));
+            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), scrapService.scrapPracujOffers(pracujDynamicURL)));
         });
 
         return cityOptional

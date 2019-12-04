@@ -94,7 +94,7 @@ public class TechnologyService {
             CountryOffers countryOffers = new CountryOffers(countryOptional.orElse(null), technology, LocalDate.now());
 
             try {
-                countryOffers.setIndeed(scrapService.getIndeedOffers(IndeedDynamicURL));
+                countryOffers.setIndeed(scrapService.scrapIndeedOffers(IndeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -110,7 +110,7 @@ public class TechnologyService {
         String selectedCityUTF8 = city.toLowerCase();
         String selectedCityASCII = scrapService.removePolishSigns(selectedCityUTF8);
         List<Technology> technologies = technologyRepository.findAll();
-        List<JustJoin> justJoinOffers = scrapService.getJustJoin();
+        List<JustJoin> justJoinOffers = scrapService.scrapJustJoin();
         List<TechnologyOffers> technologiesOffers = new ArrayList<>();
         Optional<City> cityOptional = cityRepository.findCityByName(selectedCityUTF8);
 
@@ -168,14 +168,14 @@ public class TechnologyService {
 
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
 
-            technologyOffers.setLinkedin(scrapService.getLinkedinOffers(linkedinDynamicURL));
+            technologyOffers.setLinkedin(scrapService.scrapLinkedinOffers(linkedinDynamicURL));
             try {
-                technologyOffers.setIndeed(scrapService.getIndeedOffers(indeedDynamicURL));
+                technologyOffers.setIndeed(scrapService.scrapIndeedOffers(indeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            technologyOffers.setPracuj(scrapService.getPracujOffers(pracujDynamicURL));
-            technologyOffers.setNoFluffJobs(scrapService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
+            technologyOffers.setPracuj(scrapService.scrapPracujOffers(pracujDynamicURL));
+            technologyOffers.setNoFluffJobs(scrapService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
 
             if(selectedCityASCII.equals("poland")){
                 technologyOffers.setJustJoin((int) justJoinOffers

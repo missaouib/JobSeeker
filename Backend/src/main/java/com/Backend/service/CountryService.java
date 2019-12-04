@@ -75,8 +75,9 @@ public class CountryService {
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
 
         countries2.forEach(country -> {
-
+            //przekazuj to jako argument
             String selectedCountry = country.getName().toLowerCase();
+            //to indeed pass CODE AS ARGUMENT
 
             String linkedinDynamicURL = "https://www.linkedin.com/jobs/search?keywords=" + selectedTechnology + "&location=" + selectedCountry;
             String IndeedDynamicURL = "https://" + country.getCode() + ".indeed.com/" + selectedTechnology + "-jobs";
@@ -105,9 +106,9 @@ public class CountryService {
             }
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
-            countryOffers.setLinkedin(scrapService.getLinkedinOffers(linkedinDynamicURL));
+            countryOffers.setLinkedin(scrapService.scrapLinkedinOffers(linkedinDynamicURL));
             try {
-                countryOffers.setIndeed(scrapService.getIndeedOffers(IndeedDynamicURL));
+                countryOffers.setIndeed(scrapService.scrapIndeedOffers(IndeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }

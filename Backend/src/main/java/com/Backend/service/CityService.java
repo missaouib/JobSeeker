@@ -96,7 +96,7 @@ public class CityService {
     public List<CityDto> scrapItJobOffersInPoland(String technology) {
         String selectedTechnology = technology.toLowerCase();
         List<City> cities = cityRepository.findAll();
-        List<JustJoin> justJoinOffers = scrapService.getJustJoin();
+        List<JustJoin> justJoinOffers = scrapService.scrapJustJoin();
         List<CityOffers> citiesOffers = new ArrayList<>();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
 
@@ -146,14 +146,14 @@ public class CityService {
 
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
-                    cityOffer.setLinkedin(scrapService.getLinkedinOffers(linkedinDynamicURL));
+                    cityOffer.setLinkedin(scrapService.scrapLinkedinOffers(linkedinDynamicURL));
             try {
-                cityOffer.setIndeed(scrapService.getIndeedOffers(indeedDynamicURL));
+                cityOffer.setIndeed(scrapService.scrapIndeedOffers(indeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            cityOffer.setPracuj(scrapService.getPracujOffers(pracujDynamicURL));
-                    cityOffer.setNoFluffJobs(scrapService.getNoFluffJobsOffers(noFluffJobsDynamicURL));
+            cityOffer.setPracuj(scrapService.scrapPracujOffers(pracujDynamicURL));
+                    cityOffer.setNoFluffJobs(scrapService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
 
                     String finalSelectedCityASCII = selectedCityASCII;
                     if(selectedTechnology.equals("all it jobs") || selectedTechnology.equals("all jobs") ){

@@ -19,7 +19,7 @@ import java.util.Objects;
 @Service
 public class ScrapService {
 
-    public int getLinkedinOffers(String url) {
+    public int scrapLinkedinOffers(String url) {
 
         WebClient linkedinURL = WebClient.create(url);
 
@@ -33,9 +33,14 @@ public class ScrapService {
                 ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>");
     }
 
-    public int getIndeedOffers(String url) throws IOException {
+    public int scrapIndeedOffers(String url) throws IOException {
 
-        Document htmlDoc = Jsoup.connect(url).get();
+        Document htmlDoc = Jsoup.connect(url)
+                .userAgent("Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+                .referrer("http://www.google.com")
+                .followRedirects(true)
+                .get();
+
         Elements htmlDiv = htmlDoc.select("div#searchCountPages");
         String div = htmlDiv.text();
 
@@ -62,7 +67,7 @@ public class ScrapService {
         }
     }
 
-    public int getPracujOffers(String url) {
+    public int scrapPracujOffers(String url) {
 
         WebClient pracujURL = WebClient.create(url);
 
@@ -75,9 +80,7 @@ public class ScrapService {
         return getHtmlSubstring(resultString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
     }
 
-    public int getNoFluffJobsOffers(String url) {
-
-        //https://nofluffjobs.com/api/posting
+    public int scrapNoFluffJobsOffers(String url) {
 
         WebClient noFluffJobsURL = WebClient.create(url);
 
@@ -92,7 +95,7 @@ public class ScrapService {
         return Objects.requireNonNull(postings).getPostings().size();
     }
 
-    public List<JustJoin> getJustJoin() {
+    public List<JustJoin> scrapJustJoin() {
 
         WebClient justJoinURL = WebClient.create("https://justjoin.it/api/offers");
 
