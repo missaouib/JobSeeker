@@ -48,12 +48,15 @@ public class SchedulerConfig {
     @Scheduled(cron = "0 1 * * * *")
     public void sendRequests() {
 
+
+
         cities.forEach(city -> {
             technologyService.scrapTechnologyStatistics(city);
             categoryService.scrapCategoryStatistics(city);
         });
 
         technologies.forEach(technology -> {
+            //scrap city and country, elo mejbi categories
             cityService.scrapItJobOffersInPoland(technology);
             countryService.scrapItJobOffersInWorld(technology);
         });

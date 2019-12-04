@@ -1,8 +1,7 @@
-package com.Backend.service.implementation;
+package com.Backend.service;
 
 import com.Backend.domain.JustJoin;
 import com.Backend.domain.NoFluffJobsList;
-import com.Backend.service.ScrapJobService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class ScrapJobServiceImp implements ScrapJobService {
+public class ScrapService {
 
     public int getLinkedinOffers(String url) {
 
