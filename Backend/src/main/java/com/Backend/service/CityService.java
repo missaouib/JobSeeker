@@ -1,6 +1,6 @@
 package com.Backend.service;
 
-import com.Backend.domain.JustJoin;
+import com.Backend.domain.JustJoinIT;
 import com.Backend.dto.CityDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
@@ -96,7 +96,7 @@ public class CityService {
     public List<CityDto> scrapItJobOffersInPoland(String technology) {
         String selectedTechnology = technology.toLowerCase();
         List<City> cities = cityRepository.findAll();
-        List<JustJoin> justJoinOffers = scrapService.scrapJustJoin();
+        List<JustJoinIT> justJoinITOffers = scrapService.scrapJustJoin();
         List<CityOffers> citiesOffers = new ArrayList<>();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
 
@@ -157,7 +157,7 @@ public class CityService {
 
                     String finalSelectedCityASCII = selectedCityASCII;
                     if(selectedTechnology.equals("all it jobs") || selectedTechnology.equals("all jobs") ){
-                        cityOffer.setJustJoin((int) justJoinOffers
+                        cityOffer.setJustJoin((int) justJoinITOffers
                                 .stream()
                                 .filter(filterCity -> {
                                     if(selectedCityUTF8.equals("warszawa")){
@@ -172,7 +172,7 @@ public class CityService {
                                     })
                                 .count());
                     } else {
-                        cityOffer.setJustJoin((int) justJoinOffers
+                        cityOffer.setJustJoin((int) justJoinITOffers
                                 .stream()
                                 .filter(filterTechnology -> filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
                                     || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology))

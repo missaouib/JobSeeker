@@ -1,6 +1,6 @@
 package com.Backend.service;
 
-import com.Backend.domain.JustJoin;
+import com.Backend.domain.JustJoinIT;
 import com.Backend.domain.NoFluffJobsList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,30 +19,32 @@ import java.util.Objects;
 @Service
 public class ScrapService {
 
+    public static final String USER_AGENT = "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion";
+
     public int scrapLinkedinOffers(String url) {
 
         WebClient linkedinURL = WebClient.create(url);
 
-        Mono<ClientResponse> result = linkedinURL.get()
-                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+        Mono<ClientResponse> response = linkedinURL.get()
+                .header("User-Agent", USER_AGENT)
                 .exchange();
 
-        String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
+        String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
 
-        return getHtmlSubstring(resultString, "Past Month <span class=\"filter-list__label-count\">(",
+        return getHtmlSubstring(responseString, "Past Month <span class=\"filter-list__label-count\">(",
                 ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>");
     }
 
     public int scrapIndeedOffers(String url) throws IOException {
 
         Document htmlDoc = Jsoup.connect(url)
-                .userAgent("Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+                .userAgent(USER_AGENT)
                 .referrer("http://www.google.com")
                 .followRedirects(true)
                 .get();
 
-        Elements htmlDiv = htmlDoc.select("div#searchCountPages");
-        String div = htmlDiv.text();
+        Elements responseHtmlDiv = htmlDoc.select("div#searchCountPages");
+        String div = responseHtmlDiv.text();
 
         div = div
                 .replaceAll(",", "")
@@ -71,40 +73,43 @@ public class ScrapService {
 
         WebClient pracujURL = WebClient.create(url);
 
-        Mono<ClientResponse> result = pracujURL.get()
-                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+        Mono<ClientResponse> response = pracujURL.get()
+                .header("User-Agent", USER_AGENT)
                 .exchange();
 
-        String resultString = result.flatMap(res -> res.bodyToMono(String.class)).block();
+        String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
 
-        return getHtmlSubstring(resultString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
+        return getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
     }
 
     public int scrapNoFluffJobsOffers(String url) {
 
         WebClient noFluffJobsURL = WebClient.create(url);
 
-        NoFluffJobsList postings =  noFluffJobsURL
+        NoFluffJobsList response =  noFluffJobsURL
                 .get()
-                .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+                .header("User-Agent", USER_AGENT)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
                 .bodyToMono(NoFluffJobsList.class)
                 .block();
 
-        return Objects.requireNonNull(postings).getPostings().size();
+        return Objects.requireNonNull(response).getPostings().size();
     }
 
-    public List<JustJoin> scrapJustJoin() {
+    public List<JustJoinIT> scrapJustJoin() {
 
-        WebClient justJoinURL = WebClient.create("https://justjoin.it/api/offers");
+        WebClient justJoinITUrl = WebClient.create("https://justjoin.it/api/offers");
 
-        return justJoinURL.get()
+        JustJoinIT response = justJoinITUrl.get()
+                .header("User-Agent", USER_AGENT)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
-                .bodyToFlux(JustJoin.class)
+                .bodyToFlux(JustJoinIT.class)
                 .collectList()
                 .block();
+
+        return response;
     }
 
     public String removePolishSigns(String city){
@@ -122,5 +127,42 @@ public class ScrapService {
                     .replaceAll("[^\\x00-\\x7F]", ""));
 
         return jobAmount;
+    }
+
+    private int extractJustJoinItJson(List<JustJoinIT> offers){
+        if(selectedCityASCII.equals("poland")){
+            technologyOffers.setJustJoin((int) justJoinOffers
+                    .stream()
+                    .filter(filterTechnology -> {
+                        if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")){
+                            return true;
+                        } else {
+                            return filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
+                                    || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology);
+                        }
+                    })
+                    .count());
+        } else {
+            technologyOffers.setJustJoin((int) justJoinOffers
+                    .stream()
+                    .filter(filterTechnology -> {
+                        if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")) {
+                            return true;
+                        } else {
+                            return filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
+                                    || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology);
+                        }
+                    })
+                    .filter(filterCity -> {
+                        if(selectedCityASCII.equals("warszawa")){
+                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
+                        } else if (selectedCityASCII.equals("kraków")){
+                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                        } else {
+                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII));
+                        }
+                    })
+                    .count());
+        }
     }
 }

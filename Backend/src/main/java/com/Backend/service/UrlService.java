@@ -25,32 +25,33 @@ public class UrlService {
         return url;
     }
 
-    public String indeedBuildUrlLForCity(String technlogy, String city){
-        return "https://pl.indeed.com/Praca-" + technlogy + "-w-" + city;
+    public String indeedBuildUrlLForCity(String technology, String city){
+        return "https://pl.indeed.com/Praca-" + technology + "-w-" + city;
     }
 
-    public String indeedBuildUrlForCountry(String technlogy, String countryCode){
-        String url = "https://" + countryCode + ".indeed.com/" + technlogy + "-jobs";
+    public String indeedBuildUrlForCountry(String technology, String countryCode){
+        String url = "https://" + countryCode + ".indeed.com/" + technology + "-jobs";
 
         switch(countryCode) {
             case "us":
-                url = "https://indeed.com/" + technlogy + "-jobs";
+                url = "https://indeed.com/" + technology + "-jobs";
                 break;
             case "my":
-                url = "https://indeed.com.my/" + technlogy + "-jobs";
+                url = "https://indeed.com.my/" + technology + "-jobs";
         }
         return url;
     }
 
-    public String pracujBuildUrlForCity(String technlogy, String city){
-        String url = "https://www.pracuj.pl/praca/" + technlogy + ";kw/" + city + ";wp";
+    public String pracujBuildUrlForCity(String technology, String city){
+        String url = "https://www.pracuj.pl/praca/" + technology + ";kw/" + city + ";wp";
 
-        switch(technlogy){
+        switch(technology){
             case "all jobs":
                 url = "https://www.pracuj.pl/praca/" + city + ";wp";
                 break;
             case "all it jobs":
                 url = "https://www.pracuj.pl/praca/" + city + ";wp/it%20-%20rozw%c3%b3j%20oprogramowania;cc,5016";
+                break;
             case "c#":
                 url = "https://www.pracuj.pl/praca/c%23;kw/" + city + ";wp";
                 break;
@@ -58,11 +59,11 @@ public class UrlService {
         return url;
     }
 
-    public String noFluffJobsBuildUrlForCity(String technlogy, String city){
+    public String noFluffJobsBuildUrlForCity(){
         return "https://nofluffjobs.com/api/posting";
     }
 
-    public String justJoinItBuildUrlForCity(String technlogy, String city){
+    public String justJoinItBuildUrlForCity(){
         return "https://justjoin.it/api/offers";
     }
 

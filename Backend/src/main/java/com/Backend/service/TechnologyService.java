@@ -1,6 +1,6 @@
 package com.Backend.service;
 
-import com.Backend.domain.JustJoin;
+import com.Backend.domain.JustJoinIT;
 import com.Backend.dto.TechnologyDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Country;
@@ -110,7 +110,7 @@ public class TechnologyService {
         String selectedCityUTF8 = city.toLowerCase();
         String selectedCityASCII = scrapService.removePolishSigns(selectedCityUTF8);
         List<Technology> technologies = technologyRepository.findAll();
-        List<JustJoin> justJoinOffers = scrapService.scrapJustJoin();
+        List<JustJoinIT> justJoinITOffers = scrapService.scrapJustJoin();
         List<TechnologyOffers> technologiesOffers = new ArrayList<>();
         Optional<City> cityOptional = cityRepository.findCityByName(selectedCityUTF8);
 
@@ -178,7 +178,7 @@ public class TechnologyService {
             technologyOffers.setNoFluffJobs(scrapService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
 
             if(selectedCityASCII.equals("poland")){
-                technologyOffers.setJustJoin((int) justJoinOffers
+                technologyOffers.setJustJoin((int) justJoinITOffers
                         .stream()
                         .filter(filterTechnology -> {
                             if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")){
@@ -190,7 +190,7 @@ public class TechnologyService {
                         })
                         .count());
             } else {
-                technologyOffers.setJustJoin((int) justJoinOffers
+                technologyOffers.setJustJoin((int) justJoinITOffers
                         .stream()
                         .filter(filterTechnology -> {
                             if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")) {
