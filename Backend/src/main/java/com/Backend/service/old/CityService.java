@@ -1,4 +1,4 @@
-package com.Backend.service;
+package com.Backend.service.old;
 
 import com.Backend.domain.JustJoinIT;
 import com.Backend.dto.CityDto;
@@ -8,6 +8,7 @@ import com.Backend.entity.offers.CityOffers;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.CityOffersRepository;
+import com.Backend.service.RequestService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -25,18 +26,18 @@ import java.util.stream.Collectors;
 public class CityService {
 
     private ModelMapper modelMapper;
-    private ScrapService scrapService;
+    private RequestService requestService;
     private CityRepository cityRepository;
     private CityOffersRepository cityOffersRepository;
     private TechnologyRepository technologyRepository;
 
-    public CityService(ModelMapper modelMapper, ScrapService scrapService, CityRepository cityRepository,
+    public CityService(ModelMapper modelMapper, RequestService requestService, CityRepository cityRepository,
                        CityOffersRepository cityOffersRepository, TechnologyRepository technologyRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(cityMapping);
         this.modelMapper.addConverter(totalConverter);
         //this.modelMapper.addConverter(per100kConverter);
-        this.scrapService = Objects.requireNonNull(scrapService);
+        this.requestService = Objects.requireNonNull(requestService);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.cityOffersRepository = Objects.requireNonNull(cityOffersRepository);
         this.technologyRepository = technologyRepository;
@@ -56,7 +57,7 @@ public class CityService {
 
     private Converter<Integer, Integer> totalConverter = context -> {
         CityOffers city = (CityOffers) context.getParent().getSource();
-        return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoin() + city.getIndeed();
+        return city.getLinkedin() + city.getPracuj() + city.getNoFluffJobs() + city.getJustJoinIT() + city.getIndeed();
     };
 
 //    private Converter<Double, Double> per100kConverter = context -> {
@@ -96,14 +97,14 @@ public class CityService {
     public List<CityDto> scrapItJobOffersInPoland(String technology) {
         String selectedTechnology = technology.toLowerCase();
         List<City> cities = cityRepository.findAll();
-        List<JustJoinIT> justJoinITOffers = scrapService.scrapJustJoin();
+        List<JustJoinIT> justJoinITOffers = requestService.scrapJustJoin();
         List<CityOffers> citiesOffers = new ArrayList<>();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(selectedTechnology);
 
         cities.forEach(city -> {
 
                     String selectedCityUTF8 = city.getName().toLowerCase();
-                    String selectedCityASCII = scrapService.removePolishSigns(selectedCityUTF8);
+                    String selectedCityASCII = requestService.removePolishSigns(selectedCityUTF8);
 
                     if(selectedCityASCII.equals("all cities")){
                         selectedCityASCII = selectedCityASCII.replaceAll("all cities", "poland");
@@ -146,14 +147,14 @@ public class CityService {
 
                     CityOffers cityOffer = new CityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
-                    cityOffer.setLinkedin(scrapService.scrapLinkedinOffers(linkedinDynamicURL));
+                    cityOffer.setLinkedin(requestService.scrapLinkedinOffers(linkedinDynamicURL));
             try {
-                cityOffer.setIndeed(scrapService.scrapIndeedOffers(indeedDynamicURL));
+                cityOffer.setIndeed(requestService.scrapIndeedOffers(indeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            cityOffer.setPracuj(scrapService.scrapPracujOffers(pracujDynamicURL));
-                    cityOffer.setNoFluffJobs(scrapService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
+            cityOffer.setPracuj(requestService.scrapPracujOffers(pracujDynamicURL));
+                    cityOffer.setNoFluffJobs(requestService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
 
                     String finalSelectedCityASCII = selectedCityASCII;
                     if(selectedTechnology.equals("all it jobs") || selectedTechnology.equals("all jobs") ){

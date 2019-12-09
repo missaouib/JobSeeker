@@ -28,7 +28,7 @@ public class CityOffers {
     int indeed;
     int pracuj;
     int noFluffJobs;
-    int justJoin;
+    int justJoinIT;
 
     public CityOffers(City city, Technology technology, LocalDate date) {
         this.city = city;

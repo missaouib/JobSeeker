@@ -1,4 +1,4 @@
-package com.Backend.service;
+package com.Backend.service.old;
 
 import com.Backend.dto.CountryDto;
 import com.Backend.entity.Country;
@@ -7,6 +7,7 @@ import com.Backend.entity.offers.CountryOffers;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.CountryOffersRepository;
+import com.Backend.service.RequestService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -24,17 +25,17 @@ import java.util.stream.Collectors;
 public class CountryService {
 
     private ModelMapper modelMapper;
-    private ScrapService scrapService;
+    private RequestService requestService;
     private CountryRepository countryRepository;
     private CountryOffersRepository countryOffersRepository;
     private TechnologyRepository technologyRepository;
 
-    public CountryService(ModelMapper modelMapper, ScrapService scrapService, CountryRepository countryRepository,
+    public CountryService(ModelMapper modelMapper, RequestService requestService, CountryRepository countryRepository,
                           CountryOffersRepository countryOffersRepository, TechnologyRepository technologyRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(countryMapping);
         this.modelMapper.addConverter(per100kConverter);
-        this.scrapService = Objects.requireNonNull(scrapService);
+        this.requestService = Objects.requireNonNull(requestService);
         this.countryRepository = Objects.requireNonNull(countryRepository);
         this.countryOffersRepository = Objects.requireNonNull(countryOffersRepository);
         this.technologyRepository = technologyRepository;
@@ -106,9 +107,9 @@ public class CountryService {
             }
 
             CountryOffers countryOffers = new CountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
-            countryOffers.setLinkedin(scrapService.scrapLinkedinOffers(linkedinDynamicURL));
+            countryOffers.setLinkedin(requestService.scrapLinkedinOffers(linkedinDynamicURL));
             try {
-                countryOffers.setIndeed(scrapService.scrapIndeedOffers(IndeedDynamicURL));
+                countryOffers.setIndeed(requestService.scrapIndeedOffers(IndeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }

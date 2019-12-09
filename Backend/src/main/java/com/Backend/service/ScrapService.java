@@ -1,168 +1,147 @@
 package com.Backend.service;
 
 import com.Backend.domain.JustJoinIT;
-import com.Backend.domain.NoFluffJobsList;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.springframework.http.MediaType;
+import com.Backend.dto.TechnologyDto;
+import com.Backend.entity.City;
+import com.Backend.entity.Country;
+import com.Backend.entity.Technology;
+import com.Backend.entity.offers.CityOffers;
+import com.Backend.entity.offers.CountryOffers;
+import com.Backend.entity.offers.TechnologyOffers;
+import com.Backend.repository.CityRepository;
+import com.Backend.repository.CountryRepository;
+import com.Backend.repository.TechnologyRepository;
+import com.Backend.repository.offers.TechnologyOffersRepository;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.text.Normalizer;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ScrapService {
 
-    public static final String USER_AGENT = "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion";
+    private ModelMapper modelMapper;
+    private RequestService requestService;
+    private TechnologyRepository technologyRepository;
+    private TechnologyOffersRepository technologyOffersRepository;
+    private CityRepository cityRepository;
+    private CountryRepository countryRepository;
 
-    public int scrapLinkedinOffers(String url) {
-
-        WebClient linkedinURL = WebClient.create(url);
-
-        Mono<ClientResponse> response = linkedinURL.get()
-                .header("User-Agent", USER_AGENT)
-                .exchange();
-
-        String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
-
-        return getHtmlSubstring(responseString, "Past Month <span class=\"filter-list__label-count\">(",
-                ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>");
+    public ScrapService(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
+                        TechnologyOffersRepository technologyOffersRepository, CityRepository cityRepository, CountryRepository countryRepository) {
+        this.modelMapper = Objects.requireNonNull(modelMapper);
+        this.modelMapper.addMappings(technologyMapping);
+        this.modelMapper.addConverter(totalConverter);
+        this.requestService = Objects.requireNonNull(requestService);
+        this.technologyRepository = Objects.requireNonNull(technologyRepository);
+        this.technologyOffersRepository = Objects.requireNonNull(technologyOffersRepository);
+        this.cityRepository = cityRepository;
+        this.countryRepository = countryRepository;
     }
 
-    public int scrapIndeedOffers(String url) throws IOException {
-
-        Document htmlDoc = Jsoup.connect(url)
-                .userAgent(USER_AGENT)
-                .referrer("http://www.google.com")
-                .followRedirects(true)
-                .get();
-
-        Elements responseHtmlDiv = htmlDoc.select("div#searchCountPages");
-        String div = responseHtmlDiv.text();
-
-        div = div
-                .replaceAll(",", "")
-                .replaceAll("\\.", "")
-                .replaceAll("'", "")
-                .replaceAll("\\s+", "");
-
-        div = div.replaceAll("[^0-9]+", ",");
-
-        if(div.charAt(0) == ',') {
-            div = div.substring(1, div.length() - 1);
-        } else {
-            div = div.substring(0, div.length() - 1);
+    private PropertyMap<TechnologyOffers, TechnologyDto> technologyMapping = new PropertyMap<TechnologyOffers, TechnologyDto>() {
+        protected void configure() {
+            map().setName(source.getTechnology().getName());
+            map().setType(source.getTechnology().getType());
+            map().setId(source.getTechnology().getId());
+            using(totalConverter).map(map().getTotal());
         }
+    };
 
-        String[] numbers = div.split("\\s*,\\s*");
+    private Converter<Integer, Integer> totalConverter = context -> {
+        TechnologyOffers technology = (TechnologyOffers) context.getParent().getSource();
+        return technology.getLinkedin() + technology.getPracuj() + technology.getNoFluffJobs() + technology.getJustJoinIT();
+    };
 
-        if(Integer.parseInt(numbers[0]) == 0 || Integer.parseInt(numbers[1]) == 0){
-            return 0;
+    public List<TechnologyDto> getTechnologyStatistics(String city) {
+
+        List<TechnologyOffers> list = technologyOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city).orElse(null));
+
+        if(list.isEmpty()){
+            return scrapTechnologyStatistics(city);
         } else {
-            return Math.max(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
+            return list.stream().map(technology -> modelMapper.map(technology, TechnologyDto.class)).collect(Collectors.toList());
         }
     }
 
-    public int scrapPracujOffers(String url) {
+    public List<CountryOffers> scrapTechnologyStatisticsForCountries(String country) {
 
-        WebClient pracujURL = WebClient.create(url);
+        String selectedCountryUTF8 = country.toLowerCase();
+        List<CountryOffers> countriesOffers = new ArrayList<>();
+        List<Technology> technologies = technologyRepository.findAll();
+        Optional<Country> countryOptional = countryRepository.findCountryByName(selectedCountryUTF8);
+        UrlBuilder urlBuilder = new UrlBuilder();
 
-        Mono<ClientResponse> response = pracujURL.get()
-                .header("User-Agent", USER_AGENT)
-                .exchange();
+        technologies.forEach(technology -> {
 
-        String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
+            String selectedTechnology = technology.getName().toLowerCase();
 
-        return getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
+            String linkedinUrl = urlBuilder.linkedinBuildUrlForCityAndCountry(selectedTechnology, selectedCountryUTF8);
+            String indeedUrl = urlBuilder.indeedBuildUrlForCountry(selectedTechnology, countryOptional.get().getCode());
+
+            CountryOffers countryOffers = new CountryOffers(countryOptional.orElse(null), technology, LocalDate.now());
+
+            try {
+                countryOffers.setIndeed(requestService.scrapIndeedOffers(indeedUrl));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            countryOffers.setLinkedin(requestService.scrapLinkedinOffers(linkedinUrl));
+
+            countriesOffers.add(countryOffers);
+        });
+
+        return countriesOffers;
     }
 
-    public int scrapNoFluffJobsOffers(String url) {
+    public List<TechnologyDto> scrapTechnologyStatistics(String cityName) {
+        String cityNameUTF8 = cityName.toLowerCase();
+        String cityNameASCII = requestService.removePolishSigns(cityNameUTF8).toLowerCase();
+        List<Technology> technologies = technologyRepository.findAll();
+        List<CityOffers> citiesOffers = new ArrayList<>();
+        City city = cityRepository.findCityByName(cityNameUTF8);
+        UrlBuilder urlBuilder = new UrlBuilder();
 
-        WebClient noFluffJobsURL = WebClient.create(url);
+        technologies.forEach(technology -> {
 
-        NoFluffJobsList response =  noFluffJobsURL
-                .get()
-                .header("User-Agent", USER_AGENT)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .retrieve()
-                .bodyToMono(NoFluffJobsList.class)
-                .block();
+            String technologyName = technology.getName().toLowerCase();
 
-        return Objects.requireNonNull(response).getPostings().size();
+            String linkedinDynamicURL = urlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
+            String indeedDynamicURL = urlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
+            String pracujDynamicURL = urlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
+            String noFluffJobsDynamicURL = urlBuilder.noFluffJobsBuildUrlForCity();
+
+            CityOffers cityOffers = new CityOffers(city, technology, LocalDate.now());
+
+            try {
+                cityOffers.setIndeed(requestService.scrapIndeedOffers(indeedDynamicURL));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            cityOffers.setLinkedin(requestService.scrapLinkedinOffers(linkedinDynamicURL));
+            cityOffers.setPracuj(requestService.scrapPracujOffers(pracujDynamicURL));
+            cityOffers.setNoFluffJobs(requestService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
+            cityOffers.setJustJoinIT(requestService.scrapJustJoin(city, technology));
+
+            citiesOffers.add(cityOffers);
+        });
+
+
+
+        return city
+                .filter(ignoredCity -> !technologyOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
+                .map(ignoredCity -> citiesOffers.stream().map(category -> modelMapper.map(technologyOffersRepository.save(category), TechnologyDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> citiesOffers.stream().map(category -> modelMapper.map(category, TechnologyDto.class)).collect(Collectors.toList()));
     }
 
-    public List<JustJoinIT> scrapJustJoin() {
-
-        WebClient justJoinITUrl = WebClient.create("https://justjoin.it/api/offers");
-
-        JustJoinIT response = justJoinITUrl.get()
-                .header("User-Agent", USER_AGENT)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .retrieve()
-                .bodyToFlux(JustJoinIT.class)
-                .collectList()
-                .block();
-
-        return response;
-    }
-
-    public String removePolishSigns(String city){
-        return Normalizer.normalize(city, Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
-                .replaceAll("ł", "l");
-    }
-
-    private int getHtmlSubstring(String resultString, String htmlFirstPart, String htmlSecondPart){
-        int jobAmount = 0;
-        if (resultString != null && resultString.contains(htmlFirstPart) && resultString.contains(htmlSecondPart))
-            jobAmount = Integer.parseInt(resultString
-                    .substring(resultString.indexOf(htmlFirstPart) + htmlFirstPart.length(), resultString.indexOf(htmlSecondPart))
-                    .replaceAll(",", "")
-                    .replaceAll("[^\\x00-\\x7F]", ""));
-
-        return jobAmount;
-    }
-
-    private int extractJustJoinItJson(List<JustJoinIT> offers){
-        if(selectedCityASCII.equals("poland")){
-            technologyOffers.setJustJoin((int) justJoinOffers
-                    .stream()
-                    .filter(filterTechnology -> {
-                        if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")){
-                            return true;
-                        } else {
-                            return filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
-                                    || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology);
-                        }
-                    })
-                    .count());
-        } else {
-            technologyOffers.setJustJoin((int) justJoinOffers
-                    .stream()
-                    .filter(filterTechnology -> {
-                        if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")) {
-                            return true;
-                        } else {
-                            return filterTechnology.getTitle().toLowerCase().contains(selectedTechnology)
-                                    || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(selectedTechnology);
-                        }
-                    })
-                    .filter(filterCity -> {
-                        if(selectedCityASCII.equals("warszawa")){
-                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
-                        } else if (selectedCityASCII.equals("kraków")){
-                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
-                        } else {
-                            return (filterCity.getCity().toLowerCase().contains(selectedCityUTF8) || filterCity.getCity().toLowerCase().contains(selectedCityASCII));
-                        }
-                    })
-                    .count());
-        }
-    }
 }

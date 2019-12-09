@@ -1,4 +1,4 @@
-package com.Backend.service;
+package com.Backend.service.old;
 
 import com.Backend.domain.JustJoinIT;
 import com.Backend.dto.TechnologyDto;
@@ -11,6 +11,7 @@ import com.Backend.repository.CityRepository;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.TechnologyOffersRepository;
+import com.Backend.service.RequestService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -28,18 +29,18 @@ import java.util.stream.Collectors;
 public class TechnologyService {
 
     private ModelMapper modelMapper;
-    private ScrapService scrapService;
+    private RequestService requestService;
     private TechnologyRepository technologyRepository;
     private TechnologyOffersRepository technologyOffersRepository;
     private CityRepository cityRepository;
     private CountryRepository countryRepository;
 
-    public TechnologyService(ModelMapper modelMapper, ScrapService scrapService, TechnologyRepository technologyRepository,
+    public TechnologyService(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
                              TechnologyOffersRepository technologyOffersRepository, CityRepository cityRepository, CountryRepository countryRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(technologyMapping);
         this.modelMapper.addConverter(totalConverter);
-        this.scrapService = Objects.requireNonNull(scrapService);
+        this.requestService = Objects.requireNonNull(requestService);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
         this.technologyOffersRepository = Objects.requireNonNull(technologyOffersRepository);
         this.cityRepository = cityRepository;
@@ -94,7 +95,7 @@ public class TechnologyService {
             CountryOffers countryOffers = new CountryOffers(countryOptional.orElse(null), technology, LocalDate.now());
 
             try {
-                countryOffers.setIndeed(scrapService.scrapIndeedOffers(IndeedDynamicURL));
+                countryOffers.setIndeed(requestService.scrapIndeedOffers(IndeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,9 +109,9 @@ public class TechnologyService {
 
     public List<TechnologyDto> scrapTechnologyStatistics(String city) {
         String selectedCityUTF8 = city.toLowerCase();
-        String selectedCityASCII = scrapService.removePolishSigns(selectedCityUTF8);
+        String selectedCityASCII = requestService.removePolishSigns(selectedCityUTF8);
         List<Technology> technologies = technologyRepository.findAll();
-        List<JustJoinIT> justJoinITOffers = scrapService.scrapJustJoin();
+        List<JustJoinIT> justJoinITOffers = requestService.scrapJustJoin();
         List<TechnologyOffers> technologiesOffers = new ArrayList<>();
         Optional<City> cityOptional = cityRepository.findCityByName(selectedCityUTF8);
 
@@ -168,17 +169,17 @@ public class TechnologyService {
 
             TechnologyOffers technologyOffers = new TechnologyOffers(technology, cityOptional.orElse(null), LocalDate.now());
 
-            technologyOffers.setLinkedin(scrapService.scrapLinkedinOffers(linkedinDynamicURL));
+            technologyOffers.setLinkedin(requestService.scrapLinkedinOffers(linkedinDynamicURL));
             try {
-                technologyOffers.setIndeed(scrapService.scrapIndeedOffers(indeedDynamicURL));
+                technologyOffers.setIndeed(requestService.scrapIndeedOffers(indeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            technologyOffers.setPracuj(scrapService.scrapPracujOffers(pracujDynamicURL));
-            technologyOffers.setNoFluffJobs(scrapService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
+            technologyOffers.setPracuj(requestService.scrapPracujOffers(pracujDynamicURL));
+            technologyOffers.setNoFluffJobs(requestService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
 
             if(selectedCityASCII.equals("poland")){
-                technologyOffers.setJustJoin((int) justJoinITOffers
+                technologyOffers.setJustJoinIT((int) justJoinITOffers
                         .stream()
                         .filter(filterTechnology -> {
                             if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")){
@@ -190,7 +191,7 @@ public class TechnologyService {
                         })
                         .count());
             } else {
-                technologyOffers.setJustJoin((int) justJoinITOffers
+                technologyOffers.setJustJoinIT((int) justJoinITOffers
                         .stream()
                         .filter(filterTechnology -> {
                             if(selectedTechnology.equals("all jobs") || selectedTechnology.equals("all it jobs")) {

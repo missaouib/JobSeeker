@@ -1,9 +1,6 @@
 package com.Backend.service;
 
-import org.springframework.stereotype.Service;
-
-@Service
-public class UrlService {
+public class UrlBuilder {
 
     public String linkedinBuildUrlForCityAndCountry(String technology, String cityOrCountry){
         String url = "https://www.linkedin.com/jobs/search?keywords=" + technology + "&location=" + cityOrCountry;
@@ -22,6 +19,17 @@ public class UrlService {
                 url = "https://www.linkedin.com/jobs/search?keywords=C%23&location=" + cityOrCountry;
                 break;
         }
+
+        if(cityOrCountry.equals("poland") && !technology.equals("all it jobs") && !technology.equals("all jobs")) {
+            url = "https://www.linkedin.com/jobs/" + technology + "-jobs-poland";
+        }
+        if(technology.equals("poland") && technology.equals("c++")){
+            url = "https://www.linkedin.com/jobs/c++-jobs-poland";
+        }
+        else if(technology.equals("c++")) {
+            url = "https://www.linkedin.com/jobs/c++-jobs-" + technology;
+        }
+
         return url;
     }
 
@@ -56,10 +64,16 @@ public class UrlService {
                 url = "https://www.pracuj.pl/praca/c%23;kw/" + city + ";wp";
                 break;
         }
+
+        if(city.equals("poland") && !technology.equals("all it jobs") && !technology.equals("all jobs")) {
+            url = "https://www.pracuj.pl/praca/" + technology + ";kw";
+        }
+
         return url;
     }
 
     public String noFluffJobsBuildUrlForCity(){
+        //"https://nofluffjobs.com/api/search/posting?criteria=city=" + city + "+" + technology;
         return "https://nofluffjobs.com/api/posting";
     }
 

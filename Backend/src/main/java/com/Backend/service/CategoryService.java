@@ -22,16 +22,16 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private ModelMapper modelMapper;
-    private ScrapService scrapService;
+    private RequestService requestService;
     private CategoryRepository categoryRepository;
     private CategoryOffersRepository categoryOffersRepository;
     private CityRepository cityRepository;
 
-    public CategoryService(ModelMapper modelMapper, ScrapService scrapService, CategoryRepository categoryRepository,
+    public CategoryService(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
                            CategoryOffersRepository categoryOffersRepository, CityRepository cityRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(categoryMapping);
-        this.scrapService = Objects.requireNonNull(scrapService);
+        this.requestService = Objects.requireNonNull(requestService);
         this.categoryRepository = Objects.requireNonNull(categoryRepository);
         this.categoryOffersRepository = Objects.requireNonNull(categoryOffersRepository);
         this.cityRepository = Objects.requireNonNull(cityRepository);
@@ -58,7 +58,7 @@ public class CategoryService {
 
     public List<CategoryDto> scrapCategoryStatistics(String city) {
         String selectedCityUTF8 = city.toLowerCase();
-        String selectedCityASCII = scrapService.removePolishSigns(selectedCityUTF8);
+        String selectedCityASCII = requestService.removePolishSigns(selectedCityUTF8);
         List<Category> categories = categoryRepository.findAll();
         List<CategoryOffers> categoriesOffers = new ArrayList<>();
         Optional<City> cityOptional = cityRepository.findCityByName(selectedCityUTF8);
@@ -71,7 +71,7 @@ public class CategoryService {
                 pracujDynamicURL = "https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId();
             }
 
-            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), scrapService.scrapPracujOffers(pracujDynamicURL)));
+            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
         });
 
         return cityOptional

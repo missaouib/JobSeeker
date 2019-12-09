@@ -4,9 +4,9 @@ import com.Backend.repository.CityRepository;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.service.CategoryService;
-import com.Backend.service.CityService;
-import com.Backend.service.CountryService;
-import com.Backend.service.TechnologyService;
+import com.Backend.service.old.CityService;
+import com.Backend.service.old.CountryService;
+import com.Backend.service.old.TechnologyService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 

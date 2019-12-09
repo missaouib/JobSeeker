@@ -1,4 +1,4 @@
-INSERT INTO city (id, name, population, area, density) VALUES (1, 'All Cities', 38413000, 312.696, 123) ON CONFLICT DO NOTHING;
+/* INSERT INTO city (id, name, population, area, density) VALUES (1, 'All Cities', 38413000, 312.696, 123) ON CONFLICT DO NOTHING; */
 INSERT INTO city (id, name, population, area, density) VALUES (2, 'Warszawa', 1764615, 517.24, 3412) ON CONFLICT DO NOTHING;
 INSERT INTO city (id, name, population, area, density) VALUES (3, 'Kraków', 767348, 326.85, 2348) ON CONFLICT DO NOTHING;
 INSERT INTO city (id, name, population, area, density) VALUES (4, 'Łódź', 690422, 293.25, 2354) ON CONFLICT DO NOTHING;
