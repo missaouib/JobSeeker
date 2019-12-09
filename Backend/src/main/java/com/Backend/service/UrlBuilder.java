@@ -23,7 +23,7 @@ public class UrlBuilder {
         if(cityOrCountry.equals("poland") && !technology.equals("all it jobs") && !technology.equals("all jobs")) {
             url = "https://www.linkedin.com/jobs/" + technology + "-jobs-poland";
         }
-        if(technology.equals("poland") && technology.equals("c++")){
+        if(cityOrCountry.equals("poland") && technology.equals("c++")){
             url = "https://www.linkedin.com/jobs/c++-jobs-poland";
         }
         else if(technology.equals("c++")) {

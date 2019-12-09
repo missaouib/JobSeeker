@@ -56,12 +56,12 @@ public class CategoryService {
         }
     }
 
-    public List<CategoryDto> scrapCategoryStatistics(String city) {
-        String selectedCityUTF8 = city.toLowerCase();
+    public List<CategoryDto> scrapCategoryStatistics(String cityName) {
+        String selectedCityUTF8 = cityName.toLowerCase();
         String selectedCityASCII = requestService.removePolishSigns(selectedCityUTF8);
         List<Category> categories = categoryRepository.findAll();
         List<CategoryOffers> categoriesOffers = new ArrayList<>();
-        Optional<City> cityOptional = cityRepository.findCityByName(selectedCityUTF8);
+        City city = cityRepository.findCityByName(selectedCityUTF8);
 
         categories.forEach(category -> {
             String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
@@ -71,7 +71,7 @@ public class CategoryService {
                 pracujDynamicURL = "https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId();
             }
 
-            categoriesOffers.add(new CategoryOffers(category, cityOptional.orElse(null), LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
+            categoriesOffers.add(new CategoryOffers(category, city, LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
         });
 
         return cityOptional

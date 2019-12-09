@@ -15,7 +15,6 @@ public class BackendApplication {
     //[BACKEND] TODO
     //Observe malaysia
     //[REFACTOR] BIIGG REFACOTOTOORORO WHOLE ARCHITECTURE XDDDDDD
-    //1. nested classes nofluff
     //2. addd urls to properties
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add Indeed categories
@@ -25,7 +24,6 @@ public class BackendApplication {
     //[FEAT] Selenium localhost/Dockerhub/Diff ports
     //[REFACTOR] Change Security groups on aws
     //[FEAT] Login selenium or proxy
-    //[REFACTOR] Change all Posts to Gets xD
     //[REFACTOR] Remove modelmapper and put logic into SQL
     //[FEAT] Add Glassdor?
 
