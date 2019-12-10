@@ -58,18 +58,22 @@ public class RequestService {
 
         div = div.replaceAll("[^0-9]+", ",");
 
-        if(div.charAt(0) == ',') {
-            div = div.substring(1, div.length() - 1);
-        } else {
-            div = div.substring(0, div.length() - 1);
-        }
+        try {
+            if(div.charAt(0) == ',') {
+                div = div.substring(1, div.length() - 1);
+            } else {
+                div = div.substring(0, div.length() - 1);
+            }
 
-        String[] numbers = div.split("\\s*,\\s*");
+            String[] numbers = div.split("\\s*,\\s*");
 
-        if(Integer.parseInt(numbers[0]) == 0 || Integer.parseInt(numbers[1]) == 0){
+            if(Integer.parseInt(numbers[0]) == 0 || Integer.parseInt(numbers[1]) == 0){
+                return 0;
+            } else {
+                return Math.max(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
+            }
+        } catch(Exception e){
             return 0;
-        } else {
-            return Math.max(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
         }
     }
 

@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +23,9 @@ public class CategoryService {
     private ModelMapper modelMapper;
     private RequestService requestService;
     private CategoryRepository categoryRepository;
-    private CategoryOffersRepository categoryOffersRepository;
+
     private CityRepository cityRepository;
+    private CategoryOffersRepository categoryOffersRepository;
 
     public CategoryService(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
                            CategoryOffersRepository categoryOffersRepository, CityRepository cityRepository) {
@@ -47,7 +47,7 @@ public class CategoryService {
 
     public List<CategoryDto> getCategoryStatistics(String city){
 
-        List<CategoryOffers> list = categoryOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city).orElse(null));
+        List<CategoryOffers> list = categoryOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city));
 
         if(list.isEmpty()){
             return scrapCategoryStatistics(city);
@@ -74,10 +74,9 @@ public class CategoryService {
             categoriesOffers.add(new CategoryOffers(category, city, LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
         });
 
-        return cityOptional
-                .filter(ignoredCity -> !categoryOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
-                .map(ignoredCity -> categoriesOffers.stream().map(category -> modelMapper.map(categoryOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList()))
-                .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList()));
-
+        return categoriesOffers
+                .stream()
+                .map(categoryOffer -> modelMapper.map(categoryOffersRepository.save(categoryOffer), CategoryDto.class))
+                .collect(Collectors.toList());
     }
 }
