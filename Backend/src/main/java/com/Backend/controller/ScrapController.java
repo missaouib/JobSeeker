@@ -1,6 +1,8 @@
 package com.Backend.controller;
 
+import com.Backend.dto.CategoryDto;
 import com.Backend.dto.CityDto;
+import com.Backend.dto.CountryDto;
 import com.Backend.service.ScrapCategoryService;
 import com.Backend.service.ScrapTechnologyService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,19 +29,19 @@ public class ScrapController {
         return scrapTechnologyService.scrapTechnologyStatisticsForCities(technology);
     }
 
-//    @GetMapping("/itJobOffersInWorld")
-//    public List<CountryDto> itJobOffersInWorld(@RequestParam("technology") String technology){
-//        return offersService.getItJobOffersInWorld(technology);
-//    }
-//
+    @GetMapping("/itJobOffersInWorld")
+    public List<CountryDto> itJobOffersInWorld(@RequestParam("technology") String technology){
+        return scrapTechnologyService.scrapTechnologyStatisticsForCountries(technology);
+    }
+
 //    @GetMapping("/technologyStatistics")
 //    public List<TechnologyDto> TechnologyStatistics(@RequestParam("location") String location) {
-//        return offersService.getTechnologyStatistics(location);
+//        return scrapTechnologyService.getTechnologyStatistics(location);
 //    }
-//
-//    @GetMapping("/categoryStatistics")
-//    public List<CategoryDto> CategoryStatistics(@RequestParam("location") String location){
-//        return scrapCategoryService.getCategoryStatistics(location);
-//    }
+
+    @GetMapping("/categoryStatistics")
+    public List<CategoryDto> CategoryStatistics(@RequestParam("location") String location){
+        return scrapCategoryService.getCategoryStatistics(location);
+    }
 
 }

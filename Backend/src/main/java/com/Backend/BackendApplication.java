@@ -13,8 +13,10 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //Observe malaysia
-    //2. addd urls to properties
+    //[FIX] Malaysia error indeed
+    //[REFACTOR] Add urls to properties
+    //[REFACTOR] Add category url to builder
+    //[REFACTOR] Add Optional methods to repository
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add Indeed categories
     //[FEAT] Add liquibase
@@ -31,6 +33,6 @@ public class BackendApplication {
     //[FEAT] Technology stats <-> if all rows equals to 0 then hide with information popup( ???? )
     //[FIX] Counting ids in World tab view
     //[FEAT] Add history diagram functionality
-    //[OPTIMIZATION] Responsive Web Design
-    //[OPTIMIZATION] Update only changing value in redux
+    //[FEAT] Responsive Web Design
+    //[REFACTOR] Update only changing value in redux
 }

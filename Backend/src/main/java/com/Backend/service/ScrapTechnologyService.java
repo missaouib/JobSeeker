@@ -1,6 +1,7 @@
 package com.Backend.service;
 
 import com.Backend.dto.CityDto;
+import com.Backend.dto.CountryDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Country;
 import com.Backend.entity.Technology;
@@ -10,6 +11,7 @@ import com.Backend.repository.CityRepository;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.TechnologyCityOffersRepository;
+import com.Backend.repository.offers.TechnologyCountryOffersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +30,12 @@ public class ScrapTechnologyService {
     private RequestService requestService;
     private TechnologyRepository technologyRepository;
     private TechnologyCityOffersRepository technologyCityOffersRepository;
+    private TechnologyCountryOffersRepository technologyCountryOffersRepository;
     private CityRepository cityRepository;
     private CountryRepository countryRepository;
 
     public ScrapTechnologyService(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
-                                  CityRepository cityRepository, CountryRepository countryRepository,
+                                  CityRepository cityRepository, CountryRepository countryRepository, TechnologyCountryOffersRepository technologyCountryOffersRepository,
                                   TechnologyCityOffersRepository technologyCityOffersRepository, MapperService mapperService) {
         this.mapperService = mapperService;
         this.modelMapper = Objects.requireNonNull(modelMapper);
@@ -47,9 +50,10 @@ public class ScrapTechnologyService {
         this.cityRepository = cityRepository;
         this.countryRepository = countryRepository;
         this.technologyCityOffersRepository = technologyCityOffersRepository;
+        this.technologyCountryOffersRepository = technologyCountryOffersRepository;
     }
 
-    public List<TechnologyCountryOffers> scrapTechnologyStatisticsForCountries(String countryName) {
+    public List<CountryDto> scrapTechnologyStatisticsForCountries(String countryName) {
 
         String selectedCountryUTF8 = countryName.toLowerCase();
         List<TechnologyCountryOffers> countriesOffers = new ArrayList<>();
@@ -77,7 +81,10 @@ public class ScrapTechnologyService {
             countriesOffers.add(technologyCountryOffers);
         });
 
-        return countriesOffers;
+        return countriesOffers
+                .stream()
+                .map(countryOffer -> modelMapper.map(technologyCountryOffersRepository.save(countryOffer), CountryDto.class))
+                .collect(Collectors.toList());
     }
 
     public List<CityDto> scrapTechnologyStatisticsForCities(String cityName) {

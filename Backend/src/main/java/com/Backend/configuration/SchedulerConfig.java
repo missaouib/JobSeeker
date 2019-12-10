@@ -44,14 +44,9 @@ public class SchedulerConfig {
 //            categoryService.scrapCategoryStatistics(city);
 //        });
 //
-//        technologies.forEach(technology -> {
-//            //scrap city and country, elo mejbi categories
-//            cityService.scrapItJobOffersInPoland(technology);
-//            countryService.scrapItJobOffersInWorld(technology);
-//        });
-//
 //        countries.forEach(country -> {
 //            technologyService.scrapTechnologyStatistics(country);
+//            categoryService.scrapCategoryStatistics(city);
 //        });
 
     }
