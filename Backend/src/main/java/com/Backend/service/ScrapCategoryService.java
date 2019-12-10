@@ -3,10 +3,10 @@ package com.Backend.service;
 import com.Backend.dto.CategoryDto;
 import com.Backend.entity.Category;
 import com.Backend.entity.City;
-import com.Backend.entity.offers.CategoryOffers;
+import com.Backend.entity.offers.CategoryCityOffers;
 import com.Backend.repository.CategoryRepository;
 import com.Backend.repository.CityRepository;
-import com.Backend.repository.offers.CategoryOffersRepository;
+import com.Backend.repository.offers.CategoryCityOffersRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
@@ -25,19 +25,19 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     private CityRepository cityRepository;
-    private CategoryOffersRepository categoryOffersRepository;
+    private CategoryCityOffersRepository categoryCityOffersRepository;
 
     public CategoryService(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
-                           CategoryOffersRepository categoryOffersRepository, CityRepository cityRepository) {
+                           CategoryCityOffersRepository categoryCityOffersRepository, CityRepository cityRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(categoryMapping);
         this.requestService = Objects.requireNonNull(requestService);
         this.categoryRepository = Objects.requireNonNull(categoryRepository);
-        this.categoryOffersRepository = Objects.requireNonNull(categoryOffersRepository);
+        this.categoryCityOffersRepository = Objects.requireNonNull(categoryCityOffersRepository);
         this.cityRepository = Objects.requireNonNull(cityRepository);
     }
 
-    private PropertyMap<CategoryOffers, CategoryDto> categoryMapping = new PropertyMap<CategoryOffers, CategoryDto>() {
+    private PropertyMap<CategoryCityOffers, CategoryDto> categoryMapping = new PropertyMap<CategoryCityOffers, CategoryDto>() {
         protected void configure() {
             map().setPolishName(source.getCategory().getPolishName());
             map().setEnglishName(source.getCategory().getEnglishName());
@@ -47,7 +47,7 @@ public class CategoryService {
 
     public List<CategoryDto> getCategoryStatistics(String city){
 
-        List<CategoryOffers> list = categoryOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city));
+        List<CategoryCityOffers> list = categoryCityOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city));
 
         if(list.isEmpty()){
             return scrapCategoryStatistics(city);
@@ -60,7 +60,7 @@ public class CategoryService {
         String selectedCityUTF8 = cityName.toLowerCase();
         String selectedCityASCII = requestService.removePolishSigns(selectedCityUTF8);
         List<Category> categories = categoryRepository.findAll();
-        List<CategoryOffers> categoriesOffers = new ArrayList<>();
+        List<CategoryCityOffers> categoriesOffers = new ArrayList<>();
         City city = cityRepository.findCityByName(selectedCityUTF8);
 
         categories.forEach(category -> {
@@ -71,12 +71,12 @@ public class CategoryService {
                 pracujDynamicURL = "https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId();
             }
 
-            categoriesOffers.add(new CategoryOffers(category, city, LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
+            categoriesOffers.add(new CategoryCityOffers(category, city, LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
         });
 
         return categoriesOffers
                 .stream()
-                .map(categoryOffer -> modelMapper.map(categoryOffersRepository.save(categoryOffer), CategoryDto.class))
+                .map(categoryOffer -> modelMapper.map(categoryCityOffersRepository.save(categoryOffer), CategoryDto.class))
                 .collect(Collectors.toList());
     }
 }

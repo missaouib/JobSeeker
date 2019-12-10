@@ -4,12 +4,12 @@ import com.Backend.dto.CityDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Country;
 import com.Backend.entity.Technology;
-import com.Backend.entity.offers.CityOffers;
-import com.Backend.entity.offers.CountryOffers;
+import com.Backend.entity.offers.TechnologyCityOffers;
+import com.Backend.entity.offers.TechnologyCountryOffers;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
-import com.Backend.repository.offers.CityOffersRepository;
+import com.Backend.repository.offers.TechnologyCityOffersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +27,13 @@ public class ScrapService {
     private MapperService mapperService;
     private RequestService requestService;
     private TechnologyRepository technologyRepository;
-    private CityOffersRepository cityOffersRepository;
+    private TechnologyCityOffersRepository technologyCityOffersRepository;
     private CityRepository cityRepository;
     private CountryRepository countryRepository;
 
     public ScrapService(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
                         CityRepository cityRepository, CountryRepository countryRepository,
-                        CityOffersRepository cityOffersRepository, MapperService mapperService) {
+                        TechnologyCityOffersRepository technologyCityOffersRepository, MapperService mapperService) {
         this.mapperService = mapperService;
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(mapperService.cityOffersMapper);
@@ -46,13 +46,13 @@ public class ScrapService {
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
         this.cityRepository = cityRepository;
         this.countryRepository = countryRepository;
-        this.cityOffersRepository = cityOffersRepository;
+        this.technologyCityOffersRepository = technologyCityOffersRepository;
     }
 
-    public List<CountryOffers> scrapTechnologyStatisticsForCountries(String countryName) {
+    public List<TechnologyCountryOffers> scrapTechnologyStatisticsForCountries(String countryName) {
 
         String selectedCountryUTF8 = countryName.toLowerCase();
-        List<CountryOffers> countriesOffers = new ArrayList<>();
+        List<TechnologyCountryOffers> countriesOffers = new ArrayList<>();
         List<Technology> technologies = technologyRepository.findAll();
         Country country = countryRepository.findCountryByName(selectedCountryUTF8);
         UrlBuilder urlBuilder = new UrlBuilder();
@@ -64,17 +64,17 @@ public class ScrapService {
             String linkedinUrl = urlBuilder.linkedinBuildUrlForCityAndCountry(selectedTechnology, selectedCountryUTF8);
             String indeedUrl = urlBuilder.indeedBuildUrlForCountry(selectedTechnology, country.getCode());
 
-            CountryOffers countryOffers = new CountryOffers(country, technology, LocalDate.now());
+            TechnologyCountryOffers technologyCountryOffers = new TechnologyCountryOffers(country, technology, LocalDate.now());
 
             try {
-                countryOffers.setIndeed(requestService.scrapIndeedOffers(indeedUrl));
+                technologyCountryOffers.setIndeed(requestService.scrapIndeedOffers(indeedUrl));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            countryOffers.setLinkedin(requestService.scrapLinkedinOffers(linkedinUrl));
+            technologyCountryOffers.setLinkedin(requestService.scrapLinkedinOffers(linkedinUrl));
 
-            countriesOffers.add(countryOffers);
+            countriesOffers.add(technologyCountryOffers);
         });
 
         return countriesOffers;
@@ -85,7 +85,7 @@ public class ScrapService {
         String cityNameASCII = requestService.removePolishSigns(cityNameUTF8).toLowerCase();
         List<Technology> technologies = technologyRepository.findAll();
         City city = cityRepository.findCityByName(cityNameUTF8);
-        List<CityOffers> cityOffers = new ArrayList<>();
+        List<TechnologyCityOffers> technologyCityOffers = new ArrayList<>();
         UrlBuilder urlBuilder = new UrlBuilder();
 
         technologies.forEach(technology -> {
@@ -97,7 +97,7 @@ public class ScrapService {
             String pracujDynamicURL = urlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
             String noFluffJobsDynamicURL = urlBuilder.noFluffJobsBuildUrlForCity();
 
-            CityOffers offer = new CityOffers(city, technology, LocalDate.now());
+            TechnologyCityOffers offer = new TechnologyCityOffers(city, technology, LocalDate.now());
 
             try {
                 offer.setIndeed(requestService.scrapIndeedOffers(indeedDynamicURL));
@@ -110,12 +110,12 @@ public class ScrapService {
             offer.setNoFluffJobs(requestService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
             offer.setJustJoinIT(requestService.scrapJustJoin(city, technology));
 
-            cityOffers.add(offer);
+            technologyCityOffers.add(offer);
         });
 
-        return cityOffers
+        return technologyCityOffers
                 .stream()
-                .map(cityOffer -> modelMapper.map(cityOffersRepository.save(cityOffer), CityDto.class))
+                .map(cityOffer -> modelMapper.map(technologyCityOffersRepository.save(cityOffer), CityDto.class))
                 .collect(Collectors.toList());
     }
 
