@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService {
+public class ScrapCategoryService {
 
     private ModelMapper modelMapper;
     private RequestService requestService;
@@ -27,8 +27,8 @@ public class CategoryService {
     private CityRepository cityRepository;
     private CategoryCityOffersRepository categoryCityOffersRepository;
 
-    public CategoryService(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
-                           CategoryCityOffersRepository categoryCityOffersRepository, CityRepository cityRepository) {
+    public ScrapCategoryService(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
+                                CategoryCityOffersRepository categoryCityOffersRepository, CityRepository cityRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(categoryMapping);
         this.requestService = Objects.requireNonNull(requestService);

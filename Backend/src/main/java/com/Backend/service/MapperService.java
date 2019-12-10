@@ -3,9 +3,9 @@ package com.Backend.service;
 import com.Backend.dto.CategoryDto;
 import com.Backend.dto.CountryDto;
 import com.Backend.dto.TechnologyDto;
-import com.Backend.entity.offers.CategoryOffers;
-import com.Backend.entity.offers.CityOffers;
-import com.Backend.entity.offers.CountryOffers;
+import com.Backend.entity.offers.CategoryCityOffers;
+import com.Backend.entity.offers.TechnologyCityOffers;
+import com.Backend.entity.offers.TechnologyCountryOffers;
 import org.modelmapper.Converter;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MapperService {
 
-    public PropertyMap<CategoryOffers, CategoryDto> categoryMapper = new PropertyMap<CategoryOffers, CategoryDto>() {
+    public PropertyMap<CategoryCityOffers, CategoryDto> categoryMapper = new PropertyMap<CategoryCityOffers, CategoryDto>() {
         protected void configure() {
             map().setPolishName(source.getCategory().getPolishName());
             map().setEnglishName(source.getCategory().getEnglishName());
@@ -21,7 +21,7 @@ public class MapperService {
         }
     };
 
-    public PropertyMap<CityOffers, TechnologyDto> cityOffersMapper = new PropertyMap<CityOffers, TechnologyDto>() {
+    public PropertyMap<TechnologyCityOffers, TechnologyDto> cityOffersMapper = new PropertyMap<TechnologyCityOffers, TechnologyDto>() {
         protected void configure() {
             map().setName(source.getTechnology().getName());
             map().setType(source.getTechnology().getType());
@@ -30,7 +30,7 @@ public class MapperService {
         }
     };
 
-    public PropertyMap<CountryOffers, CountryDto> countryMapping = new PropertyMap<CountryOffers, CountryDto>() {
+    public PropertyMap<TechnologyCountryOffers, CountryDto> countryMapping = new PropertyMap<TechnologyCountryOffers, CountryDto>() {
         protected void configure() {
             map().setName(source.getCountry().getName());
             map().setPopulation(source.getCountry().getPopulation());
@@ -42,12 +42,12 @@ public class MapperService {
     };
 
     public Converter<Double, Double> countryOffersPer100kConverter = context -> {
-        CountryOffers country = (CountryOffers) context.getParent().getSource();
+        TechnologyCountryOffers country = (TechnologyCountryOffers) context.getParent().getSource();
         return (Math.round(country.getLinkedin() * 1.0 / (country.getCountry().getPopulation() * 1.0 / 100000) * 100.0) / 100.0);
     };
 
     public Converter<Integer, Integer> cityOffersTotalConverter = context -> {
-        CityOffers cityOffer = (CityOffers) context.getParent().getSource();
+        TechnologyCityOffers cityOffer = (TechnologyCityOffers) context.getParent().getSource();
         return cityOffer.getLinkedin() + cityOffer.getPracuj() + cityOffer.getNoFluffJobs() + cityOffer.getJustJoinIT();
     };
 

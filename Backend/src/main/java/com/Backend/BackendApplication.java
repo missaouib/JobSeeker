@@ -14,18 +14,16 @@ public class BackendApplication {
 
     //[BACKEND] TODO
     //Observe malaysia
-    //[REFACTOR] BIIGG REFACOTOTOORORO WHOLE ARCHITECTURE XDDDDDD
     //2. addd urls to properties
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add Indeed categories
     //[FEAT] Add liquibase
-    //[REFACTOR] Optimize nofluffjobs scrap by one request
-    //[FEAT] Timeout per request for production?
-    //[FEAT] Selenium localhost/Dockerhub/Diff ports
+    //[REFACTOR] Optimize nofluffjobs and justjoin
+    //[FEAT] Timeout per request
+    //[FEAT] Selenium localhost/Dockerhub/Diff ports || login/proxy
     //[REFACTOR] Change Security groups on aws
-    //[FEAT] Login selenium or proxy
-    //[REFACTOR] Remove modelmapper and put logic into SQL
-    //[FEAT] Add Glassdor?
+    //[REFACTOR] Change Mapper to SQL Projection
+    //[FEAT] Add Glassdor
 
     //[FRONTEND] TODO
     //[FEAT] Add countries column in technology view

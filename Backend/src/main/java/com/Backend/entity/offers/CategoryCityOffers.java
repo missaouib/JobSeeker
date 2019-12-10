@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Entity
-public class CategoryOffers {
+public class CategoryCityOffers {
 
     @Id
     @GeneratedValue
@@ -26,7 +26,7 @@ public class CategoryOffers {
     private LocalDate date;
     private int pracuj;
 
-    public CategoryOffers(Category category, City city, LocalDate date, int pracuj) {
+    public CategoryCityOffers(Category category, City city, LocalDate date, int pracuj) {
         this.category = category;
         this.city = city;
         this.date = date;

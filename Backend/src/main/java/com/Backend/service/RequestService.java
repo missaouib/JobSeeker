@@ -4,7 +4,7 @@ import com.Backend.domain.JustJoinIT;
 import com.Backend.domain.NoFluffJobs;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
-import com.Backend.entity.offers.CityOffers;
+import com.Backend.entity.offers.TechnologyCityOffers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -139,14 +139,14 @@ public class RequestService {
 
     private int extractJustJoinItJson(List<JustJoinIT> offers, City city, Technology technology) {
 
-        CityOffers cityOffers = new CityOffers(city, technology, LocalDate.now());
+        TechnologyCityOffers technologyCityOffers = new TechnologyCityOffers(city, technology, LocalDate.now());
 
         String cityNameASCII = removePolishSigns(city.getName()).toLowerCase();
         String cityNameUTF8 = city.getName().toLowerCase();
         String technologyName = technology.getName().toLowerCase();
 
         if(cityNameASCII.equals("poland")){
-            cityOffers.setJustJoinIT((int) offers
+            technologyCityOffers.setJustJoinIT((int) offers
                     .stream()
                     .filter(filterTechnology -> {
                         if(technologyName.equals("all jobs") || technologyName.equals("all it jobs")){
@@ -158,7 +158,7 @@ public class RequestService {
                     })
                     .count());
         } else {
-            cityOffers.setJustJoinIT((int) offers
+            technologyCityOffers.setJustJoinIT((int) offers
                     .stream()
                     .filter(filterTechnology -> {
                         if(technologyName.equals("all jobs") || technologyName.equals("all it jobs")) {
@@ -179,6 +179,6 @@ public class RequestService {
                     })
                     .count());
         }
-        return cityOffers.getJustJoinIT();
+        return technologyCityOffers.getJustJoinIT();
     }
 }

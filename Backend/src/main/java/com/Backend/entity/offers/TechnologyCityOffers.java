@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Entity
-public class CityOffers {
+public class TechnologyCityOffers {
 
     @Id
     @GeneratedValue
@@ -30,7 +30,7 @@ public class CityOffers {
     int noFluffJobs;
     int justJoinIT;
 
-    public CityOffers(City city, Technology technology, LocalDate date) {
+    public TechnologyCityOffers(City city, Technology technology, LocalDate date) {
         this.city = city;
         this.technology = technology;
         this.date = date;

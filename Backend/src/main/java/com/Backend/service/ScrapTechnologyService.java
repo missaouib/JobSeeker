@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class ScrapService {
+public class ScrapTechnologyService {
 
     private ModelMapper modelMapper;
     private MapperService mapperService;
@@ -31,9 +31,9 @@ public class ScrapService {
     private CityRepository cityRepository;
     private CountryRepository countryRepository;
 
-    public ScrapService(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
-                        CityRepository cityRepository, CountryRepository countryRepository,
-                        TechnologyCityOffersRepository technologyCityOffersRepository, MapperService mapperService) {
+    public ScrapTechnologyService(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
+                                  CityRepository cityRepository, CountryRepository countryRepository,
+                                  TechnologyCityOffersRepository technologyCityOffersRepository, MapperService mapperService) {
         this.mapperService = mapperService;
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(mapperService.cityOffersMapper);

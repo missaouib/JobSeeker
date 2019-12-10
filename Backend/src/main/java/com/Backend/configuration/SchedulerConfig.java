@@ -3,7 +3,7 @@ package com.Backend.configuration;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.CountryRepository;
 import com.Backend.repository.TechnologyRepository;
-import com.Backend.service.CategoryService;
+import com.Backend.service.ScrapCategoryService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Configuration
 public class SchedulerConfig {
 
-    private CategoryService categoryService;
+    private ScrapCategoryService scrapCategoryService;
     private CityRepository cityRepository;
     private TechnologyRepository technologyRepository;
     private CountryRepository countryRepository;
@@ -21,9 +21,9 @@ public class SchedulerConfig {
     private List<String> technologies;
     private List<String> countries;
 
-    public SchedulerConfig(CategoryService categoryService,
+    public SchedulerConfig(ScrapCategoryService scrapCategoryService,
                            CityRepository cityRepository, TechnologyRepository technologyRepository, CountryRepository countryRepository) {
-        this.categoryService = categoryService;
+        this.scrapCategoryService = scrapCategoryService;
         this.cityRepository = cityRepository;
         this.technologyRepository = technologyRepository;
         this.countryRepository = countryRepository;
