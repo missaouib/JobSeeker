@@ -35,25 +35,22 @@ public class ScrapTechnologyService {
     private CountryRepository countryRepository;
 
     public ScrapTechnologyService(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
-                                  CityRepository cityRepository, CountryRepository countryRepository, TechnologyCountryOffersRepository technologyCountryOffersRepository,
-                                  TechnologyCityOffersRepository technologyCityOffersRepository, MapperService mapperService) {
-        this.mapperService = mapperService;
+                                  CityRepository cityRepository, CountryRepository countryRepository, MapperService mapperService,
+                                  TechnologyCountryOffersRepository technologyCountryOffersRepository, TechnologyCityOffersRepository technologyCityOffersRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
-        this.modelMapper.addMappings(mapperService.cityOffersMapper);
-        this.modelMapper.addConverter(mapperService.cityOffersTotalConverter);
-
-//        this.modelMapper.addMappings(mapperService.countryMapping);
-//        this.modelMapper.addConverter(mapperService.countryOffersPer100kConverter);
-
+        this.mapperService = Objects.requireNonNull(mapperService);
         this.requestService = Objects.requireNonNull(requestService);
+        this.cityRepository = Objects.requireNonNull(cityRepository);
+        this.countryRepository = Objects.requireNonNull(countryRepository);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
-        this.cityRepository = cityRepository;
-        this.countryRepository = countryRepository;
-        this.technologyCityOffersRepository = technologyCityOffersRepository;
-        this.technologyCountryOffersRepository = technologyCountryOffersRepository;
+        this.technologyCityOffersRepository = Objects.requireNonNull(technologyCityOffersRepository);
+        this.technologyCountryOffersRepository = Objects.requireNonNull(technologyCountryOffersRepository);
     }
 
     public List<CountryDto> scrapTechnologyStatisticsForCountries(String countryName) {
+
+        //        this.modelMapper.addMappings(mapperService.countryMapping);
+//        this.modelMapper.addConverter(mapperService.countryOffersPer100kConverter);
 
         String selectedCountryUTF8 = countryName.toLowerCase();
         List<TechnologyCountryOffers> countriesOffers = new ArrayList<>();
@@ -88,6 +85,10 @@ public class ScrapTechnologyService {
     }
 
     public List<CityDto> scrapTechnologyStatisticsForCities(String cityName) {
+
+        this.modelMapper.addMappings(mapperService.cityOffersMapper);
+        this.modelMapper.addConverter(mapperService.cityOffersTotalConverter);
+
         String cityNameUTF8 = cityName.toLowerCase();
         String cityNameASCII = requestService.removePolishSigns(cityNameUTF8).toLowerCase();
         List<Technology> technologies = technologyRepository.findAll();
@@ -102,7 +103,7 @@ public class ScrapTechnologyService {
             String linkedinDynamicURL = urlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
             String indeedDynamicURL = urlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
             String pracujDynamicURL = urlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
-            String noFluffJobsDynamicURL = urlBuilder.noFluffJobsBuildUrlForCity();
+            String noFluffJobsDynamicURL = urlBuilder.noFluffJobsBuildUrlForCity(technologyName, cityNameASCII);
 
             TechnologyCityOffers offer = new TechnologyCityOffers(city, technology, LocalDate.now());
 

@@ -13,7 +13,9 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
+    //[REFACTOR] Change to objects.requirenonnull
     //[FIX] Malaysia error indeed
+    //[FIX] nofluff offers
     //[REFACTOR] Add urls to properties
     //[REFACTOR] Add category url to builder
     //[REFACTOR] Add Optional methods to repository

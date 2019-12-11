@@ -1,8 +1,8 @@
 package com.Backend.service;
 
 import com.Backend.dto.CategoryDto;
+import com.Backend.dto.CityDto;
 import com.Backend.dto.CountryDto;
-import com.Backend.dto.TechnologyDto;
 import com.Backend.entity.offers.CategoryCityOffers;
 import com.Backend.entity.offers.TechnologyCityOffers;
 import com.Backend.entity.offers.TechnologyCountryOffers;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MapperService {
 
-    public PropertyMap<CategoryCityOffers, CategoryDto> categoryMapper = new PropertyMap<CategoryCityOffers, CategoryDto>() {
+    public PropertyMap<CategoryCityOffers, CategoryDto> categoryOffersMapper = new PropertyMap<CategoryCityOffers, CategoryDto>() {
         protected void configure() {
             map().setPolishName(source.getCategory().getPolishName());
             map().setEnglishName(source.getCategory().getEnglishName());
@@ -21,16 +21,17 @@ public class MapperService {
         }
     };
 
-    public PropertyMap<TechnologyCityOffers, TechnologyDto> cityOffersMapper = new PropertyMap<TechnologyCityOffers, TechnologyDto>() {
+    public PropertyMap<TechnologyCityOffers, CityDto> cityOffersMapper = new PropertyMap<TechnologyCityOffers, CityDto>() {
         protected void configure() {
-            map().setName(source.getTechnology().getName());
-            map().setType(source.getTechnology().getType());
-            map().setId(source.getTechnology().getId());
+            map().setName(source.getCity().getName());
+            map().setPopulation(source.getCity().getPopulation());
+            map().setArea(source.getCity().getArea());
+            map().setDensity(source.getCity().getDensity());
             using(cityOffersTotalConverter).map(map().getTotal());
         }
     };
 
-    public PropertyMap<TechnologyCountryOffers, CountryDto> countryMapping = new PropertyMap<TechnologyCountryOffers, CountryDto>() {
+    public PropertyMap<TechnologyCountryOffers, CountryDto> countryOffersMapper = new PropertyMap<TechnologyCountryOffers, CountryDto>() {
         protected void configure() {
             map().setName(source.getCountry().getName());
             map().setPopulation(source.getCountry().getPopulation());

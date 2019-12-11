@@ -71,9 +71,9 @@ public class UrlBuilder {
         return url;
     }
 
-    public String noFluffJobsBuildUrlForCity() {
-        //"https://nofluffjobs.com/api/search/posting?criteria=city=" + city + "+" + technology;
-        return "https://nofluffjobs.com/api/posting";
+    public String noFluffJobsBuildUrlForCity(String technology, String city) {
+        return "https://nofluffjobs.com/api/search/posting?criteria=city=" + city + "+" + technology;
+        //return "https://nofluffjobs.com/api/posting";
     }
 
     public String justJoinItBuildUrlForCity() {
