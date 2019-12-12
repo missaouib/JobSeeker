@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class RequestService {
+public class RequestCreator {
 
     public static final String USER_AGENT = "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion";
 
@@ -105,19 +105,17 @@ public class RequestService {
         return Objects.requireNonNull(response).getPostings().size();
     }
 
-    public int scrapJustJoin(City city, Technology technology) {
+    public List<JustJoinIT> scrapJustJoinIT() {
 
-        WebClient justJoinITUrl = WebClient.create("https://justjoin.it/api/offers");
+        WebClient justJoinITUrl = WebClient.create(UrlBuilder.justJoinItBuildUrlForCity());
 
-        List<JustJoinIT> response = justJoinITUrl.get()
+        return justJoinITUrl.get()
                 .header("User-Agent", USER_AGENT)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
                 .bodyToFlux(JustJoinIT.class)
                 .collectList()
                 .block();
-
-        return extractJustJoinItJson(response, city, technology);
     }
 
     public String removePolishSigns(String city){
@@ -137,7 +135,7 @@ public class RequestService {
         return jobAmount;
     }
 
-    private int extractJustJoinItJson(List<JustJoinIT> offers, City city, Technology technology) {
+    public int extractJustJoinItJson(List<JustJoinIT> offers, City city, Technology technology) {
 
         TechnologyCityOffers technologyCityOffers = new TechnologyCityOffers(city, technology, LocalDate.now());
 

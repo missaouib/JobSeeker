@@ -7,10 +7,10 @@ import com.Backend.entity.offers.CategoryCityOffers;
 import com.Backend.repository.CategoryRepository;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.offers.CategoryCityOffersRepository;
-import com.Backend.service.RequestService;
+import com.Backend.service.DtoMapper;
+import com.Backend.service.RequestCreator;
 import com.Backend.service.UrlBuilder;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,29 +23,21 @@ import java.util.stream.Collectors;
 public class ScrapCategoryCity {
 
     private ModelMapper modelMapper;
-    private RequestService requestService;
-    private CategoryRepository categoryRepository;
-
+    private RequestCreator requestCreator;
     private CityRepository cityRepository;
+    private CategoryRepository categoryRepository;
     private CategoryCityOffersRepository categoryCityOffersRepository;
 
-    public ScrapCategoryCity(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
+    public ScrapCategoryCity(ModelMapper modelMapper, RequestCreator requestCreator, CategoryRepository categoryRepository,
                              CategoryCityOffersRepository categoryCityOffersRepository, CityRepository cityRepository) {
+
         this.modelMapper = Objects.requireNonNull(modelMapper);
-        this.modelMapper.addMappings(categoryMapping);
-        this.requestService = Objects.requireNonNull(requestService);
+        this.modelMapper.addMappings(DtoMapper.categoryCityOffersMapper);
+        this.requestCreator = Objects.requireNonNull(requestCreator);
         this.categoryRepository = Objects.requireNonNull(categoryRepository);
         this.categoryCityOffersRepository = Objects.requireNonNull(categoryCityOffersRepository);
         this.cityRepository = Objects.requireNonNull(cityRepository);
     }
-
-    private PropertyMap<CategoryCityOffers, CategoryDto> categoryMapping = new PropertyMap<CategoryCityOffers, CategoryDto>() {
-        protected void configure() {
-            map().setPolishName(source.getCategory().getPolishName());
-            map().setEnglishName(source.getCategory().getEnglishName());
-            map().setId(source.getCategory().getId());
-        }
-    };
 
     public List<CategoryDto> getCategoryStatistics(String city){
 
@@ -59,17 +51,16 @@ public class ScrapCategoryCity {
     }
 
     public List<CategoryDto> scrapCategoryStatistics(String cityName) {
-        String selectedCityUTF8 = cityName.toLowerCase();
-        String selectedCityASCII = requestService.removePolishSigns(selectedCityUTF8);
+        String cityNameUTF8 = cityName.toLowerCase();
+        String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
         List<Category> categories = categoryRepository.findAll();
         List<CategoryCityOffers> categoriesOffers = new ArrayList<>();
-        City city = cityRepository.findCityByName(selectedCityUTF8);
-        UrlBuilder urlBuilder = new UrlBuilder();
+        City city = cityRepository.findCityByName(cityNameUTF8);
 
         categories.forEach(category -> {
             String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
-            String pracujDynamicURL = urlBuilder.pracujBuildUrlForCategory(selectedCityASCII, categoryName, category.getPracujId());
-            categoriesOffers.add(new CategoryCityOffers(category, city, LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
+            String pracujDynamicURL = UrlBuilder.pracujBuildUrlForCategory(cityNameASCII, categoryName, category.getPracujId());
+            categoriesOffers.add(new CategoryCityOffers(category, city, LocalDate.now(), requestCreator.scrapPracujOffers(pracujDynamicURL)));
         });
 
         return categoriesOffers

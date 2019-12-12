@@ -1,5 +1,6 @@
 package com.Backend.service.scrap;
 
+import com.Backend.domain.JustJoinIT;
 import com.Backend.dto.CityDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
@@ -7,8 +8,8 @@ import com.Backend.entity.offers.TechnologyCityOffers;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.TechnologyRepository;
 import com.Backend.repository.offers.TechnologyCityOffersRepository;
-import com.Backend.service.MapperService;
-import com.Backend.service.RequestService;
+import com.Backend.service.DtoMapper;
+import com.Backend.service.RequestCreator;
 import com.Backend.service.UrlBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -24,20 +25,16 @@ import java.util.stream.Collectors;
 public class ScrapTechnologyCity {
 
     private ModelMapper modelMapper;
-    private MapperService mapperService;
-    private RequestService requestService;
+    private RequestCreator requestCreator;
     private TechnologyRepository technologyRepository;
     private TechnologyCityOffersRepository technologyCityOffersRepository;
     private CityRepository cityRepository;
 
-    public ScrapTechnologyCity(ModelMapper modelMapper, RequestService requestService, TechnologyRepository technologyRepository,
-                               CityRepository cityRepository, MapperService mapperService,
-                               TechnologyCityOffersRepository technologyCityOffersRepository) {
+    public ScrapTechnologyCity(ModelMapper modelMapper, RequestCreator requestCreator, TechnologyRepository technologyRepository,
+                               CityRepository cityRepository, TechnologyCityOffersRepository technologyCityOffersRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
-        this.mapperService = Objects.requireNonNull(mapperService);
-        this.modelMapper.addMappings(mapperService.technologyCityOffersMapper);
-
-        this.requestService = Objects.requireNonNull(requestService);
+        this.modelMapper.addMappings(DtoMapper.technologyCityOffersMapper);
+        this.requestCreator = Objects.requireNonNull(requestCreator);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
         this.technologyCityOffersRepository = Objects.requireNonNull(technologyCityOffersRepository);
@@ -46,33 +43,32 @@ public class ScrapTechnologyCity {
     public List<CityDto> scrapCitiesStatisticsForTechnology(String technologyName) {
 
         List<City> cities = cityRepository.findAll();
-        //List<JustJoinIT> justJoinItOffers =  requestService.scrapJustJoin();
+        List<JustJoinIT> justJoinItOffers =  requestCreator.scrapJustJoinIT();
         Technology technology = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyCityOffers> technologyCityOffers = new ArrayList<>();
-        UrlBuilder urlBuilder = new UrlBuilder();
 
         cities.forEach(city -> {
 
             String cityNameUTF8 = city.getName().toLowerCase();
-            String cityNameASCII = requestService.removePolishSigns(cityNameUTF8);
+            String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
 
-            String linkedinDynamicURL = urlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
-            String indeedDynamicURL = urlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
-            String pracujDynamicURL = urlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
-            String noFluffJobsDynamicURL = urlBuilder.noFluffJobsBuildUrlForCity(technologyName, cityNameASCII);
+            String linkedinDynamicURL = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
+            String indeedDynamicURL = UrlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
+            String pracujDynamicURL = UrlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
+            String noFluffJobsDynamicURL = UrlBuilder.noFluffJobsBuildUrlForCity(technologyName, cityNameASCII);
 
             TechnologyCityOffers offer = new TechnologyCityOffers(city, technology, LocalDate.now());
 
             try {
-                offer.setIndeed(requestService.scrapIndeedOffers(indeedDynamicURL));
+                offer.setIndeed(requestCreator.scrapIndeedOffers(indeedDynamicURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            offer.setLinkedin(requestService.scrapLinkedinOffers(linkedinDynamicURL));
-            offer.setPracuj(requestService.scrapPracujOffers(pracujDynamicURL));
-            offer.setNoFluffJobs(requestService.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
-            offer.setJustJoinIT(requestService.scrapJustJoin(city, technology));
+            offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinDynamicURL));
+            offer.setPracuj(requestCreator.scrapPracujOffers(pracujDynamicURL));
+            offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
+            offer.setJustJoinIT(requestCreator.extractJustJoinItJson(justJoinItOffers, city, technology));
 
             technologyCityOffers.add(offer);
         });

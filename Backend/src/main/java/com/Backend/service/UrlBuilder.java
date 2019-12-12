@@ -2,7 +2,7 @@ package com.Backend.service;
 
 public class UrlBuilder {
 
-    public String linkedinBuildUrlForCityAndCountry(String technology, String cityOrCountry) {
+    public static String linkedinBuildUrlForCityAndCountry(String technology, String cityOrCountry) {
         String url = "https://www.linkedin.com/jobs/search?keywords=" + technology + "&location=" + cityOrCountry;
 
         switch (technology) {
@@ -32,11 +32,11 @@ public class UrlBuilder {
         return url;
     }
 
-    public String indeedBuildUrlLForCity(String technology, String city) {
+    public static String indeedBuildUrlLForCity(String technology, String city) {
         return "https://pl.indeed.com/Praca-" + technology + "-w-" + city;
     }
 
-    public String indeedBuildUrlForCountry(String technology, String countryCode) {
+    public static String indeedBuildUrlForCountry(String technology, String countryCode) {
         String url = "https://" + countryCode + ".indeed.com/" + technology + "-jobs";
 
         switch (countryCode) {
@@ -49,7 +49,7 @@ public class UrlBuilder {
         return url;
     }
 
-    public String pracujBuildUrlForCity(String technology, String city) {
+    public static String pracujBuildUrlForCity(String technology, String city) {
         String url = "https://www.pracuj.pl/praca/" + technology + ";kw/" + city + ";wp";
 
         switch (technology) {
@@ -71,7 +71,7 @@ public class UrlBuilder {
         return url;
     }
 
-    public String pracujBuildUrlForCategory(String city, String category, int pracujId) {
+    public static String pracujBuildUrlForCategory(String city, String category, int pracujId) {
         String pracujDynamicURL = "https://www.pracuj.pl/praca/" + city + ";wp/" + category + ";cc," + pracujId;
 
         if(city.equals("all cities")) {
@@ -80,12 +80,12 @@ public class UrlBuilder {
         return pracujDynamicURL;
     }
 
-    public String noFluffJobsBuildUrlForCity(String technology, String city) {
+    public static String noFluffJobsBuildUrlForCity(String technology, String city) {
         return "https://nofluffjobs.com/api/search/posting?criteria=city=" + city + "+" + technology;
         //return "https://nofluffjobs.com/api/posting";
     }
 
-    public String justJoinItBuildUrlForCity() {
+    public static String justJoinItBuildUrlForCity() {
         return "https://justjoin.it/api/offers";
     }
 

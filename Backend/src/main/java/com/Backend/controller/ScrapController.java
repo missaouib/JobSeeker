@@ -2,37 +2,34 @@ package com.Backend.controller;
 
 import com.Backend.dto.CategoryDto;
 import com.Backend.dto.CityDto;
-import com.Backend.service.scrap.ScrapCategoryCity;
-import com.Backend.service.scrap.ScrapTechnologyCity;
+import com.Backend.dto.CountryDto;
+import com.Backend.service.scrap.ScrapFacade;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Objects;
 
 @CrossOrigin
 @RestController
 public class ScrapController {
 
-    private ScrapTechnologyCity scrapTechnologyCity;
-    private ScrapCategoryCity scrapCategoryCity;
+    private ScrapFacade scrapFacade;
 
-    public ScrapController(ScrapTechnologyCity scrapTechnologyCity, ScrapCategoryCity scrapCategoryCity) {
-        this.scrapTechnologyCity = Objects.requireNonNull(scrapTechnologyCity);
-        this.scrapCategoryCity = Objects.requireNonNull(scrapCategoryCity);
+    public ScrapController(ScrapFacade scrapFacade) {
+        this.scrapFacade = scrapFacade;
     }
 
-    @GetMapping("/x")
+    @GetMapping("/itJobOffersInPoland")
     public List<CityDto> ItJobOffersInPoland(@RequestParam("technology") String technology) {
-        return scrapTechnologyCity.scrapCitiesStatisticsForTechnology(technology.toLowerCase());
+        return scrapFacade.ItJobsOffersInPoland(technology.toLowerCase());
     }
 
-//    @GetMapping("/itJobOffersInWorld")
-//    public List<CountryDto> itJobOffersInWorld(@RequestParam("technology") String technology){
-//        return scrapTechnologyCity.scrapTechnologyStatisticsForCountries(technology.toLowerCase());
-//    }
+    @GetMapping("/itJobOffersInWorld")
+    public List<CountryDto> itJobOffersInWorld(@RequestParam("technology") String technology){
+        return scrapFacade.itJobOffersInWorld(technology.toLowerCase());
+    }
 
 //    @GetMapping("/technologyStatistics")
 //    public List<TechnologyDto> TechnologyStatistics(@RequestParam("location") String location) {
@@ -41,7 +38,7 @@ public class ScrapController {
 
     @GetMapping("/categoryStatistics")
     public List<CategoryDto> CategoryStatistics(@RequestParam("location") String location){
-        return scrapCategoryCity.getCategoryStatistics(location.toLowerCase());
+        return scrapFacade.categoryStatistics(location.toLowerCase());
     }
 
 }

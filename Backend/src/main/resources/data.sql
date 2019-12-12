@@ -207,7 +207,7 @@ INSERT INTO country(id, name, code, population, area, density) VALUES ('113', 'C
 INSERT INTO country(id, name, code, population, area, density) VALUES ('114', 'Ethiopia', null, 107534882, 1063652, 101) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('115', 'Armenia', null, 2962100, 29743, 100) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('116', 'Albania', null, 2862427, 28703, 100) ON CONFLICT DO NOTHING;
-INSERT INTO country(id, name, code, population, area, density) VALUES ('117', 'Malaysia', 'my', 32672210, 330803, 99) ON CONFLICT DO NOTHING;
+INSERT INTO country(id, name, code, population, area, density) VALUES ('117', 'Malaysia', null, 32672210, 330803, 99) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('118', 'Egypt', null, 99657845, 1002450, 99) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('119', 'Costa Rica', null, 5058007, 51100, 99) ON CONFLICT DO NOTHING;
 INSERT INTO country(id, name, code, population, area, density) VALUES ('120', 'Dominica', null, 71808, 739, 97) ON CONFLICT DO NOTHING;
