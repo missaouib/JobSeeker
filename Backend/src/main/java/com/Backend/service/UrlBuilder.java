@@ -71,6 +71,15 @@ public class UrlBuilder {
         return url;
     }
 
+    public String pracujBuildUrlForCategory(String city, String category, int pracujId) {
+        String pracujDynamicURL = "https://www.pracuj.pl/praca/" + city + ";wp/" + category + ";cc," + pracujId;
+
+        if(city.equals("all cities")) {
+            pracujDynamicURL = "https://www.pracuj.pl/praca/" + category + ";cc," + pracujId;
+        }
+        return pracujDynamicURL;
+    }
+
     public String noFluffJobsBuildUrlForCity(String technology, String city) {
         return "https://nofluffjobs.com/api/search/posting?criteria=city=" + city + "+" + technology;
         //return "https://nofluffjobs.com/api/posting";

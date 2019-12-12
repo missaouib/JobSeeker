@@ -13,6 +13,8 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
+    //[TEST] send requests with city instead of technology
+    //[REFAT] if poland == all cities
     //[REFACTOR] Change to objects.requirenonnull
     //[FIX] Malaysia error indeed
     //[FIX] nofluff offers

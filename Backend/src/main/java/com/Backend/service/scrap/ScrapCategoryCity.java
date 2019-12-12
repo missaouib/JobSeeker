@@ -1,4 +1,4 @@
-package com.Backend.service;
+package com.Backend.service.scrap;
 
 import com.Backend.dto.CategoryDto;
 import com.Backend.entity.Category;
@@ -7,6 +7,8 @@ import com.Backend.entity.offers.CategoryCityOffers;
 import com.Backend.repository.CategoryRepository;
 import com.Backend.repository.CityRepository;
 import com.Backend.repository.offers.CategoryCityOffersRepository;
+import com.Backend.service.RequestService;
+import com.Backend.service.UrlBuilder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class ScrapCategoryService {
+public class ScrapCategoryCity {
 
     private ModelMapper modelMapper;
     private RequestService requestService;
@@ -27,8 +29,8 @@ public class ScrapCategoryService {
     private CityRepository cityRepository;
     private CategoryCityOffersRepository categoryCityOffersRepository;
 
-    public ScrapCategoryService(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
-                                CategoryCityOffersRepository categoryCityOffersRepository, CityRepository cityRepository) {
+    public ScrapCategoryCity(ModelMapper modelMapper, RequestService requestService, CategoryRepository categoryRepository,
+                             CategoryCityOffersRepository categoryCityOffersRepository, CityRepository cityRepository) {
         this.modelMapper = Objects.requireNonNull(modelMapper);
         this.modelMapper.addMappings(categoryMapping);
         this.requestService = Objects.requireNonNull(requestService);
@@ -62,15 +64,11 @@ public class ScrapCategoryService {
         List<Category> categories = categoryRepository.findAll();
         List<CategoryCityOffers> categoriesOffers = new ArrayList<>();
         City city = cityRepository.findCityByName(selectedCityUTF8);
+        UrlBuilder urlBuilder = new UrlBuilder();
 
         categories.forEach(category -> {
             String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
-            String pracujDynamicURL = "https://www.pracuj.pl/praca/" + selectedCityASCII + ";wp/" + categoryName + ";cc," + category.getPracujId();
-
-            if(selectedCityUTF8.equals("all cities")){
-                pracujDynamicURL = "https://www.pracuj.pl/praca/" + categoryName + ";cc," + category.getPracujId();
-            }
-
+            String pracujDynamicURL = urlBuilder.pracujBuildUrlForCategory(selectedCityASCII, categoryName, category.getPracujId());
             categoriesOffers.add(new CategoryCityOffers(category, city, LocalDate.now(), requestService.scrapPracujOffers(pracujDynamicURL)));
         });
 

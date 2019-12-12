@@ -13,7 +13,7 @@ public class CityDto {
     int indeed;
     int pracuj;
     int noFluffJobs;
-    int justJoin;
+    int justJoinIT;
     int total;
     double per100k;
 }
