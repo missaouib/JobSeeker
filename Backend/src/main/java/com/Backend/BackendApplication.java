@@ -13,18 +13,14 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[TEST] send requests with city instead of technology
-    //[REFAT] if poland == all cities
-    //[FIX] Malaysia error indeed
-    //[FIX] nofluff offers optimize
-    //[REFACTOR] Add urls to properties
-    //[REFACTOR] Add category url to builder
     //[REFACTOR] Add Optional methods to repository
+    //[FIX] dont save to db all
+    //[REFAT] if poland == all cities
+    //[REFACTOR] Optimize nofluffjobs and justjoin
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add Indeed categories
     //[FEAT] Add liquibase
-    //[REFACTOR] Optimize nofluffjobs and justjoin
-    //[FEAT] Timeout per request
+    //[TEST] send requests with city instead of technology
     //[FEAT] Selenium localhost/Dockerhub/Diff ports || login/proxy
     //[REFACTOR] Change Security groups on aws
     //[REFACTOR] Change Mapper to SQL Projection

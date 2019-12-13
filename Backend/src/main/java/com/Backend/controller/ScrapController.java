@@ -21,24 +21,29 @@ public class ScrapController {
         this.scrapFacade = scrapFacade;
     }
 
-    @GetMapping("/itJobOffersInPoland")
-    public List<CityDto> ItJobOffersInPoland(@RequestParam("technology") String technology) {
+    @GetMapping("/iTJobOffersInPoland")
+    public List<CityDto> iTJobOffersInPoland(@RequestParam("technology") String technology) {
         return scrapFacade.ItJobsOffersInPoland(technology.toLowerCase());
     }
 
-    @GetMapping("/itJobOffersInWorld")
-    public List<CountryDto> itJobOffersInWorld(@RequestParam("technology") String technology){
+    @GetMapping("/iTJobOffersInWorld")
+    public List<CountryDto> iTJobOffersInWorld(@RequestParam("technology") String technology){
         return scrapFacade.itJobOffersInWorld(technology.toLowerCase());
+    }
+
+    @GetMapping("/categoryStatisticsInPoland")
+    public List<CategoryDto> categoryStatisticsInPoland(@RequestParam("location") String location){
+        return scrapFacade.categoryStatisticsInPoland(location.toLowerCase());
+    }
+
+    @GetMapping("/categoryStatisticsInWorld")
+    public List<CategoryDto> categoryStatisticsInWorld(@RequestParam("location") String location){
+        return scrapFacade.categoryStatisticsInWorld(location.toLowerCase());
     }
 
 //    @GetMapping("/technologyStatistics")
 //    public List<TechnologyDto> TechnologyStatistics(@RequestParam("location") String location) {
 //        return scrapTechnologyService.getTechnologyStatistics(location.toLowerCase());
 //    }
-
-    @GetMapping("/categoryStatistics")
-    public List<CategoryDto> CategoryStatistics(@RequestParam("location") String location){
-        return scrapFacade.categoryStatistics(location.toLowerCase());
-    }
 
 }

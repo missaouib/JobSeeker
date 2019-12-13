@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class JustJoinIT {
+public class JustJoinIt {
     String title;
     String city;
     List<Map<String, String>> skills;

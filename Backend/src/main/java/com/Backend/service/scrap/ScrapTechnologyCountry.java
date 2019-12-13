@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class ScrapTechnologyCountry {
+class ScrapTechnologyCountry {
 
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;

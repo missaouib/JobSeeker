@@ -33,8 +33,12 @@ public class ScrapFacade {
         return scrapTechnologyCountry.scrapCountriesStatisticsForTechnology(technologyName);
     }
 
-    public List<CategoryDto> categoryStatistics(String location) {
-        return scrapCategoryCity.scrapCategoryStatistics(location);
+    public List<CategoryDto> categoryStatisticsInPoland(String location) {
+        return scrapCategoryCity.scrapCategoryStatisticsInPoland(location);
+    }
+
+    public List<CategoryDto> categoryStatisticsInWorld(String location) {
+        return scrapCategoryCountry.scrapCategoryStatisticsForCountries(location);
     }
 
 }

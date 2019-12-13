@@ -49,6 +49,14 @@ public class UrlBuilder {
         return url;
     }
 
+    public static String indeedBuildUrlForCategoryForCity(String city, String category){
+        return "";
+    }
+
+    public static String indeedBuildUrlForCategoryForCountry(String city, String category){
+        return "";
+    }
+
     public static String pracujBuildUrlForCity(String technology, String city) {
         String url = "https://www.pracuj.pl/praca/" + technology + ";kw/" + city + ";wp";
 

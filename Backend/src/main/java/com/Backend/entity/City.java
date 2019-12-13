@@ -1,16 +1,13 @@
 package com.Backend.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@NoArgsConstructor
 @Data
 @Entity
 public class City {
@@ -23,8 +20,4 @@ public class City {
     int population;
     double area;
     int density;
-
-    public City(String name) {
-        this.name = name;
-    }
 }

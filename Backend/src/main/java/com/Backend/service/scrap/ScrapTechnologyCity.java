@@ -1,6 +1,6 @@
 package com.Backend.service.scrap;
 
-import com.Backend.domain.JustJoinIT;
+import com.Backend.domain.JustJoinIt;
 import com.Backend.dto.CityDto;
 import com.Backend.entity.City;
 import com.Backend.entity.Technology;
@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class ScrapTechnologyCity {
+class ScrapTechnologyCity {
 
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;
@@ -43,7 +43,7 @@ public class ScrapTechnologyCity {
     public List<CityDto> scrapCitiesStatisticsForTechnology(String technologyName) {
 
         List<City> cities = cityRepository.findAll();
-        List<JustJoinIT> justJoinItOffers =  requestCreator.scrapJustJoinIT();
+        List<JustJoinIt> justJoinItOffers =  requestCreator.scrapJustJoinIT();
         Technology technology = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyCityOffers> technologyCityOffers = new ArrayList<>();
 

@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class ScrapCategoryCity {
+class ScrapCategoryCity {
 
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;
@@ -39,18 +39,18 @@ public class ScrapCategoryCity {
         this.cityRepository = Objects.requireNonNull(cityRepository);
     }
 
-    public List<CategoryDto> getCategoryStatistics(String city){
+    public List<CategoryDto> loadCategoryStatisticsInPoland(String city){
 
         List<CategoryCityOffers> list = categoryCityOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(city));
 
         if(list.isEmpty()){
-            return scrapCategoryStatistics(city);
+            return scrapCategoryStatisticsInPoland(city);
         } else {
             return list.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
         }
     }
 
-    public List<CategoryDto> scrapCategoryStatistics(String cityName) {
+    public List<CategoryDto> scrapCategoryStatisticsInPoland(String cityName) {
         String cityNameUTF8 = cityName.toLowerCase();
         String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
         List<Category> categories = categoryRepository.findAll();

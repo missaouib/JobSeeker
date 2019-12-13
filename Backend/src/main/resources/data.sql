@@ -19,7 +19,7 @@ INSERT INTO city (id, name, population, area, density) VALUES (18, 'Opole', 1281
 INSERT INTO city (id, name, population, area, density) VALUES (19, 'Zielona Góra', 140113, 278.32, 502) ON CONFLICT DO NOTHING;
 
 -- INSERT INTO technology(id, name, type) VALUES (1, 'All Jobs', 'Overall') ON CONFLICT DO NOTHING;
--- INSERT INTO technology(id, name, type) VALUES (2, 'All IT Jobs', 'Overall') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (2, 'All IT Jobs', 'Overall') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (3, 'Java', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (4, 'Javascript', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (5, 'Typescript', 'Language') ON CONFLICT DO NOTHING;

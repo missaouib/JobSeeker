@@ -19,7 +19,7 @@
 //import java.util.Objects;
 //import java.util.stream.Collectors;
 //
-//public class TemporaryScrapTechnology {
+//class TemporaryScrapTechnology {
 //
 //    private ModelMapper modelMapper;
 //    private MapperService mapperService;
