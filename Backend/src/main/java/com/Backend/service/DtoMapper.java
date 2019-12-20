@@ -1,11 +1,11 @@
 package com.Backend.service;
 
-import com.Backend.dto.CategoryDto;
-import com.Backend.dto.CityDto;
-import com.Backend.dto.CountryDto;
-import com.Backend.entity.offers.CategoryCityOffers;
-import com.Backend.entity.offers.TechnologyCityOffers;
-import com.Backend.entity.offers.TechnologyCountryOffers;
+import com.Backend.infrastructure.dto.CategoryDto;
+import com.Backend.infrastructure.dto.CityDto;
+import com.Backend.infrastructure.dto.CountryDto;
+import com.Backend.infrastructure.entity.CategoryCityOffers;
+import com.Backend.infrastructure.entity.TechnologyCityOffers;
+import com.Backend.infrastructure.entity.TechnologyCountryOffers;
 import org.modelmapper.PropertyMap;
 
 public class DtoMapper {

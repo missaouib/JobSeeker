@@ -13,12 +13,12 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
+    //[FEAT] Add Indeed categories only in poland?
+    //[FEAT] Check if scheduler added all data
     //[REFACTOR] Add Optional methods to repository
-    //[FIX] dont save to db all
     //[REFAT] if poland == all cities
     //[REFACTOR] Optimize nofluffjobs and justjoin
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
-    //[FEAT] Add Indeed categories
     //[FEAT] Add liquibase
     //[TEST] send requests with city instead of technology
     //[FEAT] Selenium localhost/Dockerhub/Diff ports || login/proxy

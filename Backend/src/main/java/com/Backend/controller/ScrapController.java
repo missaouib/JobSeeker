@@ -1,9 +1,10 @@
 package com.Backend.controller;
 
-import com.Backend.dto.CategoryDto;
-import com.Backend.dto.CityDto;
-import com.Backend.dto.CountryDto;
-import com.Backend.service.scrap.ScrapFacade;
+import com.Backend.infrastructure.dto.CategoryDto;
+import com.Backend.infrastructure.dto.CityDto;
+import com.Backend.infrastructure.dto.CountryDto;
+import com.Backend.domain.ScrapFacade;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,13 +14,10 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@AllArgsConstructor
 public class ScrapController {
 
     private ScrapFacade scrapFacade;
-
-    public ScrapController(ScrapFacade scrapFacade) {
-        this.scrapFacade = scrapFacade;
-    }
 
     @GetMapping("/iTJobOffersInPoland")
     public List<CityDto> iTJobOffersInPoland(@RequestParam("technology") String technology) {

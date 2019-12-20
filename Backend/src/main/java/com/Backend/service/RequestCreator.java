@@ -1,10 +1,10 @@
 package com.Backend.service;
 
-import com.Backend.domain.JustJoinIt;
-import com.Backend.domain.NoFluffJobs;
-import com.Backend.entity.City;
-import com.Backend.entity.Technology;
-import com.Backend.entity.offers.TechnologyCityOffers;
+import com.Backend.infrastructure.model.JustJoinIt;
+import com.Backend.infrastructure.model.NoFluffJobs;
+import com.Backend.infrastructure.entity.City;
+import com.Backend.infrastructure.entity.Technology;
+import com.Backend.infrastructure.entity.TechnologyCityOffers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

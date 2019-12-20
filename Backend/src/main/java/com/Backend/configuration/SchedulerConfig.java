@@ -1,9 +1,9 @@
 package com.Backend.configuration;
 
-import com.Backend.repository.CityRepository;
-import com.Backend.repository.CountryRepository;
-import com.Backend.repository.TechnologyRepository;
-import com.Backend.service.scrap.ScrapFacade;
+import com.Backend.infrastructure.repository.CityRepository;
+import com.Backend.infrastructure.repository.CountryRepository;
+import com.Backend.infrastructure.repository.TechnologyRepository;
+import com.Backend.domain.ScrapFacade;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -33,7 +33,7 @@ public class SchedulerConfig {
     }
 
     @PostConstruct
-    public void init() {
+    public void initLists() {
         this.cities = cityRepository.findAllNames();
         this.technologies = technologyRepository.findAllNames();
         this.countries = countryRepository.findAllNames();

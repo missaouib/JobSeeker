@@ -1,0 +1,81 @@
+package com.Backend.domain;
+
+import com.Backend.infrastructure.dto.CountryDto;
+import com.Backend.infrastructure.entity.Country;
+import com.Backend.infrastructure.entity.Technology;
+import com.Backend.infrastructure.entity.TechnologyCountryOffers;
+import com.Backend.infrastructure.repository.CountryRepository;
+import com.Backend.infrastructure.repository.TechnologyRepository;
+import com.Backend.infrastructure.repository.TechnologyCountryOffersRepository;
+import com.Backend.service.DtoMapper;
+import com.Backend.service.RequestCreator;
+import com.Backend.service.UrlBuilder;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@AllArgsConstructor
+class ScrapTechnologyCountry {
+
+    private ModelMapper modelMapper;
+    private RequestCreator requestCreator;
+    private TechnologyRepository technologyRepository;
+    private TechnologyCountryOffersRepository technologyCountryOffersRepository;
+    private CountryRepository countryRepository;
+
+    @PostConstruct
+    public void AddMapper() {
+        this.modelMapper.addMappings(DtoMapper.technologyCountryOffersMapper);
+    }
+
+    public List<CountryDto> loadCountriesStatisticsForTechnology(String technologyName) {
+        List<TechnologyCountryOffers> listOffers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName));
+
+        if(listOffers.isEmpty()){
+            return scrapCountriesStatisticsForTechnology(technologyName);
+        } else {
+            return listOffers.stream().map(country -> modelMapper.map(country, CountryDto.class)).collect(Collectors.toList());
+        }
+    }
+
+    public List<CountryDto> scrapCountriesStatisticsForTechnology(String technologyName) {
+
+        List<Country> countries = countryRepository.findAllCountriesWithCode();
+        Technology technology = technologyRepository.findTechnologyByName(technologyName);
+        List<TechnologyCountryOffers> technologyCountryOffers = new ArrayList<>();
+
+        countries.forEach(country -> {
+
+            String countryNameUTF8 = country.getName().toLowerCase();
+
+            String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, countryNameUTF8);
+            String indeedUrl = UrlBuilder.indeedBuildUrlForCountry(technologyName, country.getCode());
+
+            TechnologyCountryOffers offer = new TechnologyCountryOffers(country, technology, LocalDate.now());
+
+            try {
+                offer.setIndeed(requestCreator.scrapIndeedOffers(indeedUrl));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinUrl));
+
+            technologyCountryOffers.add(offer);
+        });
+
+        return technologyCountryOffers
+                .stream()
+                .map(countryOffer -> modelMapper.map(technologyCountryOffersRepository.save(countryOffer), CountryDto.class))
+                .peek(countryDto -> countryDto.setPer100k(Math.round(countryDto.getIndeed() * 1.0 / (countryDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+                .collect(Collectors.toList());
+    }
+}
