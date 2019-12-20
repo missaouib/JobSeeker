@@ -13,18 +13,14 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[FEAT] Add Indeed categories only in poland?
+    //[FIX] Dont save to db if not known input, Send requests with city instead of technology
+    //[FEAT] Add Indeed categories only in poland
     //[FEAT] Check if scheduler added all data
-    //[REFACTOR] Add Optional methods to repository
-    //[REFAT] if poland == all cities
+    //[FIX] if poland == all cities
     //[REFACTOR] Optimize nofluffjobs and justjoin
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add liquibase
-    //[TEST] send requests with city instead of technology
-    //[FEAT] Selenium localhost/Dockerhub/Diff ports || login/proxy
-    //[REFACTOR] Change Security groups on aws
-    //[REFACTOR] Change Mapper to SQL Projection
-    //[FEAT] Add Glassdor
+    //[FEAT] Try Selenium for Linkedin and Glassdor
 
     //[FRONTEND] TODO
     //[FEAT] Add countries column in technology view
@@ -33,5 +29,4 @@ public class BackendApplication {
     //[FIX] Counting ids in World tab view
     //[FEAT] Add history diagram functionality
     //[FEAT] Responsive Web Design
-    //[REFACTOR] Update only changing value in redux
 }

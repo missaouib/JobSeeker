@@ -5,8 +5,8 @@ import com.Backend.infrastructure.entity.Country;
 import com.Backend.infrastructure.entity.Technology;
 import com.Backend.infrastructure.entity.TechnologyCountryOffers;
 import com.Backend.infrastructure.repository.CountryRepository;
-import com.Backend.infrastructure.repository.TechnologyRepository;
 import com.Backend.infrastructure.repository.TechnologyCountryOffersRepository;
+import com.Backend.infrastructure.repository.TechnologyRepository;
 import com.Backend.service.DtoMapper;
 import com.Backend.service.RequestCreator;
 import com.Backend.service.UrlBuilder;
@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,9 +38,9 @@ class ScrapTechnologyCountry {
     }
 
     public List<CountryDto> loadCountriesStatisticsForTechnology(String technologyName) {
-        List<TechnologyCountryOffers> listOffers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName));
+        List<TechnologyCountryOffers> listOffers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
-        if(listOffers.isEmpty()){
+        if (listOffers.isEmpty()) {
             return scrapCountriesStatisticsForTechnology(technologyName);
         } else {
             return listOffers.stream().map(country -> modelMapper.map(country, CountryDto.class)).collect(Collectors.toList());
@@ -49,7 +50,7 @@ class ScrapTechnologyCountry {
     public List<CountryDto> scrapCountriesStatisticsForTechnology(String technologyName) {
 
         List<Country> countries = countryRepository.findAllCountriesWithCode();
-        Technology technology = technologyRepository.findTechnologyByName(technologyName);
+        Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyCountryOffers> technologyCountryOffers = new ArrayList<>();
 
         countries.forEach(country -> {
@@ -59,7 +60,7 @@ class ScrapTechnologyCountry {
             String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, countryNameUTF8);
             String indeedUrl = UrlBuilder.indeedBuildUrlForCountry(technologyName, country.getCode());
 
-            TechnologyCountryOffers offer = new TechnologyCountryOffers(country, technology, LocalDate.now());
+            TechnologyCountryOffers offer = new TechnologyCountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
 
             try {
                 offer.setIndeed(requestCreator.scrapIndeedOffers(indeedUrl));

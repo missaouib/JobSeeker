@@ -1,9 +1,9 @@
 package com.Backend.controller;
 
+import com.Backend.domain.ScrapFacade;
 import com.Backend.infrastructure.dto.CategoryDto;
 import com.Backend.infrastructure.dto.CityDto;
 import com.Backend.infrastructure.dto.CountryDto;
-import com.Backend.domain.ScrapFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,19 +25,19 @@ public class ScrapController {
     }
 
     @GetMapping("/iTJobOffersInWorld")
-    public List<CountryDto> iTJobOffersInWorld(@RequestParam("technology") String technology){
+    public List<CountryDto> iTJobOffersInWorld(@RequestParam("technology") String technology) {
         return scrapFacade.itJobOffersInWorld(technology.toLowerCase());
     }
 
     @GetMapping("/categoryStatisticsInPoland")
-    public List<CategoryDto> categoryStatisticsInPoland(@RequestParam("location") String location){
+    public List<CategoryDto> categoryStatisticsInPoland(@RequestParam("location") String location) {
         return scrapFacade.categoryStatisticsInPoland(location.toLowerCase());
     }
 
-    @GetMapping("/categoryStatisticsInWorld")
-    public List<CategoryDto> categoryStatisticsInWorld(@RequestParam("location") String location){
-        return scrapFacade.categoryStatisticsInWorld(location.toLowerCase());
-    }
+//    @GetMapping("/categoryStatisticsInWorld")
+//    public List<CategoryDto> categoryStatisticsInWorld(@RequestParam("location") String location) {
+//        return scrapFacade.categoryStatisticsInWorld(location.toLowerCase());
+//    }
 
 //    @GetMapping("/technologyStatistics")
 //    public List<TechnologyDto> TechnologyStatistics(@RequestParam("location") String location) {

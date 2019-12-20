@@ -1,9 +1,9 @@
 package com.Backend.configuration;
 
+import com.Backend.domain.ScrapFacade;
 import com.Backend.infrastructure.repository.CityRepository;
 import com.Backend.infrastructure.repository.CountryRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
-import com.Backend.domain.ScrapFacade;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -44,29 +44,29 @@ public class SchedulerConfig {
 
         technologies.forEach(technology -> {
             scrapFacade.ItJobsOffersInPoland(technology);
-            WaitRandomUnderSecond();
+            WaitRandomUnderTwoSeconds();
         });
 
         technologies.forEach(technology -> {
             scrapFacade.itJobOffersInWorld(technology);
-            WaitRandomUnderSecond();
+            WaitRandomUnderTwoSeconds();
         });
 
         cities.forEach(city -> {
             scrapFacade.categoryStatisticsInPoland(city);
-            WaitRandomUnderSecond();
+            WaitRandomUnderTwoSeconds();
         });
 
         countries.forEach(country -> {
             scrapFacade.categoryStatisticsInWorld(country);
-            WaitRandomUnderSecond();
+            WaitRandomUnderTwoSeconds();
         });
 
     }
 
-    private void WaitRandomUnderSecond(){
+    private void WaitRandomUnderTwoSeconds() {
         try {
-            TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(1, 1000));
+            TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(1, 2000));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

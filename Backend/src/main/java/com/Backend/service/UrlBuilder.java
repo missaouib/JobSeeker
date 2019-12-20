@@ -49,11 +49,11 @@ public class UrlBuilder {
         return url;
     }
 
-    public static String indeedBuildUrlForCategoryForCity(String city, String category){
-        return "";
+    public static String indeedBuildUrlForCategoryForCity(String cityName, String categoryName) {
+        return "https://pl.indeed.com/praca?q=" + categoryName + "&l=" + cityName;
     }
 
-    public static String indeedBuildUrlForCategoryForCountry(String city, String category){
+    public static String indeedBuildUrlForCategoryForCountry(String city, String category) {
         return "";
     }
 
@@ -82,7 +82,7 @@ public class UrlBuilder {
     public static String pracujBuildUrlForCategory(String city, String category, int pracujId) {
         String pracujDynamicURL = "https://www.pracuj.pl/praca/" + city + ";wp/" + category + ";cc," + pracujId;
 
-        if(city.equals("all cities")) {
+        if (city.equals("all cities")) {
             pracujDynamicURL = "https://www.pracuj.pl/praca/" + category + ";cc," + pracujId;
         }
         return pracujDynamicURL;

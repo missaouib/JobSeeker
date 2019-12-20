@@ -23,7 +23,7 @@ public class NoFluffJobs {
         @SuppressWarnings("unchecked")
         @JsonProperty("location")
         private void unpackNested(Map<String, Object> location) {
-            List<Map<String,String>> places = (List<Map<String, String>>) location.get("places");
+            List<Map<String, String>> places = (List<Map<String, String>>) location.get("places");
             this.cities = places.stream().map(x -> x.get("city")).collect(Collectors.toList());
         }
     }

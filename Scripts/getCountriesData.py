@@ -70,10 +70,10 @@ with open('data.txt', 'w') as file:
     for x in range(0, len(countryNames)):
         if countryNames[x] not in blackListCountries:
             if countryNames[x] in countryCodes:
-                file.write('INSERT INTO country(id, name, code, population, area, density) VALUES (\'' + str(
-                    str(x + 1) + '\', \'' + countryNames[x]) + '\', \'' + countryCodes[countryNames[x]] + '\', ' + countryPopulation[x] + ', ' +
+                file.write('INSERT INTO country(id, name, code, population, area, density) VALUES (' + str(
+                    str(x + 1) + ', \'' + countryNames[x]) + '\', \'' + countryCodes[countryNames[x]] + '\', ' + countryPopulation[x] + ', ' +
                            countryArea[x] + ', ' + countryDensity[x] + ') ON CONFLICT DO NOTHING;\n')
             else:
-                file.write('INSERT INTO country(id, name, code, population, area, density) VALUES (\'' + str(
-                    str(x + 1) + '\', \'' + countryNames[x]) + '\', ' + 'null, ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' +
+                file.write('INSERT INTO country(id, name, code, population, area, density) VALUES (' + str(
+                    str(x + 1) + ', \'' + countryNames[x]) + '\', ' + 'null, ' + countryPopulation[x] + ', ' + countryArea[x] + ', ' +
                            countryDensity[x] + ') ON CONFLICT DO NOTHING;\n')

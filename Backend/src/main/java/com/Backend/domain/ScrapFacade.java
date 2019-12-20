@@ -21,17 +21,14 @@ public class ScrapFacade {
 
     public List<CityDto> ItJobsOffersInPoland(String technologyName) {
         return scrapTechnologyCity.loadCitiesStatisticsForTechnology(technologyName);
-        //return scrapTechnologyCity.scrapCitiesStatisticsForTechnology(technologyName);
     }
 
     public List<CountryDto> itJobOffersInWorld(String technologyName) {
         return scrapTechnologyCountry.loadCountriesStatisticsForTechnology(technologyName);
-        //return scrapTechnologyCountry.scrapCountriesStatisticsForTechnology(technologyName);
     }
 
     public List<CategoryDto> categoryStatisticsInPoland(String location) {
         return scrapCategoryCity.loadCategoryStatisticsInPoland(location);
-        //return scrapCategoryCity.scrapCategoryStatisticsInPoland(location);
     }
 
     public List<CategoryDto> categoryStatisticsInWorld(String location) {

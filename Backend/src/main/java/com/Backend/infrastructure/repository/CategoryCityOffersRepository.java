@@ -1,7 +1,7 @@
 package com.Backend.infrastructure.repository;
 
-import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.CategoryCityOffers;
+import com.Backend.infrastructure.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
