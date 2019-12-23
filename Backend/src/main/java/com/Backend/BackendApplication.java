@@ -14,10 +14,10 @@ public class BackendApplication {
 
     //[BACKEND] TODO
     //[FEAT] Check if scheduler added all data
-    //[FIX] if poland == all cities
     //[REFACTOR] Optimize nofluffjobs and justjoin
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add liquibase
+    //Change the var names
     //[FEAT] Add temporary technology DTO
     //[FEAT] Try Selenium for Linkedin and Glassdor
 

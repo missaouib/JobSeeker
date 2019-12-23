@@ -33,7 +33,13 @@ public class UrlBuilder {
     }
 
     public static String indeedBuildUrlLForCity(String technology, String city) {
-        return "https://pl.indeed.com/Praca-" + technology + "-w-" + city;
+        String url = "https://pl.indeed.com/Praca-" + technology + "-w-" + city;
+
+        if (city.equals("all cities")) {
+            url = "https://pl.indeed.com/Praca-" + technology;
+        }
+
+        return url;
     }
 
     public static String indeedBuildUrlForCountry(String technology, String countryCode) {
@@ -50,11 +56,13 @@ public class UrlBuilder {
     }
 
     public static String indeedBuildUrlForCategoryForCity(String cityName, String categoryName) {
-        return "https://pl.indeed.com/praca?q=" + categoryName + "&l=" + cityName;
-    }
+        String url =  "https://pl.indeed.com/praca?q=" + categoryName + "&l=" + cityName;
 
-    public static String indeedBuildUrlForCategoryForCountry(String city, String category) {
-        return "";
+        if (cityName.equals("all cities")) {
+            url = "https://pl.indeed.com/praca?q=" + categoryName;
+        }
+
+        return url;
     }
 
     public static String pracujBuildUrlForCity(String technology, String city) {
@@ -93,7 +101,7 @@ public class UrlBuilder {
         //return "https://nofluffjobs.com/api/posting";
     }
 
-    public static String justJoinItBuildUrlForCity() {
+    static String justJoinItBuildUrlForCity() {
         return "https://justjoin.it/api/offers";
     }
 
