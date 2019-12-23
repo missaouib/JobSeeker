@@ -80,11 +80,5 @@ class ScrapTechnologyCountry {
                 .stream()
                 .peek(countryDto -> countryDto.setPer100k(Math.round(countryDto.getIndeed() * 1.0 / (countryDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());
-
-//        return technologyCountryOffers
-//                .stream()
-//                .map(countryOffer -> modelMapper.map(technologyCountryOffersRepository.save(countryOffer), CountryDto.class))
-//                .peek(countryDto -> countryDto.setPer100k(Math.round(countryDto.getIndeed() * 1.0 / (countryDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
-//                .collect(Collectors.toList());
     }
 }

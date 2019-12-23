@@ -2,7 +2,6 @@ package com.Backend.configuration;
 
 import com.Backend.domain.ScrapFacade;
 import com.Backend.infrastructure.repository.CityRepository;
-import com.Backend.infrastructure.repository.CountryRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,24 +18,20 @@ public class SchedulerConfig {
     private ScrapFacade scrapFacade;
     private CityRepository cityRepository;
     private TechnologyRepository technologyRepository;
-    private CountryRepository countryRepository;
     private List<String> cities;
     private List<String> technologies;
-    private List<String> countries;
 
     public SchedulerConfig(ScrapFacade scrapFacade, CityRepository cityRepository,
-                           TechnologyRepository technologyRepository, CountryRepository countryRepository) {
+                           TechnologyRepository technologyRepository) {
         this.scrapFacade = Objects.requireNonNull(scrapFacade);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
-        this.countryRepository = Objects.requireNonNull(countryRepository);
     }
 
     @PostConstruct
     public void initLists() {
         this.cities = cityRepository.findAllNames();
         this.technologies = technologyRepository.findAllNames();
-        this.countries = countryRepository.findAllNames();
     }
 
     @Scheduled(cron = "0 1 * * * *")

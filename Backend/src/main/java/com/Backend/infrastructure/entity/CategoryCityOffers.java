@@ -23,11 +23,13 @@ public class CategoryCityOffers {
 
     private LocalDate date;
     private int pracuj;
+    private int indeed;
 
-    public CategoryCityOffers(Category category, City city, LocalDate date, int pracuj) {
+    public CategoryCityOffers(Category category, City city, LocalDate date, int pracuj, int indeed) {
         this.category = category;
         this.city = city;
         this.date = date;
         this.pracuj = pracuj;
+        this.indeed = indeed;
     }
 }

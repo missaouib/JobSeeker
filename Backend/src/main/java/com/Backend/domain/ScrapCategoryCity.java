@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,24 +58,22 @@ class ScrapCategoryCity {
             String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
 
             if(category.getPracujId() != 0){
-                String pracujDynamicURL = UrlBuilder.pracujBuildUrlForCategory(cityNameASCII, categoryName, category.getPracujId());
-                categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujDynamicURL)));
+                String pracujUrl = UrlBuilder.pracujBuildUrlForCategory(cityNameASCII, categoryName, category.getPracujId());
+                categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujUrl), 0));
             } else {
-//                String indeedDynamicURL = UrlBuilder.indeedBuildUrlForCategoryForCity(cityNameUTF8, categoryName);
-//                categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), 0));
+                String indeedUrl = UrlBuilder.indeedBuildUrlForCategoryForCity(cityNameUTF8, categoryName);
+                try {
+                    categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), 0, requestCreator.scrapIndeedOffers(indeedUrl)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         });
-
 
         return cityOptional
                 .filter(ignoredCity -> !categoryCityOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
                 .map(ignoredCity -> categoriesOffers.stream().map(category -> modelMapper.map(categoryCityOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList()))
                 .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList()));
-
-//        return categoriesOffers
-//                .stream()
-//                .map(categoryOffer -> modelMapper.map(categoryCityOffersRepository.save(categoryOffer), CategoryDto.class))
-//                .collect(Collectors.toList());
     }
 }

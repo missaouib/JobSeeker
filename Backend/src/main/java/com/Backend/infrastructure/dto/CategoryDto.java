@@ -7,4 +7,5 @@ public class CategoryDto {
     String polishName;
     String englishName;
     int pracuj;
+    int indeed;
 }

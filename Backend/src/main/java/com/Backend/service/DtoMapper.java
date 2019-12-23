@@ -14,7 +14,6 @@ public class DtoMapper {
         protected void configure() {
             map().setPolishName(source.getCategory().getPolishName());
             map().setEnglishName(source.getCategory().getEnglishName());
-            //map().setId(source.getCategory().getId());
         }
     };
 
@@ -33,7 +32,6 @@ public class DtoMapper {
             map().setPopulation(source.getCountry().getPopulation());
             map().setArea(source.getCountry().getArea());
             map().setDensity(source.getCountry().getDensity());
-            //map().setId(source.getCountry().getId());
         }
     };
 
