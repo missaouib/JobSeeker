@@ -13,7 +13,6 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[FIX] Dont save to db if not known input, Send requests with city instead of technology
     //[FEAT] Add Indeed categories only in poland
     //[FEAT] Check if scheduler added all data
     //[FIX] if poland == all cities
@@ -23,6 +22,7 @@ public class BackendApplication {
     //[FEAT] Try Selenium for Linkedin and Glassdor
 
     //[FRONTEND] TODO
+    //[REFACTOR] Check ids from DTO
     //[FEAT] Add countries column in technology view
     //[FEAT] Add countries hints in technology input(replace all cities with poland)
     //[FEAT] Technology stats <-> if all rows equals to 0 then hide with information popup( ???? )

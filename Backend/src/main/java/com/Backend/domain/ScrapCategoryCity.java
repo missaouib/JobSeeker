@@ -36,7 +36,7 @@ class ScrapCategoryCity {
         this.modelMapper.addMappings(DtoMapper.categoryCityOffersMapper);
     }
 
-    public List<CategoryDto> loadCategoryStatisticsInPoland(String cityName) {
+    List<CategoryDto> loadCategoryStatisticsInPoland(String cityName) {
         List<CategoryCityOffers> listOffers = categoryCityOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName).orElse(null));
 
         if (listOffers.isEmpty()) {
@@ -46,7 +46,7 @@ class ScrapCategoryCity {
         }
     }
 
-    public List<CategoryDto> scrapCategoryStatisticsInPoland(String cityName) {
+    private List<CategoryDto> scrapCategoryStatisticsInPoland(String cityName) {
         String cityNameUTF8 = cityName.toLowerCase();
         String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
         List<Category> categories = categoryRepository.findAll();
@@ -60,16 +60,21 @@ class ScrapCategoryCity {
                 String pracujDynamicURL = UrlBuilder.pracujBuildUrlForCategory(cityNameASCII, categoryName, category.getPracujId());
                 categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujDynamicURL)));
             } else {
-                String indeedDynamicURL = UrlBuilder.indeedBuildUrlForCategoryForCity(cityNameUTF8, categoryName);
-                categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), 0));
+//                String indeedDynamicURL = UrlBuilder.indeedBuildUrlForCategoryForCity(cityNameUTF8, categoryName);
+//                categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), 0));
             }
-
 
         });
 
-        return categoriesOffers
-                .stream()
-                .map(categoryOffer -> modelMapper.map(categoryCityOffersRepository.save(categoryOffer), CategoryDto.class))
-                .collect(Collectors.toList());
+
+        return cityOptional
+                .filter(ignoredCity -> !categoryCityOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
+                .map(ignoredCity -> categoriesOffers.stream().map(category -> modelMapper.map(categoryCityOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList()));
+
+//        return categoriesOffers
+//                .stream()
+//                .map(categoryOffer -> modelMapper.map(categoryCityOffersRepository.save(categoryOffer), CategoryDto.class))
+//                .collect(Collectors.toList());
     }
 }

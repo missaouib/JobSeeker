@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,7 +38,7 @@ class ScrapTechnologyCity {
         this.modelMapper.addMappings(DtoMapper.technologyCityOffersMapper);
     }
 
-    public List<CityDto> loadCitiesStatisticsForTechnology(String technologyName) {
+    List<CityDto> loadCitiesStatisticsForTechnology(String technologyName) {
         List<TechnologyCityOffers> listOffers = technologyCityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
         if (listOffers.isEmpty()) {
@@ -49,7 +48,7 @@ class ScrapTechnologyCity {
         }
     }
 
-    public List<CityDto> scrapCitiesStatisticsForTechnology(String technologyName) {
+    private List<CityDto> scrapCitiesStatisticsForTechnology(String technologyName) {
 
         List<City> cities = cityRepository.findAll();
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
@@ -82,10 +81,16 @@ class ScrapTechnologyCity {
             technologyCityOffers.add(offer);
         });
 
-        return technologyCityOffers
+        return technologyOptional
+                .filter(ignoredTechnologyCity -> !technologyCityOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnologyCity))
+                .map(savedTechnologyCity -> technologyCityOffers
+                        .stream()
+                        .map(technologyCity -> modelMapper.map(technologyCityOffersRepository.save(technologyCity), CityDto.class))
+                        .collect(Collectors.toList()))
+                .orElseGet(() -> technologyCityOffers
+                        .stream()
+                        .map(technologyCity -> modelMapper.map(technologyCity, CityDto.class)).collect(Collectors.toList()))
                 .stream()
-                .filter(cityOffer -> Objects.nonNull(cityOffer.getTechnology()))
-                .map(cityOffer -> modelMapper.map(technologyCityOffersRepository.save(cityOffer), CityDto.class))
                 .peek(cityDto -> cityDto.setTotal(cityDto.getLinkedin() + cityDto.getPracuj() + cityDto.getNoFluffJobs() + cityDto.getJustJoinIT()))
                 .peek(cityDto -> cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());

@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class TechnologyDto {
-    Long id;
     String name;
     String type;
     int linkedin;

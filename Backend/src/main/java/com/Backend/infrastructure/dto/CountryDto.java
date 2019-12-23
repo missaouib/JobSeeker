@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class CountryDto {
-    Long id;
     String name;
     int population;
     double area;

@@ -15,7 +15,6 @@ import java.util.List;
 public class ScrapFacade {
 
     ScrapCategoryCity scrapCategoryCity;
-    ScrapCategoryCountry scrapCategoryCountry;
     ScrapTechnologyCity scrapTechnologyCity;
     ScrapTechnologyCountry scrapTechnologyCountry;
 
@@ -29,10 +28,6 @@ public class ScrapFacade {
 
     public List<CategoryDto> categoryStatisticsInPoland(String location) {
         return scrapCategoryCity.loadCategoryStatisticsInPoland(location);
-    }
-
-    public List<CategoryDto> categoryStatisticsInWorld(String location) {
-        return scrapCategoryCountry.scrapCategoryStatisticsForCountries(location);
     }
 
 }

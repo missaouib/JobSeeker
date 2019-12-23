@@ -37,7 +37,7 @@ class ScrapTechnologyCountry {
         this.modelMapper.addMappings(DtoMapper.technologyCountryOffersMapper);
     }
 
-    public List<CountryDto> loadCountriesStatisticsForTechnology(String technologyName) {
+    List<CountryDto> loadCountriesStatisticsForTechnology(String technologyName) {
         List<TechnologyCountryOffers> listOffers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
         if (listOffers.isEmpty()) {
@@ -47,7 +47,7 @@ class ScrapTechnologyCountry {
         }
     }
 
-    public List<CountryDto> scrapCountriesStatisticsForTechnology(String technologyName) {
+    private List<CountryDto> scrapCountriesStatisticsForTechnology(String technologyName) {
 
         List<Country> countries = countryRepository.findAllCountriesWithCode();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
@@ -73,10 +73,18 @@ class ScrapTechnologyCountry {
             technologyCountryOffers.add(offer);
         });
 
-        return technologyCountryOffers
+        return technologyOptional
+                .filter(ignoredTechnology -> !technologyCountryOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
+                .map(ignoredCity -> technologyCountryOffers.stream().map(category -> modelMapper.map(technologyCountryOffersRepository.save(category), CountryDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> technologyCountryOffers.stream().map(city -> modelMapper.map(city, CountryDto.class)).collect(Collectors.toList()))
                 .stream()
-                .map(countryOffer -> modelMapper.map(technologyCountryOffersRepository.save(countryOffer), CountryDto.class))
                 .peek(countryDto -> countryDto.setPer100k(Math.round(countryDto.getIndeed() * 1.0 / (countryDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());
+
+//        return technologyCountryOffers
+//                .stream()
+//                .map(countryOffer -> modelMapper.map(technologyCountryOffersRepository.save(countryOffer), CountryDto.class))
+//                .peek(countryDto -> countryDto.setPer100k(Math.round(countryDto.getIndeed() * 1.0 / (countryDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+//                .collect(Collectors.toList());
     }
 }

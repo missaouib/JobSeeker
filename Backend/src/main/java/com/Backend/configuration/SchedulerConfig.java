@@ -57,11 +57,6 @@ public class SchedulerConfig {
             WaitRandomUnderTwoSeconds();
         });
 
-        countries.forEach(country -> {
-            scrapFacade.categoryStatisticsInWorld(country);
-            WaitRandomUnderTwoSeconds();
-        });
-
     }
 
     private void WaitRandomUnderTwoSeconds() {

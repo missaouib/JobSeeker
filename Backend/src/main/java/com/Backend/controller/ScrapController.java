@@ -34,11 +34,6 @@ public class ScrapController {
         return scrapFacade.categoryStatisticsInPoland(location.toLowerCase());
     }
 
-//    @GetMapping("/categoryStatisticsInWorld")
-//    public List<CategoryDto> categoryStatisticsInWorld(@RequestParam("location") String location) {
-//        return scrapFacade.categoryStatisticsInWorld(location.toLowerCase());
-//    }
-
 //    @GetMapping("/technologyStatistics")
 //    public List<TechnologyDto> TechnologyStatistics(@RequestParam("location") String location) {
 //        return scrapTechnologyService.getTechnologyStatistics(location.toLowerCase());
