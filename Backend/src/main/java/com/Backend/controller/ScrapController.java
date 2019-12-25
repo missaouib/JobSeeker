@@ -21,17 +21,17 @@ public class ScrapController {
 
     @GetMapping("/iTJobOffersInPoland")
     public List<CityDto> iTJobOffersInPoland(@RequestParam("technology") String technology) {
-        return scrapFacade.ItJobsOffersInPoland(technology.toLowerCase());
+        return scrapFacade.ItJobsOffersInPoland(technology);
     }
 
     @GetMapping("/iTJobOffersInWorld")
     public List<CountryDto> iTJobOffersInWorld(@RequestParam("technology") String technology) {
-        return scrapFacade.itJobOffersInWorld(technology.toLowerCase());
+        return scrapFacade.itJobOffersInWorld(technology);
     }
 
     @GetMapping("/categoryStatisticsInPoland")
     public List<CategoryDto> categoryStatisticsInPoland(@RequestParam("location") String location) {
-        return scrapFacade.categoryStatisticsInPoland(location.toLowerCase());
+        return scrapFacade.categoryStatisticsInPoland(location);
     }
 
 //    @GetMapping("/technologyStatistics")

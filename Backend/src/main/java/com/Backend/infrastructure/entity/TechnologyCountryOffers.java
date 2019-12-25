@@ -1,24 +1,29 @@
 package com.Backend.infrastructure.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
-@NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
 public class TechnologyCountryOffers {
 
     @Id
     @GeneratedValue
     Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     Country country;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     Technology technology;
 
     LocalDate date;

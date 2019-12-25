@@ -1,8 +1,7 @@
 package com.Backend.configuration;
 
 import com.Backend.domain.ScrapFacade;
-import com.Backend.infrastructure.repository.CityRepository;
-import com.Backend.infrastructure.repository.TechnologyRepository;
+import com.Backend.infrastructure.repository.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -18,11 +17,13 @@ public class SchedulerConfig {
     private ScrapFacade scrapFacade;
     private CityRepository cityRepository;
     private TechnologyRepository technologyRepository;
+    private CategoryCityOffersRepository categoryCityOffersRepository;
+    private TechnologyCityOffersRepository technologyCityOffersRepository;
+    private TechnologyCountryOffersRepository technologyCountryOffersRepository;
     private List<String> cities;
     private List<String> technologies;
 
-    public SchedulerConfig(ScrapFacade scrapFacade, CityRepository cityRepository,
-                           TechnologyRepository technologyRepository) {
+    public SchedulerConfig(ScrapFacade scrapFacade, CityRepository cityRepository, TechnologyRepository technologyRepository) {
         this.scrapFacade = Objects.requireNonNull(scrapFacade);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
@@ -34,24 +35,35 @@ public class SchedulerConfig {
         this.technologies = technologyRepository.findAllNames();
     }
 
-    @Scheduled(cron = "0 1 * * * *")
+    @Scheduled(cron = "0 45 14 * * *")
     public void cyclicScraping() {
 
-        technologies.forEach(technology -> {
-            scrapFacade.ItJobsOffersInPoland(technology);
+        technologies.forEach(technologyName -> {
+            scrapFacade.ItJobsOffersInPoland(technologyName);
             WaitRandomUnderTwoSeconds();
         });
 
-        technologies.forEach(technology -> {
-            scrapFacade.itJobOffersInWorld(technology);
+        technologies.forEach(technologyName -> {
+            scrapFacade.itJobOffersInWorld(technologyName);
             WaitRandomUnderTwoSeconds();
         });
 
-        cities.forEach(city -> {
-            scrapFacade.categoryStatisticsInPoland(city);
+        cities.forEach(cityName -> {
+            scrapFacade.categoryStatisticsInPoland(cityName);
             WaitRandomUnderTwoSeconds();
         });
 
+        verifyData();
+
+    }
+
+    private void verifyData() {
+
+        //categoryCityOffersRepository.findByDate();
+
+        //repository
+        //if something
+        //wait and scrap
     }
 
     private void WaitRandomUnderTwoSeconds() {

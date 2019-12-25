@@ -35,8 +35,10 @@ public class UrlBuilder {
     public static String indeedBuildUrlLForCity(String technology, String city) {
         String url = "https://pl.indeed.com/Praca-" + technology + "-w-" + city;
 
-        if (city.equals("all cities")) {
-            url = "https://pl.indeed.com/Praca-" + technology;
+        if (technology.equals("all it jobs")) {
+            url = "https://pl.indeed.com/praca?q=IT&l=" + city;
+        } else if (technology.equals("all jobs")) {
+            url = "https://pl.indeed.com/praca?q=&l=" + city;
         }
 
         return url;
@@ -56,7 +58,7 @@ public class UrlBuilder {
     }
 
     public static String indeedBuildUrlForCategoryForCity(String cityName, String categoryName) {
-        String url =  "https://pl.indeed.com/praca?q=" + categoryName + "&l=" + cityName;
+        String url = "https://pl.indeed.com/praca?q=" + categoryName + "&l=" + cityName;
 
         if (cityName.equals("all cities")) {
             url = "https://pl.indeed.com/praca?q=" + categoryName;

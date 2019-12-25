@@ -43,7 +43,10 @@ class ScrapCategoryCity {
         if (listOffers.isEmpty()) {
             return scrapCategoryStatisticsInPoland(cityName);
         } else {
-            return listOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
+            return listOffers
+                    .stream()
+                    .map(category -> modelMapper.map(category, CategoryDto.class))
+                    .collect(Collectors.toList());
         }
     }
 
@@ -57,7 +60,7 @@ class ScrapCategoryCity {
         categories.forEach(category -> {
             String categoryName = category.getPolishName().toLowerCase().replaceAll("/ ", "");
 
-            if(category.getPracujId() != 0){
+            if (category.getPracujId() != 0) {
                 String pracujUrl = UrlBuilder.pracujBuildUrlForCategory(cityNameASCII, categoryName, category.getPracujId());
                 categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujUrl), 0));
             } else {

@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface CategoryCityOffersRepository extends JpaRepository<CategoryCityOffers, Long> {
     Boolean existsFirstByDateAndCity(LocalDate date, City city);
+
     List<CategoryCityOffers> findByDateAndCity(LocalDate date, City city);
 }

@@ -43,7 +43,10 @@ class ScrapTechnologyCountry {
         if (listOffers.isEmpty()) {
             return scrapCountriesStatisticsForTechnology(technologyName);
         } else {
-            return listOffers.stream().map(country -> modelMapper.map(country, CountryDto.class)).collect(Collectors.toList());
+            return listOffers
+                    .stream()
+                    .map(country -> modelMapper.map(country, CountryDto.class))
+                    .collect(Collectors.toList());
         }
     }
 

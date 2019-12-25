@@ -1,13 +1,15 @@
 package com.Backend.infrastructure.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 public class CategoryCityOffers {
 
@@ -15,10 +17,10 @@ public class CategoryCityOffers {
     @GeneratedValue
     Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     private City city;
 
     private LocalDate date;

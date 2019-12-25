@@ -166,7 +166,7 @@ public class RequestCreator {
                     })
                     .count());
         }
-            return technologyCityOffers.getJustJoinIT();
+        return technologyCityOffers.getJustJoinIT();
     }
 
     private int getHtmlSubstring(String resultString, String htmlFirstPart, String htmlSecondPart) {

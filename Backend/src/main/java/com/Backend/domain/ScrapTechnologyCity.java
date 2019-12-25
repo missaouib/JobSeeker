@@ -44,7 +44,9 @@ class ScrapTechnologyCity {
         if (listOffers.isEmpty()) {
             return scrapCitiesStatisticsForTechnology(technologyName);
         } else {
-            return listOffers.stream().map(city -> modelMapper.map(city, CityDto.class)).collect(Collectors.toList());
+            return listOffers.stream()
+                    .map(cityOffer -> modelMapper.map(cityOffer, CityDto.class))
+                    .collect(Collectors.toList());
         }
     }
 

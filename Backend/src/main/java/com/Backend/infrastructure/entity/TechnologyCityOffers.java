@@ -1,32 +1,33 @@
 package com.Backend.infrastructure.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
 public class TechnologyCityOffers {
 
     @Id
     @GeneratedValue
     Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     City city;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Technology technology;
-
     LocalDate date;
     int linkedin;
     int indeed;
     int pracuj;
     int noFluffJobs;
     int justJoinIT;
+
+    @ManyToOne
+    private Technology technology;
 
     public TechnologyCityOffers(City city, Technology technology, LocalDate date) {
         this.city = city;
