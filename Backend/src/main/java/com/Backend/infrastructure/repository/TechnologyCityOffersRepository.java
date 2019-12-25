@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface TechnologyCityOffersRepository extends JpaRepository<TechnologyCityOffers, Long> {
     Boolean existsFirstByDateAndTechnology(LocalDate date, Technology technology);
-
     List<TechnologyCityOffers> findByDateAndTechnology(LocalDate date, Technology technology);
+    List<TechnologyCityOffers> findByDate(LocalDate date);
 }

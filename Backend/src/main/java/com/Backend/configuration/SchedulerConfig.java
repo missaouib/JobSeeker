@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,59 +17,94 @@ public class SchedulerConfig {
 
     private ScrapFacade scrapFacade;
     private CityRepository cityRepository;
+    private CountryRepository countryRepository;
+    private CategoryRepository categoryRepository;
     private TechnologyRepository technologyRepository;
     private CategoryCityOffersRepository categoryCityOffersRepository;
     private TechnologyCityOffersRepository technologyCityOffersRepository;
     private TechnologyCountryOffersRepository technologyCountryOffersRepository;
-    private List<String> cities;
-    private List<String> technologies;
+    private List<String> citiesNames;
+    private List<String> technologiesNames;
 
-    public SchedulerConfig(ScrapFacade scrapFacade, CityRepository cityRepository, TechnologyRepository technologyRepository) {
+    public SchedulerConfig(ScrapFacade scrapFacade, CityRepository cityRepository, TechnologyRepository technologyRepository,
+    CategoryCityOffersRepository categoryCityOffersRepository, TechnologyCityOffersRepository technologyCityOffersRepository,
+                           TechnologyCountryOffersRepository technologyCountryOffersRepository, CategoryRepository categoryRepository,
+                           CountryRepository countryRepository) {
         this.scrapFacade = Objects.requireNonNull(scrapFacade);
         this.cityRepository = Objects.requireNonNull(cityRepository);
+        this.countryRepository = Objects.requireNonNull(countryRepository);
+        this.categoryRepository = Objects.requireNonNull(categoryRepository);
         this.technologyRepository = Objects.requireNonNull(technologyRepository);
+        this.categoryCityOffersRepository = Objects.requireNonNull(categoryCityOffersRepository);
+        this.technologyCityOffersRepository = Objects.requireNonNull(technologyCityOffersRepository);
+        this.technologyCountryOffersRepository = Objects.requireNonNull(technologyCountryOffersRepository);
     }
 
     @PostConstruct
     public void initLists() {
-        this.cities = cityRepository.findAllNames();
-        this.technologies = technologyRepository.findAllNames();
+        this.citiesNames = cityRepository.findAllNames();
+        this.technologiesNames = technologyRepository.findAllNames();
     }
 
-    @Scheduled(cron = "0 45 14 * * *")
-    public void cyclicScraping() {
-
-        technologies.forEach(technologyName -> {
+    private void runForCities(){
+        technologiesNames.forEach(technologyName -> {
             scrapFacade.ItJobsOffersInPoland(technologyName);
-            WaitRandomUnderTwoSeconds();
+            waitRandomUnderTwoSeconds();
         });
+    }
 
-        technologies.forEach(technologyName -> {
-            scrapFacade.itJobOffersInWorld(technologyName);
-            WaitRandomUnderTwoSeconds();
-        });
-
-        cities.forEach(cityName -> {
-            scrapFacade.categoryStatisticsInPoland(cityName);
-            WaitRandomUnderTwoSeconds();
-        });
-
+    @Scheduled(cron = "0 0 1 * * *")
+    public void cyclicScraping() {
+        runForCities();
+        runForCountries();
+        runForCategories();
         verifyData();
+    }
 
+    private void runForCountries(){
+        technologiesNames.forEach(technologyName -> {
+            scrapFacade.itJobOffersInWorld(technologyName);
+            waitRandomUnderTwoSeconds();
+        });
+    }
+
+    private void runForCategories(){
+        citiesNames.forEach(cityName -> {
+            scrapFacade.categoryStatisticsInPoland(cityName);
+            waitRandomUnderTwoSeconds();
+        });
     }
 
     private void verifyData() {
 
-        //categoryCityOffersRepository.findByDate();
+        if(categoryCityOffersRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * categoryRepository.findAll().size()){
+            waitRandomFrom20To30Minutes();
+            runForCities();
+        }
 
-        //repository
-        //if something
-        //wait and scrap
+        if(technologyCityOffersRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * technologyRepository.findAll().size()){
+            waitRandomFrom20To30Minutes();
+            runForCountries();
+        }
+
+        if(technologyCountryOffersRepository.findByDate(LocalDate.now()).size() != countryRepository.findAll().size() * technologyRepository.findAll().size()){
+            waitRandomFrom20To30Minutes();
+            runForCategories();
+        }
+
     }
 
-    private void WaitRandomUnderTwoSeconds() {
+    private void waitRandomUnderTwoSeconds() {
         try {
             TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(1, 2000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void waitRandomFrom20To30Minutes(){
+        try {
+            TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(1200000, 1800000));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

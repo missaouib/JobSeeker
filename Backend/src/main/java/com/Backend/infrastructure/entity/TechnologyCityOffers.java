@@ -19,15 +19,16 @@ public class TechnologyCityOffers {
 
     @ManyToOne
     City city;
+
+    @ManyToOne
+    private Technology technology;
+
     LocalDate date;
     int linkedin;
     int indeed;
     int pracuj;
     int noFluffJobs;
     int justJoinIT;
-
-    @ManyToOne
-    private Technology technology;
 
     public TechnologyCityOffers(City city, Technology technology, LocalDate date) {
         this.city = city;

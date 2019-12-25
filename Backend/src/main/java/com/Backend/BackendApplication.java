@@ -13,8 +13,6 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    // all jobs all it jobs nofluff/justjoin
-    //[FEAT] Check if scheduler added all data
     //[REFACTOR] Optimize nofluffjobs and justjoin
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add liquibase
