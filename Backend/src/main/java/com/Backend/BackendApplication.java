@@ -13,6 +13,9 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
+    //no technology nofluff
+    // check countries
+    // all cities for indeed
     //[REFACTOR] Optimize nofluffjobs and justjoin
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add liquibase
@@ -21,6 +24,7 @@ public class BackendApplication {
     //[FEAT] Try Selenium for Linkedin and Glassdor
 
     //[FRONTEND] TODO
+    //check if sending polandto backend
     //[REFACTOR] Check ids from DTO
     //[FEAT] Add countries column in technology view
     //[FEAT] Add countries hints in technology input(replace all cities with poland)

@@ -1,8 +1,8 @@
 package com.Backend.domain;
 
-import com.Backend.infrastructure.dto.CategoryDto;
-import com.Backend.infrastructure.dto.CityDto;
-import com.Backend.infrastructure.dto.CountryDto;
+import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
+import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
+import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,15 +16,15 @@ public class ScrapFacade {
     ScrapTechnologyCity scrapTechnologyCity;
     ScrapTechnologyCountry scrapTechnologyCountry;
 
-    public List<CityDto> ItJobsOffersInPoland(String technologyName) {
+    public List<JobsOffersInPolandDto> ItJobsOffersInPoland(String technologyName) {
         return scrapTechnologyCity.loadCitiesStatisticsForTechnology(technologyName.toLowerCase());
     }
 
-    public List<CountryDto> itJobOffersInWorld(String technologyName) {
+    public List<JobsOffersInWorldDto> itJobOffersInWorld(String technologyName) {
         return scrapTechnologyCountry.loadCountriesStatisticsForTechnology(technologyName.toLowerCase());
     }
 
-    public List<CategoryDto> categoryStatisticsInPoland(String location) {
+    public List<CategoryStatisticsInPolandDto> categoryStatisticsInPoland(String location) {
         return scrapCategoryCity.loadCategoryStatisticsInPoland(location.toLowerCase());
     }
 

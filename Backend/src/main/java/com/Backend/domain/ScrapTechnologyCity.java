@@ -1,10 +1,11 @@
 package com.Backend.domain;
 
-import com.Backend.infrastructure.dto.CityDto;
+import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
 import com.Backend.infrastructure.entity.TechnologyCityOffers;
 import com.Backend.infrastructure.model.JustJoinIt;
+import com.Backend.infrastructure.model.NoFluffJobs;
 import com.Backend.infrastructure.repository.CityRepository;
 import com.Backend.infrastructure.repository.TechnologyCityOffersRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
@@ -38,47 +39,48 @@ class ScrapTechnologyCity {
         this.modelMapper.addMappings(DtoMapper.technologyCityOffersMapper);
     }
 
-    List<CityDto> loadCitiesStatisticsForTechnology(String technologyName) {
+    List<JobsOffersInPolandDto> loadCitiesStatisticsForTechnology(String technologyName) {
         List<TechnologyCityOffers> listOffers = technologyCityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
         if (listOffers.isEmpty()) {
             return scrapCitiesStatisticsForTechnology(technologyName);
         } else {
             return listOffers.stream()
-                    .map(cityOffer -> modelMapper.map(cityOffer, CityDto.class))
+                    .map(cityOffer -> modelMapper.map(cityOffer, JobsOffersInPolandDto.class))
                     .collect(Collectors.toList());
         }
     }
 
-    private List<CityDto> scrapCitiesStatisticsForTechnology(String technologyName) {
+    private List<JobsOffersInPolandDto> scrapCitiesStatisticsForTechnology(String technologyName) {
 
         List<City> cities = cityRepository.findAll();
-        List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyCityOffers> technologyCityOffers = new ArrayList<>();
+
+        List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
+        NoFluffJobs noFluffJobs = requestCreator.scrapNoFluffJobsOffers();
 
         cities.forEach(city -> {
 
             String cityNameUTF8 = city.getName().toLowerCase();
             String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
 
-            String linkedinDynamicURL = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
-            String indeedDynamicURL = UrlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
-            String pracujDynamicURL = UrlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
-            String noFluffJobsDynamicURL = UrlBuilder.noFluffJobsBuildUrlForCity(technologyName, cityNameASCII);
+            String linkedinURL = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
+            String indeedURL = UrlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
+            String pracujURL = UrlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
 
             TechnologyCityOffers offer = new TechnologyCityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
             try {
-                offer.setIndeed(requestCreator.scrapIndeedOffers(indeedDynamicURL));
+                offer.setIndeed(requestCreator.scrapIndeedOffers(indeedURL));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinDynamicURL));
-            offer.setPracuj(requestCreator.scrapPracujOffers(pracujDynamicURL));
-            offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
-            offer.setJustJoinIT(requestCreator.extractJustJoinItJson(justJoinItOffers, city, technologyOptional.orElse(null), technologyName));
+            offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinURL));
+            offer.setPracuj(requestCreator.scrapPracujOffers(pracujURL));
+            offer.setNoFluffJobs(requestCreator.extractNoFluffJobs(noFluffJobs, city.getName(), technologyName));
+            offer.setJustJoinIT(requestCreator.extractJustJoinItJson(justJoinItOffers, city.getName(), technologyName));
 
             technologyCityOffers.add(offer);
         });
@@ -87,14 +89,14 @@ class ScrapTechnologyCity {
                 .filter(ignoredTechnologyCity -> !technologyCityOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnologyCity))
                 .map(savedTechnologyCity -> technologyCityOffers
                         .stream()
-                        .map(technologyCity -> modelMapper.map(technologyCityOffersRepository.save(technologyCity), CityDto.class))
+                        .map(technologyCity -> modelMapper.map(technologyCityOffersRepository.save(technologyCity), JobsOffersInPolandDto.class))
                         .collect(Collectors.toList()))
                 .orElseGet(() -> technologyCityOffers
                         .stream()
-                        .map(technologyCity -> modelMapper.map(technologyCity, CityDto.class)).collect(Collectors.toList()))
+                        .map(technologyCity -> modelMapper.map(technologyCity, JobsOffersInPolandDto.class)).collect(Collectors.toList()))
                 .stream()
-                .peek(cityDto -> cityDto.setTotal(cityDto.getLinkedin() + cityDto.getPracuj() + cityDto.getNoFluffJobs() + cityDto.getJustJoinIT()))
-                .peek(cityDto -> cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setTotal(jobsOffersInPolandDto.getLinkedin() + jobsOffersInPolandDto.getPracuj() + jobsOffersInPolandDto.getNoFluffJobs() + jobsOffersInPolandDto.getJustJoinIT()))
+                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setPer100k(Math.round(jobsOffersInPolandDto.getTotal() * 1.0 / (jobsOffersInPolandDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());
     }
 

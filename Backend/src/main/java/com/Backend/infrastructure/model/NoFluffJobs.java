@@ -13,7 +13,7 @@ public class NoFluffJobs {
     private List<NoFluffJob> postings;
 
     @Data
-    static class NoFluffJob {
+    public static class NoFluffJob {
         private String title;
         private String technology;
         private List<String> cities;
@@ -24,7 +24,7 @@ public class NoFluffJobs {
         @JsonProperty("location")
         private void unpackNested(Map<String, Object> location) {
             List<Map<String, String>> places = (List<Map<String, String>>) location.get("places");
-            this.cities = places.stream().map(x -> x.get("city")).collect(Collectors.toList());
+            this.cities = places.stream().map(x -> x.get("city").toLowerCase()).collect(Collectors.toList());
         }
     }
 

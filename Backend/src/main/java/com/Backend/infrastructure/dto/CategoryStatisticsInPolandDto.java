@@ -3,7 +3,7 @@ package com.Backend.infrastructure.dto;
 import lombok.Data;
 
 @Data
-public class CategoryDto {
+public class CategoryStatisticsInPolandDto {
     String polishName;
     String englishName;
     int pracuj;

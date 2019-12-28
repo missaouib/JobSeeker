@@ -1,8 +1,8 @@
 package com.Backend.service;
 
-import com.Backend.infrastructure.dto.CategoryDto;
-import com.Backend.infrastructure.dto.CityDto;
-import com.Backend.infrastructure.dto.CountryDto;
+import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
+import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
+import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
 import com.Backend.infrastructure.entity.CategoryCityOffers;
 import com.Backend.infrastructure.entity.TechnologyCityOffers;
 import com.Backend.infrastructure.entity.TechnologyCountryOffers;
@@ -10,14 +10,14 @@ import org.modelmapper.PropertyMap;
 
 public class DtoMapper {
 
-    public static PropertyMap<CategoryCityOffers, CategoryDto> categoryCityOffersMapper = new PropertyMap<CategoryCityOffers, CategoryDto>() {
+    public static PropertyMap<CategoryCityOffers, CategoryStatisticsInPolandDto> categoryCityOffersMapper = new PropertyMap<CategoryCityOffers, CategoryStatisticsInPolandDto>() {
         protected void configure() {
             map().setPolishName(source.getCategory().getPolishName());
             map().setEnglishName(source.getCategory().getEnglishName());
         }
     };
 
-    public static PropertyMap<TechnologyCityOffers, CityDto> technologyCityOffersMapper = new PropertyMap<TechnologyCityOffers, CityDto>() {
+    public static PropertyMap<TechnologyCityOffers, JobsOffersInPolandDto> technologyCityOffersMapper = new PropertyMap<TechnologyCityOffers, JobsOffersInPolandDto>() {
         protected void configure() {
             map().setName(source.getCity().getName());
             map().setPopulation(source.getCity().getPopulation());
@@ -26,7 +26,7 @@ public class DtoMapper {
         }
     };
 
-    public static PropertyMap<TechnologyCountryOffers, CountryDto> technologyCountryOffersMapper = new PropertyMap<TechnologyCountryOffers, CountryDto>() {
+    public static PropertyMap<TechnologyCountryOffers, JobsOffersInWorldDto> technologyCountryOffersMapper = new PropertyMap<TechnologyCountryOffers, JobsOffersInWorldDto>() {
         protected void configure() {
             map().setName(source.getCountry().getName());
             map().setPopulation(source.getCountry().getPopulation());

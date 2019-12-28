@@ -55,9 +55,11 @@ public class SchedulerConfig {
 
     @Scheduled(cron = "0 0 1 * * *")
     public void cyclicScraping() {
+
         runForCities();
         runForCountries();
         runForCategories();
+
         verifyData();
     }
 

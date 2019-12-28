@@ -1,6 +1,6 @@
 package com.Backend.domain;
 
-import com.Backend.infrastructure.dto.CountryDto;
+import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
 import com.Backend.infrastructure.entity.Country;
 import com.Backend.infrastructure.entity.Technology;
 import com.Backend.infrastructure.entity.TechnologyCountryOffers;
@@ -37,7 +37,7 @@ class ScrapTechnologyCountry {
         this.modelMapper.addMappings(DtoMapper.technologyCountryOffersMapper);
     }
 
-    List<CountryDto> loadCountriesStatisticsForTechnology(String technologyName) {
+    List<JobsOffersInWorldDto> loadCountriesStatisticsForTechnology(String technologyName) {
         List<TechnologyCountryOffers> listOffers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
         if (listOffers.isEmpty()) {
@@ -45,12 +45,12 @@ class ScrapTechnologyCountry {
         } else {
             return listOffers
                     .stream()
-                    .map(country -> modelMapper.map(country, CountryDto.class))
+                    .map(country -> modelMapper.map(country, JobsOffersInWorldDto.class))
                     .collect(Collectors.toList());
         }
     }
 
-    private List<CountryDto> scrapCountriesStatisticsForTechnology(String technologyName) {
+    private List<JobsOffersInWorldDto> scrapCountriesStatisticsForTechnology(String technologyName) {
 
         List<Country> countries = countryRepository.findAllCountriesWithCode();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
@@ -78,10 +78,10 @@ class ScrapTechnologyCountry {
 
         return technologyOptional
                 .filter(ignoredTechnology -> !technologyCountryOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
-                .map(ignoredCity -> technologyCountryOffers.stream().map(category -> modelMapper.map(technologyCountryOffersRepository.save(category), CountryDto.class)).collect(Collectors.toList()))
-                .orElseGet(() -> technologyCountryOffers.stream().map(city -> modelMapper.map(city, CountryDto.class)).collect(Collectors.toList()))
+                .map(ignoredCity -> technologyCountryOffers.stream().map(category -> modelMapper.map(technologyCountryOffersRepository.save(category), JobsOffersInWorldDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> technologyCountryOffers.stream().map(city -> modelMapper.map(city, JobsOffersInWorldDto.class)).collect(Collectors.toList()))
                 .stream()
-                .peek(countryDto -> countryDto.setPer100k(Math.round(countryDto.getIndeed() * 1.0 / (countryDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setPer100k(Math.round(jobsOffersInWorldDto.getIndeed() * 1.0 / (jobsOffersInWorldDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());
     }
 }

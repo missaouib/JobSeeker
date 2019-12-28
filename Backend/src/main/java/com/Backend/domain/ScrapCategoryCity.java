@@ -1,6 +1,6 @@
 package com.Backend.domain;
 
-import com.Backend.infrastructure.dto.CategoryDto;
+import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
 import com.Backend.infrastructure.entity.Category;
 import com.Backend.infrastructure.entity.CategoryCityOffers;
 import com.Backend.infrastructure.entity.City;
@@ -37,7 +37,7 @@ class ScrapCategoryCity {
         this.modelMapper.addMappings(DtoMapper.categoryCityOffersMapper);
     }
 
-    List<CategoryDto> loadCategoryStatisticsInPoland(String cityName) {
+    List<CategoryStatisticsInPolandDto> loadCategoryStatisticsInPoland(String cityName) {
         List<CategoryCityOffers> listOffers = categoryCityOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName).orElse(null));
 
         if (listOffers.isEmpty()) {
@@ -45,12 +45,12 @@ class ScrapCategoryCity {
         } else {
             return listOffers
                     .stream()
-                    .map(category -> modelMapper.map(category, CategoryDto.class))
+                    .map(category -> modelMapper.map(category, CategoryStatisticsInPolandDto.class))
                     .collect(Collectors.toList());
         }
     }
 
-    private List<CategoryDto> scrapCategoryStatisticsInPoland(String cityName) {
+    private List<CategoryStatisticsInPolandDto> scrapCategoryStatisticsInPoland(String cityName) {
         String cityNameUTF8 = cityName.toLowerCase();
         String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
         List<Category> categories = categoryRepository.findAll();
@@ -76,7 +76,7 @@ class ScrapCategoryCity {
 
         return cityOptional
                 .filter(ignoredCity -> !categoryCityOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
-                .map(ignoredCity -> categoriesOffers.stream().map(category -> modelMapper.map(categoryCityOffersRepository.save(category), CategoryDto.class)).collect(Collectors.toList()))
-                .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList()));
+                .map(ignoredCity -> categoriesOffers.stream().map(category -> modelMapper.map(categoryCityOffersRepository.save(category), CategoryStatisticsInPolandDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryStatisticsInPolandDto.class)).collect(Collectors.toList()));
     }
 }

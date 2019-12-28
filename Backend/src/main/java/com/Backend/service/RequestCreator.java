@@ -1,8 +1,5 @@
 package com.Backend.service;
 
-import com.Backend.infrastructure.entity.City;
-import com.Backend.infrastructure.entity.Technology;
-import com.Backend.infrastructure.entity.TechnologyCityOffers;
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.model.NoFluffJobs;
 import org.jsoup.Jsoup;
@@ -16,9 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.text.Normalizer;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class RequestCreator {
@@ -90,19 +85,16 @@ public class RequestCreator {
         return getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
     }
 
-    public int scrapNoFluffJobsOffers(String url) {
+    public NoFluffJobs scrapNoFluffJobsOffers() {
 
-        WebClient noFluffJobsURL = WebClient.create(url);
+        WebClient noFluffJobsURL = WebClient.create(UrlBuilder.noFluffJobsBuildUrlForCity());
 
-        NoFluffJobs response = noFluffJobsURL
-                .get()
+        return noFluffJobsURL.get()
                 .header("User-Agent", USER_AGENT)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
                 .bodyToMono(NoFluffJobs.class)
                 .block();
-
-        return Objects.requireNonNull(response).getPostings().size();
     }
 
     public List<JustJoinIt> scrapJustJoinIT() {
@@ -118,22 +110,14 @@ public class RequestCreator {
                 .block();
     }
 
-    public String removePolishSigns(String city) {
-        return Normalizer.normalize(city, Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
-                .replaceAll("ł", "l");
-    }
+    public int extractJustJoinItJson(List<JustJoinIt> offers, String cityName, String technologyNameUpperCase) {
 
-    public int extractJustJoinItJson(List<JustJoinIt> offers, City city, Technology technology, String technologyNameUpperCase) {
-
-        TechnologyCityOffers technologyCityOffers = new TechnologyCityOffers(city, technology, LocalDate.now());
-
-        String cityNameASCII = removePolishSigns(city.getName()).toLowerCase();
-        String cityNameUTF8 = city.getName().toLowerCase();
+        String cityNameASCII = removePolishSigns(cityName).toLowerCase();
+        String cityNameUTF8 = cityName.toLowerCase();
         String technologyName = technologyNameUpperCase.toLowerCase();
 
         if (cityNameASCII.equals("poland")) {
-            technologyCityOffers.setJustJoinIT((int) offers
+            return (int) offers
                     .stream()
                     .filter(filterTechnology -> {
                         if (technologyName.equals("all jobs") || technologyName.equals("all it jobs")) {
@@ -143,9 +127,9 @@ public class RequestCreator {
                                     || filterTechnology.getSkills().get(0).get("name").toLowerCase().contains(technologyName);
                         }
                     })
-                    .count());
+                    .count();
         } else {
-            technologyCityOffers.setJustJoinIT((int) offers
+            return (int) offers
                     .stream()
                     .filter(filterTechnology -> {
                         if (technologyName.equals("all jobs") || technologyName.equals("all it jobs")) {
@@ -157,16 +141,75 @@ public class RequestCreator {
                     })
                     .filter(filterCity -> {
                         if (cityNameASCII.equals("warszawa")) {
-                            return (filterCity.getCity().toLowerCase().contains(cityNameUTF8) || filterCity.getCity().toLowerCase().contains(cityNameASCII) || filterCity.getCity().toLowerCase().contains("warsaw"));
+                            return (filterCity.getCity().toLowerCase().contains(cityNameUTF8)
+                                    || filterCity.getCity().toLowerCase().contains(cityNameASCII)
+                                    || filterCity.getCity().toLowerCase().contains("warsaw"));
                         } else if (cityNameUTF8.equals("kraków")) {
-                            return (filterCity.getCity().toLowerCase().contains(cityNameUTF8) || filterCity.getCity().toLowerCase().contains(cityNameASCII) || filterCity.getCity().toLowerCase().contains("cracow"));
+                            return (filterCity.getCity().toLowerCase().contains(cityNameUTF8)
+                                    || filterCity.getCity().toLowerCase().contains(cityNameASCII)
+                                    || filterCity.getCity().toLowerCase().contains("cracow"));
                         } else {
-                            return (filterCity.getCity().toLowerCase().contains(cityNameUTF8) || filterCity.getCity().toLowerCase().contains(cityNameASCII));
+                            return (filterCity.getCity().toLowerCase().contains(cityNameUTF8)
+                                    || filterCity.getCity().toLowerCase().contains(cityNameASCII));
                         }
                     })
-                    .count());
+                    .count();
         }
-        return technologyCityOffers.getJustJoinIT();
+    }
+
+    public int extractNoFluffJobs(NoFluffJobs offers, String cityName, String technologyNameUpperCase) {
+
+        String cityNameASCII = removePolishSigns(cityName).toLowerCase();
+        String cityNameUTF8 = cityName.toLowerCase();
+        String technologyName = technologyNameUpperCase.toLowerCase();
+
+        if (cityNameASCII.equals("poland")) {
+            return (int) offers.getPostings()
+                    .stream()
+                    .filter(filterTechnology -> {
+                        if (technologyName.equals("all jobs") || technologyName.equals("all it jobs")) {
+                            return true;
+                        } else {
+                            return filterTechnology.getTechnology().toLowerCase().contains(technologyName);
+                        }
+                    })
+                    .count();
+        } else {
+            return (int) offers.getPostings()
+                    .stream()
+                    .filter(filterTechnology -> {
+                        if (technologyName.equals("all jobs") || technologyName.equals("all it jobs")) {
+                            return true;
+                        } else {
+                            try {
+                                return filterTechnology.getTechnology().toLowerCase().contains(technologyName);
+                            } catch (Exception e) {
+                                return false;
+                            }
+                        }
+                    })
+                    .filter(filterCity -> {
+                        if (cityNameASCII.equals("warszawa")) {
+                            return (filterCity.getCities().contains(cityNameUTF8)
+                                    || filterCity.getCities().contains(cityNameASCII)
+                                    || filterCity.getCities().contains("warsaw"));
+                        } else if (cityNameUTF8.equals("kraków")) {
+                            return (filterCity.getCities().contains(cityNameUTF8)
+                                    || filterCity.getCities().contains(cityNameASCII)
+                                    || filterCity.getCities().contains("cracow"));
+                        } else {
+                            return (filterCity.getCities().contains(cityNameUTF8)
+                                    || filterCity.getCities().contains(cityNameASCII));
+                        }
+                    })
+                    .count();
+        }
+    }
+
+    public String removePolishSigns(String city) {
+        return Normalizer.normalize(city, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .replaceAll("ł", "l");
     }
 
     private int getHtmlSubstring(String resultString, String htmlFirstPart, String htmlSecondPart) {
