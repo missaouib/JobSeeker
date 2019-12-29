@@ -100,8 +100,8 @@ public class UrlBuilder {
         return url;
     }
 
-    public static String noFluffJobsBuildUrlForCity() {
-        return "https://nofluffjobs.com/api/posting";
+    public static String noFluffJobsBuildUrlForCity(String technologyName, String cityName) {
+        return "https://nofluffjobs.com/api/search/posting?criteria=city=" + cityName + "+" + technologyName;
     }
 
     static String justJoinItBuildUrlForCity() {

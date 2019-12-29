@@ -16,9 +16,9 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    Long id;
+    private Long id;
 
-    String englishName;
-    int pracujId;
-    String polishName;
+    private int pracujId;
+    private String englishName;
+    private String polishName;
 }

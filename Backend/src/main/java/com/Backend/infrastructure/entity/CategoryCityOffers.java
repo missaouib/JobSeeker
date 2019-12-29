@@ -15,7 +15,7 @@ public class CategoryCityOffers {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @ManyToOne
     private Category category;

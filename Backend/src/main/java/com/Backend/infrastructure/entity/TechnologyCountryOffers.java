@@ -18,17 +18,17 @@ public class TechnologyCountryOffers {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @ManyToOne
-    Country country;
+    private Country country;
 
     @ManyToOne
-    Technology technology;
+    private Technology technology;
 
-    LocalDate date;
-    int linkedin;
-    int indeed;
+    private LocalDate date;
+    private int linkedin;
+    private int indeed;
 
     public TechnologyCountryOffers(Country country, Technology technology, LocalDate date) {
         this.country = country;

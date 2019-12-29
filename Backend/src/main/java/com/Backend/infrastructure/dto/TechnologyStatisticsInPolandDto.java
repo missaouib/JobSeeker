@@ -3,16 +3,13 @@ package com.Backend.infrastructure.dto;
 import lombok.Data;
 
 @Data
-public class JobsOffersInPolandDto {
+public class TechnologyStatisticsInPolandDto {
     private String name;
-    private int population;
-    private double area;
-    private int density;
+    private String type;
     private int linkedin;
     private int indeed;
     private int pracuj;
     private int noFluffJobs;
-    private int justJoinIT;
+    private int justJoin;
     private int total;
-    private double per100k;
 }

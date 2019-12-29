@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class CategoryStatisticsInPolandDto {
-    String polishName;
-    String englishName;
-    int pracuj;
-    int indeed;
+    private String polishName;
+    private String englishName;
+    private int pracuj;
+    private int indeed;
 }

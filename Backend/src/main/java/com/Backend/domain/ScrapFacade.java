@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ScrapFacade {
 
-    ScrapCategoryCity scrapCategoryCity;
-    ScrapTechnologyCity scrapTechnologyCity;
-    ScrapTechnologyCountry scrapTechnologyCountry;
+    private ScrapCategoryCity scrapCategoryCity;
+    private ScrapTechnologyCity scrapTechnologyCity;
+    private ScrapTechnologyCountry scrapTechnologyCountry;
 
     public List<JobsOffersInPolandDto> ItJobsOffersInPoland(String technologyName) {
         return scrapTechnologyCity.loadCitiesStatisticsForTechnology(technologyName.toLowerCase());

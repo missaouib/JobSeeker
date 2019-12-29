@@ -38,12 +38,12 @@ class ScrapTechnologyCountry {
     }
 
     List<JobsOffersInWorldDto> loadCountriesStatisticsForTechnology(String technologyName) {
-        List<TechnologyCountryOffers> listOffers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
+        List<TechnologyCountryOffers> offers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
-        if (listOffers.isEmpty()) {
+        if (offers.isEmpty()) {
             return scrapCountriesStatisticsForTechnology(technologyName);
         } else {
-            return listOffers
+            return offers
                     .stream()
                     .map(country -> modelMapper.map(country, JobsOffersInWorldDto.class))
                     .collect(Collectors.toList());

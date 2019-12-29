@@ -1,6 +1,6 @@
 package com.Backend.infrastructure.entity;
 
-import lombok.Getter;
+import  lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -16,8 +16,8 @@ public class Technology {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    Long id;
+    private Long id;
 
-    String name;
-    String type;
+    private String name;
+    private String type;
 }

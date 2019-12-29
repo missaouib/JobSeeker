@@ -38,12 +38,12 @@ class ScrapCategoryCity {
     }
 
     List<CategoryStatisticsInPolandDto> loadCategoryStatisticsInPoland(String cityName) {
-        List<CategoryCityOffers> listOffers = categoryCityOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName).orElse(null));
+        List<CategoryCityOffers> offers = categoryCityOffersRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName).orElse(null));
 
-        if (listOffers.isEmpty()) {
+        if (offers.isEmpty()) {
             return scrapCategoryStatisticsInPoland(cityName);
         } else {
-            return listOffers
+            return offers
                     .stream()
                     .map(category -> modelMapper.map(category, CategoryStatisticsInPolandDto.class))
                     .collect(Collectors.toList());
@@ -54,7 +54,7 @@ class ScrapCategoryCity {
         String cityNameUTF8 = cityName.toLowerCase();
         String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
         List<Category> categories = categoryRepository.findAll();
-        List<CategoryCityOffers> categoriesOffers = new ArrayList<>();
+        List<CategoryCityOffers> categoryOffers = new ArrayList<>();
         Optional<City> cityOptional = cityRepository.findCityByName(cityNameUTF8);
 
         categories.forEach(category -> {
@@ -62,11 +62,11 @@ class ScrapCategoryCity {
 
             if (category.getPracujId() != 0) {
                 String pracujUrl = UrlBuilder.pracujBuildUrlForCategory(cityNameASCII, categoryName, category.getPracujId());
-                categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujUrl), 0));
+                categoryOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujUrl), 0));
             } else {
                 String indeedUrl = UrlBuilder.indeedBuildUrlForCategoryForCity(cityNameUTF8, categoryName);
                 try {
-                    categoriesOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), 0, requestCreator.scrapIndeedOffers(indeedUrl)));
+                    categoryOffers.add(new CategoryCityOffers(category, cityOptional.orElse(null), LocalDate.now(), 0, requestCreator.scrapIndeedOffers(indeedUrl)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -76,7 +76,7 @@ class ScrapCategoryCity {
 
         return cityOptional
                 .filter(ignoredCity -> !categoryCityOffersRepository.existsFirstByDateAndCity(LocalDate.now(), ignoredCity))
-                .map(ignoredCity -> categoriesOffers.stream().map(category -> modelMapper.map(categoryCityOffersRepository.save(category), CategoryStatisticsInPolandDto.class)).collect(Collectors.toList()))
-                .orElseGet(() -> categoriesOffers.stream().map(category -> modelMapper.map(category, CategoryStatisticsInPolandDto.class)).collect(Collectors.toList()));
+                .map(ignoredCity -> categoryOffers.stream().map(category -> modelMapper.map(categoryCityOffersRepository.save(category), CategoryStatisticsInPolandDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> categoryOffers.stream().map(category -> modelMapper.map(category, CategoryStatisticsInPolandDto.class)).collect(Collectors.toList()));
     }
 }

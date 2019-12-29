@@ -5,7 +5,6 @@ import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
 import com.Backend.infrastructure.entity.TechnologyCityOffers;
 import com.Backend.infrastructure.model.JustJoinIt;
-import com.Backend.infrastructure.model.NoFluffJobs;
 import com.Backend.infrastructure.repository.CityRepository;
 import com.Backend.infrastructure.repository.TechnologyCityOffersRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
@@ -40,12 +39,12 @@ class ScrapTechnologyCity {
     }
 
     List<JobsOffersInPolandDto> loadCitiesStatisticsForTechnology(String technologyName) {
-        List<TechnologyCityOffers> listOffers = technologyCityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
+        List<TechnologyCityOffers> offers = technologyCityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
-        if (listOffers.isEmpty()) {
+        if (offers.isEmpty()) {
             return scrapCitiesStatisticsForTechnology(technologyName);
         } else {
-            return listOffers.stream()
+            return offers.stream()
                     .map(cityOffer -> modelMapper.map(cityOffer, JobsOffersInPolandDto.class))
                     .collect(Collectors.toList());
         }
@@ -56,31 +55,30 @@ class ScrapTechnologyCity {
         List<City> cities = cityRepository.findAll();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyCityOffers> technologyCityOffers = new ArrayList<>();
-
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
-        NoFluffJobs noFluffJobs = requestCreator.scrapNoFluffJobsOffers();
 
         cities.forEach(city -> {
 
             String cityNameUTF8 = city.getName().toLowerCase();
             String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
 
-            String linkedinURL = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
-            String indeedURL = UrlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
-            String pracujURL = UrlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
+            String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
+            String indeedUrl = UrlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);
+            String pracujUrl = UrlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
+            String noFluffJobsUrl = UrlBuilder.noFluffJobsBuildUrlForCity(technologyName, cityNameASCII);
 
             TechnologyCityOffers offer = new TechnologyCityOffers(city, technologyOptional.orElse(null), LocalDate.now());
 
             try {
-                offer.setIndeed(requestCreator.scrapIndeedOffers(indeedURL));
+                offer.setIndeed(requestCreator.scrapIndeedOffers(indeedUrl));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinURL));
-            offer.setPracuj(requestCreator.scrapPracujOffers(pracujURL));
-            offer.setNoFluffJobs(requestCreator.extractNoFluffJobs(noFluffJobs, city.getName(), technologyName));
-            offer.setJustJoinIT(requestCreator.extractJustJoinItJson(justJoinItOffers, city.getName(), technologyName));
+            offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinUrl));
+            offer.setPracuj(requestCreator.scrapPracujOffers(pracujUrl));
+            offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsUrl));
+            offer.setJustJoinIt(requestCreator.extractJustJoinItJson(justJoinItOffers, city.getName(), technologyName));
 
             technologyCityOffers.add(offer);
         });

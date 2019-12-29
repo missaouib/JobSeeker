@@ -16,10 +16,10 @@ public class City {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    Long id;
+    private Long id;
 
-    String name;
-    int population;
-    double area;
-    int density;
+    private String name;
+    private int population;
+    private double area;
+    private int density;
 }

@@ -7,9 +7,9 @@ import java.util.Map;
 
 @Data
 public class JustJoinIt {
-    String title;
-    String city;
-    List<Map<String, String>> skills;
+    private String title;
+    private String city;
+    private List<Map<String, String>> skills;
 //    boolean isRemote;
 //    String experience_level;
 //    int salary_from;

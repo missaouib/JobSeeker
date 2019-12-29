@@ -15,20 +15,20 @@ public class TechnologyCityOffers {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @ManyToOne
-    City city;
+    private City city;
 
     @ManyToOne
     private Technology technology;
 
-    LocalDate date;
-    int linkedin;
-    int indeed;
-    int pracuj;
-    int noFluffJobs;
-    int justJoinIT;
+    private LocalDate date;
+    private int linkedin;
+    private int indeed;
+    private int pracuj;
+    private int noFluffJobs;
+    private int justJoinIt;
 
     public TechnologyCityOffers(City city, Technology technology, LocalDate date) {
         this.city = city;

@@ -14,11 +14,12 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RequestCreator {
 
-    public static final String USER_AGENT = "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion";
+    private static final String USER_AGENT = "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion";
 
     public int scrapLinkedinOffers(String url) {
 
@@ -85,16 +86,19 @@ public class RequestCreator {
         return getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
     }
 
-    public NoFluffJobs scrapNoFluffJobsOffers() {
+    public int scrapNoFluffJobsOffers(String url) {
 
-        WebClient noFluffJobsURL = WebClient.create(UrlBuilder.noFluffJobsBuildUrlForCity());
+        WebClient noFluffJobsURL = WebClient.create(url);
 
-        return noFluffJobsURL.get()
+        NoFluffJobs response = noFluffJobsURL
+                .get()
                 .header("User-Agent", USER_AGENT)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
                 .bodyToMono(NoFluffJobs.class)
                 .block();
+
+        return Objects.requireNonNull(response).getPostings().size();
     }
 
     public List<JustJoinIt> scrapJustJoinIT() {
