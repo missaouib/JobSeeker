@@ -52,23 +52,27 @@ class ScrapTechnologyCountry {
 
     private List<JobsOffersInWorldDto> scrapCountriesStatisticsForTechnology(String technologyName) {
 
-        List<Country> countries = countryRepository.findAllCountriesWithCode();
+        //List<Country> countries = countryRepository.findAllCountriesWithCode();
+        List<Country> countries = countryRepository.findAll();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyCountryOffers> technologyCountryOffers = new ArrayList<>();
 
         countries.forEach(country -> {
 
             String countryNameUTF8 = country.getName().toLowerCase();
-
-            String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, countryNameUTF8);
-            String indeedUrl = UrlBuilder.indeedBuildUrlForCountry(technologyName, country.getCode());
-
             TechnologyCountryOffers offer = new TechnologyCountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
 
-            try {
-                offer.setIndeed(requestCreator.scrapIndeedOffers(indeedUrl));
-            } catch (IOException e) {
-                e.printStackTrace();
+            String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, countryNameUTF8);
+
+            if(country.getCode() != null) {
+
+                String indeedUrl = UrlBuilder.indeedBuildUrlForCountry(technologyName, country.getCode());
+
+                try {
+                    offer.setIndeed(requestCreator.scrapIndeedOffers(indeedUrl));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinUrl));

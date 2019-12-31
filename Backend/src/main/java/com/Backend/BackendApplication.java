@@ -13,8 +13,7 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    // check countries
-    // all cities for indeed
+    // all cities & all it jobs for all
     //[REFACTOR] Optimize justjoin
     //liqubiase
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
