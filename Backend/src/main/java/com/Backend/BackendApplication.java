@@ -13,11 +13,11 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    // all cities & all it jobs for all
     //[REFACTOR] Optimize justjoin
     //liqubiase
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add temporary technology DTO
+    //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Try Selenium for Linkedin and Glassdor
 
     //[FRONTEND] TODO
