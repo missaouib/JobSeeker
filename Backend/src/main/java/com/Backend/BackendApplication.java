@@ -13,14 +13,15 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //liqubiase
-    //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add temporary technology DTO
+    //[FEAT] Add Liqubiase
     //[FEAT] Create endpoints and logic for frontend charts
+    //[FEAT] Consider nofluff {experience, remote, category}
+    //[FEAT] Consider justjoinit {experience, remote, salary}
     //[FEAT] Try Selenium for Linkedin and Glassdor
 
     //[FRONTEND] TODO
-    //check if sending polandto backend
+    //[REFACTOR] remove "all ..." functionality
     //[REFACTOR] Check ids from DTO
     //[FEAT] Add countries column in technology view
     //[FEAT] Add countries hints in technology input(replace all cities with poland)

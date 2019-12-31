@@ -1,9 +1,7 @@
 package com.Backend.controller;
 
 import com.Backend.domain.ScrapFacade;
-import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
-import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
-import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
+import com.Backend.infrastructure.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,13 +33,13 @@ public class ScrapController {
         return scrapFacade.categoryStatisticsInPoland(location);
     }
 
-//    @GetMapping("/technologyStatisticsInPoland")
-//    public List<TechnologyDto> TechnologyStatistics(@RequestParam("location") String location) {
-//        return scrapTechnologyService.getTechnologyStatistics(location.toLowerCase());
-//    }
+    @GetMapping("/technologyStatisticsInPoland")
+    public List<TechnologyStatisticsInPolandDto> TechnologyStatisticsInPoland(@RequestParam("location") String location) {
+        return scrapFacade.technologyStatisticsInPoland(location.toLowerCase());
+    }
 
-//    @GetMapping("/technologyStatisticsInWorld")
-//    public List<TechnologyDto> TechnologyStatistics(@RequestParam("location") String location) {
-//        return scrapTechnologyService.getTechnologyStatistics(location.toLowerCase());
-//    }
+    @GetMapping("/technologyStatisticsInWorld")
+    public List<TechnologyStatisticsInWorldDto> TechnologyStatisticsInWorld(@RequestParam("location") String location) {
+        return scrapFacade.technologyStatisticsInWorld(location.toLowerCase());
+    }
 }

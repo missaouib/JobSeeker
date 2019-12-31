@@ -3,10 +3,10 @@ package com.Backend.domain;
 import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
-import com.Backend.infrastructure.entity.TechnologyCityOffers;
+import com.Backend.infrastructure.entity.TechnologyOffersInPoland;
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.CityRepository;
-import com.Backend.infrastructure.repository.TechnologyCityOffersRepository;
+import com.Backend.infrastructure.repository.TechnologyOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
 import com.Backend.service.DtoMapper;
 import com.Backend.service.RequestCreator;
@@ -25,12 +25,12 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-class ScrapTechnologyCity {
+class ScrapTechnologyInPoland {
 
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;
     private TechnologyRepository technologyRepository;
-    private TechnologyCityOffersRepository technologyCityOffersRepository;
+    private TechnologyOffersInPolandRepository technologyOffersInPolandRepository;
     private CityRepository cityRepository;
 
     @PostConstruct
@@ -38,11 +38,11 @@ class ScrapTechnologyCity {
         this.modelMapper.addMappings(DtoMapper.technologyCityOffersMapper);
     }
 
-    List<JobsOffersInPolandDto> loadCitiesStatisticsForTechnology(String technologyName, List<JustJoinIt> justJoinItOffers) {
-        List<TechnologyCityOffers> offers = technologyCityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
+    List<JobsOffersInPolandDto> loadItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
+        List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
         if (offers.isEmpty()) {
-            return scrapCitiesStatisticsForTechnology(technologyName, justJoinItOffers);
+            return scrapItJobsOffersInPoland(technologyName, justJoinItOffers);
         } else {
             return offers.stream()
                     .map(cityOffer -> modelMapper.map(cityOffer, JobsOffersInPolandDto.class))
@@ -50,11 +50,11 @@ class ScrapTechnologyCity {
         }
     }
 
-    private List<JobsOffersInPolandDto> scrapCitiesStatisticsForTechnology(String technologyName, List<JustJoinIt> justJoinItOffers) {
+    private List<JobsOffersInPolandDto> scrapItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
 
         List<City> cities = cityRepository.findAll();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
-        List<TechnologyCityOffers> technologyCityOffers = new ArrayList<>();
+        List<TechnologyOffersInPoland> technologyOfferInPolands = new ArrayList<>();
 
         if(justJoinItOffers.isEmpty()){
             justJoinItOffers = requestCreator.scrapJustJoinIT();
@@ -71,7 +71,7 @@ class ScrapTechnologyCity {
             String pracujUrl = UrlBuilder.pracujBuildUrlForCity(technologyName, cityNameASCII);
             String noFluffJobsUrl = UrlBuilder.noFluffJobsBuildUrlForCity(technologyName, cityNameASCII);
 
-            TechnologyCityOffers offer = new TechnologyCityOffers(city, technologyOptional.orElse(null), LocalDate.now());
+            TechnologyOffersInPoland offer = new TechnologyOffersInPoland(city, technologyOptional.orElse(null), LocalDate.now());
 
             try {
                 offer.setIndeed(requestCreator.scrapIndeedOffers(indeedUrl));
@@ -84,16 +84,16 @@ class ScrapTechnologyCity {
             offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsUrl));
             offer.setJustJoinIt(requestCreator.extractJustJoinItJson(finalJustJoinItOffers, city.getName(), technologyName));
 
-            technologyCityOffers.add(offer);
+            technologyOfferInPolands.add(offer);
         });
 
         return technologyOptional
-                .filter(ignoredTechnologyCity -> !technologyCityOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnologyCity))
-                .map(savedTechnologyCity -> technologyCityOffers
+                .filter(ignoredTechnologyCity -> !technologyOffersInPolandRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnologyCity))
+                .map(savedTechnologyCity -> technologyOfferInPolands
                         .stream()
-                        .map(technologyCity -> modelMapper.map(technologyCityOffersRepository.save(technologyCity), JobsOffersInPolandDto.class))
+                        .map(technologyCity -> modelMapper.map(technologyOffersInPolandRepository.save(technologyCity), JobsOffersInPolandDto.class))
                         .collect(Collectors.toList()))
-                .orElseGet(() -> technologyCityOffers
+                .orElseGet(() -> technologyOfferInPolands
                         .stream()
                         .map(technologyCity -> modelMapper.map(technologyCity, JobsOffersInPolandDto.class)).collect(Collectors.toList()))
                 .stream()

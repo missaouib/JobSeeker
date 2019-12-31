@@ -3,9 +3,9 @@ package com.Backend.domain;
 import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
 import com.Backend.infrastructure.entity.Country;
 import com.Backend.infrastructure.entity.Technology;
-import com.Backend.infrastructure.entity.TechnologyCountryOffers;
+import com.Backend.infrastructure.entity.TechnologyOffersInWorld;
 import com.Backend.infrastructure.repository.CountryRepository;
-import com.Backend.infrastructure.repository.TechnologyCountryOffersRepository;
+import com.Backend.infrastructure.repository.TechnologyOffersInWorldRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
 import com.Backend.service.DtoMapper;
 import com.Backend.service.RequestCreator;
@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-class ScrapTechnologyCountry {
+class ScrapTechnologyInWorld {
 
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;
     private TechnologyRepository technologyRepository;
-    private TechnologyCountryOffersRepository technologyCountryOffersRepository;
+    private TechnologyOffersInWorldRepository technologyOffersInWorldRepository;
     private CountryRepository countryRepository;
 
     @PostConstruct
@@ -37,11 +37,11 @@ class ScrapTechnologyCountry {
         this.modelMapper.addMappings(DtoMapper.technologyCountryOffersMapper);
     }
 
-    List<JobsOffersInWorldDto> loadCountriesStatisticsForTechnology(String technologyName) {
-        List<TechnologyCountryOffers> offers = technologyCountryOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
+    List<JobsOffersInWorldDto> loadItJobOffersInWorld(String technologyName) {
+        List<TechnologyOffersInWorld> offers = technologyOffersInWorldRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
         if (offers.isEmpty()) {
-            return scrapCountriesStatisticsForTechnology(technologyName);
+            return scrapItJobOffersInWorld(technologyName);
         } else {
             return offers
                     .stream()
@@ -50,17 +50,16 @@ class ScrapTechnologyCountry {
         }
     }
 
-    private List<JobsOffersInWorldDto> scrapCountriesStatisticsForTechnology(String technologyName) {
+    private List<JobsOffersInWorldDto> scrapItJobOffersInWorld(String technologyName) {
 
-        //List<Country> countries = countryRepository.findAllCountriesWithCode();
         List<Country> countries = countryRepository.findAll();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
-        List<TechnologyCountryOffers> technologyCountryOffers = new ArrayList<>();
+        List<TechnologyOffersInWorld> technologyOfferInWorlds = new ArrayList<>();
 
         countries.forEach(country -> {
 
             String countryNameUTF8 = country.getName().toLowerCase();
-            TechnologyCountryOffers offer = new TechnologyCountryOffers(country, technologyOptional.orElse(null), LocalDate.now());
+            TechnologyOffersInWorld offer = new TechnologyOffersInWorld(country, technologyOptional.orElse(null), LocalDate.now());
 
             String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, countryNameUTF8);
 
@@ -77,13 +76,13 @@ class ScrapTechnologyCountry {
 
             offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinUrl));
 
-            technologyCountryOffers.add(offer);
+            technologyOfferInWorlds.add(offer);
         });
 
         return technologyOptional
-                .filter(ignoredTechnology -> !technologyCountryOffersRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
-                .map(ignoredCity -> technologyCountryOffers.stream().map(category -> modelMapper.map(technologyCountryOffersRepository.save(category), JobsOffersInWorldDto.class)).collect(Collectors.toList()))
-                .orElseGet(() -> technologyCountryOffers.stream().map(city -> modelMapper.map(city, JobsOffersInWorldDto.class)).collect(Collectors.toList()))
+                .filter(ignoredTechnology -> !technologyOffersInWorldRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnology))
+                .map(ignoredCity -> technologyOfferInWorlds.stream().map(category -> modelMapper.map(technologyOffersInWorldRepository.save(category), JobsOffersInWorldDto.class)).collect(Collectors.toList()))
+                .orElseGet(() -> technologyOfferInWorlds.stream().map(city -> modelMapper.map(city, JobsOffersInWorldDto.class)).collect(Collectors.toList()))
                 .stream()
                 .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setPer100k(Math.round(jobsOffersInWorldDto.getIndeed() * 1.0 / (jobsOffersInWorldDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());

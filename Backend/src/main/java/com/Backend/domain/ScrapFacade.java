@@ -1,8 +1,6 @@
 package com.Backend.domain;
 
-import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
-import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
-import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
+import com.Backend.infrastructure.dto.*;
 import com.Backend.infrastructure.model.JustJoinIt;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,20 +11,30 @@ import java.util.List;
 @AllArgsConstructor
 public class ScrapFacade {
 
-    private ScrapCategoryCity scrapCategoryCity;
-    private ScrapTechnologyCity scrapTechnologyCity;
-    private ScrapTechnologyCountry scrapTechnologyCountry;
+    private ScrapCategoryInPoland scrapCategoryInPoland;
+    private ScrapTechnologyInPoland scrapTechnologyInPoland;
+    private ScrapTechnologyInWorld scrapTechnologyInWorld;
+    private TemporaryScrapTechnologyInPoland temporaryScrapTechnologyInPoland;
+    private TemporaryScrapTechnologyInWorld temporaryScrapTechnologyInWorld;
 
     public List<JobsOffersInPolandDto> ItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
-        return scrapTechnologyCity.loadCitiesStatisticsForTechnology(technologyName.toLowerCase(), justJoinItOffers);
+        return scrapTechnologyInPoland.loadItJobsOffersInPoland(technologyName.toLowerCase(), justJoinItOffers);
     }
 
     public List<JobsOffersInWorldDto> itJobOffersInWorld(String technologyName) {
-        return scrapTechnologyCountry.loadCountriesStatisticsForTechnology(technologyName.toLowerCase());
+        return scrapTechnologyInWorld.loadItJobOffersInWorld(technologyName.toLowerCase());
     }
 
     public List<CategoryStatisticsInPolandDto> categoryStatisticsInPoland(String location) {
-        return scrapCategoryCity.loadCategoryStatisticsInPoland(location.toLowerCase());
+        return scrapCategoryInPoland.loadCategoryStatisticsInPoland(location.toLowerCase());
+    }
+
+    public List<TechnologyStatisticsInPolandDto> technologyStatisticsInPoland(String location) {
+        return temporaryScrapTechnologyInPoland.loadTechnologyStatisticsInPoland(location);
+    }
+
+    public List<TechnologyStatisticsInWorldDto> technologyStatisticsInWorld(String location) {
+        return temporaryScrapTechnologyInWorld.loadTechnologyStatisticsInWorld(location);
     }
 
 }

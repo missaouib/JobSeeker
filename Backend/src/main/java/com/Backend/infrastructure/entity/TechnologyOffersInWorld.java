@@ -4,21 +4,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
-public class TechnologyCityOffers {
+public class TechnologyOffersInWorld {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne
-    private City city;
+    private Country country;
 
     @ManyToOne
     private Technology technology;
@@ -26,12 +29,9 @@ public class TechnologyCityOffers {
     private LocalDate date;
     private int linkedin;
     private int indeed;
-    private int pracuj;
-    private int noFluffJobs;
-    private int justJoinIt;
 
-    public TechnologyCityOffers(City city, Technology technology, LocalDate date) {
-        this.city = city;
+    public TechnologyOffersInWorld(Country country, Technology technology, LocalDate date) {
+        this.country = country;
         this.technology = technology;
         this.date = date;
     }

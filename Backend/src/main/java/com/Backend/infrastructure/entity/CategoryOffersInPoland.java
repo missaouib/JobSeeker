@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-public class CategoryCityOffers {
+public class CategoryOffersInPoland {
 
     @Id
     @GeneratedValue
@@ -27,7 +27,7 @@ public class CategoryCityOffers {
     private int pracuj;
     private int indeed;
 
-    public CategoryCityOffers(Category category, City city, LocalDate date, int pracuj, int indeed) {
+    public CategoryOffersInPoland(Category category, City city, LocalDate date, int pracuj, int indeed) {
         this.category = category;
         this.city = city;
         this.date = date;
