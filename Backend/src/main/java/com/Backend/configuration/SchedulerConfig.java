@@ -1,7 +1,9 @@
 package com.Backend.configuration;
 
 import com.Backend.domain.ScrapFacade;
+import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.*;
+import com.Backend.service.RequestCreator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class SchedulerConfig {
 
     private ScrapFacade scrapFacade;
+    private RequestCreator requestCreator;
     private CityRepository cityRepository;
     private CountryRepository countryRepository;
     private CategoryRepository categoryRepository;
@@ -29,8 +32,9 @@ public class SchedulerConfig {
     public SchedulerConfig(ScrapFacade scrapFacade, CityRepository cityRepository, TechnologyRepository technologyRepository,
     CategoryCityOffersRepository categoryCityOffersRepository, TechnologyCityOffersRepository technologyCityOffersRepository,
                            TechnologyCountryOffersRepository technologyCountryOffersRepository, CategoryRepository categoryRepository,
-                           CountryRepository countryRepository) {
+                           CountryRepository countryRepository, RequestCreator requestCreator) {
         this.scrapFacade = Objects.requireNonNull(scrapFacade);
+        this.requestCreator = Objects.requireNonNull(requestCreator);
         this.cityRepository = Objects.requireNonNull(cityRepository);
         this.countryRepository = Objects.requireNonNull(countryRepository);
         this.categoryRepository = Objects.requireNonNull(categoryRepository);
@@ -46,9 +50,9 @@ public class SchedulerConfig {
         this.technologiesNames = technologyRepository.findAllNames();
     }
 
-    private void runForCities(){
+    private void runForCities(List<JustJoinIt> justJoinItOffers){
         technologiesNames.forEach(technologyName -> {
-            scrapFacade.ItJobsOffersInPoland(technologyName);
+            scrapFacade.ItJobsOffersInPoland(technologyName, justJoinItOffers);
             waitRandomUnderTwoSeconds();
         });
     }
@@ -56,11 +60,13 @@ public class SchedulerConfig {
     @Scheduled(cron = "0 0 1 * * *")
     public void cyclicScraping() {
 
-        runForCities();
+        List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
+
+        runForCities(justJoinItOffers);
         runForCountries();
         runForCategories();
 
-        verifyData();
+        verifyData(justJoinItOffers);
     }
 
     private void runForCountries(){
@@ -77,11 +83,11 @@ public class SchedulerConfig {
         });
     }
 
-    private void verifyData() {
+    private void verifyData(List<JustJoinIt> justJoinItOffers) {
 
-        if(categoryCityOffersRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * categoryRepository.findAll().size()){
+        if(categoryCityOffersRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * categoryRepository.findAll().size()) {
             waitRandomFrom20To30Minutes();
-            runForCities();
+            runForCities(justJoinItOffers);
         }
 
         if(technologyCityOffersRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * technologyRepository.findAll().size()){

@@ -3,6 +3,7 @@ package com.Backend.domain;
 import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
 import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
 import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
+import com.Backend.infrastructure.model.JustJoinIt;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,8 @@ public class ScrapFacade {
     private ScrapTechnologyCity scrapTechnologyCity;
     private ScrapTechnologyCountry scrapTechnologyCountry;
 
-    public List<JobsOffersInPolandDto> ItJobsOffersInPoland(String technologyName) {
-        return scrapTechnologyCity.loadCitiesStatisticsForTechnology(technologyName.toLowerCase());
+    public List<JobsOffersInPolandDto> ItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
+        return scrapTechnologyCity.loadCitiesStatisticsForTechnology(technologyName.toLowerCase(), justJoinItOffers);
     }
 
     public List<JobsOffersInWorldDto> itJobOffersInWorld(String technologyName) {

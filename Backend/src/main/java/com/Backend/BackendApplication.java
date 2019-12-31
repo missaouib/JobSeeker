@@ -13,7 +13,6 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[REFACTOR] Optimize justjoin
     //liqubiase
     //[FEAT] Nofluff/justjoin {category, experience, remote} + {salary}
     //[FEAT] Add temporary technology DTO

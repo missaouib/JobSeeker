@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -21,7 +22,7 @@ public class ScrapController {
 
     @GetMapping("/iTJobOffersInPoland")
     public List<JobsOffersInPolandDto> iTJobOffersInPoland(@RequestParam("technology") String technology) {
-        return scrapFacade.ItJobsOffersInPoland(technology);
+        return scrapFacade.ItJobsOffersInPoland(technology, new ArrayList<>());
     }
 
     @GetMapping("/iTJobOffersInWorld")

@@ -38,11 +38,11 @@ class ScrapTechnologyCity {
         this.modelMapper.addMappings(DtoMapper.technologyCityOffersMapper);
     }
 
-    List<JobsOffersInPolandDto> loadCitiesStatisticsForTechnology(String technologyName) {
+    List<JobsOffersInPolandDto> loadCitiesStatisticsForTechnology(String technologyName, List<JustJoinIt> justJoinItOffers) {
         List<TechnologyCityOffers> offers = technologyCityOffersRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
 
         if (offers.isEmpty()) {
-            return scrapCitiesStatisticsForTechnology(technologyName);
+            return scrapCitiesStatisticsForTechnology(technologyName, justJoinItOffers);
         } else {
             return offers.stream()
                     .map(cityOffer -> modelMapper.map(cityOffer, JobsOffersInPolandDto.class))
@@ -50,12 +50,16 @@ class ScrapTechnologyCity {
         }
     }
 
-    private List<JobsOffersInPolandDto> scrapCitiesStatisticsForTechnology(String technologyName) {
+    private List<JobsOffersInPolandDto> scrapCitiesStatisticsForTechnology(String technologyName, List<JustJoinIt> justJoinItOffers) {
 
         List<City> cities = cityRepository.findAll();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyCityOffers> technologyCityOffers = new ArrayList<>();
-        List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
+
+        if(justJoinItOffers.isEmpty()){
+            justJoinItOffers = requestCreator.scrapJustJoinIT();
+        }
+        List<JustJoinIt> finalJustJoinItOffers = justJoinItOffers;
 
         cities.forEach(city -> {
 
@@ -78,7 +82,7 @@ class ScrapTechnologyCity {
             offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinUrl));
             offer.setPracuj(requestCreator.scrapPracujOffers(pracujUrl));
             offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsUrl));
-            offer.setJustJoinIt(requestCreator.extractJustJoinItJson(justJoinItOffers, city.getName(), technologyName));
+            offer.setJustJoinIt(requestCreator.extractJustJoinItJson(finalJustJoinItOffers, city.getName(), technologyName));
 
             technologyCityOffers.add(offer);
         });
