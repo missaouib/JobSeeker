@@ -3,30 +3,29 @@ package com.Backend.service;
 public class UrlBuilder {
 
     public static String linkedinBuildUrlForCityAndCountry(String technologyName, String cityOrCountry) {
-        String url = "https://www.linkedin.com/jobs/search?keywords=" + technologyName + "&location=" + cityOrCountry;
+        String url = "https://www.linkedin.com/jobs/" + technologyName + "-jobs-" + cityOrCountry;
 
         switch (technologyName) {
             case "all jobs":
-                url = "https://www.linkedin.com/jobs/search?keywords=&location=" + cityOrCountry;
+                url = "https://www.linkedin.com/jobs/search?location=" + cityOrCountry;
                 break;
             case "all it jobs":
-                url = "https://www.linkedin.com/jobs/search?location=" + cityOrCountry + "&pageNum=0&position=1&f_TP=1%2C2%2C3%2C4&f_I=96";
-                break;
-            case "c++":
-                url = "https://www.linkedin.com/jobs/c++-jobs-" + cityOrCountry;
+                url = "https://www.linkedin.com/jobs/search?location=" + cityOrCountry + "&position=1&f_TP=1%2C2%2C3%2C4&f_I=96";
                 break;
             case "c#":
                 url = "https://www.linkedin.com/jobs/search?keywords=C%23&location=" + cityOrCountry;
                 break;
         }
 
-        if (cityOrCountry.equals("poland") && !technologyName.equals("all it jobs") && !technologyName.equals("all jobs")) {
-            url = "https://www.linkedin.com/jobs/" + technologyName + "-jobs-poland";
+        if (cityOrCountry.equals("all cities")) {
+            if (!technologyName.equals("all it jobs") && !technologyName.equals("all jobs")) {
+                url = "https://www.linkedin.com/jobs/" + technologyName + "-jobs-poland";
+            } else if(technologyName.equals("all jobs")){
+                url = "https://www.linkedin.com/jobs/search?location=poland";
+            } else {
+                url = "https://www.linkedin.com/jobs/search?location=poland&position=1&f_TP=1%2C2%2C3%2C4&f_I=96";
+            }
         }
-        if (cityOrCountry.equals("poland") && technologyName.equals("c++")) {
-            url = "https://www.linkedin.com/jobs/c++-jobs-poland";
-        }
-
         return url;
     }
 
