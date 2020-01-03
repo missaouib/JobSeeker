@@ -39,7 +39,7 @@ class ScrapTechnologyInWorld {
 
     List<JobsOffersInWorldDto> getItJobOffersInWorld(String technologyName) {
         List<TechnologyOffersInWorld> offers = technologyOffersInWorldRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName)
-                .orElseThrow(IllegalStateException::new));
+                .orElse(null));
 
         if (offers.isEmpty()) {
             return mapToDto(scrapItJobOffersInWorld(technologyName));
@@ -69,7 +69,7 @@ class ScrapTechnologyInWorld {
 
             String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, countryNameUTF8);
 
-            if(country.getCode() != null) {
+            if (country.getCode() != null) {
 
                 String indeedUrl = UrlBuilder.indeedBuildUrlForCountry(technologyName, country.getCode());
 

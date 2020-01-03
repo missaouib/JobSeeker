@@ -1,8 +1,6 @@
 package com.Backend.service;
 
-import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
-import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
-import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
+import com.Backend.infrastructure.dto.*;
 import com.Backend.infrastructure.entity.CategoryOffersInPoland;
 import com.Backend.infrastructure.entity.TechnologyOffersInPoland;
 import com.Backend.infrastructure.entity.TechnologyOffersInWorld;
@@ -32,6 +30,20 @@ public class DtoMapper {
             map().setPopulation(source.getCountry().getPopulation());
             map().setArea(source.getCountry().getArea());
             map().setDensity(source.getCountry().getDensity());
+        }
+    };
+
+    public static PropertyMap<TechnologyOffersInPoland, TechnologyStatisticsInPolandDto> technologyStatisticsInPolandMapper = new PropertyMap<TechnologyOffersInPoland, TechnologyStatisticsInPolandDto>() {
+        protected void configure() {
+            map().setName(source.getTechnology().getName());
+            map().setType(source.getTechnology().getType());
+        }
+    };
+
+    public static PropertyMap<TechnologyOffersInWorld, TechnologyStatisticsInWorldDto> technologyStatisticsInWorldMapper = new PropertyMap<TechnologyOffersInWorld, TechnologyStatisticsInWorldDto>() {
+        protected void configure() {
+            map().setName(source.getTechnology().getName());
+            map().setType(source.getTechnology().getType());
         }
     };
 

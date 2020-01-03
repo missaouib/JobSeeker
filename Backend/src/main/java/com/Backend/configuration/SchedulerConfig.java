@@ -50,7 +50,7 @@ public class SchedulerConfig {
         this.technologiesNames = technologyRepository.findAllNames();
     }
 
-    private void runForCities(List<JustJoinIt> justJoinItOffers){
+    private void runForCities(List<JustJoinIt> justJoinItOffers) {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.ItJobsOffersInPoland(technologyName, justJoinItOffers);
             waitRandomUnderTwoSeconds();
@@ -69,14 +69,14 @@ public class SchedulerConfig {
         verifyData(justJoinItOffers);
     }
 
-    private void runForCountries(){
+    private void runForCountries() {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.itJobOffersInWorld(technologyName);
             waitRandomUnderTwoSeconds();
         });
     }
 
-    private void runForCategories(){
+    private void runForCategories() {
         citiesNames.forEach(cityName -> {
             scrapFacade.categoryStatisticsInPoland(cityName);
             waitRandomUnderTwoSeconds();
@@ -85,17 +85,17 @@ public class SchedulerConfig {
 
     private void verifyData(List<JustJoinIt> justJoinItOffers) {
 
-        if(categoryOffersInPolandRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * categoryRepository.findAll().size()) {
+        if (categoryOffersInPolandRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * categoryRepository.findAll().size()) {
             waitRandomFrom20To30Minutes();
             runForCities(justJoinItOffers);
         }
 
-        if(technologyOffersInPolandRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * technologyRepository.findAll().size()){
+        if (technologyOffersInPolandRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * technologyRepository.findAll().size()) {
             waitRandomFrom20To30Minutes();
             runForCountries();
         }
 
-        if(technologyOffersInWorldRepository.findByDate(LocalDate.now()).size() != countryRepository.findAll().size() * technologyRepository.findAll().size()){
+        if (technologyOffersInWorldRepository.findByDate(LocalDate.now()).size() != countryRepository.findAll().size() * technologyRepository.findAll().size()) {
             waitRandomFrom20To30Minutes();
             runForCategories();
         }
@@ -110,7 +110,7 @@ public class SchedulerConfig {
         }
     }
 
-    private void waitRandomFrom20To30Minutes(){
+    private void waitRandomFrom20To30Minutes() {
         try {
             TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(1200000, 1800000));
         } catch (InterruptedException e) {

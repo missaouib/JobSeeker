@@ -40,7 +40,7 @@ class ScrapTechnologyInPoland {
 
     List<JobsOffersInPolandDto> getItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
         List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName)
-                .orElseThrow(IllegalStateException::new));
+                .orElse(null));
 
         if (offers.isEmpty()) {
             return mapToDto(scrapItJobsOffersInPoland(technologyName, justJoinItOffers));
@@ -63,7 +63,7 @@ class ScrapTechnologyInPoland {
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyOffersInPoland> technologyOfferInPoland = new ArrayList<>();
 
-        if(justJoinItOffers.isEmpty()){
+        if (justJoinItOffers.isEmpty()) {
             justJoinItOffers = requestCreator.scrapJustJoinIT();
         }
         List<JustJoinIt> finalJustJoinItOffers = justJoinItOffers;

@@ -1,7 +1,5 @@
 package com.Backend.domain;
 
-import com.Backend.infrastructure.dto.CityDto;
-import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
 import com.Backend.infrastructure.dto.TechnologyStatisticsInPolandDto;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
@@ -36,20 +34,34 @@ class TemporaryScrapTechnologyInPoland {
 
     @PostConstruct
     public void AddMapper() {
-        this.modelMapper.addMappings(DtoMapper.);
+        this.modelMapper.addMappings(DtoMapper.technologyStatisticsInPolandMapper);
     }
 
     List<TechnologyStatisticsInPolandDto> getTechnologyStatisticsInPoland(String cityName) {
-        return scrapTechnologyStatisticsInWorld(cityName);
+        List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName)
+                .orElse(null));
+
+        if (offers.isEmpty()) {
+            return mapToDto(scrapTechnologyStatisticsInWorld(cityName));
+        } else {
+            return mapToDto(offers);
+        }
     }
 
-    private List<TechnologyStatisticsInPolandDto> scrapTechnologyStatisticsInWorld(String cityName) {
+    private <T> List<TechnologyStatisticsInPolandDto> mapToDto(final List<T> offers) {
+        return offers.stream()
+                .map(technologyStatisticsInPoland -> modelMapper.map(technologyStatisticsInPoland, TechnologyStatisticsInPolandDto.class))
+                .peek(statsInPoland -> statsInPoland.setTotal(statsInPoland.getLinkedin() + statsInPoland.getPracuj() + statsInPoland.getNoFluffJobs() + statsInPoland.getJustJoin()))
+                .collect(Collectors.toList());
+    }
+
+    private List<TechnologyOffersInPoland> scrapTechnologyStatisticsInWorld(String cityName) {
 
         String cityNameUTF8 = cityName.toLowerCase();
         String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8).toLowerCase();
         List<Technology> technologies = technologyRepository.findAll();
         City city = cityRepository.findCityByName(cityNameUTF8).orElse(null);
-        List<TechnologyOffersInPoland> technologyOfferInPolands = new ArrayList<>();
+        List<TechnologyOffersInPoland> technologyOfferInPoland = new ArrayList<>();
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
 
         technologies.forEach(technology -> {
@@ -72,17 +84,12 @@ class TemporaryScrapTechnologyInPoland {
             offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinDynamicURL));
             offer.setPracuj(requestCreator.scrapPracujOffers(pracujDynamicURL));
             offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
-            offer.setJustJoinIt(requestCreator.extractJustJoinItJson(justJoinItOffers, city.getName(), technologyName));
+            offer.setJustJoinIt(requestCreator.extractJustJoinItJson(justJoinItOffers, cityNameUTF8, technologyName));
 
-            technologyOfferInPolands.add(offer);
+            technologyOfferInPoland.add(offer);
         });
 
-        return technologyOfferInPolands
-                .stream()
-                .map(cityOffer -> modelMapper.map(technologyOffersInPolandRepository.save(cityOffer), TechnologyStatisticsInPolandDto.class))
-                .peek(cityDto -> cityDto.setTotal(cityDto.getLinkedin() + cityDto.getPracuj() + cityDto.getNoFluffJobs() + cityDto.getJustJoinIT()))
-                .peek(cityDto -> cityDto.setPer100k(Math.round(cityDto.getTotal() * 1.0 / (cityDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
-                .collect(Collectors.toList());
+        return technologyOfferInPoland;
     }
 
 }

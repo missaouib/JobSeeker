@@ -26,12 +26,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 class ScrapCategoryInPoland {
 
+    private static final int PLACEHOLDER_OFFER = 0;
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;
     private CityRepository cityRepository;
     private CategoryRepository categoryRepository;
     private CategoryOffersInPolandRepository categoryOffersInPolandRepository;
-    private static final int PLACEHOLDER_OFFER = 0;
 
     @PostConstruct
     public void AddMapper() {
@@ -40,7 +40,7 @@ class ScrapCategoryInPoland {
 
     List<CategoryStatisticsInPolandDto> getCategoryStatisticsInPoland(String cityName) {
         List<CategoryOffersInPoland> offers = categoryOffersInPolandRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName)
-                .orElseThrow(IllegalStateException::new));
+                .orElse(null));
 
         if (offers.isEmpty()) {
             return mapToDto(scrapCategoryStatisticsInPoland(cityName));

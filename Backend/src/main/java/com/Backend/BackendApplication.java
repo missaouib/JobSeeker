@@ -13,12 +13,12 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[FEAT] Add temporary technology DTO
-    //[FEAT] Add Liqubiase
+    //[FEAT] Add temporary technology Country + manual test
+    //[FEAT] Add Liquibase
     //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
     //[FEAT] Consider justjoinit {experience, remote, salary}
-    //[FEAT] Try Selenium for Linkedin and Glassdor
+    //[FEAT] Try Selenium with proxy for Linkedin and Glassdor
 
     //[FRONTEND] TODO
     //[REFACTOR] remove "all ..." functionality
