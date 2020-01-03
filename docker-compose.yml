@@ -1,33 +1,33 @@
 version: '3.5'
 
 services:
+  database:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=docker
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+    volumes:
+      - postgres:/data/postgres
   backend:
-    container_name: spring
     build: ./Backend
     ports:
      - 8080:8080
     depends_on:
      - database
+    environment:
+      - SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/docker
     volumes:
      - ./Backend:/home/backend/
   frontend:
-    container_name: angular
     build: ./Frontend
     ports:
      - 80:80
     volumes:
      - ./Frontend:/app
-  database:
-    container_name: psql
-    image: postgres
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=12345
-    volumes:
-      - postgres:/data/postgres
+
 
 volumes:
   postgres:

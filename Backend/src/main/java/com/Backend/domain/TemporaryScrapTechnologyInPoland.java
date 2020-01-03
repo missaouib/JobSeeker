@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class TemporaryScrapTechnologyInPoland {
+class TemporaryScrapTechnologyInPoland {
 
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;
@@ -39,11 +39,11 @@ public class TemporaryScrapTechnologyInPoland {
         this.modelMapper.addMappings(DtoMapper.);
     }
 
-    public List<TechnologyStatisticsInPolandDto> loadTechnologyStatisticsInPoland(String cityName) {
-
+    List<TechnologyStatisticsInPolandDto> getTechnologyStatisticsInPoland(String cityName) {
+        return scrapTechnologyStatisticsInWorld(cityName);
     }
 
-    public List<TechnologyStatisticsInPolandDto> scrapTechnologyStatisticsInWorld(String cityName) {
+    private List<TechnologyStatisticsInPolandDto> scrapTechnologyStatisticsInWorld(String cityName) {
 
         String cityNameUTF8 = cityName.toLowerCase();
         String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8).toLowerCase();

@@ -38,23 +38,30 @@ class ScrapTechnologyInPoland {
         this.modelMapper.addMappings(DtoMapper.technologyCityOffersMapper);
     }
 
-    List<JobsOffersInPolandDto> loadItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
-        List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName).orElse(null));
+    List<JobsOffersInPolandDto> getItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
+        List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName)
+                .orElseThrow(IllegalStateException::new));
 
         if (offers.isEmpty()) {
-            return scrapItJobsOffersInPoland(technologyName, justJoinItOffers);
+            return mapToDto(scrapItJobsOffersInPoland(technologyName, justJoinItOffers));
         } else {
-            return offers.stream()
-                    .map(cityOffer -> modelMapper.map(cityOffer, JobsOffersInPolandDto.class))
-                    .collect(Collectors.toList());
+            return mapToDto(offers);
         }
     }
 
-    private List<JobsOffersInPolandDto> scrapItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
+    private <T> List<JobsOffersInPolandDto> mapToDto(final List<T> offers) {
+        return offers.stream()
+                .map(offerInPoland -> modelMapper.map(offerInPoland, JobsOffersInPolandDto.class))
+                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setTotal(jobsOffersInPolandDto.getLinkedin() + jobsOffersInPolandDto.getPracuj() + jobsOffersInPolandDto.getNoFluffJobs() + jobsOffersInPolandDto.getJustJoinIT()))
+                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setPer100k(Math.round(jobsOffersInPolandDto.getTotal() * 1.0 / (jobsOffersInPolandDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+                .collect(Collectors.toList());
+    }
+
+    private List<TechnologyOffersInPoland> scrapItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
 
         List<City> cities = cityRepository.findAll();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
-        List<TechnologyOffersInPoland> technologyOfferInPolands = new ArrayList<>();
+        List<TechnologyOffersInPoland> technologyOfferInPoland = new ArrayList<>();
 
         if(justJoinItOffers.isEmpty()){
             justJoinItOffers = requestCreator.scrapJustJoinIT();
@@ -84,22 +91,16 @@ class ScrapTechnologyInPoland {
             offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsUrl));
             offer.setJustJoinIt(requestCreator.extractJustJoinItJson(finalJustJoinItOffers, city.getName(), technologyName));
 
-            technologyOfferInPolands.add(offer);
+            technologyOfferInPoland.add(offer);
         });
 
-        return technologyOptional
+        return new ArrayList<>(technologyOptional
                 .filter(ignoredTechnologyCity -> !technologyOffersInPolandRepository.existsFirstByDateAndTechnology(LocalDate.now(), ignoredTechnologyCity))
-                .map(savedTechnologyCity -> technologyOfferInPolands
+                .map(savedTechnologyCity -> technologyOfferInPoland
                         .stream()
-                        .map(technologyCity -> modelMapper.map(technologyOffersInPolandRepository.save(technologyCity), JobsOffersInPolandDto.class))
+                        .map(technologyCity -> technologyOffersInPolandRepository.save(technologyCity))
                         .collect(Collectors.toList()))
-                .orElseGet(() -> technologyOfferInPolands
-                        .stream()
-                        .map(technologyCity -> modelMapper.map(technologyCity, JobsOffersInPolandDto.class)).collect(Collectors.toList()))
-                .stream()
-                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setTotal(jobsOffersInPolandDto.getLinkedin() + jobsOffersInPolandDto.getPracuj() + jobsOffersInPolandDto.getNoFluffJobs() + jobsOffersInPolandDto.getJustJoinIT()))
-                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setPer100k(Math.round(jobsOffersInPolandDto.getTotal() * 1.0 / (jobsOffersInPolandDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
-                .collect(Collectors.toList());
+                .orElse(technologyOfferInPoland));
     }
 
 }

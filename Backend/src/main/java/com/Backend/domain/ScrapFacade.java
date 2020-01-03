@@ -18,19 +18,19 @@ public class ScrapFacade {
     private TemporaryScrapTechnologyInWorld temporaryScrapTechnologyInWorld;
 
     public List<JobsOffersInPolandDto> ItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
-        return scrapTechnologyInPoland.loadItJobsOffersInPoland(technologyName.toLowerCase(), justJoinItOffers);
+        return scrapTechnologyInPoland.getItJobsOffersInPoland(technologyName.toLowerCase(), justJoinItOffers);
     }
 
     public List<JobsOffersInWorldDto> itJobOffersInWorld(String technologyName) {
-        return scrapTechnologyInWorld.loadItJobOffersInWorld(technologyName.toLowerCase());
+        return scrapTechnologyInWorld.getItJobOffersInWorld(technologyName.toLowerCase());
     }
 
     public List<CategoryStatisticsInPolandDto> categoryStatisticsInPoland(String location) {
-        return scrapCategoryInPoland.loadCategoryStatisticsInPoland(location.toLowerCase());
+        return scrapCategoryInPoland.getCategoryStatisticsInPoland(location.toLowerCase());
     }
 
     public List<TechnologyStatisticsInPolandDto> technologyStatisticsInPoland(String location) {
-        return temporaryScrapTechnologyInPoland.loadTechnologyStatisticsInPoland(location);
+        return temporaryScrapTechnologyInPoland.getTechnologyStatisticsInPoland(location);
     }
 
     public List<TechnologyStatisticsInWorldDto> technologyStatisticsInWorld(String location) {
