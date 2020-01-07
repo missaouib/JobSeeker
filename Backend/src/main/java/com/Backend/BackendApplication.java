@@ -13,8 +13,6 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[FEAT] Add temporary technology Country + manual test
-    //[FEAT] Add Liquibase
     //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
     //[FEAT] Consider justjoinit {experience, remote, salary}

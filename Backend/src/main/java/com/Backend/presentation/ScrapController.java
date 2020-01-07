@@ -1,6 +1,6 @@
-package com.Backend.controller;
+package com.Backend.presentation;
 
-import com.Backend.domain.ScrapFacade;
+import com.Backend.core.domain.ScrapFacade;
 import com.Backend.infrastructure.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,12 +18,12 @@ public class ScrapController {
 
     private ScrapFacade scrapFacade;
 
-    @GetMapping("/iTJobOffersInPoland")
+    @GetMapping("/itJobOffersInPoland")
     public List<JobsOffersInPolandDto> iTJobOffersInPoland(@RequestParam("technology") String technology) {
         return scrapFacade.ItJobsOffersInPoland(technology, new ArrayList<>());
     }
 
-    @GetMapping("/iTJobOffersInWorld")
+    @GetMapping("/itJobOffersInWorld")
     public List<JobsOffersInWorldDto> iTJobOffersInWorld(@RequestParam("technology") String technology) {
         return scrapFacade.itJobOffersInWorld(technology);
     }

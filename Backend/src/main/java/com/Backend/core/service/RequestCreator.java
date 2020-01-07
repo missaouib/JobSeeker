@@ -1,4 +1,4 @@
-package com.Backend.service;
+package com.Backend.core.service;
 
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.model.NoFluffJobs;

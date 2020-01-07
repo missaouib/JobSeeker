@@ -1,4 +1,4 @@
-package com.Backend.domain;
+package com.Backend.core.domain;
 
 import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
 import com.Backend.infrastructure.entity.Country;
@@ -7,9 +7,9 @@ import com.Backend.infrastructure.entity.TechnologyOffersInWorld;
 import com.Backend.infrastructure.repository.CountryRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInWorldRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
-import com.Backend.service.DtoMapper;
-import com.Backend.service.RequestCreator;
-import com.Backend.service.UrlBuilder;
+import com.Backend.core.service.DtoMapper;
+import com.Backend.core.service.RequestCreator;
+import com.Backend.core.service.UrlBuilder;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

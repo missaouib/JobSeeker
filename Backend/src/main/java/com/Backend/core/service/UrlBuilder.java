@@ -1,4 +1,4 @@
-package com.Backend.service;
+package com.Backend.core.service;
 
 public class UrlBuilder {
 

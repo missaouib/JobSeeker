@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.7'
 
 services:
   database:
@@ -9,25 +9,13 @@ services:
       - POSTGRES_DB=docker
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
-    volumes:
-      - postgres:/data/postgres
   backend:
     build: ./Backend
     ports:
      - 8080:8080
-    depends_on:
-     - database
     environment:
       - SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/docker
-    volumes:
-     - ./Backend:/home/backend/
   frontend:
     build: ./Frontend
     ports:
      - 80:80
-    volumes:
-     - ./Frontend:/app
-
-
-volumes:
-  postgres:

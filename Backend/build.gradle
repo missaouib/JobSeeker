@@ -30,7 +30,6 @@ dependencies {
     //External tools
     implementation 'org.jsoup:jsoup:1.12.1'
     implementation 'org.modelmapper:modelmapper:2.3.4'
-    implementation 'org.liquibase:liquibase-core:3.8.4'
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
