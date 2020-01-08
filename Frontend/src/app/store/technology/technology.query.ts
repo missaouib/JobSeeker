@@ -1,23 +1,23 @@
-import { Technology } from '../../models/technology.interfaces';
+import {Technology} from '../../models/technology.interfaces';
 
-import { TechnologyState, TechnologyStore } from './technology.store';
-import { Injectable } from '@angular/core';
-import { QueryEntity } from '@datorama/akita';
+import {TechnologyState, TechnologyStore} from './technology.store';
+import {Injectable} from '@angular/core';
+import {QueryEntity} from '@datorama/akita';
 
 @Injectable({providedIn: 'root'})
 export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
 
-  constructor(protected store: TechnologyStore){
+  constructor(protected store: TechnologyStore) {
     super(store);
   }
 
-  getInput(){
+  getInput() {
     return this.select((state) => {
       return state.input;
     })
   }
 
-  getSpinner(){
+  getSpinner() {
     return this.select((state) => {
       return state.showSpinner;
     });
@@ -27,7 +27,7 @@ export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
     return this.selectAll();
   }
 
-  updateSpinner(showSpinner: boolean){
+  updateSpinner(showSpinner: boolean) {
     this.store.update(() => {
       return {
         showSpinner: showSpinner,

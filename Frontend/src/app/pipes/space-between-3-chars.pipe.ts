@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'spaceBetween3Chars'
@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SpaceBetween3Chars implements PipeTransform {
 
   transform(value: any): String {
-    if(value || value === 0){
+    if (value || value === 0) {
       return value.toLocaleString('en-US').replace(/,/g, ' ');
     }
   }

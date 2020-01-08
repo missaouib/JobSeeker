@@ -22,10 +22,10 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
   isDisabled = false;
   searchInput = new FormControl('');
   cityInputList = ['All Cities', 'Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin', 'Bydgoszcz', 'Białystok',
-                   'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole', 'Toruń', 'Gorzów Wielkopolski',];
+    'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole', 'Toruń', 'Gorzów Wielkopolski',];
   technologyInputList = ['All IT Jobs', 'All Jobs', 'Java', 'Javascript', 'Typescript', '.NET', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Groovy', 'Swift', 'Objective-C', 'Visual Basic',
-                         'Spring', 'Java EE', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
-                         'SQL', 'Linux', 'Git', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'HTML', 'Maven', 'Gradle', 'Junit', 'Jira', 'Scrum'];
+    'Spring', 'Java EE', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
+    'SQL', 'Linux', 'Git', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'HTML', 'Maven', 'Gradle', 'Junit', 'Jira', 'Scrum'];
   filteredInputs: Observable<string[]>;
   subscriptions: Subscription[] = [];
 
@@ -38,52 +38,43 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
               private countryQuery: CountryQuery,
               private snackBar: MatSnackBar) {
 
-      switch (this.router.url) {
-        case '/': {
-          this.subscriptions.push(this.cityQuery.getInput()
-            .subscribe(input => {
+    switch (this.router.url) {
+      case '/': {
+        this.subscriptions.push(this.cityQuery.getInput()
+          .subscribe(input => {
             this.searchInput.setValue(input);
           }));
-          break;
-        }
-        case '/world': {
-          this.subscriptions.push(this.countryQuery.getInput()
-            .subscribe(input => {
-            this.searchInput.setValue(input);
-          }));
-          break;
-        }
-        case '/technology': {
-          this.subscriptions.push(this.technologyQuery.getInput()
-            .subscribe(input => {
-            this.searchInput.setValue(input);
-          }));
-          break;
-        }
-        case '/category': {
-          this.subscriptions.push(this.categoryQuery.getInput()
-            .subscribe(input => {
-            this.searchInput.setValue(input);
-          }));
-          break;
-        }
+        break;
       }
-     }
+      case '/world': {
+        this.subscriptions.push(this.countryQuery.getInput()
+          .subscribe(input => {
+            this.searchInput.setValue(input);
+          }));
+        break;
+      }
+      case '/technology': {
+        this.subscriptions.push(this.technologyQuery.getInput()
+          .subscribe(input => {
+            this.searchInput.setValue(input);
+          }));
+        break;
+      }
+      case '/category': {
+        this.subscriptions.push(this.categoryQuery.getInput()
+          .subscribe(input => {
+            this.searchInput.setValue(input);
+          }));
+        break;
+      }
+    }
+  }
 
   ngOnInit() {
     this.filteredInputs = this.searchInput.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    if (this.isCityOrTechnologyLabel()) {
-      return this.cityInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-    } else if (!this.isCityOrTechnologyLabel()) {
-      return this.technologyInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-    }
   }
 
   getData() {
@@ -95,7 +86,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
         this.isDisabled = false;
       }, 1000);
 
-      switch(this.router.url){
+      switch (this.router.url) {
         case '/': {
           this.resultInputService.showSpinnerCity();
           this.httpService.getCities(this.searchInput.value)
@@ -169,6 +160,15 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    if (this.isCityOrTechnologyLabel()) {
+      return this.cityInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    } else if (!this.isCityOrTechnologyLabel()) {
+      return this.technologyInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    }
   }
 
 }

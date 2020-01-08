@@ -1,22 +1,22 @@
-import { Category } from '../../models/category.interfaces';
-import { CategoryState, CategoryStore } from './category.store';
-import { Injectable } from '@angular/core';
-import { QueryEntity } from '@datorama/akita';
+import {Category} from '../../models/category.interfaces';
+import {CategoryState, CategoryStore} from './category.store';
+import {Injectable} from '@angular/core';
+import {QueryEntity} from '@datorama/akita';
 
 @Injectable({providedIn: 'root'})
 export class CategoryQuery extends QueryEntity<CategoryState, Category> {
 
-  constructor(protected store: CategoryStore){
+  constructor(protected store: CategoryStore) {
     super(store);
   }
 
-  getInput(){
+  getInput() {
     return this.select((state) => {
       return state.input;
     })
   }
 
-  getSpinner(){
+  getSpinner() {
     return this.select((state) => {
       return state.showSpinner;
     });
@@ -30,7 +30,7 @@ export class CategoryQuery extends QueryEntity<CategoryState, Category> {
     this.store.set({...categoryState});
   }
 
-  updateSpinner(showSpinner: boolean){
+  updateSpinner(showSpinner: boolean) {
     this.store.update(() => {
       return {
         showSpinner: showSpinner,

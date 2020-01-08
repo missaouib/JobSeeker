@@ -1,9 +1,9 @@
-import { Country } from '../models/country.interfaces';
-import { Technology } from '../models/technology.interfaces';
-import { Category } from '../models/category.interfaces';
-import { Observable, Subject } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { City } from '../models/city.interfaces';
+import {Country} from '../models/country.interfaces';
+import {Technology} from '../models/technology.interfaces';
+import {Category} from '../models/category.interfaces';
+import {Observable, Subject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {City} from '../models/city.interfaces';
 
 @Injectable({providedIn: 'root'})
 export class ResultInputService {
@@ -12,17 +12,14 @@ export class ResultInputService {
   fillCountryTable$: Observable<any>;
   fillTechnologyTable$: Observable<any>;
   fillCategoryTable$: Observable<any>;
-
-  private fillCityTableSubject = new Subject<any>();
-  private fillCountryTableSubject = new Subject<any>();
-  private fillTechnologyTableSubject = new Subject<any>();
-  private fillCategoryTableSubject = new Subject<any>();
-
   showSpinnerCity$: Observable<any>;
   showSpinnerCountry$: Observable<any>;
   showSpinnerTechnology$: Observable<any>;
   showSpinnerCategory$: Observable<any>;
-
+  private fillCityTableSubject = new Subject<any>();
+  private fillCountryTableSubject = new Subject<any>();
+  private fillTechnologyTableSubject = new Subject<any>();
+  private fillCategoryTableSubject = new Subject<any>();
   private showSpinnerCitySubject = new Subject<any>();
   private showSpinnerCountrySubject = new Subject<any>();
   private showSpinnerTechnologySubject = new Subject<any>();
@@ -63,6 +60,7 @@ export class ResultInputService {
   showSpinnerCountry() {
     this.showSpinnerCountrySubject.next();
   }
+
   showSpinnerTechnology() {
     this.showSpinnerTechnologySubject.next();
   }

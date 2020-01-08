@@ -1,11 +1,13 @@
 <mat-form-field class="inputField">
-  <input type="text" placeholder="{{isCityOrTechnologyLabel() ? 'City' : 'Technology'}}" (keyup.enter)='getData()' aria-label="Number" matInput [formControl]="searchInput" [matAutocomplete]="auto">
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+  <input (keyup.enter)='getData()' [formControl]="searchInput" [matAutocomplete]="auto"
+         aria-label="Number" matInput placeholder="{{isCityOrTechnologyLabel() ? 'City' : 'Technology'}}" type="text">
+  <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
     <mat-option *ngFor="let inputHint of filteredInputs | async" [value]="inputHint">
       {{inputHint}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
 
-<button (click)='getData()' class="searchBtn" mat-raised-button matTooltipShowDelay="1000" matTooltipPosition="above"
-  matTooltip="Job offers in last month" [disabled]="isDisabled">Search</button>
+<button (click)='getData()' [disabled]="isDisabled" class="searchBtn" mat-raised-button matTooltip="Job offers in last month"
+        matTooltipPosition="above" matTooltipShowDelay="1000">Search
+</button>

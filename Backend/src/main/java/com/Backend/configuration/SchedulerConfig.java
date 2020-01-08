@@ -1,16 +1,14 @@
 package com.Backend.configuration;
 
 import com.Backend.core.domain.ScrapFacade;
+import com.Backend.core.service.RequestCreator;
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.*;
-import com.Backend.core.service.RequestCreator;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -57,63 +55,54 @@ public class SchedulerConfig {
 
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
 
-
-        System.out.println("here1 " + LocalTime.now());
         runForCities(justJoinItOffers);
-        System.out.println("here2 " + LocalTime.now());
         runForCountries();
-        System.out.println("here3 " + LocalTime.now());
         runForCategories();
-        System.out.println("here4 " + LocalTime.now());
 
         verifyData(justJoinItOffers);
-        System.out.println("here5 " + LocalTime.now());
     }
 
     private void runForCities(List<JustJoinIt> justJoinItOffers) {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.ItJobsOffersInPoland(technologyName, justJoinItOffers);
-            System.out.println(technologyName + " " + LocalTime.now());
-            waitFromToSeconds(5000, 10000);
+            waitRandomFromToSeconds(5000, 10000);
         });
     }
 
     private void runForCountries() {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.itJobOffersInWorld(technologyName);
-            System.out.println(technologyName + " " + LocalTime.now());
-            waitFromToSeconds(10000, 20000);
+            waitRandomFromToSeconds(10000, 20000);
         });
     }
 
     private void runForCategories() {
         citiesNames.forEach(cityName -> {
             scrapFacade.categoryStatisticsInPoland(cityName);
-            System.out.println(cityName + " " +  LocalTime.now());
-            waitFromToSeconds(5000, 10000);
+            waitRandomFromToSeconds(5000, 10000);
         });
     }
 
     private void verifyData(List<JustJoinIt> justJoinItOffers) {
 
         if (categoryOffersInPolandRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * categoryRepository.findAll().size()) {
-            waitFromToSeconds(1200000, 1800000);
+            waitRandomFromToSeconds(1200000, 1800000);
             runForCities(justJoinItOffers);
         }
 
         if (technologyOffersInPolandRepository.findByDate(LocalDate.now()).size() != cityRepository.findAll().size() * technologyRepository.findAll().size()) {
-            waitFromToSeconds(1200000, 1800000);
+            waitRandomFromToSeconds(1200000, 1800000);
             runForCountries();
         }
 
         if (technologyOffersInWorldRepository.findByDate(LocalDate.now()).size() != countryRepository.findAll().size() * technologyRepository.findAll().size()) {
-            waitFromToSeconds(1200000, 1800000);
+            waitRandomFromToSeconds(1200000, 1800000);
             runForCategories();
         }
 
     }
 
-    private void waitFromToSeconds(int from, int to) {
+    private void waitRandomFromToSeconds(int from, int to) {
         try {
             TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(from, to));
         } catch (InterruptedException e) {

@@ -1,4 +1,3 @@
-import { first } from 'rxjs/operators';
 import {CityQuery} from '../../store/city/city.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {City} from "../../models/city.interfaces";
@@ -19,10 +18,9 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
   cityList: City[] = [];
   dataSource = new MatTableDataSource(this.cityList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService, private cityQuery: CityQuery) {
 
@@ -31,13 +29,13 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
         this.showSpinner = spinnerStatus;
       }));
 
-    this.subscriptions.push(this.resultInputService.showSpinnerCity$.subscribe( () => {
+    this.subscriptions.push(this.resultInputService.showSpinnerCity$.subscribe(() => {
       this.cityList.length = 0;
       this.cityQuery.updateSpinner(true);
       this.showSpinner = true;
     }));
 
-    this.subscription = this.resultInputService.fillCityTable$.subscribe( (cities: City[]) => {
+    this.subscription = this.resultInputService.fillCityTable$.subscribe((cities: City[]) => {
       this.cityList = [...cities];
       this.cityList = this.cityList.filter(city => city.name !== 'All Cities');
 
@@ -75,7 +73,7 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
 
-    if(!this.showSpinner){
+    if (!this.showSpinner) {
       this.subscription.unsubscribe();
     }
   }

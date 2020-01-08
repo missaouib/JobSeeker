@@ -1,22 +1,22 @@
-import { City } from '../../models/city.interfaces';
-import { Injectable } from '@angular/core';
-import { QueryEntity } from '@datorama/akita';
-import { CityStore, CityState} from './city.store';
+import {City} from '../../models/city.interfaces';
+import {Injectable} from '@angular/core';
+import {QueryEntity} from '@datorama/akita';
+import {CityState, CityStore} from './city.store';
 
 @Injectable({providedIn: 'root'})
 export class CityQuery extends QueryEntity<CityState, City> {
 
-  constructor(protected store: CityStore){
+  constructor(protected store: CityStore) {
     super(store);
   }
 
-  getInput(){
+  getInput() {
     return this.select((state) => {
       return state.input;
     });
   }
 
-  getSpinner(){
+  getSpinner() {
     return this.select((state) => {
       return state.showSpinner;
     });
@@ -30,7 +30,7 @@ export class CityQuery extends QueryEntity<CityState, City> {
     this.store.set({...cityState});
   }
 
-  updateSpinner(showSpinner: boolean){
+  updateSpinner(showSpinner: boolean) {
     this.store.update(() => {
       return {
         showSpinner: showSpinner,
@@ -38,7 +38,7 @@ export class CityQuery extends QueryEntity<CityState, City> {
     });
   }
 
-  updateMainInput(mainInput: String){
+  updateMainInput(mainInput: String) {
     this.store.update(() => {
       return {
         input: mainInput,

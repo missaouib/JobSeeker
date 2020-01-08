@@ -1,6 +1,5 @@
-import { first } from 'rxjs/operators';
-import { CountryQuery } from '../../store/country/country.query';
-import {Component, DoCheck, ViewChild, OnInit, OnDestroy} from '@angular/core';
+import {CountryQuery} from '../../store/country/country.query';
+import {Component, DoCheck, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Country} from "../../models/country.interfaces";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
@@ -11,7 +10,7 @@ import {Subscription} from "rxjs";
   templateUrl: './it-job-offers-in-world.component.html',
   styleUrls: ['./it-job-offers-in-world.component.css']
 })
-export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
+export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
 
   totalOffers: number;
   showSpinner = false;
@@ -20,11 +19,10 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
   countryList: Country[] = [];
   dataSource = new MatTableDataSource(this.countryList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private resultInputService: ResultInputService, private countryQuery: CountryQuery) {
 
@@ -63,7 +61,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
       }));
   }
 
-  fillTable(countries: Country[]){
+  fillTable(countries: Country[]) {
     this.countryList = countries;
 
     this.totalOffers = this.countryList.map(city => city.linkedin).reduce((sum, current) => sum + current);
@@ -86,7 +84,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy{
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
 
-    if(!this.showSpinner){
+    if (!this.showSpinner) {
       this.subscription.unsubscribe();
     }
   }

@@ -3,31 +3,33 @@
 </section>
 
 <section class="List border rounded">
-  <div class="tables" [style.display]="categoryList.length === 0 ? 'none' : 'flex'">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"
+  <div [style.display]="categoryList.length === 0 ? 'none' : 'flex'" class="tables">
+    <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table matSort
            matSortActive="pracuj" matSortDirection="desc">
 
       <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> No.</th>
-        <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
-        <td mat-footer-cell *matFooterCellDef> <mat-slide-toggle (click)="switchLanguage()"></mat-slide-toggle> </td>
+        <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> No.</th>
+        <td *matCellDef="let element; let i = index" mat-cell>{{i + 1}}</td>
+        <td *matFooterCellDef mat-footer-cell>
+          <mat-slide-toggle (click)="switchLanguage()"></mat-slide-toggle>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="polishName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> Name </th>
-        <td mat-cell *matCellDef="let category"> {{isLanguage ? category.polishName : category.englishName}} </td>
-        <td mat-footer-cell *matFooterCellDef> Total </td>
+        <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> Name</th>
+        <td *matCellDef="let category" mat-cell> {{isLanguage ? category.polishName : category.englishName}} </td>
+        <td *matFooterCellDef mat-footer-cell> Total</td>
       </ng-container>
 
       <ng-container matColumnDef="pracuj">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Pracuj </th>
-        <td mat-cell *matCellDef="let category"> {{category.pracuj | spaceBetween3Chars}} </td>
-        <td mat-footer-cell *matFooterCellDef> {{totalOffers | spaceBetween3Chars}} </td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Pracuj</th>
+        <td *matCellDef="let category" mat-cell> {{category.pracuj | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{totalOffers | spaceBetween3Chars}} </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      <tr *matFooterRowDef="displayedColumns" mat-footer-row></tr>
     </table>
   </div>
 

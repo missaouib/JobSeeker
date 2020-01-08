@@ -1,6 +1,5 @@
-import { first } from 'rxjs/operators';
-import { CategoryQuery } from '../../store/category/category.query';
-import {Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
+import {CategoryQuery} from '../../store/category/category.query';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Category} from "../../models/category.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
@@ -19,10 +18,9 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
   categoryList: Category[] = [];
   dataSource = new MatTableDataSource(this.categoryList);
   displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private resultInputService: ResultInputService, private categoryQuery: CategoryQuery) {
 
@@ -47,14 +45,14 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(this.categoryQuery.getCategories()
-    .subscribe(categories => {
-      if (categories.length !== 0 && !this.showSpinner) {
-        this.fillTable(categories);
-      }
-    }));
+      .subscribe(categories => {
+        if (categories.length !== 0 && !this.showSpinner) {
+          this.fillTable(categories);
+        }
+      }));
   }
 
-  fillTable(categories: Category[]){
+  fillTable(categories: Category[]) {
     this.categoryList = categories;
     this.dataSource = new MatTableDataSource(this.categoryList);
     this.dataSource.sort = this.sort;
@@ -71,7 +69,7 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
 
-    if(!this.showSpinner){
+    if (!this.showSpinner) {
       this.subscription.unsubscribe();
     }
   }

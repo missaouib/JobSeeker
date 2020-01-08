@@ -1,4 +1,3 @@
-import { first } from 'rxjs/operators';
 import {TechnologyQuery} from '../../store/technology/technology.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Technology} from "../../models/technology.interfaces";
@@ -24,12 +23,11 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
   frameworkData = null;
   devOpsData = null;
   displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total'];
+  @ViewChild('languageTable', {static: true}) public languageTable: MatSort;
+  @ViewChild('frameworkTable', {static: true}) public frameworkTable: MatSort;
+  @ViewChild('devOpsTable', {static: true}) public devOpsTable: MatSort;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
-
-  @ViewChild('languageTable', { static: true }) public languageTable: MatSort;
-  @ViewChild('frameworkTable', { static: true }) public frameworkTable: MatSort;
-  @ViewChild('devOpsTable', { static: true }) public devOpsTable: MatSort;
 
   constructor(private resultInputService: ResultInputService, private technologyQuery: TechnologyQuery) {
 
@@ -65,7 +63,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
       }));
   }
 
-  fillTable(technologies: Technology[]){
+  fillTable(technologies: Technology[]) {
     this.technologyList = technologies;
 
     this.languageData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'language'));
@@ -130,7 +128,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
 
-    if(!this.showSpinner){
+    if (!this.showSpinner) {
       this.subscription.unsubscribe();
     }
   }
