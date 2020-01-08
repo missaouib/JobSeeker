@@ -24,7 +24,7 @@
       <ng-container matColumnDef="pracuj">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Pracuj</th>
         <td *matCellDef="let category" mat-cell> {{category.pracuj | spaceBetween3Chars}} </td>
-        <td *matFooterCellDef mat-footer-cell> {{totalOffers | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{totalPracuj | spaceBetween3Chars}} </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

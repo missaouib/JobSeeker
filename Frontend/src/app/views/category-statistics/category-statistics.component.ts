@@ -12,7 +12,8 @@ import {Subscription} from "rxjs";
 })
 export class CategoryStatisticsComponent implements OnInit, OnDestroy {
 
-  totalOffers: number;
+  totalPracuj: number;
+  totalIndeed: number;
   isLanguage: boolean;
   showSpinner = false;
   categoryList: CategoryStatistics[] = [];
@@ -58,7 +59,8 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
     this.sort.disableClear = true;
 
-    this.totalOffers = this.categoryList.map(category => category.pracuj).reduce((sum, current) => sum + current);
+    this.totalPracuj = this.categoryList.map(category => category.pracuj).reduce((sum, current) => sum + current);
+    this.totalIndeed = this.categoryList.map(category => category.indeed).reduce((sum, current) => sum + current);
     this.showSpinner = false;
   }
 

@@ -12,13 +12,14 @@ import {JobOffer} from "../../models/jobOffer";
 })
 export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
 
-  totalOffers: number;
+  totalOffers: number[] = [];
+  totalJobOffersSum: number;
   showSpinner = false;
   pageIndex: number;
   pageLimit: number;
   countryList: JobOffer[] = [];
   dataSource = new MatTableDataSource(this.countryList);
-  displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
+  displayedColumns: string[] = ['position', 'name', 'indeed', 'linkedin', 'total', 'population', 'per100k', 'area', 'density'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   private subscriptions: Subscription[] = [];
@@ -64,8 +65,10 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
   fillTable(countries: JobOffer[]) {
     this.countryList = countries;
 
-    this.totalOffers = this.countryList.map(city => city.linkedin).reduce((sum, current) => sum + current);
-    this.paginator._intl.itemsPerPageLabel = 'Total Offers: ' + this.totalOffers;
+    this.totalOffers[0] = this.countryList.map(country => country.linkedin).reduce((sum, current) => sum + current);
+    this.totalOffers[1] = this.countryList.map(country => country.indeed).reduce((sum, current) => sum + current);
+    this.totalJobOffersSum = this.countryList.map(country => country.total).reduce((sum, current) => sum + current);
+    this.paginator._intl.itemsPerPageLabel = 'Total Offers: ' + this.totalOffers[0] + this.totalOffers[1];
 
     this.dataSource = new MatTableDataSource(this.countryList);
     this.dataSource.paginator = this.paginator;

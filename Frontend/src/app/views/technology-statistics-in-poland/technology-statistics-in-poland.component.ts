@@ -12,8 +12,9 @@ import {Subscription} from "rxjs";
 })
 export class TechnologyStatisticsInPolandComponent implements OnInit, OnDestroy {
 
-  totalPracuj: number[] = [];
   totalLinkedin: number[] = [];
+  totalIndeed: number[] = [];
+  totalPracuj: number[] = [];
   totalNoFluffJobs: number[] = [];
   totalJustJoin: number[] = [];
   totalOffers: number[] = [];
@@ -22,7 +23,7 @@ export class TechnologyStatisticsInPolandComponent implements OnInit, OnDestroy 
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoinIt', 'total'];
+  displayedColumns: string[] = ['name', 'linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt', 'total'];
   @ViewChild('languageTable', {static: true}) public languageTable: MatSort;
   @ViewChild('frameworkTable', {static: true}) public frameworkTable: MatSort;
   @ViewChild('devOpsTable', {static: true}) public devOpsTable: MatSort;
@@ -82,6 +83,10 @@ export class TechnologyStatisticsInPolandComponent implements OnInit, OnDestroy 
     this.totalLinkedin[1] = this.getTotalLinkedin('framework');
     this.totalLinkedin[2] = this.getTotalLinkedin('devops');
 
+    this.totalIndeed[0] = this.getTotalIndeed('language');
+    this.totalIndeed[1] = this.getTotalIndeed('framework');
+    this.totalIndeed[2] = this.getTotalIndeed('devops');
+
     this.totalPracuj[0] = this.getTotalPracuj('language');
     this.totalPracuj[1] = this.getTotalPracuj('framework');
     this.totalPracuj[2] = this.getTotalPracuj('devops');
@@ -104,6 +109,11 @@ export class TechnologyStatisticsInPolandComponent implements OnInit, OnDestroy 
       .map(technology => technology.linkedin).reduce((sum, current) => sum + current);
   }
 
+  getTotalIndeed(type: String): number {
+    return this.technologyList.filter(technology => technology.type.toLowerCase() === type)
+      .map(technology => technology.indeed).reduce((sum, current) => sum + current);
+  }
+
   getTotalPracuj(type: String): number {
     return this.technologyList.filter(technology => technology.type.toLowerCase() === type)
       .map(technology => technology.pracuj).reduce((sum, current) => sum + current);
@@ -121,7 +131,7 @@ export class TechnologyStatisticsInPolandComponent implements OnInit, OnDestroy 
 
   getTotalOverall(type: String): number {
     return this.technologyList.filter(technology => technology.type.toLocaleLowerCase() === type)
-      .map(t => t.linkedin + t.pracuj + t.noFluffJobs + t.justJoinIt)
+      .map(t => t.linkedin + t.indeed + t.pracuj + t.noFluffJobs + t.justJoinIt)
       .reduce((sum, current) => sum + current);
   }
 

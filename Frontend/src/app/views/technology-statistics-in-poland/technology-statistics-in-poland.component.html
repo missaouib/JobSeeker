@@ -20,6 +20,12 @@
         <td *matFooterCellDef mat-footer-cell> {{this.totalLinkedin[0] | spaceBetween3Chars}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="indeed">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Indeed</th>
+        <td *matCellDef="let technology" mat-cell> {{technology.indeed | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{this.totalIndeed[0] | spaceBetween3Chars}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="pracuj">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Pracuj</th>
         <td *matCellDef="let technology" mat-cell> {{technology.pracuj | spaceBetween3Chars}} </td>
@@ -65,6 +71,12 @@
         <td *matFooterCellDef mat-footer-cell> {{this.totalLinkedin[1] | spaceBetween3Chars}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="indeed">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Indeed</th>
+        <td *matCellDef="let technology" mat-cell> {{technology.indeed | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{this.totalIndeed[1] | spaceBetween3Chars}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="pracuj">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Pracuj</th>
         <td *matCellDef="let technology" mat-cell> {{technology.pracuj | spaceBetween3Chars}} </td>
@@ -108,6 +120,12 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Linkedin</th>
         <td *matCellDef="let technology" mat-cell> {{technology.linkedin | spaceBetween3Chars}} </td>
         <td *matFooterCellDef mat-footer-cell> {{this.totalLinkedin[2] | spaceBetween3Chars}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="indeed">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Indeed</th>
+        <td *matCellDef="let technology" mat-cell> {{technology.indeed | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{this.totalIndeed[2] | spaceBetween3Chars}} </td>
       </ng-container>
 
       <ng-container matColumnDef="pracuj">

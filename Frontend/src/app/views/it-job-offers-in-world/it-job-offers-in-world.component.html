@@ -9,7 +9,7 @@
     </mat-form-field>
 
     <div class="mat-elevation-z8">
-      <table [dataSource]="dataSource" mat-table matSort matSortActive="linkedin" matSortDirection="desc">
+      <table [dataSource]="dataSource" mat-table matSort matSortActive="total" matSortDirection="desc">
 
         <ng-container matColumnDef="position">
           <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> No.</th>
@@ -24,6 +24,17 @@
         <ng-container matColumnDef="linkedin">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>Linkedin</th>
           <td *matCellDef="let country" mat-cell> {{country.linkedin | spaceBetween3Chars}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="indeed">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Indeed</th>
+          <td *matCellDef="let country" mat-cell> {{country.indeed | spaceBetween3Chars}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Total Offers</th>
+          <td *matCellDef="let country" mat-cell> {{country.total | spaceBetween3Chars}} </td>
+          <td *matFooterCellDef mat-footer-cell> {{totalJobOffersSum | spaceBetween3Chars}} </td>
         </ng-container>
 
         <ng-container matColumnDef="population">

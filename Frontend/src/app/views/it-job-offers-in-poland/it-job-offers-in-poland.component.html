@@ -25,22 +25,28 @@
         <td *matFooterCellDef mat-footer-cell> {{totalOffers[0] | spaceBetween3Chars}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="indeed">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Indeed</th>
+        <td *matCellDef="let city" mat-cell> {{city.indeed | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{totalOffers[1] | spaceBetween3Chars}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="pracuj">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Pracuj</th>
         <td *matCellDef="let city" mat-cell> {{city.pracuj | spaceBetween3Chars}} </td>
-        <td *matFooterCellDef mat-footer-cell> {{totalOffers[1] | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{totalOffers[2] | spaceBetween3Chars}} </td>
       </ng-container>
 
       <ng-container matColumnDef="noFluffJobs">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>NoFluffJobs</th>
         <td *matCellDef="let city" mat-cell> {{city.noFluffJobs | spaceBetween3Chars}} </td>
-        <td *matFooterCellDef mat-footer-cell> {{totalOffers[2] | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{totalOffers[3] | spaceBetween3Chars}} </td>
       </ng-container>
 
       <ng-container matColumnDef="justJoinIt">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>JustJoinIt</th>
         <td *matCellDef="let city" mat-cell> {{city.justJoinIt | spaceBetween3Chars}} </td>
-        <td *matFooterCellDef mat-footer-cell> {{totalOffers[3] | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{totalOffers[4] | spaceBetween3Chars}} </td>
       </ng-container>
 
       <ng-container matColumnDef="total">
