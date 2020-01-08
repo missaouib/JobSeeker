@@ -7,5 +7,7 @@ export interface Country {
   area: number,
   density: number,
   linkedin: number,
+  indeed: number,
+  total: number,
   per100k: number
 }

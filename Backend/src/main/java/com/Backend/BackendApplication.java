@@ -19,11 +19,8 @@ public class BackendApplication {
     //[FEAT] Try Selenium with proxy for Linkedin and Glassdor
 
     //[FRONTEND] TODO
-    //[REFACTOR] remove "all ..." functionality
-    //[REFACTOR] Check ids from DTO
-    //[FEAT] Add countries column in technology view
-    //[FEAT] Add countries hints in technology input(replace all cities with poland)
-    //[FEAT] Technology stats <-> if all rows equals to 0 then hide with information popup( ???? )
+    //[REFACTOR] Add indeed
+    //[FEAT] Create Technology in world View
     //[FIX] Counting ids in World tab view
     //[FEAT] Add history diagram functionality
     //[FEAT] Responsive Web Design

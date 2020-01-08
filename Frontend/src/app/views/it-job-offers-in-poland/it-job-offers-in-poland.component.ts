@@ -17,7 +17,7 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
   showSpinner = false;
   cityList: City[] = [];
   dataSource = new MatTableDataSource(this.cityList);
-  displayedColumns: string[] = ['position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total', 'population', 'per100k', 'area', 'density'];
+  displayedColumns: string[] = ['position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoinIt', 'total', 'population', 'per100k', 'area', 'density'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
@@ -62,7 +62,7 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
     this.totalOffers[0] = this.cityList.map(city => city.linkedin).reduce((sum, current) => sum + current);
     this.totalOffers[1] = this.cityList.map(city => city.pracuj).reduce((sum, current) => sum + current);
     this.totalOffers[2] = this.cityList.map(city => city.noFluffJobs).reduce((sum, current) => sum + current);
-    this.totalOffers[3] = this.cityList.map(city => city.justJoin).reduce((sum, current) => sum + current);
+    this.totalOffers[3] = this.cityList.map(city => city.justJoinIt).reduce((sum, current) => sum + current);
     this.totalJobOffersSum = this.cityList.map(city => city.total).reduce((sum, current) => sum + current);
 
     this.dataSource = new MatTableDataSource(this.cityList);

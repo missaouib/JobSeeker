@@ -10,6 +10,6 @@ public class TechnologyStatisticsInPolandDto {
     private int indeed;
     private int pracuj;
     private int noFluffJobs;
-    private int justJoin;
+    private int justJoinIt;
     private int total;
 }

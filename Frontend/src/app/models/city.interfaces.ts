@@ -7,9 +7,10 @@ export interface City {
   area: number,
   density: number,
   linkedin: number,
+  indeed: number,
   pracuj: number,
   noFluffJobs: number,
-  justJoin: number,
+  justJoinIt: number,
   total: number,
   per100k: number
 }

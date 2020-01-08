@@ -21,26 +21,23 @@ export class HttpService {
   }
 
   getCities(technologyName: string): Observable<City[]> {
-    return this.http.post<City[]>(environment.backendURL + '/itJobOffersInPoland', {
-      technology: technologyName
-    }, httpOptions);
+    return this.http.get<City[]>(environment.backendURL + '/itJobOffersInPoland?technology=' + technologyName);
   }
 
   getCountries(technologyName: string): Observable<Country[]> {
-    return this.http.post<Country[]>(environment.backendURL + '/itJobOffersInWorld', {
-      technology: technologyName
-    }, httpOptions);
+    return this.http.get<Country[]>(environment.backendURL + '/itJobOffersInWorld?technology=' + technologyName);
   }
 
   getTechnologies(cityName: string): Observable<Technology[]> {
-    return this.http.post<Technology[]>(environment.backendURL + '/technologyStatistics', {
-      city: cityName
-    }, httpOptions)
+    return this.http.get<Technology[]>(environment.backendURL + '/technologyStatisticsInPoland?location=' + cityName);
+  }
+
+  getTechnologies2(cityName: string): Observable<Technology[]> {
+    return this.http.get<Technology[]>(environment.backendURL + '/technologyStatisticsInWorld?location=' + cityName);
   }
 
   getCategories(cityName: string): Observable<Category[]> {
-    return this.http.post<Category[]>(environment.backendURL + '/categoryStatistics', {
-      city: cityName
-    }, httpOptions)
+    return this.http.get<Category[]>(environment.backendURL + '/categoryStatisticsInPoland?location=' + cityName);
   }
+
 }

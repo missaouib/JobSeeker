@@ -7,6 +7,6 @@ export interface Technology {
   linkedin: number,
   pracuj: number,
   noFluffJobs: number,
-  justJoin: number,
+  justJoinIt: number,
   total: number
 }

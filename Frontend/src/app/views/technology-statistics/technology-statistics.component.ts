@@ -22,7 +22,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoin', 'total'];
+  displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoinIt', 'total'];
   @ViewChild('languageTable', {static: true}) public languageTable: MatSort;
   @ViewChild('frameworkTable', {static: true}) public frameworkTable: MatSort;
   @ViewChild('devOpsTable', {static: true}) public devOpsTable: MatSort;
@@ -116,12 +116,12 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
 
   getTotalJustJoin(type: String): number {
     return this.technologyList.filter(technology => technology.type.toLowerCase() === type)
-      .map(technology => technology.justJoin).reduce((sum, current) => sum + current);
+      .map(technology => technology.justJoinIt).reduce((sum, current) => sum + current);
   }
 
   getTotalOverall(type: String): number {
     return this.technologyList.filter(technology => technology.type.toLocaleLowerCase() === type)
-      .map(t => t.linkedin + t.pracuj + t.noFluffJobs + t.justJoin)
+      .map(t => t.linkedin + t.pracuj + t.noFluffJobs + t.justJoinIt)
       .reduce((sum, current) => sum + current);
   }
 

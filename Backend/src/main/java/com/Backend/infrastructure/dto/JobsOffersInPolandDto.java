@@ -12,7 +12,7 @@ public class JobsOffersInPolandDto {
     private int indeed;
     private int pracuj;
     private int noFluffJobs;
-    private int justJoinIT;
+    private int justJoinIt;
     private int total;
     private double per100k;
 }
