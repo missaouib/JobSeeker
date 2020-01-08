@@ -1,9 +1,9 @@
-import {CityQuery} from '../../store/city/city.query';
+import {ItJobOffersInPolandQuery} from '../../store/it-job-offers-in-poland/itJobOffersInPoland.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {City} from "../../models/city.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";
+import {JobOffer} from "../../models/jobOffer";
 
 @Component({
   selector: 'app-it-job-offers-view',
@@ -15,14 +15,14 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
   totalOffers: number[] = [];
   totalJobOffersSum: number;
   showSpinner = false;
-  cityList: City[] = [];
+  cityList: JobOffer[] = [];
   dataSource = new MatTableDataSource(this.cityList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoinIt', 'total', 'population', 'per100k', 'area', 'density'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
 
-  constructor(private resultInputService: ResultInputService, private cityQuery: CityQuery) {
+  constructor(private resultInputService: ResultInputService, private cityQuery: ItJobOffersInPolandQuery) {
 
     this.subscriptions.push(this.cityQuery.getSpinner()
       .subscribe(spinnerStatus => {
@@ -35,7 +35,7 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
       this.showSpinner = true;
     }));
 
-    this.subscription = this.resultInputService.fillCityTable$.subscribe((cities: City[]) => {
+    this.subscription = this.resultInputService.fillCityTable$.subscribe((cities: JobOffer[]) => {
       this.cityList = [...cities];
       this.cityList = this.cityList.filter(city => city.name !== 'All Cities');
 
@@ -56,7 +56,7 @@ export class ItJobOffersInPolandComponent implements OnInit, OnDestroy {
       }));
   }
 
-  fillTable(cities: City[]) {
+  fillTable(cities: JobOffer[]) {
     this.cityList = [...cities];
 
     this.totalOffers[0] = this.cityList.map(city => city.linkedin).reduce((sum, current) => sum + current);

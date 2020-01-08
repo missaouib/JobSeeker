@@ -1,13 +1,13 @@
-import {Country} from '../../models/country.interfaces';
 import {Injectable} from '@angular/core';
 import {EntityState, EntityStore, StoreConfig} from '@datorama/akita';
+import {JobOffer} from "../../models/jobOffer";
 
-export interface CountryState extends EntityState<Country> {
+export interface CountryState extends EntityState<JobOffer> {
 }
 
 @Injectable({providedIn: 'root'})
 @StoreConfig({name: 'countries'})
-export class CountryStore extends EntityStore<CountryState, Country> {
+export class ItJobOffersInWorldStore extends EntityStore<CountryState, JobOffer> {
 
   constructor() {
     super();

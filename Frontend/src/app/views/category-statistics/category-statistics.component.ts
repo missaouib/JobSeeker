@@ -1,6 +1,6 @@
-import {CategoryQuery} from '../../store/category/category.query';
+import {CategoryStatisticsQuery} from '../../store/category-statistics/categoryStatistics.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Category} from "../../models/category.interfaces";
+import {CategoryStatistics} from "../../models/categoryStatistics.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";
@@ -15,14 +15,14 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
   totalOffers: number;
   isLanguage: boolean;
   showSpinner = false;
-  categoryList: Category[] = [];
+  categoryList: CategoryStatistics[] = [];
   dataSource = new MatTableDataSource(this.categoryList);
   displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
 
-  constructor(private resultInputService: ResultInputService, private categoryQuery: CategoryQuery) {
+  constructor(private resultInputService: ResultInputService, private categoryQuery: CategoryStatisticsQuery) {
 
     this.subscriptions.push(this.categoryQuery.getSpinner()
       .subscribe(spinnerStatus => {
@@ -35,7 +35,7 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
       this.categoryList.length = 0;
     }));
 
-    this.subscription = this.resultInputService.fillCategoryTable$.subscribe((categories: Category[]) => {
+    this.subscription = this.resultInputService.fillCategoryTable$.subscribe((categories: CategoryStatistics[]) => {
       this.categoryQuery.updateSpinner(false);
       this.showSpinner = false;
       this.fillTable(categories);
@@ -52,7 +52,7 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
       }));
   }
 
-  fillTable(categories: Category[]) {
+  fillTable(categories: CategoryStatistics[]) {
     this.categoryList = categories;
     this.dataSource = new MatTableDataSource(this.categoryList);
     this.dataSource.sort = this.sort;

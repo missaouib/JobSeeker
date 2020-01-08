@@ -1,12 +1,13 @@
-import {Category} from '../../models/category.interfaces';
-import {CategoryState, CategoryStore} from './category.store';
+import {TechnologyStatistics} from '../../models/technologyStatistics.interfaces';
+
+import {TechnologyState, TechnologyStatisticsInPolandStore} from './technologyStatisticsInPoland.store';
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
 
 @Injectable({providedIn: 'root'})
-export class CategoryQuery extends QueryEntity<CategoryState, Category> {
+export class TechnologyStatisticsInPolandQuery extends QueryEntity<TechnologyState, TechnologyStatistics> {
 
-  constructor(protected store: CategoryStore) {
+  constructor(protected store: TechnologyStatisticsInPolandStore) {
     super(store);
   }
 
@@ -22,12 +23,8 @@ export class CategoryQuery extends QueryEntity<CategoryState, Category> {
     });
   }
 
-  getCategories() {
+  getTechnologies() {
     return this.selectAll();
-  }
-
-  updateCategories(categoryState: Category[]) {
-    this.store.set({...categoryState});
   }
 
   updateSpinner(showSpinner: boolean) {
@@ -36,6 +33,10 @@ export class CategoryQuery extends QueryEntity<CategoryState, Category> {
         showSpinner: showSpinner,
       };
     });
+  }
+
+  updateTechnologies(technologyState: TechnologyStatistics[]) {
+    this.store.set({...technologyState});
   }
 
   updateMainInput(mainInput: String) {

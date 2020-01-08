@@ -1,16 +1,16 @@
-import {TechnologyQuery} from '../../store/technology/technology.query';
+import {TechnologyStatisticsInPolandQuery} from '../../store/technology-statistics-in-poland/technologyStatisticsInPoland.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Technology} from "../../models/technology.interfaces";
+import {TechnologyStatistics} from "../../models/technologyStatistics.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-technology-statistics-view',
-  templateUrl: './technology-statistics.component.html',
-  styleUrls: ['./technology-statistics.component.css']
+  templateUrl: './technology-statistics-in-world.component.html',
+  styleUrls: ['./technology-statistics-in-world.component.css']
 })
-export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
+export class TechnologyStatisticsInWorldComponent implements OnInit, OnDestroy {
 
   totalPracuj: number[] = [];
   totalLinkedin: number[] = [];
@@ -18,7 +18,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
   totalJustJoin: number[] = [];
   totalOffers: number[] = [];
   showSpinner = false;
-  technologyList: Technology[] = [];
+  technologyList: TechnologyStatistics[] = [];
   languageData = null;
   frameworkData = null;
   devOpsData = null;
@@ -29,7 +29,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
 
-  constructor(private resultInputService: ResultInputService, private technologyQuery: TechnologyQuery) {
+  constructor(private resultInputService: ResultInputService, private technologyQuery: TechnologyStatisticsInPolandQuery) {
 
     this.subscriptions.push(this.technologyQuery.getSpinner()
       .subscribe(spinnerStatus => {
@@ -42,7 +42,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
       this.showSpinner = true;
     }));
 
-    this.subscription = this.resultInputService.fillTechnologyTable$.subscribe((technologies: Technology[]) => {
+    this.subscription = this.resultInputService.fillTechnologyTable$.subscribe((technologies: TechnologyStatistics[]) => {
       this.technologyList = technologies;
       this.technologyList.filter(x => x.name.toLowerCase() === 'html').map(x => x.name = 'HTML/CSS');
       this.fillTable(this.technologyList);
@@ -63,7 +63,7 @@ export class TechnologyStatisticsComponent implements OnInit, OnDestroy {
       }));
   }
 
-  fillTable(technologies: Technology[]) {
+  fillTable(technologies: TechnologyStatistics[]) {
     this.technologyList = technologies;
 
     this.languageData = new MatTableDataSource(this.technologyList.filter(technology => technology.type.toLowerCase() === 'language'));

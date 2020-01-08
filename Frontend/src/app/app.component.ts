@@ -12,7 +12,8 @@ export class AppComponent {
   navLinks = [
     {path: '', label: 'IT Job Offers in Poland'},
     {path: 'world', label: 'IT Job Offers in World'},
-    {path: 'technology', label: 'Technology Statistics'},
+    {path: 'technology-poland', label: 'Technology Statistics in Poland'},
+    {path: 'technology-world', label: 'Technology Statistics in World'},
     {path: 'category', label: 'Category Statistics'},
     {path: 'history', label: 'History Diagrams'},
     {path: 'about', label: 'About'}

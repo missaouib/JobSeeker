@@ -3,9 +3,10 @@ import {HistoryDiagramsComponent} from './views/history-diagrams/history-diagram
 import {ItJobOffersInPolandComponent} from './views/it-job-offers-in-poland/it-job-offers-in-poland.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TechnologyStatisticsComponent} from './views/technology-statistics/technology-statistics.component';
+import {TechnologyStatisticsInPolandComponent} from './views/technology-statistics-in-poland/technology-statistics-in-poland.component';
 import {CategoryStatisticsComponent} from "./views/category-statistics/category-statistics.component";
 import {ItJobOffersInWorldComponent} from "./views/it-job-offers-in-world/it-job-offers-in-world.component";
+import {TechnologyStatisticsInWorldComponent} from "./views/technology-statistics-in-world/technology-statistics-in-world.component";
 
 const routes: Routes = [
   {
@@ -17,8 +18,12 @@ const routes: Routes = [
     component: ItJobOffersInWorldComponent
   },
   {
-    path: 'technology',
-    component: TechnologyStatisticsComponent
+    path: 'technology-poland',
+    component: TechnologyStatisticsInPolandComponent
+  },
+  {
+    path: 'technology-world',
+    component: TechnologyStatisticsInWorldComponent
   },
   {
     path: 'category',

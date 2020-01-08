@@ -1,12 +1,12 @@
-import {Country} from '../../models/country.interfaces';
-import {CountryState, CountryStore} from './country.store';
+import {CountryState, ItJobOffersInWorldStore} from './itJobOffersInWorld.store';
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
+import {JobOffer} from "../../models/jobOffer";
 
 @Injectable({providedIn: 'root'})
-export class CountryQuery extends QueryEntity<CountryState, Country> {
+export class ItJobOffersInWorldQuery extends QueryEntity<CountryState, JobOffer> {
 
-  constructor(protected store: CountryStore) {
+  constructor(protected store: ItJobOffersInWorldStore) {
     super(store);
   }
 
@@ -26,7 +26,7 @@ export class CountryQuery extends QueryEntity<CountryState, Country> {
     return this.selectAll();
   }
 
-  updateCountries(countryState: Country[]) {
+  updateCountries(countryState: JobOffer[]) {
     this.store.set({...countryState});
   }
 

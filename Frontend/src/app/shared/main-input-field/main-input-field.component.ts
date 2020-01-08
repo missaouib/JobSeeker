@@ -1,7 +1,6 @@
-import {CategoryQuery} from '../../store/category/category.query';
-import {TechnologyQuery} from '../../store/technology/technology.query';
-import {CountryQuery} from '../../store/country/country.query';
-import {CityQuery} from '../../store/city/city.query';
+import {CategoryStatisticsQuery} from '../../store/category-statistics/categoryStatistics.query';
+import {ItJobOffersInWorldQuery} from '../../store/it-job-offers-in-world/itJobOffersInWorld.query';
+import {ItJobOffersInPolandQuery} from '../../store/it-job-offers-in-poland/itJobOffersInPoland.query';
 import {ResultInputService} from '../../services/result-input.service';
 import {Observable, Subscription} from 'rxjs';
 import {HttpService} from '../../services/http.service';
@@ -10,6 +9,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from "@angular/material";
+import {TechnologyStatisticsInPolandQuery} from "../../store/technology-statistics-in-poland/technologyStatisticsInPoland.query";
 
 @Component({
   selector: 'app-main-input-field',
@@ -23,19 +23,19 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
   searchInput = new FormControl('');
   cityInputList = ['Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin', 'Bydgoszcz', 'Białystok',
     'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole', 'Toruń', 'Gorzów Wielkopolski',];
-  technologyInputList = ['Java', 'Javascript', 'Typescript', '.NET', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Groovy', 'Swift', 'Objective-C', 'Visual Basic',
-    'Spring', 'Java EE', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
-    'SQL', 'Linux', 'Git', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'HTML', 'Maven', 'Gradle', 'Junit', 'Jira', 'Scrum'];
+  technologyInputList = ['Java', 'Javascript', 'Typescript', '.NET', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Rust', 'Swift', 'Golang', 'Visual Basic',
+    'Spring', 'Selenium', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
+    'Linux', 'Bash', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Ansible', 'Terraform', 'TeamCity', 'Circle CI', 'ELK stack', 'Nginx'];
   filteredInputs: Observable<string[]>;
   subscriptions: Subscription[] = [];
 
   constructor(private httpService: HttpService,
               private resultInputService: ResultInputService,
               private router: Router,
-              private cityQuery: CityQuery,
-              private categoryQuery: CategoryQuery,
-              private technologyQuery: TechnologyQuery,
-              private countryQuery: CountryQuery,
+              private cityQuery: ItJobOffersInPolandQuery,
+              private categoryQuery: CategoryStatisticsQuery,
+              private technologyQuery: TechnologyStatisticsInPolandQuery,
+              private countryQuery: ItJobOffersInWorldQuery,
               private snackBar: MatSnackBar) {
 
     switch (this.router.url) {
@@ -53,7 +53,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
           }));
         break;
       }
-      case '/technology': {
+      case '/technology-poland': {
         this.subscriptions.push(this.technologyQuery.getInput()
           .subscribe(input => {
             this.searchInput.setValue(input);
@@ -89,7 +89,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
       switch (this.router.url) {
         case '/': {
           this.resultInputService.showSpinnerCity();
-          this.httpService.getCities(this.searchInput.value)
+          this.httpService.getItJobsOffersInPoland(this.searchInput.value)
             .subscribe(cities => {
               this.cityQuery.updateSpinner(false);
               this.resultInputService.fillCityTable(cities);
@@ -102,7 +102,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
         }
         case '/world': {
           this.resultInputService.showSpinnerCountry();
-          this.httpService.getCountries(this.searchInput.value)
+          this.httpService.getItJobsOffersInWorld(this.searchInput.value)
             .subscribe(countries => {
               this.countryQuery.updateSpinner(false);
               this.resultInputService.fillCountryTable(countries);
@@ -113,9 +113,9 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
           this.countryQuery.updateMainInput(this.searchInput.value);
           break;
         }
-        case '/technology': {
+        case '/technology-poland': {
           this.resultInputService.showSpinnerTechnology();
-          this.httpService.getTechnologies(this.searchInput.value)
+          this.httpService.getTechnologyStatsInPoland(this.searchInput.value)
             .subscribe(technologies => {
               this.technologyQuery.updateSpinner(false);
               this.resultInputService.fillTechnologyTable(technologies);
@@ -128,7 +128,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
         }
         case '/category': {
           this.resultInputService.showSpinnerCategory();
-          this.httpService.getCategories(this.searchInput.value)
+          this.httpService.getCategoryStatsInPoland(this.searchInput.value)
             .subscribe(categories => {
               this.categoryQuery.updateSpinner(false);
               this.resultInputService.fillCategoryTable(categories);
@@ -144,7 +144,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
   }
 
   isCityOrTechnologyLabel(): Boolean {
-    if (this.router.url === '/technology' || this.router.url === '/category') {
+    if (this.router.url === '/technology-poland' || this.router.url === '/category' || this.router.url === '/technology-world') {
       return true;
     } else if (this.router.url === '/' || this.router.url === '/world') {
       return false;

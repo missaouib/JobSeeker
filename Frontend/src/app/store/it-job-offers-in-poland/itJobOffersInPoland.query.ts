@@ -1,20 +1,19 @@
-import {Technology} from '../../models/technology.interfaces';
-
-import {TechnologyState, TechnologyStore} from './technology.store';
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
+import {CityState, ItJobOffersInPolandStore} from './itJobOffersInPoland.store';
+import {JobOffer} from "../../models/jobOffer";
 
 @Injectable({providedIn: 'root'})
-export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
+export class ItJobOffersInPolandQuery extends QueryEntity<CityState, JobOffer> {
 
-  constructor(protected store: TechnologyStore) {
+  constructor(protected store: ItJobOffersInPolandStore) {
     super(store);
   }
 
   getInput() {
     return this.select((state) => {
       return state.input;
-    })
+    });
   }
 
   getSpinner() {
@@ -23,8 +22,12 @@ export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
     });
   }
 
-  getTechnologies() {
+  getCities() {
     return this.selectAll();
+  }
+
+  updateCities(cityState: JobOffer[]) {
+    this.store.set({...cityState});
   }
 
   updateSpinner(showSpinner: boolean) {
@@ -33,10 +36,6 @@ export class TechnologyQuery extends QueryEntity<TechnologyState, Technology> {
         showSpinner: showSpinner,
       };
     });
-  }
-
-  updateTechnologies(technologyState: Technology[]) {
-    this.store.set({...technologyState});
   }
 
   updateMainInput(mainInput: String) {

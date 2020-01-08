@@ -1,9 +1,9 @@
-import {CountryQuery} from '../../store/country/country.query';
+import {ItJobOffersInWorldQuery} from '../../store/it-job-offers-in-world/itJobOffersInWorld.query';
 import {Component, DoCheck, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Country} from "../../models/country.interfaces";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";
+import {JobOffer} from "../../models/jobOffer";
 
 @Component({
   selector: 'app-it-job-offers-in-world',
@@ -16,7 +16,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
   showSpinner = false;
   pageIndex: number;
   pageLimit: number;
-  countryList: Country[] = [];
+  countryList: JobOffer[] = [];
   dataSource = new MatTableDataSource(this.countryList);
   displayedColumns: string[] = ['position', 'name', 'linkedin', 'population', 'per100k', 'area', 'density'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -24,7 +24,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
 
-  constructor(private resultInputService: ResultInputService, private countryQuery: CountryQuery) {
+  constructor(private resultInputService: ResultInputService, private countryQuery: ItJobOffersInWorldQuery) {
 
     this.subscriptions.push(this.countryQuery.getSpinner()
       .subscribe(spinnerStatus => {
@@ -37,7 +37,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
       this.showSpinner = true;
     }));
 
-    this.subscription = this.resultInputService.fillCountryTable$.subscribe((countries: Country[]) => {
+    this.subscription = this.resultInputService.fillCountryTable$.subscribe((countries: JobOffer[]) => {
       this.countryList = countries;
       this.fillTable(this.countryList);
       this.countryQuery.updateSpinner(false);
@@ -61,7 +61,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
       }));
   }
 
-  fillTable(countries: Country[]) {
+  fillTable(countries: JobOffer[]) {
     this.countryList = countries;
 
     this.totalOffers = this.countryList.map(city => city.linkedin).reduce((sum, current) => sum + current);

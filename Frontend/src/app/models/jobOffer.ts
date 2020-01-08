@@ -1,6 +1,6 @@
 import {ID} from '@datorama/akita';
 
-export interface Country {
+export interface JobOffer {
   id: ID,
   name: string,
   population: number,
@@ -8,6 +8,9 @@ export interface Country {
   density: number,
   linkedin: number,
   indeed: number,
+  pracuj?: number,
+  noFluffJobs?: number,
+  justJoinIt?: number,
   total: number,
   per100k: number
 }

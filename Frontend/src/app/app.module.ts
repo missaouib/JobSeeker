@@ -27,12 +27,13 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {HttpService} from './services/http.service';
 import {ItJobOffersInPolandComponent} from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
 import {ItJobOffersInWorldComponent} from './views/it-job-offers-in-world/it-job-offers-in-world.component';
-import {TechnologyStatisticsComponent} from './views/technology-statistics/technology-statistics.component';
+import {TechnologyStatisticsInPolandComponent} from './views/technology-statistics-in-poland/technology-statistics-in-poland.component';
 import {CategoryStatisticsComponent} from './views/category-statistics/category-statistics.component';
 import {MainInputFieldComponent} from './shared/main-input-field/main-input-field.component';
 import {SpaceBetween3Chars} from './pipes/space-between-3-chars.pipe';
 import {AboutComponent} from './views/about/about.component';
 import {HistoryDiagramsComponent} from './views/history-diagrams/history-diagrams.component';
+import {TechnologyStatisticsInWorldComponent} from "./views/technology-statistics-in-world/technology-statistics-in-world.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {HistoryDiagramsComponent} from './views/history-diagrams/history-diagram
     MainInputFieldComponent,
     ItJobOffersInPolandComponent,
     ItJobOffersInWorldComponent,
-    TechnologyStatisticsComponent,
+    TechnologyStatisticsInPolandComponent,
+    TechnologyStatisticsInWorldComponent,
     CategoryStatisticsComponent,
     HistoryDiagramsComponent,
     AboutComponent,

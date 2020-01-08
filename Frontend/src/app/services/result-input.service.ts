@@ -1,9 +1,8 @@
-import {Country} from '../models/country.interfaces';
-import {Technology} from '../models/technology.interfaces';
-import {Category} from '../models/category.interfaces';
+import {TechnologyStatistics} from '../models/technologyStatistics.interfaces';
+import {CategoryStatistics} from '../models/categoryStatistics.interfaces';
 import {Observable, Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {City} from '../models/city.interfaces';
+import {JobOffer} from "../models/jobOffer";
 
 @Injectable({providedIn: 'root'})
 export class ResultInputService {
@@ -37,19 +36,19 @@ export class ResultInputService {
     this.showSpinnerCategory$ = this.showSpinnerCategorySubject.asObservable();
   }
 
-  fillCityTable(data: City[]) {
+  fillCityTable(data: JobOffer[]) {
     this.fillCityTableSubject.next(data);
   }
 
-  fillCountryTable(data: Country[]) {
+  fillCountryTable(data: JobOffer[]) {
     this.fillCountryTableSubject.next(data);
   }
 
-  fillTechnologyTable(data: Technology[]) {
+  fillTechnologyTable(data: TechnologyStatistics[]) {
     this.fillTechnologyTableSubject.next(data);
   }
 
-  fillCategoryTable(data: Category[]) {
+  fillCategoryTable(data: CategoryStatistics[]) {
     this.fillCategoryTableSubject.next(data);
   }
 
