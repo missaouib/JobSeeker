@@ -32,7 +32,7 @@
         </ng-container>
 
         <ng-container matColumnDef="total">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>Total Offers</th>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Total</th>
           <td *matCellDef="let country" mat-cell> {{country.total | spaceBetween3Chars}} </td>
           <td *matFooterCellDef mat-footer-cell> {{totalJobOffersSum | spaceBetween3Chars}} </td>
         </ng-container>

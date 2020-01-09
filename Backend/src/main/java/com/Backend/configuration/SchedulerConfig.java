@@ -72,7 +72,7 @@ public class SchedulerConfig {
     private void runForCountries() {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.itJobOffersInWorld(technologyName);
-            waitRandomFromToSeconds(10000, 20000);
+            waitRandomFromToSeconds(20000, 30000);
         });
     }
 

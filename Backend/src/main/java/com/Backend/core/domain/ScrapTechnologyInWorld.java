@@ -12,7 +12,6 @@ import com.Backend.infrastructure.repository.TechnologyOffersInWorldRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -56,14 +55,6 @@ class ScrapTechnologyInWorld {
                 .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setTotal(jobsOffersInWorldDto.getLinkedin() + jobsOffersInWorldDto.getIndeed()))
                 .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setPer100k(Math.round(jobsOffersInWorldDto.getTotal() * 1.0 / (jobsOffersInWorldDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());
-    }
-
-    @Bean
-    private void kokot(){
-        List<Country> countries = countryRepository.findAllCountriesWithCode();
-        for (Country country : countries) {
-            System.out.print(country.getName() + "', '");
-        }
     }
 
     private List<TechnologyOffersInWorld> scrapItJobOffersInWorld(String technologyName) {

@@ -45,7 +45,7 @@
       </ng-container>
 
       <ng-container matColumnDef="total">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Offers</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Total</th>
         <td *matCellDef="let technology" mat-cell> {{technology.total | spaceBetween3Chars}} </td>
         <td *matFooterCellDef mat-footer-cell> {{this.totalOffers[0] | spaceBetween3Chars}} </td>
       </ng-container>

@@ -17,9 +17,15 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
   isLanguage: boolean;
   showSpinner = false;
   categoryList: CategoryStatistics[] = [];
-  dataSource = new MatTableDataSource(this.categoryList);
-  displayedColumns: string[] = ['position', 'polishName', 'pracuj'];
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  pracujList: CategoryStatistics[] = [];
+  indeedList: CategoryStatistics[] = [];
+  dataSourceIndeed = new MatTableDataSource(this.indeedList);
+  dataSourcePracuj = new MatTableDataSource(this.pracujList);
+  displayedColumnsPracuj: string[] = ['position', 'polishName', 'pracuj'];
+  displayedColumnsIndeed: string[] = ['position', 'polishName', 'indeed'];
+
+  @ViewChild('indeedTable', {static: true}) indeedTable: MatSort;
+  @ViewChild('pracujTable', {static: true}) pracujTable: MatSort;
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
 
@@ -55,9 +61,16 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
 
   fillTable(categories: CategoryStatistics[]) {
     this.categoryList = categories;
-    this.dataSource = new MatTableDataSource(this.categoryList);
-    this.dataSource.sort = this.sort;
-    this.sort.disableClear = true;
+    this.indeedList = categories.filter(category => category.indeed != -1);
+    this.pracujList = categories.filter(category => category.pracuj != -1);
+
+    this.dataSourceIndeed = new MatTableDataSource(this.indeedList);
+    this.dataSourceIndeed.sort = this.indeedTable;
+    this.indeedTable.disableClear = true;
+
+    this.dataSourcePracuj = new MatTableDataSource(this.pracujList);
+    this.dataSourcePracuj.sort = this.pracujTable;
+    this.pracujTable.disableClear = true;
 
     this.totalPracuj = this.categoryList.map(category => category.pracuj).reduce((sum, current) => sum + current);
     this.totalIndeed = this.categoryList.map(category => category.indeed).reduce((sum, current) => sum + current);

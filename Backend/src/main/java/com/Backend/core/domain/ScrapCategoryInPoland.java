@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 class ScrapCategoryInPoland {
 
     private static final int PLACEHOLDER_OFFER = 0;
+    private static final int PORTAL_SWITCH = -1;
     private ModelMapper modelMapper;
     private RequestCreator requestCreator;
     private CityRepository cityRepository;
@@ -52,7 +53,6 @@ class ScrapCategoryInPoland {
     private <T> List<CategoryStatisticsInPolandDto> mapToDto(final List<T> offers) {
         return offers.stream()
                 .map(categoryOffer -> modelMapper.map(categoryOffer, CategoryStatisticsInPolandDto.class))
-                .peek(categoryOffer -> categoryOffer.setTotal(categoryOffer.getIndeed() + categoryOffer.getPracuj()))
                 .collect(Collectors.toList());
     }
 
@@ -68,12 +68,12 @@ class ScrapCategoryInPoland {
 
             if (category.getPracujId() != PLACEHOLDER_OFFER) {
                 String pracujUrl = UrlBuilder.pracujBuildUrlForCategory(cityNameASCII, categoryName, category.getPracujId());
-                categoryOffers.add(new CategoryOffersInPoland(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujUrl), PLACEHOLDER_OFFER));
+                categoryOffers.add(new CategoryOffersInPoland(category, cityOptional.orElse(null), LocalDate.now(), requestCreator.scrapPracujOffers(pracujUrl), PORTAL_SWITCH));
             } else {
                 String indeedUrl = UrlBuilder.indeedBuildUrlForCategoryForCity(cityNameUTF8, categoryName);
 
                 try {
-                    categoryOffers.add(new CategoryOffersInPoland(category, cityOptional.orElse(null), LocalDate.now(), PLACEHOLDER_OFFER, requestCreator.scrapIndeedOffers(indeedUrl)));
+                    categoryOffers.add(new CategoryOffersInPoland(category, cityOptional.orElse(null), LocalDate.now(), PORTAL_SWITCH, requestCreator.scrapIndeedOffers(indeedUrl)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

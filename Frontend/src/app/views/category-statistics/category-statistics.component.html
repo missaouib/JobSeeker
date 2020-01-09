@@ -4,15 +4,39 @@
 
 <section class="List border rounded">
   <div [style.display]="categoryList.length === 0 ? 'none' : 'flex'" class="tables">
-    <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table matSort
-           matSortActive="pracuj" matSortDirection="desc">
+    <table #indeedTable="matSort" [dataSource]="dataSourceIndeed" class="mat-elevation-z8" mat-table matSort
+           matSortDirection="desc" matSortActive="indeed">
 
       <ng-container matColumnDef="position">
         <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> No.</th>
-        <td *matCellDef="let element; let i = index" mat-cell>{{i + 1}}</td>
-        <td *matFooterCellDef mat-footer-cell>
-          <mat-slide-toggle (click)="switchLanguage()"></mat-slide-toggle>
-        </td>
+        <td *matCellDef="let i = index" mat-cell>{{i + 1}}</td>
+        <td *matFooterCellDef mat-footer-cell></td>
+      </ng-container>
+
+      <ng-container matColumnDef="polishName">
+        <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> Name</th>
+        <td *matCellDef="let category" mat-cell> {{isLanguage ? category.polishName : category.englishName}} </td>
+        <td *matFooterCellDef mat-footer-cell> Total</td>
+      </ng-container>
+
+      <ng-container matColumnDef="indeed">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Indeed</th>
+        <td *matCellDef="let category" mat-cell> {{category.indeed | spaceBetween3Chars}} </td>
+        <td *matFooterCellDef mat-footer-cell> {{totalIndeed | spaceBetween3Chars}} </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumnsIndeed" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumnsIndeed;" mat-row></tr>
+      <tr *matFooterRowDef="displayedColumnsIndeed" mat-footer-row></tr>
+    </table>
+
+    <table [dataSource]="dataSourcePracuj" class="mat-elevation-z8" mat-table matSort
+           #pracujTable="matSort" matSortDirection="desc" matSortActive="pracuj">
+
+      <ng-container matColumnDef="position">
+        <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> No.</th>
+        <td *matCellDef="let i = index" mat-cell>{{i + 1}}</td>
+        <td *matFooterCellDef mat-footer-cell></td>
       </ng-container>
 
       <ng-container matColumnDef="polishName">
@@ -27,10 +51,15 @@
         <td *matFooterCellDef mat-footer-cell> {{totalPracuj | spaceBetween3Chars}} </td>
       </ng-container>
 
-      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-      <tr *matFooterRowDef="displayedColumns" mat-footer-row></tr>
+      <tr *matHeaderRowDef="displayedColumnsPracuj" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumnsPracuj;" mat-row></tr>
+      <tr *matFooterRowDef="displayedColumnsPracuj" mat-footer-row></tr>
     </table>
+
+  </div>
+
+  <div class="translate" [style.display]="categoryList.length === 0 ? 'none' : 'flex'">
+    <mat-slide-toggle (click)="switchLanguage()"> Switch Language</mat-slide-toggle>-
   </div>
 
   <div class="spinner">

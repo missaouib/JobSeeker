@@ -19,6 +19,12 @@ table {
   width: 30%;
 }
 
+.translate {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+}
+
 .spinner {
   padding-top: 10%;
   display: flex;
