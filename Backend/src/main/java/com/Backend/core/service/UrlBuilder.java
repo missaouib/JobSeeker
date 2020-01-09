@@ -13,10 +13,21 @@ public class UrlBuilder {
     }
 
     public static String indeedBuildUrlLForCity(String technologyName, String cityName) {
-        return "https://pl.indeed.com/praca?q=" + technologyName + "&l=" + cityName + "&fromage=30";
+        String url = "https://pl.indeed.com/praca?q=" + technologyName + "&l=" + cityName + "&fromage=30";
+
+        if ("c#".equals(technologyName)) {
+            url = "https://pl.indeed.com/praca?q=c%23&l=" + cityName + "&fromage=30";
+        }
+
+        return url;
     }
 
     public static String indeedBuildUrlForCountry(String technologyName, String countryCode) {
+
+        if ("c#".equals(technologyName)) {
+            technologyName = "c%23";
+        }
+
         String url = "https://" + countryCode + ".indeed.com/jobs?q=" + technologyName + "&fromage=30";
 
         if ("us".equals(countryCode)) {

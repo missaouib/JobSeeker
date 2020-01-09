@@ -77,28 +77,41 @@ public class RequestCreator {
 
         WebClient pracujURL = WebClient.create(url);
 
-        Mono<ClientResponse> response = pracujURL.get()
-                .header("User-Agent", USER_AGENT)
-                .exchange();
+        try {
+            Mono<ClientResponse> response = pracujURL.get()
+                    .header("User-Agent", USER_AGENT)
+                    .exchange();
 
-        String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
+            String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
+            return getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
 
-        return getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
     public int scrapNoFluffJobsOffers(String url) {
 
         WebClient noFluffJobsURL = WebClient.create(url);
 
-        NoFluffJobs response = noFluffJobsURL
-                .get()
-                .header("User-Agent", USER_AGENT)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .retrieve()
-                .bodyToMono(NoFluffJobs.class)
-                .block();
+        try {
+            NoFluffJobs response = noFluffJobsURL
+                    .get()
+                    .header("User-Agent", USER_AGENT)
+                    .accept(MediaType.APPLICATION_JSON_UTF8)
+                    .retrieve()
+                    .bodyToMono(NoFluffJobs.class)
+                    .block();
 
-        return Objects.requireNonNull(response).getPostings().size();
+            return Objects.requireNonNull(response).getPostings().size();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
     public List<JustJoinIt> scrapJustJoinIT() {

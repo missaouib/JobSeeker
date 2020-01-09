@@ -13,6 +13,7 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
+    //[FEAT] maybe wait in loop
     //[FEAT] add all cities/ all technologies/ all countries <- only from DB ?
     //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
@@ -21,7 +22,7 @@ public class BackendApplication {
 
     //[FRONTEND] TODO
     //[REFACTOR] if 0 then hide ?
-    //[REFACTOR] Counting ids in World tab view
     //[FEAT] Add history diagram functionality
+    //[REFACTOR] Dont change count during filter
     //[FEAT] Responsive Web Design
 }
