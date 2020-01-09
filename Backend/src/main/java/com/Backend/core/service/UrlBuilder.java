@@ -13,21 +13,21 @@ public class UrlBuilder {
     }
 
     public static String indeedBuildUrlLForCity(String technologyName, String cityName) {
-        return "https://pl.indeed.com/Praca-" + technologyName + "-w-" + cityName;
+        return "https://pl.indeed.com/praca?q=" + technologyName + "&l=" + cityName + "&fromage=30";
     }
 
     public static String indeedBuildUrlForCountry(String technologyName, String countryCode) {
-        String url = "https://" + countryCode + ".indeed.com/" + technologyName + "-jobs";
+        String url = "https://" + countryCode + ".indeed.com/jobs?q=" + technologyName + "&fromage=30";
 
         if ("us".equals(countryCode)) {
-            url = "https://indeed.com/" + technologyName + "-jobs";
+            url = "https://indeed.com/jobs?q=" + technologyName + "&fromage=30";
         }
 
         return url;
     }
 
     public static String indeedBuildUrlForCategoryForCity(String cityName, String categoryName) {
-        return "https://pl.indeed.com/praca?q=" + categoryName + "&l=" + cityName;
+        return "https://pl.indeed.com/praca?q=" + categoryName + "&l=" + cityName + "&fromage=30";
     }
 
     public static String pracujBuildUrlForCity(String technologyName, String cityName) {

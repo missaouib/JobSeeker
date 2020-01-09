@@ -4,8 +4,8 @@ import com.Backend.core.domain.ScrapFacade;
 import com.Backend.core.service.RequestCreator;
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.*;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
@@ -50,14 +50,18 @@ public class SchedulerConfig {
         this.technologiesNames = technologyRepository.findAllNames();
     }
 
-    @Scheduled(cron = "0 0 1 * * *")
+//    @Scheduled(cron = "0 0 1 * * *")
+    @Bean
     public void cyclicScraping() {
 
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
-
+        System.out.println("arb");
         runForCities(justJoinItOffers);
+        System.out.println("siema");
         runForCountries();
+        System.out.println("elo");
         runForCategories();
+        System.out.println("pedoni");
 
         verifyData(justJoinItOffers);
     }
@@ -72,7 +76,7 @@ public class SchedulerConfig {
     private void runForCountries() {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.itJobOffersInWorld(technologyName);
-            waitRandomFromToSeconds(20000, 30000);
+            waitRandomFromToSeconds(10000, 20000);
         });
     }
 

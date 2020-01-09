@@ -20,7 +20,7 @@ INSERT INTO city (id, name, population, area, density) VALUES (18, 'Zielona Gór
 INSERT INTO technology(id, name, type) VALUES (1, 'Java', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (2, 'Javascript', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (3, 'Typescript', 'Language') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (4, '.NET', 'Language') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (4, 'C#', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (5, 'Python', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (6, 'PHP', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (7, 'C++', 'Language') ON CONFLICT DO NOTHING;
@@ -38,7 +38,7 @@ INSERT INTO technology(id, name, type) VALUES (18, 'Angular', 'Framework') ON CO
 INSERT INTO technology(id, name, type) VALUES (19, 'React', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (20, 'Vue', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (21, 'Node', 'Framework') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (22, 'JQuery', 'Framework') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (22, '.NET', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (23, 'Symfony', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (24, 'Laravel', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (25, 'iOS', 'Framework') ON CONFLICT DO NOTHING;

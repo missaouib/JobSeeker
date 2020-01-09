@@ -13,9 +13,7 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[REFACTOR] INDEED LAST 30 DAYS XD fromage=30
-    //[FEAT] add all cities/ all technologies/ all countries
-    //[REFACTOR] Remove JQuery, Move .NET and Add C#
+    //[FEAT] add all cities/ all technologies/ all countries <- only from DB ?
     //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
     //[FEAT] Consider justjoinit {experience, remote, salary}
