@@ -52,6 +52,7 @@ class ScrapCategoryInPoland {
     private <T> List<CategoryStatisticsInPolandDto> mapToDto(final List<T> offers) {
         return offers.stream()
                 .map(categoryOffer -> modelMapper.map(categoryOffer, CategoryStatisticsInPolandDto.class))
+                .peek(categoryOffer -> categoryOffer.setTotal(categoryOffer.getIndeed() + categoryOffer.getPracuj()))
                 .collect(Collectors.toList());
     }
 

@@ -10,5 +10,6 @@ public class JobsOffersInWorldDto {
     private int density;
     private int linkedin;
     private int indeed;
+    private int total;
     private double per100k;
 }

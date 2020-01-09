@@ -51,7 +51,7 @@ class TemporaryScrapTechnologyInPoland {
     private <T> List<TechnologyStatisticsInPolandDto> mapToDto(final List<T> offers) {
         return offers.stream()
                 .map(technologyStatisticsInPoland -> modelMapper.map(technologyStatisticsInPoland, TechnologyStatisticsInPolandDto.class))
-                .peek(statsInPoland -> statsInPoland.setTotal(statsInPoland.getLinkedin() + statsInPoland.getPracuj() + statsInPoland.getNoFluffJobs() + statsInPoland.getJustJoinIt()))
+                .peek(statsInPoland -> statsInPoland.setTotal(statsInPoland.getLinkedin() + statsInPoland.getIndeed() + statsInPoland.getPracuj() + statsInPoland.getNoFluffJobs() + statsInPoland.getJustJoinIt()))
                 .collect(Collectors.toList());
     }
 

@@ -8,4 +8,5 @@ public class CategoryStatisticsInPolandDto {
     private String englishName;
     private int pracuj;
     private int indeed;
+    private int total;
 }

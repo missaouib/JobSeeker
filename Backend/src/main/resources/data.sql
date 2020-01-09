@@ -29,8 +29,8 @@ INSERT INTO technology(id, name, type) VALUES (9, 'Kotlin', 'Language') ON CONFL
 INSERT INTO technology(id, name, type) VALUES (10, 'Scala', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (11, 'Golang', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (12, 'Swift', 'Language') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (13, 'Objective-C', 'Language') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (14, 'HTML', 'Language') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (13, 'Rust', 'Language') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (14, 'Visual Basic', 'Language') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (15, 'Spring', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (16, 'Selenium', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (17, 'Android', 'Framework') ON CONFLICT DO NOTHING;
@@ -45,7 +45,7 @@ INSERT INTO technology(id, name, type) VALUES (25, 'iOS', 'Framework') ON CONFLI
 INSERT INTO technology(id, name, type) VALUES (26, 'Asp.net', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (27, 'Django', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (28, 'Unity', 'Framework') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (29, 'SQL', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (29, 'Circle CI', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (30, 'Linux', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (31, 'Google Cloud', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (32, 'Docker', 'DevOps') ON CONFLICT DO NOTHING;
@@ -54,7 +54,7 @@ INSERT INTO technology(id, name, type) VALUES (34, 'Kubernetes', 'DevOps') ON CO
 INSERT INTO technology(id, name, type) VALUES (35, 'AWS', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (36, 'Azure', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (37, 'Bash', 'DevOps') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (38, 'NoSQL', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (38, 'ELK stack', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (39, 'Ansible', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (40, 'Terraform', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (41, 'TeamCity', 'DevOps') ON CONFLICT DO NOTHING;

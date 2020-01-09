@@ -1,5 +1,8 @@
 package com.Backend.core.domain;
 
+import com.Backend.core.service.DtoMapper;
+import com.Backend.core.service.RequestCreator;
+import com.Backend.core.service.UrlBuilder;
 import com.Backend.infrastructure.dto.JobsOffersInWorldDto;
 import com.Backend.infrastructure.entity.Country;
 import com.Backend.infrastructure.entity.Technology;
@@ -7,11 +10,9 @@ import com.Backend.infrastructure.entity.TechnologyOffersInWorld;
 import com.Backend.infrastructure.repository.CountryRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInWorldRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
-import com.Backend.core.service.DtoMapper;
-import com.Backend.core.service.RequestCreator;
-import com.Backend.core.service.UrlBuilder;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -52,8 +53,17 @@ class ScrapTechnologyInWorld {
         return offers
                 .stream()
                 .map(offersInWorld -> modelMapper.map(offersInWorld, JobsOffersInWorldDto.class))
-                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setPer100k(Math.round(jobsOffersInWorldDto.getIndeed() * 1.0 / (jobsOffersInWorldDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setTotal(jobsOffersInWorldDto.getLinkedin() + jobsOffersInWorldDto.getIndeed()))
+                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setPer100k(Math.round(jobsOffersInWorldDto.getTotal() * 1.0 / (jobsOffersInWorldDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
                 .collect(Collectors.toList());
+    }
+
+    @Bean
+    private void kokot(){
+        List<Country> countries = countryRepository.findAllCountriesWithCode();
+        for (Country country : countries) {
+            System.out.print(country.getName() + "', '");
+        }
     }
 
     private List<TechnologyOffersInWorld> scrapItJobOffersInWorld(String technologyName) {
