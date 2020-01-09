@@ -12,17 +12,15 @@ import {Subscription} from "rxjs";
 })
 export class TechnologyStatisticsInWorldComponent implements OnInit, OnDestroy {
 
-  totalPracuj: number[] = [];
   totalLinkedin: number[] = [];
-  totalNoFluffJobs: number[] = [];
-  totalJustJoin: number[] = [];
+  totalIndeed: number[] = [];
   totalOffers: number[] = [];
   showSpinner = false;
   technologyList: TechnologyStatistics[] = [];
   languageData = null;
   frameworkData = null;
   devOpsData = null;
-  displayedColumns: string[] = ['name', 'linkedin', 'pracuj', 'noFluffJobs', 'justJoinIt', 'total'];
+  displayedColumns: string[] = ['name', 'linkedin', 'indeed', 'total'];
   @ViewChild('languageTable', {static: true}) public languageTable: MatSort;
   @ViewChild('frameworkTable', {static: true}) public frameworkTable: MatSort;
   @ViewChild('devOpsTable', {static: true}) public devOpsTable: MatSort;
@@ -82,17 +80,9 @@ export class TechnologyStatisticsInWorldComponent implements OnInit, OnDestroy {
     this.totalLinkedin[1] = this.getTotalLinkedin('framework');
     this.totalLinkedin[2] = this.getTotalLinkedin('devops');
 
-    this.totalPracuj[0] = this.getTotalPracuj('language');
-    this.totalPracuj[1] = this.getTotalPracuj('framework');
-    this.totalPracuj[2] = this.getTotalPracuj('devops');
-
-    this.totalNoFluffJobs[0] = this.getTotalNoFluffJobs('language');
-    this.totalNoFluffJobs[1] = this.getTotalNoFluffJobs('framework');
-    this.totalNoFluffJobs[2] = this.getTotalNoFluffJobs('devops');
-
-    this.totalJustJoin[0] = this.getTotalJustJoin('language');
-    this.totalJustJoin[1] = this.getTotalJustJoin('framework');
-    this.totalJustJoin[2] = this.getTotalJustJoin('devops');
+    this.totalIndeed[0] = this.getTotalIndeed('language');
+    this.totalIndeed[1] = this.getTotalIndeed('framework');
+    this.totalIndeed[2] = this.getTotalIndeed('devops');
 
     this.totalOffers[0] = this.getTotalOverall('language');
     this.totalOffers[1] = this.getTotalOverall('framework');
@@ -104,24 +94,14 @@ export class TechnologyStatisticsInWorldComponent implements OnInit, OnDestroy {
       .map(technology => technology.linkedin).reduce((sum, current) => sum + current);
   }
 
-  getTotalPracuj(type: String): number {
+  getTotalIndeed(type: String): number {
     return this.technologyList.filter(technology => technology.type.toLowerCase() === type)
-      .map(technology => technology.pracuj).reduce((sum, current) => sum + current);
-  }
-
-  getTotalNoFluffJobs(type: String): number {
-    return this.technologyList.filter(technology => technology.type.toLowerCase() === type)
-      .map(technology => technology.noFluffJobs).reduce((sum, current) => sum + current);
-  }
-
-  getTotalJustJoin(type: String): number {
-    return this.technologyList.filter(technology => technology.type.toLowerCase() === type)
-      .map(technology => technology.justJoinIt).reduce((sum, current) => sum + current);
+      .map(technology => technology.indeed).reduce((sum, current) => sum + current);
   }
 
   getTotalOverall(type: String): number {
     return this.technologyList.filter(technology => technology.type.toLocaleLowerCase() === type)
-      .map(t => t.linkedin + t.pracuj + t.noFluffJobs + t.justJoinIt)
+      .map(t => t.linkedin + t.indeed)
       .reduce((sum, current) => sum + current);
   }
 

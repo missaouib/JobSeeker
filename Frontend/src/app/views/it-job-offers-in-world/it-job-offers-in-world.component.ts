@@ -19,7 +19,7 @@ export class ItJobOffersInWorldComponent implements DoCheck, OnInit, OnDestroy {
   pageLimit: number;
   countryList: JobOffer[] = [];
   dataSource = new MatTableDataSource(this.countryList);
-  displayedColumns: string[] = ['position', 'name', 'indeed', 'linkedin', 'total', 'population', 'per100k', 'area', 'density'];
+  displayedColumns: string[] = ['position', 'name', 'linkedin', 'indeed', 'total', 'population', 'per100k', 'area', 'density'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   private subscriptions: Subscription[] = [];

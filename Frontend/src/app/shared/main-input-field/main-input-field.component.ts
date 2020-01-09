@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from "@angular/material";
 import {TechnologyStatisticsInPolandQuery} from "../../store/technology-statistics-in-poland/technologyStatisticsInPoland.query";
+import {TechnologyStatisticsInWorldQuery} from "../../store/technology-statistics-in-world/technologyStatisticsInWorld.query";
 
 @Component({
   selector: 'app-main-input-field',
@@ -23,6 +24,12 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
   searchInput = new FormControl('');
   cityInputList = ['Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin', 'Bydgoszcz', 'Białystok',
     'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole', 'Toruń', 'Gorzów Wielkopolski',];
+  countryInputList = ['Poland', 'United States', 'United Kingdom','Germany','France', 'Singapore', 'Hong Kong', 'Bahrain',
+    'Taiwan', 'Korea', 'Netherlands', 'Israel', 'India', 'Belgium', 'Philippines', 'Japan', 'Vietnam', 'Pakistan', 'Kuwait',
+    'Luxembourg', 'Qatar', 'Switzerland', 'Italy', 'China', 'Indonesia', 'Czech Republic', 'Denmark', 'Thailand',
+    'United Arab Emirates', 'Portugal', 'Austria', 'Turkey', 'Hungary', 'Spain', 'Romania', 'Greece', 'Ireland',
+    'Mexico', 'South Africa', 'Colombia', 'Venezuela', 'Peru', 'Brazil', 'Chile', 'Sweden', 'New Zealand', 'Norway',
+    'Finland', 'Argentina', 'Saudi Arabia', 'Oman', 'Russia', 'Canada', 'Australia'];
   technologyInputList = ['Java', 'Javascript', 'Typescript', '.NET', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Rust', 'Swift', 'Golang', 'Visual Basic',
     'Spring', 'Selenium', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
     'Linux', 'Bash', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Ansible', 'Terraform', 'TeamCity', 'Circle CI', 'ELK stack', 'Nginx'];
@@ -34,7 +41,8 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
               private router: Router,
               private cityQuery: ItJobOffersInPolandQuery,
               private categoryQuery: CategoryStatisticsQuery,
-              private technologyQuery: TechnologyStatisticsInPolandQuery,
+              private technologyPolandQuery: TechnologyStatisticsInPolandQuery,
+              private technologyWorldQuery: TechnologyStatisticsInWorldQuery,
               private countryQuery: ItJobOffersInWorldQuery,
               private snackBar: MatSnackBar) {
 
@@ -54,7 +62,14 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
         break;
       }
       case '/technology-poland': {
-        this.subscriptions.push(this.technologyQuery.getInput()
+        this.subscriptions.push(this.technologyPolandQuery.getInput()
+          .subscribe(input => {
+            this.searchInput.setValue(input);
+          }));
+        break;
+      }
+      case '/technology-world': {
+        this.subscriptions.push(this.technologyWorldQuery.getInput()
           .subscribe(input => {
             this.searchInput.setValue(input);
           }));
@@ -117,13 +132,26 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
           this.resultInputService.showSpinnerTechnology();
           this.httpService.getTechnologyStatsInPoland(this.searchInput.value)
             .subscribe(technologies => {
-              this.technologyQuery.updateSpinner(false);
+              this.technologyPolandQuery.updateSpinner(false);
               this.resultInputService.fillTechnologyTable(technologies);
             }, () => {
-              this.technologyQuery.updateSpinner(false);
+              this.technologyPolandQuery.updateSpinner(false);
               this.openSnackBar();
             });
-          this.technologyQuery.updateMainInput(this.searchInput.value);
+          this.technologyPolandQuery.updateMainInput(this.searchInput.value);
+          break;
+        }
+        case '/technology-world': {
+          this.resultInputService.showSpinnerTechnology();
+          this.httpService.getTechnologyStatsInWorld(this.searchInput.value)
+            .subscribe(technologies => {
+              this.technologyWorldQuery.updateSpinner(false);
+              this.resultInputService.fillTechnologyTable(technologies);
+            }, () => {
+              this.technologyWorldQuery.updateSpinner(false);
+              this.openSnackBar();
+            });
+          this.technologyWorldQuery.updateMainInput(this.searchInput.value);
           break;
         }
         case '/category': {
@@ -143,11 +171,15 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
     }
   }
 
-  isCityOrTechnologyLabel(): Boolean {
-    if (this.router.url === '/technology-poland' || this.router.url === '/category' || this.router.url === '/technology-world') {
-      return true;
-    } else if (this.router.url === '/' || this.router.url === '/world') {
-      return false;
+  getInputGhostLabel(): String {
+    if (this.router.url === '/technology-poland' || this.router.url === '/category') {
+      return 'City';
+    }
+    else if (this.router.url === '/technology-world'){
+      return 'Country';
+    }
+    else if (this.router.url === '/' || this.router.url === '/world') {
+      return 'Technology';
     }
     return null;
   }
@@ -164,10 +196,12 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    if (this.isCityOrTechnologyLabel()) {
+    if (this.getInputGhostLabel() === 'City') {
       return this.cityInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-    } else if (!this.isCityOrTechnologyLabel()) {
+    } else if (this.getInputGhostLabel() === 'Technology') {
       return this.technologyInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    } else if (this.getInputGhostLabel() === 'Country') {
+      return this.countryInputList.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
     }
   }
 
