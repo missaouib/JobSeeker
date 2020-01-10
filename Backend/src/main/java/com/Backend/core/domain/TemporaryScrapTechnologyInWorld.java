@@ -40,7 +40,10 @@ public class TemporaryScrapTechnologyInWorld {
         List<TechnologyOffersInWorld> offers = technologyOffersInWorldRepository.findByDateAndCountry(LocalDate.now(), countryRepository.findCountryByName(countryName)
                 .orElse(null));
 
-        if (offers.size() < 42) {
+        if(countryName.equals("all countries")) {
+            return null;
+        }
+        else if (offers.size() < 42) {
             return mapToDto(scrapTechnologyStatisticsInWorld(countryName));
         } else {
             return mapToDto(offers);

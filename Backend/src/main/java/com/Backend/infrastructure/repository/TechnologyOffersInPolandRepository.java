@@ -28,5 +28,16 @@ public interface TechnologyOffersInPolandRepository extends JpaRepository<Techno
             "FROM TechnologyOffersInPoland o, City c " +
             "WHERE (o.date) = :date " +
             "GROUP BY c.name, c.population, c.area, c.density")
-    List<Object[]> findAllTechnologies(@Param("date")LocalDate date);
+    List<Object[]> findAllTechnlogiesInItJobOffers(@Param("date")LocalDate date);
+
+    @Query("SELECT t.name, t.type, " +
+            "sum(case when t.id = o.technology.id then o.linkedin else 0 end) as linkedin, " +
+            "sum(case when t.id = o.technology.id then o.indeed else 0 end) as indeed, " +
+            "sum(case when t.id = o.technology.id then o.pracuj else 0 end) as pracuj, " +
+            "sum(case when t.id = o.technology.id then o.noFluffJobs else 0 end) as noFluffJobs, " +
+            "sum(case when t.id = o.technology.id then o.justJoinIt else 0 end) as JustJoinIt " +
+            "FROM TechnologyOffersInPoland o, Technology t " +
+            "WHERE (o.date) = :date " +
+            "GROUP BY t.name, t.type")
+    List<Object[]> findAllTechnologiesInTechnologyStats(@Param("date")LocalDate date);
 }

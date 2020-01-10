@@ -1,5 +1,8 @@
 package com.Backend.core.domain;
 
+import com.Backend.core.service.DtoMapper;
+import com.Backend.core.service.RequestCreator;
+import com.Backend.core.service.UrlBuilder;
 import com.Backend.infrastructure.dto.TechnologyStatisticsInPolandDto;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
@@ -8,9 +11,6 @@ import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.CityRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
-import com.Backend.core.service.DtoMapper;
-import com.Backend.core.service.RequestCreator;
-import com.Backend.core.service.UrlBuilder;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -41,11 +41,34 @@ class TemporaryScrapTechnologyInPoland {
         List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName)
                 .orElse(null));
 
+        if(cityName.equals("all cities")){
+            return mapToDto(getAllTechnologies());
+        }
         if (offers.size() < 42) {
             return mapToDto(scrapTechnologyStatisticsInWorld(cityName));
         } else {
             return mapToDto(offers);
         }
+    }
+
+    private List<TechnologyStatisticsInPolandDto> getAllTechnologies(){
+
+        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnologiesInTechnologyStats(LocalDate.now());
+        List<TechnologyStatisticsInPolandDto> convertedList = new ArrayList<>();
+
+        for (Object[] line : hibernateObjectList) {
+            TechnologyStatisticsInPolandDto offer = new TechnologyStatisticsInPolandDto();
+            offer.setName(line[0].toString());
+            offer.setType(line[1].toString());
+            offer.setLinkedin(Integer.parseInt(line[2].toString()));
+            offer.setIndeed(Integer.parseInt(line[3].toString()));
+            offer.setPracuj(Integer.parseInt(line[4].toString()));
+            offer.setNoFluffJobs(Integer.parseInt(line[5].toString()));
+            offer.setJustJoinIt(Integer.parseInt(line[6].toString()));
+            convertedList.add(offer);
+        }
+
+        return convertedList;
     }
 
     private <T> List<TechnologyStatisticsInPolandDto> mapToDto(final List<T> offers) {

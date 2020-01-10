@@ -43,7 +43,10 @@ class ScrapCategoryInPoland {
         List<CategoryOffersInPoland> offers = categoryOffersInPolandRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName)
                 .orElse(null));
 
-        if (offers.isEmpty()) {
+        if(cityName.equals("all cities")){
+            return null;
+        }
+        else if (offers.isEmpty()) {
             return mapToDto(scrapCategoryStatisticsInPoland(cityName));
         } else {
             return mapToDto(offers);

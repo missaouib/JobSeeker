@@ -41,7 +41,10 @@ class ScrapTechnologyInWorld {
         List<TechnologyOffersInWorld> offers = technologyOffersInWorldRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName)
                 .orElse(null));
 
-        if (offers.isEmpty()) {
+        if(technologyName.equals("all technologies")) {
+            return null;
+        }
+        else if (offers.isEmpty()) {
             return mapToDto(scrapItJobOffersInWorld(technologyName));
         } else {
             return mapToDto(offers);
