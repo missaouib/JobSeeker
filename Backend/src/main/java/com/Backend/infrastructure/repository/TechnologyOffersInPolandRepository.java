@@ -4,6 +4,8 @@ import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
 import com.Backend.infrastructure.entity.TechnologyOffersInPoland;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,4 +18,15 @@ public interface TechnologyOffersInPolandRepository extends JpaRepository<Techno
     List<TechnologyOffersInPoland> findByDateAndCity(LocalDate date, City city);
 
     List<TechnologyOffersInPoland> findByDate(LocalDate date);
+
+    @Query("SELECT c.name, c.population, c.area, c.density, " +
+            "sum(case when c.id = o.city.id then o.linkedin else 0 end) as linkedin, " +
+            "sum(case when c.id = o.city.id then o.indeed else 0 end) as indeed, " +
+            "sum(case when c.id = o.city.id then o.pracuj else 0 end) as pracuj, " +
+            "sum(case when c.id = o.city.id then o.noFluffJobs else 0 end) as noFluffJobs, " +
+            "sum(case when c.id = o.city.id then o.justJoinIt else 0 end) as JustJoinIt " +
+            "FROM TechnologyOffersInPoland o, City c " +
+            "WHERE (o.date) = :date " +
+            "GROUP BY c.name, c.population, c.area, c.density")
+    List<Object[]> findAllTechnologies(@Param("date")LocalDate date);
 }

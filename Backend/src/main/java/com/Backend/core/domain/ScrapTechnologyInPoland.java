@@ -1,5 +1,8 @@
 package com.Backend.core.domain;
 
+import com.Backend.core.service.DtoMapper;
+import com.Backend.core.service.RequestCreator;
+import com.Backend.core.service.UrlBuilder;
 import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
@@ -8,9 +11,6 @@ import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.CityRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
-import com.Backend.core.service.DtoMapper;
-import com.Backend.core.service.RequestCreator;
-import com.Backend.core.service.UrlBuilder;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -42,11 +42,36 @@ class ScrapTechnologyInPoland {
         List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName)
                 .orElse(null));
 
-        if (offers.isEmpty()) {
+        if(technologyName.equals("all technologies")){
+            return mapToDto(getAllTechnologies());
+        }
+        else if (offers.isEmpty()) {
             return mapToDto(scrapItJobsOffersInPoland(technologyName, justJoinItOffers));
         } else {
             return mapToDto(offers);
         }
+    }
+
+    private List<JobsOffersInPolandDto> getAllTechnologies(){
+
+        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnologies(LocalDate.now());
+        List<JobsOffersInPolandDto> convertedList = new ArrayList<>();
+
+        for (Object[] line : hibernateObjectList) {
+            JobsOffersInPolandDto offer = new JobsOffersInPolandDto();
+            offer.setName(line[0].toString());
+            offer.setPopulation(Integer.parseInt(line[1].toString()));
+            offer.setArea(Double.parseDouble(line[2].toString()));
+            offer.setDensity(Integer.parseInt(line[3].toString()));
+            offer.setLinkedin(Integer.parseInt(line[4].toString()));
+            offer.setIndeed(Integer.parseInt(line[5].toString()));
+            offer.setPracuj(Integer.parseInt(line[6].toString()));
+            offer.setNoFluffJobs(Integer.parseInt(line[7].toString()));
+            offer.setJustJoinIt(Integer.parseInt(line[8].toString()));
+            convertedList.add(offer);
+        }
+
+        return convertedList;
     }
 
     private <T> List<JobsOffersInPolandDto> mapToDto(final List<T> offers) {
@@ -88,8 +113,8 @@ class ScrapTechnologyInPoland {
 
             offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinUrl));
             offer.setPracuj(requestCreator.scrapPracujOffers(pracujUrl));
-            offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsUrl));
-            offer.setJustJoinIt(requestCreator.extractJustJoinItJson(finalJustJoinItOffers, city.getName(), technologyName));
+            offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsUrl, cityNameUTF8, technologyName));
+            offer.setJustJoinIt(requestCreator.extractJustJoinItJson(finalJustJoinItOffers, cityNameUTF8, technologyName));
 
             technologyOfferInPoland.add(offer);
         });

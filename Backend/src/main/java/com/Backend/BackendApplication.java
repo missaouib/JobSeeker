@@ -13,16 +13,14 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[FEAT] maybe wait in loop
-    //[FEAT] add all cities/ all technologies/ all countries <- only from DB ?
+    //[FEAT] Add wait logic deeper
+    //[FEAT] Add all cities/ all technologies/ all countries
     //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
     //[FEAT] Consider justjoinit {experience, remote, salary}
     //[FEAT] Try Selenium with proxy for Linkedin and Glassdor
 
     //[FRONTEND] TODO
-    //[REFACTOR] if 0 then hide ?
-    //[FEAT] Add history diagram functionality
-    //[REFACTOR] Dont change count during filter
+    //[FEAT] Add history Line and Bar diagrams (ngx-charts)
     //[FEAT] Responsive Web Design
 }

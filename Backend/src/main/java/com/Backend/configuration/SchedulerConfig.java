@@ -4,11 +4,11 @@ import com.Backend.core.domain.ScrapFacade;
 import com.Backend.core.service.RequestCreator;
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.*;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -51,17 +51,17 @@ public class SchedulerConfig {
     }
 
 //    @Scheduled(cron = "0 0 1 * * *")
-    @Bean
+//    @Bean
     public void cyclicScraping() {
 
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
-        System.out.println("arb");
+        System.out.println("arb " + LocalTime.now());
         runForCities(justJoinItOffers);
-        System.out.println("siema");
+        System.out.println("siema " + LocalTime.now());
         runForCountries();
-        System.out.println("elo");
+        System.out.println("elo " + LocalTime.now());
         runForCategories();
-        System.out.println("pedoni");
+        System.out.println("pedoni " + LocalTime.now());
 
         verifyData(justJoinItOffers);
     }
@@ -69,6 +69,7 @@ public class SchedulerConfig {
     private void runForCities(List<JustJoinIt> justJoinItOffers) {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.ItJobsOffersInPoland(technologyName, justJoinItOffers);
+            System.out.println(technologyName + " " + LocalTime.now());
             waitRandomFromToSeconds(5000, 10000);
         });
     }
@@ -76,6 +77,7 @@ public class SchedulerConfig {
     private void runForCountries() {
         technologiesNames.forEach(technologyName -> {
             scrapFacade.itJobOffersInWorld(technologyName);
+            System.out.println(technologyName + " " + LocalTime.now());
             waitRandomFromToSeconds(10000, 20000);
         });
     }
@@ -83,6 +85,7 @@ public class SchedulerConfig {
     private void runForCategories() {
         citiesNames.forEach(cityName -> {
             scrapFacade.categoryStatisticsInPoland(cityName);
+            System.out.println(cityName + " " + LocalTime.now());
             waitRandomFromToSeconds(5000, 10000);
         });
     }

@@ -83,7 +83,7 @@ class TemporaryScrapTechnologyInPoland {
 
             offer.setLinkedin(requestCreator.scrapLinkedinOffers(linkedinDynamicURL));
             offer.setPracuj(requestCreator.scrapPracujOffers(pracujDynamicURL));
-            offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsDynamicURL));
+            offer.setNoFluffJobs(requestCreator.scrapNoFluffJobsOffers(noFluffJobsDynamicURL, cityNameUTF8, technologyName));
             offer.setJustJoinIt(requestCreator.extractJustJoinItJson(justJoinItOffers, cityNameUTF8, technologyName));
 
             technologyOfferInPoland.add(offer);

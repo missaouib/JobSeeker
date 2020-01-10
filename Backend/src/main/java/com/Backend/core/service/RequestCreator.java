@@ -92,14 +92,15 @@ public class RequestCreator {
         return 0;
     }
 
-    public int scrapNoFluffJobsOffers(String url) {
+    public int scrapNoFluffJobsOffers(String url, String cityName, String technologyName) {
 
         WebClient noFluffJobsURL = WebClient.create(url);
 
         try {
             NoFluffJobs response = noFluffJobsURL
-                    .get()
+                    .post()
                     .header("User-Agent", USER_AGENT)
+                    .body(Mono.just("{\"rawSearch\":\"" + technologyName + " " + cityName + "\"}"), String.class)
                     .accept(MediaType.APPLICATION_JSON_UTF8)
                     .retrieve()
                     .bodyToMono(NoFluffJobs.class)
