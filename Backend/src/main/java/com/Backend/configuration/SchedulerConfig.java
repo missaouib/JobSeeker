@@ -51,17 +51,16 @@ public class SchedulerConfig {
     }
 
     @Scheduled(cron = "0 0 1 * * *")
-//    @Bean
     public void cyclicScraping() {
 
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
-        System.out.println("1 " + LocalTime.now());
+        System.out.println("1x " + LocalTime.now());
         runForCities(justJoinItOffers);
-        System.out.println("2 " + LocalTime.now());
+        System.out.println("2x " + LocalTime.now());
         runForCountries();
-        System.out.println("3 " + LocalTime.now());
+        System.out.println("3x " + LocalTime.now());
         runForCategories();
-        System.out.println("4 " + LocalTime.now());
+        System.out.println("4x " + LocalTime.now());
 
         verifyData(justJoinItOffers);
     }

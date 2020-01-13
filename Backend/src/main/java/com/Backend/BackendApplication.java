@@ -12,6 +12,11 @@ public class BackendApplication {
         SpringApplication.run(BackendApplication.class, args);
     }
 
+    /*
+    Nested menu(one button), type dateFrom, dateTo
+    java series [linkedin offers, date]
+     */
+
     //[BACKEND] TODO
     //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
