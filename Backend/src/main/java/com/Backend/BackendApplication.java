@@ -13,8 +13,8 @@ public class BackendApplication {
     }
 
     //[BACKEND] TODO
-    //[FEAT] Add wait logic deeper
-    //[FEAT] Add all cities/ all technologies/ all countries
+    //[FEAT] Add wait logic deeper in nested try catch
+    //[FEAT] Add all cities
     //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
     //[FEAT] Consider justjoinit {experience, remote, salary}

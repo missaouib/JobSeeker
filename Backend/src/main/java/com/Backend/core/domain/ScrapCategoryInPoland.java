@@ -1,5 +1,8 @@
 package com.Backend.core.domain;
 
+import com.Backend.core.service.DtoMapper;
+import com.Backend.core.service.RequestCreator;
+import com.Backend.core.service.UrlBuilder;
 import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
 import com.Backend.infrastructure.entity.Category;
 import com.Backend.infrastructure.entity.CategoryOffersInPoland;
@@ -7,9 +10,6 @@ import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.repository.CategoryOffersInPolandRepository;
 import com.Backend.infrastructure.repository.CategoryRepository;
 import com.Backend.infrastructure.repository.CityRepository;
-import com.Backend.core.service.DtoMapper;
-import com.Backend.core.service.RequestCreator;
-import com.Backend.core.service.UrlBuilder;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -44,13 +44,29 @@ class ScrapCategoryInPoland {
                 .orElse(null));
 
         if(cityName.equals("all cities")){
-            return null;
+            return mapToDto(getCategories());
         }
         else if (offers.isEmpty()) {
             return mapToDto(scrapCategoryStatisticsInPoland(cityName));
         } else {
             return mapToDto(offers);
         }
+    }
+
+    public List<CategoryStatisticsInPolandDto> getCategories(){
+        List<Object[]> hibernateObjectList = categoryOffersInPolandRepository.findAllCategoriesInCategoryStats(LocalDate.now());
+        List<CategoryStatisticsInPolandDto> convertedList = new ArrayList<>();
+
+        for (Object[] line : hibernateObjectList) {
+            CategoryStatisticsInPolandDto offer = new CategoryStatisticsInPolandDto();
+            offer.setPolishName(line[0].toString());
+            offer.setEnglishName(line[1].toString());
+            offer.setPracuj(Integer.parseInt(line[2].toString()));
+            offer.setIndeed(Integer.parseInt(line[3].toString()));
+            convertedList.add(offer);
+        }
+
+        return convertedList;
     }
 
     private <T> List<CategoryStatisticsInPolandDto> mapToDto(final List<T> offers) {

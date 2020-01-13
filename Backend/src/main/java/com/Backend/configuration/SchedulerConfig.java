@@ -5,6 +5,7 @@ import com.Backend.core.service.RequestCreator;
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.*;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
@@ -50,7 +51,7 @@ public class SchedulerConfig {
         this.technologiesNames = technologyRepository.findAllNames();
     }
 
-//    @Scheduled(cron = "0 0 1 * * *")
+    @Scheduled(cron = "0 0 1 * * *")
 //    @Bean
     public void cyclicScraping() {
 

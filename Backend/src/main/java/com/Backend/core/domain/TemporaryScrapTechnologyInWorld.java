@@ -1,5 +1,8 @@
 package com.Backend.core.domain;
 
+import com.Backend.core.service.DtoMapper;
+import com.Backend.core.service.RequestCreator;
+import com.Backend.core.service.UrlBuilder;
 import com.Backend.infrastructure.dto.TechnologyStatisticsInWorldDto;
 import com.Backend.infrastructure.entity.Country;
 import com.Backend.infrastructure.entity.Technology;
@@ -7,9 +10,6 @@ import com.Backend.infrastructure.entity.TechnologyOffersInWorld;
 import com.Backend.infrastructure.repository.CountryRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInWorldRepository;
 import com.Backend.infrastructure.repository.TechnologyRepository;
-import com.Backend.core.service.DtoMapper;
-import com.Backend.core.service.RequestCreator;
-import com.Backend.core.service.UrlBuilder;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -41,13 +41,30 @@ public class TemporaryScrapTechnologyInWorld {
                 .orElse(null));
 
         if(countryName.equals("all countries")) {
-            return null;
+            return mapToDto(getAllTechnologies());
         }
         else if (offers.size() < 42) {
             return mapToDto(scrapTechnologyStatisticsInWorld(countryName));
         } else {
             return mapToDto(offers);
         }
+    }
+
+    private List<TechnologyStatisticsInWorldDto> getAllTechnologies(){
+
+        List<Object[]> hibernateObjectList = technologyOffersInWorldRepository.findAllTechnologiesInTechnologyStatsInWorld(LocalDate.now());
+        List<TechnologyStatisticsInWorldDto> convertedList = new ArrayList<>();
+
+        for (Object[] line : hibernateObjectList) {
+            TechnologyStatisticsInWorldDto offer = new TechnologyStatisticsInWorldDto();
+            offer.setName(line[0].toString());
+            offer.setType(line[1].toString());
+            offer.setLinkedin(Integer.parseInt(line[2].toString()));
+            offer.setIndeed(Integer.parseInt(line[3].toString()));
+            convertedList.add(offer);
+        }
+
+        return convertedList;
     }
 
     private <T> List<TechnologyStatisticsInWorldDto> mapToDto(final List<T> offers) {

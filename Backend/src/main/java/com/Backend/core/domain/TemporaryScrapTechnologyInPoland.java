@@ -53,7 +53,7 @@ class TemporaryScrapTechnologyInPoland {
 
     private List<TechnologyStatisticsInPolandDto> getAllTechnologies(){
 
-        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnologiesInTechnologyStats(LocalDate.now());
+        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnologiesInTechnologyStatsInPoland(LocalDate.now());
         List<TechnologyStatisticsInPolandDto> convertedList = new ArrayList<>();
 
         for (Object[] line : hibernateObjectList) {

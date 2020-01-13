@@ -54,7 +54,7 @@ class ScrapTechnologyInPoland {
 
     private List<JobsOffersInPolandDto> getAllTechnologies(){
 
-        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnlogiesInItJobOffers(LocalDate.now());
+        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnlogiesInItJobOffersInPoland(LocalDate.now());
         List<JobsOffersInPolandDto> convertedList = new ArrayList<>();
 
         for (Object[] line : hibernateObjectList) {

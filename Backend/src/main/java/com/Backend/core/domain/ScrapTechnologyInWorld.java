@@ -42,13 +42,32 @@ class ScrapTechnologyInWorld {
                 .orElse(null));
 
         if(technologyName.equals("all technologies")) {
-            return null;
+            return mapToDto(getAllTechnologies());
         }
         else if (offers.isEmpty()) {
             return mapToDto(scrapItJobOffersInWorld(technologyName));
         } else {
             return mapToDto(offers);
         }
+    }
+
+    private List<JobsOffersInWorldDto> getAllTechnologies(){
+
+        List<Object[]> hibernateObjectList = technologyOffersInWorldRepository.findAllTechnlogiesInItJobOffersInWorld(LocalDate.now());
+        List<JobsOffersInWorldDto> convertedList = new ArrayList<>();
+
+        for (Object[] line : hibernateObjectList) {
+            JobsOffersInWorldDto offer = new JobsOffersInWorldDto();
+            offer.setName(line[0].toString());
+            offer.setPopulation(Integer.parseInt(line[1].toString()));
+            offer.setArea(Double.parseDouble(line[2].toString()));
+            offer.setDensity(Integer.parseInt(line[3].toString()));
+            offer.setLinkedin(Integer.parseInt(line[4].toString()));
+            offer.setIndeed(Integer.parseInt(line[5].toString()));
+            convertedList.add(offer);
+        }
+
+        return convertedList;
     }
 
     private <T> List<JobsOffersInWorldDto> mapToDto(final List<T> offers) {

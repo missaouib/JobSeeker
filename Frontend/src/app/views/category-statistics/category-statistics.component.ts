@@ -61,8 +61,8 @@ export class CategoryStatisticsComponent implements OnInit, OnDestroy {
 
   fillTable(categories: CategoryStatistics[]) {
     this.categoryList = categories;
-    this.indeedList = categories.filter(category => category.indeed != -1);
-    this.pracujList = categories.filter(category => category.pracuj != -1);
+    this.indeedList = categories.filter(category => category.indeed >= 0);
+    this.pracujList = categories.filter(category => category.pracuj >= 0);
 
     this.dataSourceIndeed = new MatTableDataSource(this.indeedList);
     this.dataSourceIndeed.sort = this.indeedTable;
