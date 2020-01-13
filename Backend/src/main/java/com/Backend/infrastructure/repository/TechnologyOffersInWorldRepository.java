@@ -25,7 +25,7 @@ public interface TechnologyOffersInWorldRepository extends JpaRepository<Technol
             "FROM TechnologyOffersInWorld o, Country c " +
             "WHERE (o.date) = :date " +
             "GROUP BY c.name, c.population, c.area, c.density")
-    List<Object[]> findAllTechnlogiesInItJobOffersInWorld(@Param("date")LocalDate date);
+    List<Object[]> findAllTechnlogiesInItJobOffersInWorld(@Param("date") LocalDate date);
 
     @Query("SELECT t.name, t.type, " +
             "sum(case when t.id = o.technology.id then o.linkedin else 0 end) as linkedin, " +
@@ -33,5 +33,5 @@ public interface TechnologyOffersInWorldRepository extends JpaRepository<Technol
             "FROM TechnologyOffersInWorld o, Technology t " +
             "WHERE (o.date) = :date " +
             "GROUP BY t.name, t.type")
-    List<Object[]> findAllTechnologiesInTechnologyStatsInWorld(@Param("date")LocalDate date);
+    List<Object[]> findAllTechnologiesInTechnologyStatsInWorld(@Param("date") LocalDate date);
 }

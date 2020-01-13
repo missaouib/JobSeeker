@@ -22,5 +22,5 @@ public interface CategoryOffersInPolandRepository extends JpaRepository<Category
             "FROM CategoryOffersInPoland o, Category c " +
             "WHERE (o.date) = :date " +
             "GROUP BY c.polishName, c.englishName")
-    List<Object[]> findAllCategoriesInCategoryStats(@Param("date")LocalDate date);
+    List<Object[]> findAllCategoriesInCategoryStats(@Param("date") LocalDate date);
 }

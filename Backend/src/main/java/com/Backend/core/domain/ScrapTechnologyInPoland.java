@@ -3,6 +3,7 @@ package com.Backend.core.domain;
 import com.Backend.core.service.DtoMapper;
 import com.Backend.core.service.RequestCreator;
 import com.Backend.core.service.UrlBuilder;
+import com.Backend.core.service.UtilityClass;
 import com.Backend.infrastructure.dto.JobsOffersInPolandDto;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
@@ -42,19 +43,26 @@ class ScrapTechnologyInPoland {
         List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName)
                 .orElse(null));
 
-        if(technologyName.equals("all technologies")){
+        if (technologyName.equals("all technologies")) {
             return mapToDto(getAllTechnologies());
-        }
-        else if (offers.isEmpty()) {
+        } else if (offers.isEmpty()) {
             return mapToDto(scrapItJobsOffersInPoland(technologyName, justJoinItOffers));
         } else {
             return mapToDto(offers);
         }
     }
 
-    private List<JobsOffersInPolandDto> getAllTechnologies(){
+    private <T> List<JobsOffersInPolandDto> mapToDto(final List<T> offers) {
+        return offers.stream()
+                .map(offerInPoland -> modelMapper.map(offerInPoland, JobsOffersInPolandDto.class))
+                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setTotal(jobsOffersInPolandDto.getLinkedin() + jobsOffersInPolandDto.getIndeed() + jobsOffersInPolandDto.getPracuj() + jobsOffersInPolandDto.getNoFluffJobs() + jobsOffersInPolandDto.getJustJoinIt()))
+                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setPer100k(Math.round(jobsOffersInPolandDto.getTotal() * 1.0 / (jobsOffersInPolandDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+                .collect(Collectors.toList());
+    }
 
-        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnlogiesInItJobOffersInPoland(LocalDate.now());
+    private List<JobsOffersInPolandDto> getAllTechnologies() {
+
+        List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnologiesInItJobOffersInPoland(LocalDate.now());
         List<JobsOffersInPolandDto> convertedList = new ArrayList<>();
 
         for (Object[] line : hibernateObjectList) {
@@ -74,14 +82,6 @@ class ScrapTechnologyInPoland {
         return convertedList;
     }
 
-    private <T> List<JobsOffersInPolandDto> mapToDto(final List<T> offers) {
-        return offers.stream()
-                .map(offerInPoland -> modelMapper.map(offerInPoland, JobsOffersInPolandDto.class))
-                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setTotal(jobsOffersInPolandDto.getLinkedin() + jobsOffersInPolandDto.getIndeed() + jobsOffersInPolandDto.getPracuj() + jobsOffersInPolandDto.getNoFluffJobs() + jobsOffersInPolandDto.getJustJoinIt()))
-                .peek(jobsOffersInPolandDto -> jobsOffersInPolandDto.setPer100k(Math.round(jobsOffersInPolandDto.getTotal() * 1.0 / (jobsOffersInPolandDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
-                .collect(Collectors.toList());
-    }
-
     private List<TechnologyOffersInPoland> scrapItJobsOffersInPoland(String technologyName, List<JustJoinIt> justJoinItOffers) {
 
         List<City> cities = cityRepository.findAll();
@@ -96,7 +96,7 @@ class ScrapTechnologyInPoland {
         cities.forEach(city -> {
 
             String cityNameUTF8 = city.getName().toLowerCase();
-            String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
+            String cityNameASCII = UtilityClass.removePolishSigns(cityNameUTF8);
 
             String linkedinUrl = UrlBuilder.linkedinBuildUrlForCityAndCountry(technologyName, cityNameASCII);
             String indeedUrl = UrlBuilder.indeedBuildUrlLForCity(technologyName, cityNameASCII);

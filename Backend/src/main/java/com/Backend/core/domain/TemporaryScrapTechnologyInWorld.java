@@ -40,17 +40,23 @@ public class TemporaryScrapTechnologyInWorld {
         List<TechnologyOffersInWorld> offers = technologyOffersInWorldRepository.findByDateAndCountry(LocalDate.now(), countryRepository.findCountryByName(countryName)
                 .orElse(null));
 
-        if(countryName.equals("all countries")) {
+        if (countryName.equals("all countries")) {
             return mapToDto(getAllTechnologies());
-        }
-        else if (offers.size() < 42) {
+        } else if (offers.size() < 42) {
             return mapToDto(scrapTechnologyStatisticsInWorld(countryName));
         } else {
             return mapToDto(offers);
         }
     }
 
-    private List<TechnologyStatisticsInWorldDto> getAllTechnologies(){
+    private <T> List<TechnologyStatisticsInWorldDto> mapToDto(final List<T> offers) {
+        return offers.stream()
+                .map(technologyStatisticsInWorld -> modelMapper.map(technologyStatisticsInWorld, TechnologyStatisticsInWorldDto.class))
+                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setTotal(jobsOffersInWorldDto.getLinkedin() + jobsOffersInWorldDto.getIndeed()))
+                .collect(Collectors.toList());
+    }
+
+    private List<TechnologyStatisticsInWorldDto> getAllTechnologies() {
 
         List<Object[]> hibernateObjectList = technologyOffersInWorldRepository.findAllTechnologiesInTechnologyStatsInWorld(LocalDate.now());
         List<TechnologyStatisticsInWorldDto> convertedList = new ArrayList<>();
@@ -67,14 +73,7 @@ public class TemporaryScrapTechnologyInWorld {
         return convertedList;
     }
 
-    private <T> List<TechnologyStatisticsInWorldDto> mapToDto(final List<T> offers) {
-        return offers.stream()
-                .map(technologyStatisticsInWorld -> modelMapper.map(technologyStatisticsInWorld, TechnologyStatisticsInWorldDto.class))
-                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setTotal(jobsOffersInWorldDto.getLinkedin() + jobsOffersInWorldDto.getIndeed()))
-                .collect(Collectors.toList());
-    }
-
-    public List<TechnologyOffersInWorld> scrapTechnologyStatisticsInWorld(String countryName) {
+    private List<TechnologyOffersInWorld> scrapTechnologyStatisticsInWorld(String countryName) {
 
         String countryNameUTF8 = countryName.toLowerCase();
         List<TechnologyOffersInWorld> countriesOffers = new ArrayList<>();

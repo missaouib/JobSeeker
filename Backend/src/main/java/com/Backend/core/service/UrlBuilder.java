@@ -61,12 +61,6 @@ public class UrlBuilder {
     }
 
     public static String noFluffJobsBuildUrlForCity(String technologyName, String cityName) {
-
-//        if (technologyName.equals("c#")) {
-//            technologyName = "c%23";
-//        }
-//
-//        return "https://nofluffjobs.com/api/search/posting?criteria=city=" + cityName + "+" + technologyName;
         return "https://nofluffjobs.com/api/search/posting?region=pl";
     }
 

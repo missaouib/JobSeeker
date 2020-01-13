@@ -41,17 +41,25 @@ class ScrapTechnologyInWorld {
         List<TechnologyOffersInWorld> offers = technologyOffersInWorldRepository.findByDateAndTechnology(LocalDate.now(), technologyRepository.findTechnologyByName(technologyName)
                 .orElse(null));
 
-        if(technologyName.equals("all technologies")) {
+        if (technologyName.equals("all technologies")) {
             return mapToDto(getAllTechnologies());
-        }
-        else if (offers.isEmpty()) {
+        } else if (offers.isEmpty()) {
             return mapToDto(scrapItJobOffersInWorld(technologyName));
         } else {
             return mapToDto(offers);
         }
     }
 
-    private List<JobsOffersInWorldDto> getAllTechnologies(){
+    private <T> List<JobsOffersInWorldDto> mapToDto(final List<T> offers) {
+        return offers
+                .stream()
+                .map(offersInWorld -> modelMapper.map(offersInWorld, JobsOffersInWorldDto.class))
+                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setTotal(jobsOffersInWorldDto.getLinkedin() + jobsOffersInWorldDto.getIndeed()))
+                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setPer100k(Math.round(jobsOffersInWorldDto.getTotal() * 1.0 / (jobsOffersInWorldDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
+                .collect(Collectors.toList());
+    }
+
+    private List<JobsOffersInWorldDto> getAllTechnologies() {
 
         List<Object[]> hibernateObjectList = technologyOffersInWorldRepository.findAllTechnlogiesInItJobOffersInWorld(LocalDate.now());
         List<JobsOffersInWorldDto> convertedList = new ArrayList<>();
@@ -68,15 +76,6 @@ class ScrapTechnologyInWorld {
         }
 
         return convertedList;
-    }
-
-    private <T> List<JobsOffersInWorldDto> mapToDto(final List<T> offers) {
-        return offers
-                .stream()
-                .map(offersInWorld -> modelMapper.map(offersInWorld, JobsOffersInWorldDto.class))
-                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setTotal(jobsOffersInWorldDto.getLinkedin() + jobsOffersInWorldDto.getIndeed()))
-                .peek(jobsOffersInWorldDto -> jobsOffersInWorldDto.setPer100k(Math.round(jobsOffersInWorldDto.getTotal() * 1.0 / (jobsOffersInWorldDto.getPopulation() * 1.0 / 100000) * 100.0) / 100.0))
-                .collect(Collectors.toList());
     }
 
     private List<TechnologyOffersInWorld> scrapItJobOffersInWorld(String technologyName) {

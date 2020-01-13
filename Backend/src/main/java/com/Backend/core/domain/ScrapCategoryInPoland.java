@@ -3,6 +3,7 @@ package com.Backend.core.domain;
 import com.Backend.core.service.DtoMapper;
 import com.Backend.core.service.RequestCreator;
 import com.Backend.core.service.UrlBuilder;
+import com.Backend.core.service.UtilityClass;
 import com.Backend.infrastructure.dto.CategoryStatisticsInPolandDto;
 import com.Backend.infrastructure.entity.Category;
 import com.Backend.infrastructure.entity.CategoryOffersInPoland;
@@ -43,17 +44,22 @@ class ScrapCategoryInPoland {
         List<CategoryOffersInPoland> offers = categoryOffersInPolandRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName)
                 .orElse(null));
 
-        if(cityName.equals("all cities")){
+        if (cityName.equals("all cities")) {
             return mapToDto(getCategories());
-        }
-        else if (offers.isEmpty()) {
+        } else if (offers.isEmpty()) {
             return mapToDto(scrapCategoryStatisticsInPoland(cityName));
         } else {
             return mapToDto(offers);
         }
     }
 
-    public List<CategoryStatisticsInPolandDto> getCategories(){
+    private <T> List<CategoryStatisticsInPolandDto> mapToDto(final List<T> offers) {
+        return offers.stream()
+                .map(categoryOffer -> modelMapper.map(categoryOffer, CategoryStatisticsInPolandDto.class))
+                .collect(Collectors.toList());
+    }
+
+    private List<CategoryStatisticsInPolandDto> getCategories() {
         List<Object[]> hibernateObjectList = categoryOffersInPolandRepository.findAllCategoriesInCategoryStats(LocalDate.now());
         List<CategoryStatisticsInPolandDto> convertedList = new ArrayList<>();
 
@@ -69,15 +75,9 @@ class ScrapCategoryInPoland {
         return convertedList;
     }
 
-    private <T> List<CategoryStatisticsInPolandDto> mapToDto(final List<T> offers) {
-        return offers.stream()
-                .map(categoryOffer -> modelMapper.map(categoryOffer, CategoryStatisticsInPolandDto.class))
-                .collect(Collectors.toList());
-    }
-
     private List<CategoryOffersInPoland> scrapCategoryStatisticsInPoland(String cityName) {
         String cityNameUTF8 = cityName.toLowerCase();
-        String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8);
+        String cityNameASCII = UtilityClass.removePolishSigns(cityNameUTF8);
         List<Category> categories = categoryRepository.findAll();
         List<CategoryOffersInPoland> categoryOffers = new ArrayList<>();
         Optional<City> cityOptional = cityRepository.findCityByName(cityNameUTF8);

@@ -39,9 +39,9 @@ public class ScrapFacade {
         return temporaryScrapTechnologyInWorld.loadTechnologyStatisticsInWorld(location);
     }
 
-    private String addPolishSigns(String location){
+    private String addPolishSigns(String location) {
 
-        switch(location){
+        switch (location) {
             case "krakow":
                 location = "kraków";
                 break;

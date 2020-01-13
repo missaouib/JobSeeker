@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,27 +25,45 @@ public class RequestCreator {
 
         WebClient linkedinURL = WebClient.create(url);
 
-        Mono<ClientResponse> response = linkedinURL.get()
-                .header("User-Agent", USER_AGENT)
-                .exchange();
+        int repeatCounter = 0;
+        while(repeatCounter < 2) {
+            try {
 
-        String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
+                Mono<ClientResponse> response = linkedinURL.get()
+                        .header("User-Agent", USER_AGENT)
+                        .exchange();
 
-        return getHtmlSubstring(responseString, "Past Month <span class=\"filter-list__label-count\">(",
-                ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>");
+                String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
+
+                return UtilityClass.getHtmlSubstring(responseString, "Past Month <span class=\"filter-list__label-count\">(",
+                        ")</span></label></li><li class=\"filter-list__list-item filter-button-dropdown__list-item\"><input type=\"radio\" name=\"f_TP\" value=\"\" id=\"TIME_POSTED-3\" checked>");
+            } catch (Exception e) {
+                UtilityClass.waitRandomFromToSeconds(10000, 20000);
+                repeatCounter++;
+            }
+        }
+            return 0;
     }
 
     public int scrapIndeedOffers(String url) throws IOException {
 
-        Document htmlDoc = Jsoup.connect(url)
-                .userAgent(USER_AGENT)
-                .referrer("http://www.google.com")
-                .followRedirects(true)
-                .get();
+        String div = "";
+        int repeatCounter = 0;
+        while(repeatCounter < 2) {
+            try {
+                Document htmlDoc = Jsoup.connect(url)
+                        .userAgent(USER_AGENT)
+                        .referrer("http://www.google.com")
+                        .followRedirects(true)
+                        .get();
 
-        Elements responseHtmlDiv = htmlDoc.select("div#searchCountPages");
-        String div = responseHtmlDiv.text();
-
+                Elements responseHtmlDiv = htmlDoc.select("div#searchCountPages");
+                div = responseHtmlDiv.text();
+            } catch (Exception e) {
+                UtilityClass.waitRandomFromToSeconds(10000, 20000);
+                repeatCounter++;
+            }
+        }
         div = div
                 .replaceAll(",", "")
                 .replaceAll("\\.", "")
@@ -77,18 +95,21 @@ public class RequestCreator {
 
         WebClient pracujURL = WebClient.create(url);
 
-        try {
-            Mono<ClientResponse> response = pracujURL.get()
-                    .header("User-Agent", USER_AGENT)
-                    .exchange();
+        int repeatCounter = 0;
+        while(repeatCounter < 2) {
+            try {
+                Mono<ClientResponse> response = pracujURL.get()
+                        .header("User-Agent", USER_AGENT)
+                        .exchange();
 
-            String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
-            return getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
+                String responseString = response.flatMap(res -> res.bodyToMono(String.class)).block();
+                return UtilityClass.getHtmlSubstring(responseString, "<span class=\"results-header__offer-count-text-number\">", "</span> ofert");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                UtilityClass.waitRandomFromToSeconds(10000, 20000);
+                repeatCounter++;
+            }
         }
-
         return 0;
     }
 
@@ -96,22 +117,25 @@ public class RequestCreator {
 
         WebClient noFluffJobsURL = WebClient.create(url);
 
-        try {
-            NoFluffJobs response = noFluffJobsURL
-                    .post()
-                    .header("User-Agent", USER_AGENT)
-                    .body(Mono.just("{\"rawSearch\":\"" + technologyName + " " + cityName + "\"}"), String.class)
-                    .accept(MediaType.APPLICATION_JSON_UTF8)
-                    .retrieve()
-                    .bodyToMono(NoFluffJobs.class)
-                    .block();
+        int repeatCounter = 0;
+        while(repeatCounter < 2) {
+            try {
+                NoFluffJobs response = noFluffJobsURL
+                        .post()
+                        .header("User-Agent", USER_AGENT)
+                        .body(Mono.just("{\"rawSearch\":\"" + technologyName + " " + cityName + "\"}"), String.class)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+                        .retrieve()
+                        .bodyToMono(NoFluffJobs.class)
+                        .block();
 
-            return Objects.requireNonNull(response).getPostings().size();
+                return Objects.requireNonNull(response).getPostings().size();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                UtilityClass.waitRandomFromToSeconds(10000, 20000);
+                repeatCounter++;
+            }
         }
-
         return 0;
     }
 
@@ -119,18 +143,27 @@ public class RequestCreator {
 
         WebClient justJoinITUrl = WebClient.create(UrlBuilder.justJoinItBuildUrlForCity());
 
-        return justJoinITUrl.get()
-                .header("User-Agent", USER_AGENT)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .retrieve()
-                .bodyToFlux(JustJoinIt.class)
-                .collectList()
-                .block();
+        int repeatCounter = 0;
+        while(repeatCounter < 2) {
+            try {
+                return justJoinITUrl.get()
+                        .header("User-Agent", USER_AGENT)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+                        .retrieve()
+                        .bodyToFlux(JustJoinIt.class)
+                        .collectList()
+                        .block();
+            } catch (Exception e) {
+                UtilityClass.waitRandomFromToSeconds(10000, 20000);
+                repeatCounter++;
+            }
+        }
+        return new ArrayList<>();
     }
 
     public int extractJustJoinItJson(List<JustJoinIt> offers, String cityName, String technologyNameUpperCase) {
 
-        String cityNameASCII = removePolishSigns(cityName).toLowerCase();
+        String cityNameASCII = UtilityClass.removePolishSigns(cityName).toLowerCase();
         String cityNameUTF8 = cityName.toLowerCase();
         String technologyName = technologyNameUpperCase.toLowerCase();
 
@@ -177,7 +210,7 @@ public class RequestCreator {
 
     public int extractNoFluffJobs(NoFluffJobs offers, String cityName, String technologyNameUpperCase) {
 
-        String cityNameASCII = removePolishSigns(cityName).toLowerCase();
+        String cityNameASCII = UtilityClass.removePolishSigns(cityName).toLowerCase();
         String cityNameUTF8 = cityName.toLowerCase();
         String technologyName = technologyNameUpperCase.toLowerCase();
 
@@ -224,20 +257,4 @@ public class RequestCreator {
         }
     }
 
-    public String removePolishSigns(String city) {
-        return Normalizer.normalize(city, Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
-                .replaceAll("ł", "l");
-    }
-
-    private int getHtmlSubstring(String resultString, String htmlFirstPart, String htmlSecondPart) {
-        int jobAmount = 0;
-        if (resultString != null && resultString.contains(htmlFirstPart) && resultString.contains(htmlSecondPart))
-            jobAmount = Integer.parseInt(resultString
-                    .substring(resultString.indexOf(htmlFirstPart) + htmlFirstPart.length(), resultString.indexOf(htmlSecondPart))
-                    .replaceAll(",", "")
-                    .replaceAll("[^\\x00-\\x7F]", ""));
-
-        return jobAmount;
-    }
 }

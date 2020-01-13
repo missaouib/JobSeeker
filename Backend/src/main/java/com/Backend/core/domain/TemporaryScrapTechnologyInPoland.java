@@ -3,6 +3,7 @@ package com.Backend.core.domain;
 import com.Backend.core.service.DtoMapper;
 import com.Backend.core.service.RequestCreator;
 import com.Backend.core.service.UrlBuilder;
+import com.Backend.core.service.UtilityClass;
 import com.Backend.infrastructure.dto.TechnologyStatisticsInPolandDto;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
@@ -41,7 +42,7 @@ class TemporaryScrapTechnologyInPoland {
         List<TechnologyOffersInPoland> offers = technologyOffersInPolandRepository.findByDateAndCity(LocalDate.now(), cityRepository.findCityByName(cityName)
                 .orElse(null));
 
-        if(cityName.equals("all cities")){
+        if (cityName.equals("all cities")) {
             return mapToDto(getAllTechnologies());
         }
         if (offers.size() < 42) {
@@ -51,7 +52,14 @@ class TemporaryScrapTechnologyInPoland {
         }
     }
 
-    private List<TechnologyStatisticsInPolandDto> getAllTechnologies(){
+    private <T> List<TechnologyStatisticsInPolandDto> mapToDto(final List<T> offers) {
+        return offers.stream()
+                .map(technologyStatisticsInPoland -> modelMapper.map(technologyStatisticsInPoland, TechnologyStatisticsInPolandDto.class))
+                .peek(statsInPoland -> statsInPoland.setTotal(statsInPoland.getLinkedin() + statsInPoland.getIndeed() + statsInPoland.getPracuj() + statsInPoland.getNoFluffJobs() + statsInPoland.getJustJoinIt()))
+                .collect(Collectors.toList());
+    }
+
+    private List<TechnologyStatisticsInPolandDto> getAllTechnologies() {
 
         List<Object[]> hibernateObjectList = technologyOffersInPolandRepository.findAllTechnologiesInTechnologyStatsInPoland(LocalDate.now());
         List<TechnologyStatisticsInPolandDto> convertedList = new ArrayList<>();
@@ -71,17 +79,10 @@ class TemporaryScrapTechnologyInPoland {
         return convertedList;
     }
 
-    private <T> List<TechnologyStatisticsInPolandDto> mapToDto(final List<T> offers) {
-        return offers.stream()
-                .map(technologyStatisticsInPoland -> modelMapper.map(technologyStatisticsInPoland, TechnologyStatisticsInPolandDto.class))
-                .peek(statsInPoland -> statsInPoland.setTotal(statsInPoland.getLinkedin() + statsInPoland.getIndeed() + statsInPoland.getPracuj() + statsInPoland.getNoFluffJobs() + statsInPoland.getJustJoinIt()))
-                .collect(Collectors.toList());
-    }
-
     private List<TechnologyOffersInPoland> scrapTechnologyStatisticsInWorld(String cityName) {
 
         String cityNameUTF8 = cityName.toLowerCase();
-        String cityNameASCII = requestCreator.removePolishSigns(cityNameUTF8).toLowerCase();
+        String cityNameASCII = UtilityClass.removePolishSigns(cityNameUTF8).toLowerCase();
         List<Technology> technologies = technologyRepository.findAll();
         City city = cityRepository.findCityByName(cityNameUTF8).orElse(null);
         List<TechnologyOffersInPoland> technologyOfferInPoland = new ArrayList<>();
