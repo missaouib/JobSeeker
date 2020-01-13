@@ -34,6 +34,7 @@ import {SpaceBetween3Chars} from './pipes/space-between-3-chars.pipe';
 import {AboutComponent} from './views/about/about.component';
 import {HistoryDiagramsComponent} from './views/history-diagrams/history-diagrams.component';
 import {TechnologyStatisticsInWorldComponent} from "./views/technology-statistics-in-world/technology-statistics-in-world.component";
+import {BarChartModule} from "@swimlane/ngx-charts";
 
 @NgModule({
   declarations: [
@@ -48,31 +49,32 @@ import {TechnologyStatisticsInWorldComponent} from "./views/technology-statistic
     AboutComponent,
     SpaceBetween3Chars
   ],
-  imports: [
-    environment.production ? [] : AkitaNgDevtools.forRoot(),
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatTableModule,
-    MatSortModule,
-    MatButtonModule,
-    MatRadioModule,
-    MatTooltipModule,
-    MatSliderModule,
-    MatSelectModule,
-    MatProgressSpinnerModule,
-    MatTabsModule,
-    MatCardModule,
-    MatAutocompleteModule,
-    MatSlideToggleModule,
-    MatPaginatorModule,
-    MatSnackBarModule
-  ],
+    imports: [
+        environment.production ? [] : AkitaNgDevtools.forRoot(),
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
+        MatTableModule,
+        MatSortModule,
+        MatButtonModule,
+        MatRadioModule,
+        MatTooltipModule,
+        MatSliderModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+        MatTabsModule,
+        MatCardModule,
+        MatAutocompleteModule,
+        MatSlideToggleModule,
+        MatPaginatorModule,
+        MatSnackBarModule,
+        BarChartModule
+    ],
   providers: [HttpService],
   bootstrap: [AppComponent]
 })
