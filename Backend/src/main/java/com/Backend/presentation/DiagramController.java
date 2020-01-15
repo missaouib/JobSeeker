@@ -1,11 +1,15 @@
 package com.Backend.presentation;
 
 import com.Backend.core.domain.DiagramHistory;
+import com.Backend.infrastructure.dto.DiagramDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -15,8 +19,8 @@ public class DiagramController {
     DiagramHistory diagramHistory;
 
     @GetMapping("/ItJobsOfferInPolandDiagram")
-    public void ItJobsOfferInPolandDiagram(@RequestParam("technology") String technology) {
-
+    public List<DiagramDto> ItJobsOfferInPolandDiagram(@RequestParam("technology") String technologyName, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo) {
+        return diagramHistory.getItJobOffersInPolandDiagram(technologyName, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
     }
 
     @GetMapping("/itJobOffersInWorldDiagram")

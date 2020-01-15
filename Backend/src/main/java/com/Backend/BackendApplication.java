@@ -13,9 +13,9 @@ public class BackendApplication {
     }
 
     /*
-    Nested menu(one button), type dateFrom, dateTo
+    Nested menu(one button) java dateFrom, dateTo
     java series [linkedin offers, date]
-     */
+    */
 
     //[BACKEND] TODO
     //[FEAT] Create endpoints and logic for frontend charts
@@ -24,6 +24,7 @@ public class BackendApplication {
     //[FEAT] Try Selenium with proxy for Linkedin and Glassdor
 
     //[FRONTEND] TODO
+    // similar pages trends google/stack
     //[FEAT] Add history Line and Bar diagrams (ngx-charts)
     //[FEAT] Responsive Web Design
 }

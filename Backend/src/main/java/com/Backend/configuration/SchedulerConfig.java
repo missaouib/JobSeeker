@@ -50,6 +50,7 @@ public class SchedulerConfig {
         this.technologiesNames = technologyRepository.findAllNames();
     }
 
+//    @Bean
     @Scheduled(cron = "0 0 1 * * *")
     public void cyclicScraping() {
 

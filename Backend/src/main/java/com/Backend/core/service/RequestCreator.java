@@ -59,6 +59,7 @@ public class RequestCreator {
 
                 Elements responseHtmlDiv = htmlDoc.select("div#searchCountPages");
                 div = responseHtmlDiv.text();
+                repeatCounter+=2;
             } catch (Exception e) {
                 UtilityClass.waitRandomFromToSeconds(10000, 20000);
                 repeatCounter++;
