@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,9 @@ public class DiagramHistory {
                 .collect(Collectors.groupingBy(DiagramPersistenceDto::getName))
                 .entrySet().stream()
                 .map(entry -> new DiagramDto(entry.getKey(), getSeries(entry.getValue())))
+                .collect(Collectors.toList())
+                .stream()
+                .sorted(Collections.reverseOrder())
                 .collect(Collectors.toList());
     }
 

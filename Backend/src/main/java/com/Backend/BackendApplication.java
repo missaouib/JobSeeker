@@ -12,19 +12,16 @@ public class BackendApplication {
         SpringApplication.run(BackendApplication.class, args);
     }
 
-    /*
-    Nested menu(one button) java dateFrom, dateTo
-    java series [linkedin offers, date]
-    */
+    //[FEAT] Diagram module
+    // Nested menu(one button) java dateFrom, dateTo
+    // refactor reverse
+    // endpoints
 
     //[BACKEND] TODO
-    //[FEAT] Create endpoints and logic for frontend charts
     //[FEAT] Consider nofluff {experience, remote, category}
     //[FEAT] Consider justjoinit {experience, remote, salary}
     //[FEAT] Try Selenium with proxy for Linkedin and Glassdor
 
     //[FRONTEND] TODO
-    // similar pages trends google/stack
-    //[FEAT] Add history Line and Bar diagrams (ngx-charts)
     //[FEAT] Responsive Web Design
 }
