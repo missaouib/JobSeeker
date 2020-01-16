@@ -1,12 +1,18 @@
-.update {
+.chart {
   display: flex;
-  justify-content: center;
-  width: 50%;
-  border: 1px solid #ccc;
-  border-radius: 1rem;
-  margin: 2% auto auto;
+  flex-direction: column;
 }
 
-.update p {
+.input {
+  width: 70%;
+  margin: 1% auto auto;
+}
+
+.diagram {
+  margin: 1% auto auto;
+  padding: 1%;
+}
+
+.diagram p {
   font-size: 2rem;
 }

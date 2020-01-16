@@ -4,7 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TechnologyStatistics} from '../models/technologyStatistics.interfaces';
 import {environment} from "../../environments/environment";
-import {JobOffer} from "../models/jobOffer";
+import {JobOffer} from "../models/jobOffer.interfaces";
+import {Diagram} from "../models/diagram.interfaces";
 
 @Injectable({providedIn: 'root'})
 
@@ -31,6 +32,11 @@ export class HttpService {
 
   getCategoryStatsInPoland(cityName: string): Observable<CategoryStatistics[]> {
     return this.http.get<CategoryStatistics[]>(environment.backendURL + '/categoryStatisticsInPoland?location=' + cityName);
+  }
+
+  getItJobsOffersInPolandDiagram(technologyName: string, dateFrom: string, dateTo: string): Observable<Diagram[]> {
+    return this.http.get<Diagram[]>(environment.backendURL +
+      '/ItJobsOfferInPolandDiagram?technology=' + technologyName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo);
   }
 
 }

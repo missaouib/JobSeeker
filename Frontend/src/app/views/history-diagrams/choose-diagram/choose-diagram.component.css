@@ -1,0 +1,8 @@
+.menu {
+  display: flex;
+  justify-content: center;
+}
+
+mat-form-field {
+  padding-right: 1%;
+}

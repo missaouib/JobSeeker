@@ -23,6 +23,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 import {HttpService} from './services/http.service';
 import {ItJobOffersInPolandComponent} from "./views/it-job-offers-in-poland/it-job-offers-in-poland.component";
@@ -34,7 +36,9 @@ import {SpaceBetween3Chars} from './pipes/space-between-3-chars.pipe';
 import {AboutComponent} from './views/about/about.component';
 import {HistoryDiagramsComponent} from './views/history-diagrams/history-diagrams.component';
 import {TechnologyStatisticsInWorldComponent} from "./views/technology-statistics-in-world/technology-statistics-in-world.component";
-import {BarChartModule} from "@swimlane/ngx-charts";
+import {BarChartModule, LineChartModule} from "@swimlane/ngx-charts";
+import {ChooseDiagramComponent} from "./views/history-diagrams/choose-diagram/choose-diagram.component";
+
 
 @NgModule({
   declarations: [
@@ -46,35 +50,39 @@ import {BarChartModule} from "@swimlane/ngx-charts";
     TechnologyStatisticsInWorldComponent,
     CategoryStatisticsComponent,
     HistoryDiagramsComponent,
+    ChooseDiagramComponent,
     AboutComponent,
     SpaceBetween3Chars
   ],
-    imports: [
-        environment.production ? [] : AkitaNgDevtools.forRoot(),
-        BrowserModule,
-        FormsModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatTableModule,
-        MatSortModule,
-        MatButtonModule,
-        MatRadioModule,
-        MatTooltipModule,
-        MatSliderModule,
-        MatSelectModule,
-        MatProgressSpinnerModule,
-        MatTabsModule,
-        MatCardModule,
-        MatAutocompleteModule,
-        MatSlideToggleModule,
-        MatPaginatorModule,
-        MatSnackBarModule,
-        BarChartModule
-    ],
+  imports: [
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatTooltipModule,
+    MatSliderModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatCardModule,
+    MatAutocompleteModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
+    MatSnackBarModule,
+    BarChartModule,
+    LineChartModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   providers: [HttpService],
   bootstrap: [AppComponent]
 })

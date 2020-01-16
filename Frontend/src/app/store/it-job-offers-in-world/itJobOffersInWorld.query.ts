@@ -1,7 +1,7 @@
 import {CountryState, ItJobOffersInWorldStore} from './itJobOffersInWorld.store';
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
-import {JobOffer} from "../../models/jobOffer";
+import {JobOffer} from "../../models/jobOffer.interfaces";
 
 @Injectable({providedIn: 'root'})
 export class ItJobOffersInWorldQuery extends QueryEntity<CountryState, JobOffer> {

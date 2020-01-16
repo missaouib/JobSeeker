@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { NgxChartsModule } from "@swimlane/ngx-charts";
+import {HttpService} from "../../services/http.service";
 
 @Component({
   selector: 'app-history-diagrams',
@@ -8,27 +8,27 @@ import { NgxChartsModule } from "@swimlane/ngx-charts";
 })
 export class HistoryDiagramsComponent implements OnInit {
 
-  single: any[];
-  multi: any[];
-
-  view: any[] = [700, 400];
-
-  // options
+  view: any[] = [1200, 700];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = "Country";
+  xAxisLabel = "Date";
   showYAxisLabel = true;
-  yAxisLabel = "Population";
+  yAxisLabel = "Job Offers";
 
   colorScheme = {
-    domain: ["#5AA454", "#A10A28", "#C7B42C", "#AAAAAA"]
+    domain: ["#238097", "#3eb547", "#f99177", "#1ec4a6", "#fecf92", "#988254", "#0d6440", "#9182a6", "#C7B42C", "#aca990",
+      "#538576", "#8ad4c5", "#e3cd94", "#00a6aa", "#fa5c9c", "#6ea5c3", "#a50842", "#6d72a0", "#df6270", "#ab5b46"]
   };
 
-  constructor() {
-    // Object.assign(this, { single });
+  constructor(private httpService: HttpService) {
+
+    this.httpService.getItJobsOffersInPolandDiagram('java', '2020-01-01', '2020-01-15')
+      .subscribe(data => {
+        Object.assign(this, { data });
+      });
   }
 
   ngOnInit() {

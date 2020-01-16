@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
 import {CityState, ItJobOffersInPolandStore} from './itJobOffersInPoland.store';
-import {JobOffer} from "../../models/jobOffer";
+import {JobOffer} from "../../models/jobOffer.interfaces";
 
 @Injectable({providedIn: 'root'})
 export class ItJobOffersInPolandQuery extends QueryEntity<CityState, JobOffer> {
