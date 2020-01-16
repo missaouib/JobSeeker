@@ -13,8 +13,6 @@ public class BackendApplication {
     }
 
     //[FEAT] Diagram module
-    // Nested menu(one button) java dateFrom, dateTo
-    // refactor reverse
     // endpoints
 
     //[BACKEND] TODO

@@ -29,7 +29,7 @@ public class DiagramDto implements Comparable<DiagramDto> {
     @Override
     public int compareTo(DiagramDto diagramDto) {
         return Integer.compare(series.stream().mapToInt(DiagramDto.Series::getValue).sum(),
-                diagramDto.getSeries().stream().mapToInt(DiagramDto.Series::getValue).sum());
+                diagramDto.getSeries().stream().mapToInt(DiagramDto.Series::getValue).sum()) * -1;
     }
 
 }

@@ -1,37 +1,41 @@
 <div class="menu">
   <mat-form-field>
     <mat-label>Data type</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
-      </mat-option>
+    <mat-select value="itJobPoland">
+      <mat-option value="itJobPoland">IT Job Offers in Poland</mat-option>
+      <mat-option value="itJobWorld">II Job Offers in World</mat-option>
+      <mat-option value="techStatsPoland">Technology Statistics in Poland</mat-option>
+      <mat-option value="techStatsWorld">Technology Statistics in World</mat-option>
+      <mat-option value="categoryStats">Category Statistics</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Technology or City</mat-label>
     <mat-select>
-      <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
-      </mat-option>
+      <mat-option value="1">kokot</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Portal</mat-label>
-    <mat-select [formControl]="toppings" multiple>
-      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+    <mat-select [(value)]="selected" [formControl]="toppings" multiple>
+      <mat-option value="linkedin">Linkedin</mat-option>
+      <mat-option value="indeed">Indeed</mat-option>
+      <mat-option value="pracuj">Pracuj</mat-option>
+      <mat-option value="noFluffJobs">NoFluffJobs</mat-option>
+      <mat-option value="justJoinIt">JustJoinIt</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date from">
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [value]="minDate" placeholder="Choose a date from">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Choose a date to">
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" [value]="maxDate" placeholder="Choose a date to">
     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker #picker2></mat-datepicker>
   </mat-form-field>

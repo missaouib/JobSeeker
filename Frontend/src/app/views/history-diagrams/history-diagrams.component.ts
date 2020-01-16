@@ -6,7 +6,7 @@ import {HttpService} from "../../services/http.service";
   templateUrl: './history-diagrams.component.html',
   styleUrls: ['./history-diagrams.component.css']
 })
-export class HistoryDiagramsComponent implements OnInit {
+export class HistoryDiagramsComponent {
 
   view: any[] = [1200, 700];
   showXAxis = true;
@@ -31,7 +31,5 @@ export class HistoryDiagramsComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-  }
 
 }

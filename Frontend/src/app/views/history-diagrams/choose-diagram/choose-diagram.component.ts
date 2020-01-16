@@ -14,11 +14,12 @@ export interface Food {
 })
 export class ChooseDiagramComponent implements OnInit {
 
-  minDate = new Date(2000, 0, 1);
-  maxDate = new Date(2020, 0, 1);
+  minDate = new Date(2020, 0, 1);
+  maxDate = new Date();
 
   toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
+  selected = 'linkedin';
 
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},
