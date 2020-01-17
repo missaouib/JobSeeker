@@ -1,7 +1,7 @@
 <section class="chart">
 
   <section class="input">
-    <app-choose-diagram></app-choose-diagram>
+    <app-choose-diagram (eventEmitter)="onRequest($event)"></app-choose-diagram>
   </section>
 
   <section class="diagram">

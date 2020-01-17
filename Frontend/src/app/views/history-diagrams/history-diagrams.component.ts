@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HttpService} from "../../services/http.service";
 
 @Component({
@@ -27,9 +27,29 @@ export class HistoryDiagramsComponent {
 
     this.httpService.getItJobsOffersInPolandDiagram('java', '2020-01-01', '2020-01-15')
       .subscribe(data => {
-        Object.assign(this, { data });
+        Object.assign(this, {data});
       });
   }
 
+  onRequest(event) {
+
+    switch (event.type) {
+      case 'itJobPoland': {
+        break;
+      }
+      case 'itJobWorld': {
+        break;
+      }
+      case 'techStatsPoland': {
+        break;
+      }
+      case 'techStatsWorld': {
+        break;
+      }
+      case 'categoryStats': {
+        break;
+      }
+    }
+  }
 
 }
