@@ -46,7 +46,7 @@ public class UrlBuilder {
 
         switch (technologyName) {
             case "c++":
-                url = "https://www.pracuj.pl/praca/c%2b%2b/" + cityName + ";wp";
+                url = "https://www.pracuj.pl/praca/c%2b%2b;kw/" + cityName + ";wp";
                 break;
             case "c#":
                 url = "https://www.pracuj.pl/praca/c%23;kw/" + cityName + ";wp";

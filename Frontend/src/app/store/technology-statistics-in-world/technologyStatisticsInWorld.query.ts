@@ -1,11 +1,11 @@
 import {TechnologyStatistics} from '../../models/technologyStatistics.interfaces';
 
-import {TechnologyState, TechnologyStatisticsInWorldStore} from './technologyStatisticsInWorld.store';
+import {TechnologyWorldState, TechnologyStatisticsInWorldStore} from './technologyStatisticsInWorld.store';
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
 
 @Injectable({providedIn: 'root'})
-export class TechnologyStatisticsInWorldQuery extends QueryEntity<TechnologyState, TechnologyStatistics> {
+export class TechnologyStatisticsInWorldQuery extends QueryEntity<TechnologyWorldState, TechnologyStatistics> {
 
   constructor(protected store: TechnologyStatisticsInWorldStore) {
     super(store);

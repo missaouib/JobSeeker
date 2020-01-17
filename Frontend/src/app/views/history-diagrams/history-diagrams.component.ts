@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {HttpService} from "../../services/http.service";
+import {HttpParams} from "@angular/common/http";
 
 @Component({
   selector: 'app-history-diagrams',
@@ -23,30 +24,47 @@ export class HistoryDiagramsComponent {
       "#538576", "#8ad4c5", "#e3cd94", "#00a6aa", "#fa5c9c", "#6ea5c3", "#a50842", "#6d72a0", "#df6270", "#ab5b46"]
   };
 
-  constructor(private httpService: HttpService) {
-
-    this.httpService.getItJobsOffersInPolandDiagram('java', '2020-01-01', '2020-01-15')
-      .subscribe(data => {
-        Object.assign(this, {data});
-      });
-  }
+  constructor(private httpService: HttpService) {}
 
   onRequest(event) {
 
+    let portals = new HttpParams();
+    portals = portals.set('portals', event.portals.join(', '));
+
     switch (event.type) {
       case 'itJobPoland': {
+        this.httpService.getItJobsOffersInPolandDiagram(event.cityCountryTechnology, event.dateFrom, event.dateTo, portals)
+          .subscribe(data => {
+            Object.assign(this, {data});
+          });
         break;
       }
       case 'itJobWorld': {
+        this.httpService.getItJobsOffersInWorldDiagram(event.cityCountryTechnology, event.dateFrom, event.dateTo, portals)
+          .subscribe(data => {
+            Object.assign(this, {data});
+          });
         break;
       }
       case 'techStatsPoland': {
+        this.httpService.getTechnologyStatsInPolandDiagram(event.cityCountryTechnology, event.dateFrom, event.dateTo, portals)
+          .subscribe(data => {
+            Object.assign(this, {data});
+          });
         break;
       }
       case 'techStatsWorld': {
+        this.httpService.getTechnologyStatsInWorldDiagram(event.cityCountryTechnology, event.dateFrom, event.dateTo, portals)
+          .subscribe(data => {
+            Object.assign(this, {data});
+          });
         break;
       }
       case 'categoryStats': {
+        this.httpService.getCategoryStatsInPolandDiagram(event.cityCountryTechnology, event.dateFrom, event.dateTo, portals)
+          .subscribe(data => {
+            Object.assign(this, {data});
+          });
         break;
       }
     }

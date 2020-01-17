@@ -21,7 +21,8 @@ public class DiagramHistory {
     TechnologyOffersInPolandRepository technologyOffersInPolandRepository;
 
     public List<DiagramDto> getItJobOffersInPolandDiagram(String technologyName, LocalDate dateFrom, LocalDate dateTo) {
-        return parseToDto(technologyOffersInPolandRepository.findTechnologiesBetweenDate(technologyName, dateFrom, dateTo));
+        String technologyNameLower = technologyName.toLowerCase();
+        return parseToDto(technologyOffersInPolandRepository.findTechnologiesBetweenDate(technologyNameLower, dateFrom, dateTo));
     }
 
     private List<DiagramDto> parseToDto(List<DiagramPersistenceDto> diagramPersistenceDto) {

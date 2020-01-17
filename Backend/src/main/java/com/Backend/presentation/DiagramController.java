@@ -28,11 +28,6 @@ public class DiagramController {
 
     }
 
-    @GetMapping("/categoryStatisticsInPolandDiagram")
-    public void categoryStatisticsInPolandDiagram(@RequestParam("location") String location) {
-
-    }
-
     @GetMapping("/technologyStatisticsInPolandDiagram")
     public void technologyStatisticsInPolandDiagram(@RequestParam("location") String location) {
 
@@ -43,4 +38,8 @@ public class DiagramController {
 
     }
 
+    @GetMapping("/categoryStatisticsInPolandDiagram")
+    public void categoryStatisticsInPolandDiagram(@RequestParam("location") String location) {
+
+    }
 }

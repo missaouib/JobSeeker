@@ -1,9 +1,9 @@
-import {TechnologyStatisticsInPolandQuery} from '../../store/technology-statistics-in-poland/technologyStatisticsInPoland.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TechnologyStatistics} from "../../models/technologyStatistics.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";
+import {TechnologyStatisticsInWorldQuery} from "../../store/technology-statistics-in-world/technologyStatisticsInWorld.query";
 
 @Component({
   selector: 'app-technology-statistics-view',
@@ -27,7 +27,7 @@ export class TechnologyStatisticsInWorldComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private subscription: Subscription;
 
-  constructor(private resultInputService: ResultInputService, private technologyQuery: TechnologyStatisticsInPolandQuery) {
+  constructor(private resultInputService: ResultInputService, private technologyQuery: TechnologyStatisticsInWorldQuery) {
 
     this.subscriptions.push(this.technologyQuery.getSpinner()
       .subscribe(spinnerStatus => {

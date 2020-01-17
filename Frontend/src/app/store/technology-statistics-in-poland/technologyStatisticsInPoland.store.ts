@@ -2,12 +2,12 @@ import {TechnologyStatistics} from '../../models/technologyStatistics.interfaces
 import {EntityState, EntityStore, StoreConfig} from '@datorama/akita';
 import {Injectable} from '@angular/core';
 
-export interface TechnologyState extends EntityState<TechnologyStatistics> {
+export interface TechnologyPolandState extends EntityState<TechnologyStatistics> {
 }
 
 @Injectable({providedIn: 'root'})
-@StoreConfig({name: 'technologies'})
-export class TechnologyStatisticsInPolandStore extends EntityStore<TechnologyState, TechnologyStatistics> {
+@StoreConfig({name: 'technologies-poland'})
+export class TechnologyStatisticsInPolandStore extends EntityStore<TechnologyPolandState, TechnologyStatistics> {
 
   constructor() {
     super();

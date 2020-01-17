@@ -21,6 +21,5 @@ public class BackendApplication {
     //[FEAT] Try Selenium with proxy for Linkedin and Glassdor
 
     //[FRONTEND] TODO
-    //[FIX] TechnologyStatsWorld -> TechnologyStatsPoland breaking view
     //[FEAT] Responsive Web Design
 }

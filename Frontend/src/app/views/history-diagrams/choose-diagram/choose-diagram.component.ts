@@ -35,8 +35,8 @@ export class ChooseDiagramComponent implements AfterViewInit {
     'United Arab Emirates', 'Portugal', 'Austria', 'Turkey', 'Hungary', 'Spain', 'Romania', 'Greece', 'Ireland',
     'Mexico', 'South Africa', 'Colombia', 'Venezuela', 'Peru', 'Brazil', 'Chile', 'Sweden', 'New Zealand', 'Norway',
     'Finland', 'Argentina', 'Saudi Arabia', 'Oman', 'Russia', 'Canada', 'Australia'];
-  technologyInputList = ['All Technologies', 'Java', 'Javascript', 'Typescript', '.NET', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Rust', 'Swift', 'Golang', 'Visual Basic',
-    'Spring', 'Selenium', 'Android', 'Angular', 'React', 'Vue', 'Node', 'JQuery', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
+  technologyInputList = ['All Technologies', 'Java', 'Javascript', 'Typescript', 'C#', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Rust', 'Swift', 'Golang', 'Visual Basic',
+    'Spring', 'Selenium', 'Android', 'Angular', 'React', 'Vue', 'Node', '.NET', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
     'Linux', 'Bash', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Ansible', 'Terraform', 'TeamCity', 'Circle CI', 'ELK stack', 'Nginx'];
 
   constructor() {
@@ -49,6 +49,11 @@ export class ChooseDiagramComponent implements AfterViewInit {
     this.fieldType = 'All Technologies';
   }
 
+  ngAfterViewInit() {
+    this.jobPortals.options.forEach((item: MatOption) => item.select());
+    this.jobPortals.close();
+  }
+
   emitEvent() {
     this.eventEmitter.emit({
       type: this.selectedType,
@@ -57,11 +62,6 @@ export class ChooseDiagramComponent implements AfterViewInit {
       dateFrom: this.selectedDateFrom,
       dateTo: this.selectedDateTo
     })
-  }
-
-  ngAfterViewInit() {
-    this.jobPortals.options.forEach((item: MatOption) => item.select());
-    this.jobPortals.close();
   }
 
   OnTypeChange(event) {
