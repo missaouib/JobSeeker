@@ -1,9 +1,21 @@
 package com.Backend.infrastructure.dto;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 
-public interface DiagramPersistenceDto {
-    String getName();
-    LocalDate getDate();
-    int getOffers();
+@Data
+public class DiagramPersistenceDto {
+    private String name;
+    private LocalDate date;
+    private int offers;
+
+    public DiagramPersistenceDto() {
+    }
+
+    public DiagramPersistenceDto(String name, LocalDate date, int offers) {
+        this.name = name;
+        this.date = date;
+        this.offers = offers;
+    }
 }

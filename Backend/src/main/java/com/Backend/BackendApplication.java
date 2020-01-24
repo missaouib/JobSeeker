@@ -13,7 +13,10 @@ public class BackendApplication {
     }
 
     //[FEAT] Diagram module
-    // endpoints
+    // change label name due to selected profile
+    // criteria api for portals
+    // regular endpoints
+    // "All" endpoints
 
     //[BACKEND] TODO
     //[FEAT] Consider nofluff {experience, remote, category}

@@ -1,6 +1,6 @@
 package com.Backend.infrastructure.repository;
 
-import com.Backend.infrastructure.dto.DiagramPersistenceDto;
+import com.Backend.infrastructure.dto.DiagramPersistenceDto997;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
 import com.Backend.infrastructure.entity.TechnologyOffersInPoland;
@@ -50,5 +50,5 @@ public interface TechnologyOffersInPolandRepository extends JpaRepository<Techno
             "AND o.date >= :dateFrom " +
             "AND o.date <= :dateTo " +
             "GROUP BY c.name, o.date")
-    List<DiagramPersistenceDto> findTechnologiesBetweenDate(@Param("technology") String technologyName, @Param("dateFrom") LocalDate dateFrom, @Param("dateTo") LocalDate dateTo);
+    List<DiagramPersistenceDto997> findTechnologiesBetweenDate(@Param("technology") String technologyName, @Param("dateFrom") LocalDate dateFrom, @Param("dateTo") LocalDate dateTo);
 }
