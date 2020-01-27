@@ -13,8 +13,7 @@ public class BackendApplication {
     }
 
     //[FEAT] Diagram module
-    // regular endpoints
-    // "All" endpoints
+    // regular endpoints + all endpoints
 
     //[BACKEND] TODO
     //[FEAT] Consider nofluff {experience, remote, category}

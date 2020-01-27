@@ -1,7 +1,8 @@
 package com.Backend.core.domain;
 
-import com.Backend.infrastructure.dto.DiagramDto;
 import com.Backend.infrastructure.dto.DiagramPersistenceDto;
+import com.Backend.infrastructure.dto.diagram.DiagramDto;
+import com.Backend.infrastructure.dto.diagram.Series;
 import com.Backend.infrastructure.repository.CategoryOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInWorldRepository;
@@ -23,8 +24,7 @@ public class DiagramHistory {
     TechnologyOffersInPolandDao technologyOffersInPolandDao;
 
     public List<DiagramDto> getItJobOffersInPolandDiagram(String technologyName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo) {
-        String technologyNameLower = technologyName.toLowerCase();
-        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(technologyOffersInPolandDao.findDiagramItJobOffersInPoland(technologyNameLower, dateFrom, dateTo), portalNames);
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(technologyOffersInPolandDao.findDiagramItJobOffersInPoland(technologyName, dateFrom, dateTo), portalNames);
         return parseToDto(dtos);
     }
 
@@ -37,28 +37,28 @@ public class DiagramHistory {
                 .collect(Collectors.toList());
     }
 
-    private List<DiagramDto.Series> getSeries(List<DiagramPersistenceDto> value) {
+    private List<Series> getSeries(List<DiagramPersistenceDto> value) {
         return value.stream()
-                .map(dto -> new DiagramDto.Series(dto.getDate(), dto.getSelectedOffers()))
+                .map(dto -> new Series(dto.getDate(), dto.getSelectedOffers()))
                 .collect(Collectors.toList());
     }
 
     private List<DiagramPersistenceDto> getOffersFromSelectedPortals(List<DiagramPersistenceDto> dtos, List<String> portalNames) {
         dtos.forEach(dto -> {
             portalNames.forEach(name -> {
-                if(name.equals("linkedin")){
+                if (name.equals("linkedin")) {
                     dto.addToOffers(dto.getLinkedin());
                 }
-                if(name.equals("indeed")){
+                if (name.equals("indeed")) {
                     dto.addToOffers(dto.getIndeed());
                 }
-                if(name.equals("pracuj")){
+                if (name.equals("pracuj")) {
                     dto.addToOffers(dto.getPracuj());
                 }
-                if(name.equals("noFluffJobs")){
+                if (name.equals("noFluffJobs")) {
                     dto.addToOffers(dto.getNoFluffJobs());
                 }
-                if(name.equals("justJoinIt")){
+                if (name.equals("justJoinIt")) {
                     dto.addToOffers(dto.getJustJoinIt());
                 }
             });

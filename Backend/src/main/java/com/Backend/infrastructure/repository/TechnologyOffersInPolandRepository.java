@@ -1,6 +1,5 @@
 package com.Backend.infrastructure.repository;
 
-import com.Backend.infrastructure.dto.DiagramPersistenceDto997;
 import com.Backend.infrastructure.entity.City;
 import com.Backend.infrastructure.entity.Technology;
 import com.Backend.infrastructure.entity.TechnologyOffersInPoland;
@@ -41,14 +40,4 @@ public interface TechnologyOffersInPolandRepository extends JpaRepository<Techno
             "WHERE (o.date) = :date " +
             "GROUP BY t.name, t.type")
     List<Object[]> findAllTechnologiesInTechnologyStatsInPoland(@Param("date") LocalDate date);
-
-    @Query("SELECT c.name as name, o.date as date, sum(o.linkedin + o.indeed + o.pracuj + o.noFluffJobs + o.justJoinIt) as offers " +
-            "FROM TechnologyOffersInPoland o, Technology t, City c " +
-            "WHERE t.id = o.technology.id " +
-            "AND c.id = o.city.id " +
-            "AND lower(t.name) = :technology " +
-            "AND o.date >= :dateFrom " +
-            "AND o.date <= :dateTo " +
-            "GROUP BY c.name, o.date")
-    List<DiagramPersistenceDto997> findTechnologiesBetweenDate(@Param("technology") String technologyName, @Param("dateFrom") LocalDate dateFrom, @Param("dateTo") LocalDate dateTo);
 }
