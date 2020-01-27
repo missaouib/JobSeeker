@@ -13,8 +13,6 @@ public class BackendApplication {
     }
 
     //[FEAT] Diagram module
-    // change label name due to selected profile
-    // criteria api for portals
     // regular endpoints
     // "All" endpoints
 

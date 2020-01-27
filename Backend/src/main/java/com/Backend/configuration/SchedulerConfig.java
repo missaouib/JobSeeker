@@ -5,6 +5,9 @@ import com.Backend.core.service.RequestCreator;
 import com.Backend.core.service.UtilityClass;
 import com.Backend.infrastructure.model.JustJoinIt;
 import com.Backend.infrastructure.repository.*;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -14,8 +17,11 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
+@Log4j2
 @Configuration
 public class SchedulerConfig {
+
+    private static final Logger logger = LogManager.getLogger(SchedulerConfig.class);
 
     private ScrapFacade scrapFacade;
     private RequestCreator requestCreator;
@@ -55,13 +61,16 @@ public class SchedulerConfig {
     public void cyclicScraping() {
 
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
-        System.out.println("1x " + LocalTime.now());
+        logger.info("1x " + LocalTime.now());
+
         runForCities(justJoinItOffers);
-        System.out.println("2x " + LocalTime.now());
+        logger.info("2x " + LocalTime.now());
+
         runForCountries();
-        System.out.println("3x " + LocalTime.now());
+        logger.info("3x " + LocalTime.now());
+
         runForCategories();
-        System.out.println("4x " + LocalTime.now());
+        logger.info("4x " + LocalTime.now());
 
         verifyData(justJoinItOffers);
     }

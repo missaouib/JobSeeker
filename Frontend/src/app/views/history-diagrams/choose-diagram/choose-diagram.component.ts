@@ -14,6 +14,8 @@ export class ChooseDiagramComponent implements AfterViewInit {
   @ViewChild('jobPortal', {static: false}) jobPortals: MatSelect;
   @Output() eventEmitter = new EventEmitter<Object>();
 
+  labelName: string;
+
   selectedType: string;
   selectedCityCountryTechnology: string;
   selectedPortals: string[] = [];
@@ -47,6 +49,7 @@ export class ChooseDiagramComponent implements AfterViewInit {
     this.selectedDateTo = new DatePipe('en-US').transform(this.maxDate, 'yyyy-MM-dd');
     this.elements = this.technologyInputList;
     this.fieldType = 'All Technologies';
+    this.labelName = 'Technology';
   }
 
   ngAfterViewInit() {
@@ -68,14 +71,17 @@ export class ChooseDiagramComponent implements AfterViewInit {
     if (event === 'itJobPoland' || event === 'itJobWorld') {
       this.fieldType = 'All Technologies';
       this.selectedCityCountryTechnology = 'All Technologies';
+      this.labelName = 'Technology';
       this.elements = this.technologyInputList;
     } else if (event === 'techStatsPoland' || event === 'categoryStats') {
       this.fieldType = 'All Cities';
       this.selectedCityCountryTechnology = 'All Cities';
+      this.labelName = 'City';
       this.elements = this.cityInputList;
     } else if (event === 'techStatsWorld') {
       this.fieldType = 'All Countries';
       this.selectedCityCountryTechnology = 'All Countries';
+      this.labelName = 'Country';
       this.elements = this.countryInputList;
     }
     this.selectedType = event;
@@ -103,5 +109,8 @@ export class ChooseDiagramComponent implements AfterViewInit {
     this.emitEvent();
   }
 
+  // setLabel(labelName: string): String{
+  //   return labelName + ' siema';
+  // }
 }
 

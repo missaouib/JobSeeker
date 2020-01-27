@@ -11,7 +11,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>City</mat-label>
+    <mat-label>{{labelName}}</mat-label>
     <mat-select [(ngModel)]="fieldType" (selectionChange)="OnCityCountryTechnologyChange($event.value)">
       <mat-option *ngFor="let element of elements" [value]="element">{{element}}</mat-option>
     </mat-select>

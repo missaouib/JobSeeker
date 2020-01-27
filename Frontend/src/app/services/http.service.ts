@@ -15,12 +15,12 @@ export class HttpService {
   }
 
   getItJobsOffersInPoland(technologyName: string): Observable<JobOffer[]> {
-    technologyName = technologyName.split('+').join( '%2B');
+    technologyName = this.convertToHtmlUnicode(technologyName);
     return this.http.get<JobOffer[]>(environment.backendURL + '/itJobOffersInPoland?technology=' + technologyName);
   }
 
   getItJobsOffersInWorld(technologyName: string): Observable<JobOffer[]> {
-    technologyName = technologyName.split('+').join( '%2B');
+    technologyName = this.convertToHtmlUnicode(technologyName);
     return this.http.get<JobOffer[]>(environment.backendURL + '/itJobOffersInWorld?technology=' + technologyName);
   }
 
@@ -37,14 +37,14 @@ export class HttpService {
   }
 
   getItJobsOffersInPolandDiagram(technologyName: string, dateFrom: string, dateTo: string, portals: HttpParams): Observable<Diagram[]> {
-    technologyName = technologyName.split('+').join( '%2B');
+    technologyName = this.convertToHtmlUnicode(technologyName);
     return this.http.get<Diagram[]>(environment.backendURL +
       '/ItJobsOfferInPolandDiagram?technology=' + technologyName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo
       , {params: portals});
   }
 
   getItJobsOffersInWorldDiagram(technologyName: string, dateFrom: string, dateTo: string, portals: HttpParams): Observable<Diagram[]> {
-    technologyName = technologyName.split('+').join( '%2B');
+    technologyName = this.convertToHtmlUnicode(technologyName);
     return this.http.get<Diagram[]>(environment.backendURL +
       '/itJobOffersInWorldDiagram?technology=' + technologyName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo
     , {params: portals});
@@ -66,6 +66,12 @@ export class HttpService {
     return this.http.get<Diagram[]>(environment.backendURL +
       '/categoryStatisticsInPolandDiagram?location=' + cityName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo
       , {params: portals});
+  }
+
+  private convertToHtmlUnicode(technologyName: string){
+    technologyName = technologyName.split('+').join( '%2B');
+    technologyName = technologyName.split('#').join( '%23');
+    return technologyName;
   }
 
 }
