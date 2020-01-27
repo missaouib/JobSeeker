@@ -14,20 +14,18 @@ export class ChooseDiagramComponent implements AfterViewInit {
   @ViewChild('jobPortal', {static: false}) jobPortals: MatSelect;
   @Output() eventEmitter = new EventEmitter<Object>();
 
-  labelName: string;
-
   selectedType: string;
   selectedCityCountryTechnology: string;
   selectedPortals: string[] = [];
   selectedDateFrom: string;
   selectedDateTo: string;
 
-  jobPortalsForm = new FormControl();
+  inputElements = [];
+  fieldType: string;
+  labelName: string;
+  portals: string[] = [];
   minDate = new Date(2020, 0, 1);
   maxDate = new Date();
-
-  fieldType: string;
-  elements = [];
 
   cityInputList = ['All Cities', 'Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin', 'Bydgoszcz', 'Białystok',
     'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole', 'Toruń', 'Gorzów Wielkopolski',];
@@ -45,9 +43,10 @@ export class ChooseDiagramComponent implements AfterViewInit {
     this.selectedType = 'itJobPoland';
     this.selectedCityCountryTechnology = 'All Technologies';
     this.selectedPortals = ['linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt'];
+    this.portals = ['linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt'];
     this.selectedDateFrom = new DatePipe('en-US').transform(this.minDate, 'yyyy-MM-dd');
     this.selectedDateTo = new DatePipe('en-US').transform(this.maxDate, 'yyyy-MM-dd');
-    this.elements = this.technologyInputList;
+    this.inputElements = this.technologyInputList;
     this.fieldType = 'All Technologies';
     this.labelName = 'Technology';
   }
@@ -72,18 +71,30 @@ export class ChooseDiagramComponent implements AfterViewInit {
       this.fieldType = 'All Technologies';
       this.selectedCityCountryTechnology = 'All Technologies';
       this.labelName = 'Technology';
-      this.elements = this.technologyInputList;
+      this.inputElements = this.technologyInputList;
     } else if (event === 'techStatsPoland' || event === 'categoryStats') {
       this.fieldType = 'All Cities';
       this.selectedCityCountryTechnology = 'All Cities';
       this.labelName = 'City';
-      this.elements = this.cityInputList;
+      this.inputElements = this.cityInputList;
     } else if (event === 'techStatsWorld') {
       this.fieldType = 'All Countries';
       this.selectedCityCountryTechnology = 'All Countries';
       this.labelName = 'Country';
-      this.elements = this.countryInputList;
+      this.inputElements = this.countryInputList;
     }
+
+    if (event === 'itJobPoland' || event === 'techStatsPoland'){
+      this.portals = ['linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt'];
+      this.selectedPortals = ['linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt'];
+    } else if (event === 'itJobWorld' || event === 'techStatsWorld') {
+      this.portals = ['linkedin', 'indeed'];
+      this.selectedPortals = ['linkedin', 'indeed'];
+    } else if (event === 'categoryStats') {
+      this.portals = ['indeed', 'pracuj'];
+      this.selectedPortals = ['indeed', 'pracuj'];
+    }
+
     this.selectedType = event;
     this.emitEvent();
   }
@@ -109,8 +120,5 @@ export class ChooseDiagramComponent implements AfterViewInit {
     this.emitEvent();
   }
 
-  // setLabel(labelName: string): String{
-  //   return labelName + ' siema';
-  // }
 }
 

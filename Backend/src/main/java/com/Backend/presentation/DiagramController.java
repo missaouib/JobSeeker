@@ -26,22 +26,25 @@ public class DiagramController {
     }
 
     @GetMapping("/itJobOffersInWorldDiagram")
-    public void itJobOffersInWorldDiagram(@RequestParam("technology") String technology) {
-
+    public List<DiagramDto> itJobOffersInWorldDiagram(@RequestParam("technology") String technologyName, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo, @RequestParam("portals") String portals) {
+        List<String> portalNames = Arrays.asList(portals.split("\\s*, \\s*"));
+        return diagramHistory.getItJobOffersInWorldDiagram(technologyName.toLowerCase(), portalNames, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
     }
 
     @GetMapping("/technologyStatisticsInPolandDiagram")
-    public void technologyStatisticsInPolandDiagram(@RequestParam("location") String location) {
-
+    public List<DiagramDto> technologyStatisticsInPolandDiagram(@RequestParam("location") String location, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo, @RequestParam("portals") String portals) {
+        List<String> portalNames = Arrays.asList(portals.split("\\s*, \\s*"));
+        return diagramHistory.getTechnologyStatsInPolandDiagram(location.toLowerCase(), portalNames, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
     }
 
     @GetMapping("/technologyStatisticsInWorldDiagram")
-    public void technologyStatisticsInWorldDiagram(@RequestParam("location") String location) {
-
+    public List<DiagramDto> technologyStatisticsInWorldDiagram(@RequestParam("location") String location, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo, @RequestParam("portals") String portals) {
+        List<String> portalNames = Arrays.asList(portals.split("\\s*, \\s*"));
+        return diagramHistory.getTechnologyStatsInWorldDiagram(location.toLowerCase(), portalNames, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
     }
 
-    @GetMapping("/categoryStatisticsInPolandDiagram")
-    public void categoryStatisticsInPolandDiagram(@RequestParam("location") String location) {
-
-    }
+//    @GetMapping("/categoryStatisticsInPolandDiagram")
+//    public List<DiagramDto> categoryStatisticsInPolandDiagram(@RequestParam("location") String location, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo, @RequestParam("portals") String portals) {
+//        List<String> portalNames = Arrays.asList(portals.split("\\s*, \\s*"));
+//    }
 }

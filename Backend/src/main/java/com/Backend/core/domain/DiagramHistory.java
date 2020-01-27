@@ -1,12 +1,12 @@
 package com.Backend.core.domain;
 
-import com.Backend.infrastructure.dto.DiagramPersistenceDto;
+import com.Backend.infrastructure.dto.diagram.DiagramPersistenceDto;
 import com.Backend.infrastructure.dto.diagram.DiagramDto;
 import com.Backend.infrastructure.dto.diagram.Series;
 import com.Backend.infrastructure.repository.CategoryOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInWorldRepository;
-import com.Backend.infrastructure.repository.implementation.TechnologyOffersInPolandDao;
+import com.Backend.infrastructure.repository.implementation.CustomOffersDao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +21,25 @@ public class DiagramHistory {
     CategoryOffersInPolandRepository categoryOffersInPolandRepository;
     TechnologyOffersInWorldRepository technologyOffersInWorldRepository;
     TechnologyOffersInPolandRepository technologyOffersInPolandRepository;
-    TechnologyOffersInPolandDao technologyOffersInPolandDao;
+    CustomOffersDao customOffersDao;
 
     public List<DiagramDto> getItJobOffersInPolandDiagram(String technologyName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo) {
-        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(technologyOffersInPolandDao.findDiagramItJobOffersInPoland(technologyName, dateFrom, dateTo), portalNames);
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramItJobOffersInPoland(technologyName, dateFrom, dateTo), portalNames);
+        return parseToDto(dtos);
+    }
+
+    public List<DiagramDto> getItJobOffersInWorldDiagram(String technologyName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo) {
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramItJobOffersInWorld(technologyName, dateFrom, dateTo), portalNames);
+        return parseToDto(dtos);
+    }
+
+    public List<DiagramDto> getTechnologyStatsInPolandDiagram(String cityName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo){
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramTechnologyStatsInPoland(cityName, dateFrom, dateTo), portalNames);
+        return parseToDto(dtos);
+    }
+
+    public List<DiagramDto> getTechnologyStatsInWorldDiagram(String countryName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo){
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramTechnologyStatsInWorld(countryName, dateFrom, dateTo), portalNames);
         return parseToDto(dtos);
     }
 

@@ -61,7 +61,7 @@ class ScrapTechnologyInWorld {
 
     private List<JobsOffersInWorldDto> getAllTechnologies() {
 
-        List<Object[]> hibernateObjectList = technologyOffersInWorldRepository.findAllTechnlogiesInItJobOffersInWorld(LocalDate.now());
+        List<Object[]> hibernateObjectList = technologyOffersInWorldRepository.findAllTechnologiesInItJobOffersInWorld(LocalDate.now());
         List<JobsOffersInWorldDto> convertedList = new ArrayList<>();
 
         for (Object[] line : hibernateObjectList) {

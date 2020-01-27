@@ -13,18 +13,16 @@
   <mat-form-field>
     <mat-label>{{labelName}}</mat-label>
     <mat-select [(ngModel)]="fieldType" (selectionChange)="OnCityCountryTechnologyChange($event.value)">
-      <mat-option *ngFor="let element of elements" [value]="element">{{element}}</mat-option>
+      <mat-option *ngFor="let element of inputElements" [value]="element">{{element}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Portal</mat-label>
-    <mat-select #jobPortal (selectionChange)="OnPortalChange($event.value)" [formControl]="jobPortalsForm" multiple>
-      <mat-option value="linkedin">Linkedin</mat-option>
-      <mat-option value="indeed">Indeed</mat-option>
-      <mat-option value="pracuj">Pracuj</mat-option>
-      <mat-option value="noFluffJobs">NoFluffJobs</mat-option>
-      <mat-option value="justJoinIt">JustJoinIt</mat-option>
+    <mat-select (selectionChange)="OnPortalChange($event.value)" multiple>
+      <mat-option *ngFor="let portal of portals" [value]="portal">
+        {{portal}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 
