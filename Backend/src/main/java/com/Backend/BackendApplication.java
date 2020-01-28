@@ -13,9 +13,8 @@ public class BackendApplication {
     }
 
     //[FEAT] Diagram module
-    // regular endpoints + all endpoints
-    // show only dedicates portals
-    // too many countries?
+    //separate category requests
+    //check all checkbox on startup
 
     //[BACKEND] TODO
     //[FEAT] Consider nofluff {experience, remote, category}

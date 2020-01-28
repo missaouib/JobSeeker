@@ -52,6 +52,10 @@ export class ChooseDiagramComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.selectAllCheckbox();
+  }
+
+  selectAllCheckbox() {
     this.jobPortals.options.forEach((item: MatOption) => item.select());
     this.jobPortals.close();
   }
@@ -95,6 +99,7 @@ export class ChooseDiagramComponent implements AfterViewInit {
       this.selectedPortals = ['indeed', 'pracuj'];
     }
 
+    this.selectAllCheckbox();
     this.selectedType = event;
     this.emitEvent();
   }

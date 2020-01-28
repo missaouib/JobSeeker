@@ -18,7 +18,6 @@ public class NoFluffJobs {
         private String technology;
         private List<String> cities;
         private List<String> seniority;
-        //location.get("fullyRemote")
 
         @SuppressWarnings("unchecked")
         @JsonProperty("location")

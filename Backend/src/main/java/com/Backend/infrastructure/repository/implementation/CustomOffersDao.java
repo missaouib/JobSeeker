@@ -57,6 +57,7 @@ public class CustomOffersDao {
 
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(cb.between(technologyOffers.get("date"), dateFrom, dateTo));
+        predicates.add(cb.isNotNull(country.get("code")));
         if (!technologyName.equals("all technologies")) {
             predicates.add(cb.like(cb.lower(technology.get("name")), technologyName));
         }
@@ -122,6 +123,32 @@ public class CustomOffersDao {
                 technologyOffers.get("date"),
                 technologyOffers.get("linkedin"),
                 technologyOffers.get("indeed")
+        )).where(predicates.toArray(new Predicate[]{}));
+
+        return em.createQuery(cq).getResultList();
+    }
+
+    public List<DiagramPersistenceDto> findDiagramCategoryStatsInPoland(String cityName, LocalDate dateFrom, LocalDate dateTo) {
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<DiagramPersistenceDto> cq = cb.createQuery(DiagramPersistenceDto.class);
+
+        Root<CategoryOffersInPoland> categoryOffers = cq.from(CategoryOffersInPoland.class);
+        Join<CategoryOffersInPoland, City> city = categoryOffers.join("city");
+        Join<CategoryOffersInPoland, Category> category = categoryOffers.join("category");
+
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(cb.between(categoryOffers.get("date"), dateFrom, dateTo));
+        if (!cityName.equals("all cities")) {
+            predicates.add(cb.like(cb.lower(city.get("name")), cityName));
+        }
+
+        cq.select(cb.construct(
+                DiagramPersistenceDto.class,
+                category.get("englishName"),
+                categoryOffers.get("date"),
+                categoryOffers.get("indeed"),
+                categoryOffers.get("pracuj")
         )).where(predicates.toArray(new Predicate[]{}));
 
         return em.createQuery(cq).getResultList();

@@ -43,6 +43,11 @@ public class DiagramHistory {
         return parseToDto(dtos);
     }
 
+    public List<DiagramDto> getCategoryStatsInPolandDiagram(String cityName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo){
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramCategoryStatsInPoland(cityName, dateFrom, dateTo), portalNames);
+        return parseToDto(dtos);
+    }
+
     private List<DiagramDto> parseToDto(List<DiagramPersistenceDto> diagramPersistenceDto) {
         return diagramPersistenceDto.stream()
                 .collect(Collectors.groupingBy(DiagramPersistenceDto::getName))

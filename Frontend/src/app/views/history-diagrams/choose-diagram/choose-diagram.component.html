@@ -19,7 +19,7 @@
 
   <mat-form-field>
     <mat-label>Portal</mat-label>
-    <mat-select (selectionChange)="OnPortalChange($event.value)" multiple>
+    <mat-select #jobPortal (selectionChange)="OnPortalChange($event.value)" multiple>
       <mat-option *ngFor="let portal of portals" [value]="portal">
         {{portal}}
       </mat-option>

@@ -80,7 +80,7 @@ class ScrapTechnologyInWorld {
 
     private List<TechnologyOffersInWorld> scrapItJobOffersInWorld(String technologyName) {
 
-        List<Country> countries = countryRepository.findAll();
+        List<Country> countries = countryRepository.findAllCountriesWithCode();
         Optional<Technology> technologyOptional = technologyRepository.findTechnologyByName(technologyName);
         List<TechnologyOffersInWorld> technologyOfferInWorlds = new ArrayList<>();
 
