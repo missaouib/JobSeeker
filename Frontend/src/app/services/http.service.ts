@@ -47,7 +47,7 @@ export class HttpService {
     technologyName = this.convertToHtmlUnicode(technologyName);
     return this.http.get<Diagram[]>(environment.backendURL +
       '/itJobOffersInWorldDiagram?technology=' + technologyName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo
-    , {params: portals});
+      , {params: portals});
   }
 
   getTechnologyStatsInPolandDiagram(cityName: string, dateFrom: string, dateTo: string, portals: HttpParams): Observable<Diagram[]> {
@@ -62,15 +62,19 @@ export class HttpService {
       , {params: portals});
   }
 
-  getCategoryStatsInPolandDiagram(cityName: string, dateFrom: string, dateTo: string, portals: HttpParams): Observable<Diagram[]> {
+  getCategoryStatsInPolandDiagramForIndeed(cityName: string, dateFrom: string, dateTo: string): Observable<Diagram[]> {
     return this.http.get<Diagram[]>(environment.backendURL +
-      '/categoryStatisticsInPolandDiagram?location=' + cityName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo
-      , {params: portals});
+      '/categoryStatisticsInPolandDiagramForIndeed?location=' + cityName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo + '&portals=categoryOffers');
   }
 
-  private convertToHtmlUnicode(technologyName: string){
-    technologyName = technologyName.split('+').join( '%2B');
-    technologyName = technologyName.split('#').join( '%23');
+  getCategoryStatsInPolandDiagramForPracuj(cityName: string, dateFrom: string, dateTo: string): Observable<Diagram[]> {
+    return this.http.get<Diagram[]>(environment.backendURL +
+      '/categoryStatisticsInPolandDiagramForPracuj?location=' + cityName + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo + '&portals=categoryOffers');
+  }
+
+  private convertToHtmlUnicode(technologyName: string) {
+    technologyName = technologyName.split('+').join('%2B');
+    technologyName = technologyName.split('#').join('%23');
     return technologyName;
   }
 

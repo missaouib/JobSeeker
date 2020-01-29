@@ -43,9 +43,15 @@ public class DiagramController {
         return diagramHistory.getTechnologyStatsInWorldDiagram(location.toLowerCase(), portalNames, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
     }
 
-    @GetMapping("/categoryStatisticsInPolandDiagram")
-    public List<DiagramDto> categoryStatisticsInPolandDiagram(@RequestParam("location") String location, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo, @RequestParam("portals") String portals) {
+    @GetMapping("/categoryStatisticsInPolandDiagramForIndeed")
+    public List<DiagramDto> categoryStatisticsInPolandDiagramForIndeed(@RequestParam("location") String location, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo, @RequestParam("portals") String portals) {
         List<String> portalNames = Arrays.asList(portals.split("\\s*, \\s*"));
-        return diagramHistory.getCategoryStatsInPolandDiagram(location.toLowerCase(), portalNames, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
+        return diagramHistory.getCategoryStatsInPolandDiagramForIndeed(location.toLowerCase(), portalNames, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
+    }
+
+    @GetMapping("/categoryStatisticsInPolandDiagramForPracuj")
+    public List<DiagramDto> categoryStatisticsInPolandDiagramForPracuj(@RequestParam("location") String location, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo, @RequestParam("portals") String portals) {
+        List<String> portalNames = Arrays.asList(portals.split("\\s*, \\s*"));
+        return diagramHistory.getCategoryStatsInPolandDiagramForPracuj(location.toLowerCase(), portalNames, LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
     }
 }

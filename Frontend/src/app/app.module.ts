@@ -38,6 +38,7 @@ import {HistoryDiagramsComponent} from './views/history-diagrams/history-diagram
 import {TechnologyStatisticsInWorldComponent} from "./views/technology-statistics-in-world/technology-statistics-in-world.component";
 import {BarChartModule, LineChartModule} from "@swimlane/ngx-charts";
 import {ChooseDiagramComponent} from "./views/history-diagrams/choose-diagram/choose-diagram.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import {ChooseDiagramComponent} from "./views/history-diagrams/choose-diagram/ch
     BarChartModule,
     LineChartModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatFormFieldModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

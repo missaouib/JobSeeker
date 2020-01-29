@@ -13,9 +13,16 @@ public class DiagramPersistenceDto {
     private int pracuj;
     private int noFluffJobs;
     private int justJoinIt;
+    private long categoryOffers;
     private int selectedOffers;
 
     public DiagramPersistenceDto() {
+    }
+
+    public DiagramPersistenceDto(String name, LocalDate date, long categoryOffers) {
+        this.name = name;
+        this.date = date;
+        this.categoryOffers = categoryOffers;
     }
 
     public DiagramPersistenceDto(String name, LocalDate date, int linkedin, int indeed) {
@@ -35,7 +42,7 @@ public class DiagramPersistenceDto {
         this.justJoinIt = justJoinIt;
     }
 
-    public void addToOffers(int offers){
+    public void addToOffers(int offers) {
         this.selectedOffers += offers;
     }
 }

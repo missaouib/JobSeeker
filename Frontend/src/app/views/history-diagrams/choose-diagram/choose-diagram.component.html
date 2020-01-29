@@ -12,29 +12,43 @@
 
   <mat-form-field>
     <mat-label>{{labelName}}</mat-label>
-    <mat-select [(ngModel)]="fieldType" (selectionChange)="OnCityCountryTechnologyChange($event.value)">
+    <mat-select (selectionChange)="OnCityCountryTechnologyChange($event.value)" [(ngModel)]="fieldType">
       <mat-option *ngFor="let element of inputElements" [value]="element">{{element}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Portal</mat-label>
-    <mat-select #jobPortal (selectionChange)="OnPortalChange($event.value)" multiple>
-      <mat-option *ngFor="let portal of portals" [value]="portal">
-        {{portal}}
-      </mat-option>
-    </mat-select>
+
+<!--    <mat-select #jobPortal (selectionChange)="OnPortalChange($event.value)" multiple>-->
+<!--      <mat-option *ngFor="let portal of portals" [value]="portal">{{portal}}</mat-option>-->
+<!--    </mat-select>-->
+
+    <div *ngIf="selectedType != 'categoryStats';else notCheckBoxList">
+      <mat-select #jobPortal (selectionChange)="OnPortalChange($event.value)" multiple>
+        <mat-option *ngFor="let portal of portals" [value]="portal">{{portal}}</mat-option>
+      </mat-select>
+    </div>
+
+    <ng-template #notCheckBoxList>
+      <mat-select (selectionChange)="OnPortalChange($event.value)">
+        <mat-option *ngFor="let portal of portals" [value]="portal">{{portal}}</mat-option>
+      </mat-select>
+    </ng-template>
+
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input (dateInput)="OnDateFromChange($event.value)" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerFrom" [value]="minDate" placeholder="Choose a date from">
-    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <input (dateInput)="OnDateFromChange($event.value)" [matDatepicker]="pickerFrom" [max]="maxDate" [min]="minDate"
+           [value]="minDate" matInput placeholder="Choose a date from">
+    <mat-datepicker-toggle [for]="pickerFrom" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #pickerFrom></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input (dateInput)="OnDateToChange($event.value)" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTo" [value]="maxDate" placeholder="Choose a date to">
-    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <input (dateInput)="OnDateToChange($event.value)" [matDatepicker]="pickerTo" [max]="maxDate" [min]="minDate"
+           [value]="maxDate" matInput placeholder="Choose a date to">
+    <mat-datepicker-toggle [for]="pickerTo" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #pickerTo></mat-datepicker>
   </mat-form-field>
 

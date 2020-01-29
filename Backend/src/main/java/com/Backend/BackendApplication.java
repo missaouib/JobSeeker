@@ -14,7 +14,8 @@ public class BackendApplication {
 
     //[FEAT] Diagram module
     //separate category requests
-    //check all checkbox on startup
+    //check all checkbox on startup????? maybe no
+    //multiple requests on frontend diagram
 
     //[BACKEND] TODO
     //[FEAT] Consider nofluff {experience, remote, category}

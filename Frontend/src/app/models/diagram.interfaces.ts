@@ -1,4 +1,4 @@
 export interface Diagram {
   name: String,
-  series: Array<{name: string, value: string}>
+  series: Array<{ name: string, value: string }>
 }

@@ -5,7 +5,7 @@
 <section class="List border rounded">
   <div [style.display]="categoryList.length === 0 ? 'none' : 'flex'" class="tables">
     <table #indeedTable="matSort" [dataSource]="dataSourceIndeed" class="mat-elevation-z8" mat-table matSort
-           matSortDirection="desc" matSortActive="indeed">
+           matSortActive="indeed" matSortDirection="desc">
 
       <ng-container matColumnDef="position">
         <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> No.</th>
@@ -30,8 +30,8 @@
       <tr *matFooterRowDef="displayedColumnsIndeed" mat-footer-row></tr>
     </table>
 
-    <table [dataSource]="dataSourcePracuj" class="mat-elevation-z8" mat-table matSort
-           #pracujTable="matSort" matSortDirection="desc" matSortActive="pracuj">
+    <table #pracujTable="matSort" [dataSource]="dataSourcePracuj" class="mat-elevation-z8" mat-table
+           matSort matSortActive="pracuj" matSortDirection="desc">
 
       <ng-container matColumnDef="position">
         <th *matHeaderCellDef disabled mat-header-cell mat-sort-header> No.</th>
@@ -58,8 +58,9 @@
 
   </div>
 
-  <div class="translate" [style.display]="categoryList.length === 0 ? 'none' : 'flex'">
-    <mat-slide-toggle (click)="switchLanguage()"> Switch Language</mat-slide-toggle>-
+  <div [style.display]="categoryList.length === 0 ? 'none' : 'flex'" class="translate">
+    <mat-slide-toggle (click)="switchLanguage()"> Switch Language</mat-slide-toggle>
+    -
   </div>
 
   <div class="spinner">

@@ -26,7 +26,7 @@ public class RequestCreator {
         WebClient linkedinURL = WebClient.create(url);
 
         int repeatCounter = 0;
-        while(repeatCounter < 2) {
+        while (repeatCounter < 2) {
             try {
 
                 Mono<ClientResponse> response = linkedinURL.get()
@@ -42,14 +42,14 @@ public class RequestCreator {
                 repeatCounter++;
             }
         }
-            return 0;
+        return 0;
     }
 
     public int scrapIndeedOffers(String url) throws IOException {
 
         String div = "";
         int repeatCounter = 0;
-        while(repeatCounter < 2) {
+        while (repeatCounter < 2) {
             try {
                 Document htmlDoc = Jsoup.connect(url)
                         .userAgent(USER_AGENT)
@@ -59,7 +59,7 @@ public class RequestCreator {
 
                 Elements responseHtmlDiv = htmlDoc.select("div#searchCountPages");
                 div = responseHtmlDiv.text();
-                repeatCounter+=2;
+                repeatCounter += 2;
             } catch (Exception e) {
                 UtilityClass.waitRandomFromToSeconds(10000, 20000);
                 repeatCounter++;
@@ -97,7 +97,7 @@ public class RequestCreator {
         WebClient pracujURL = WebClient.create(url);
 
         int repeatCounter = 0;
-        while(repeatCounter < 2) {
+        while (repeatCounter < 2) {
             try {
                 Mono<ClientResponse> response = pracujURL.get()
                         .header("User-Agent", USER_AGENT)
@@ -119,7 +119,7 @@ public class RequestCreator {
         WebClient noFluffJobsURL = WebClient.create(url);
 
         int repeatCounter = 0;
-        while(repeatCounter < 2) {
+        while (repeatCounter < 2) {
             try {
                 NoFluffJobs response = noFluffJobsURL
                         .post()
@@ -145,7 +145,7 @@ public class RequestCreator {
         WebClient justJoinITUrl = WebClient.create(UrlBuilder.justJoinItBuildUrlForCity());
 
         int repeatCounter = 0;
-        while(repeatCounter < 2) {
+        while (repeatCounter < 2) {
             try {
                 return justJoinITUrl.get()
                         .header("User-Agent", USER_AGENT)

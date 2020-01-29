@@ -45,7 +45,7 @@ INSERT INTO technology(id, name, type) VALUES (25, 'iOS', 'Framework') ON CONFLI
 INSERT INTO technology(id, name, type) VALUES (26, 'Asp.net', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (27, 'Django', 'Framework') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (28, 'Unity', 'Framework') ON CONFLICT DO NOTHING;
-INSERT INTO technology(id, name, type) VALUES (29, 'Circle CI', 'DevOps') ON CONFLICT DO NOTHING;
+INSERT INTO technology(id, name, type) VALUES (29, 'Spark', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (30, 'Linux', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (31, 'Google Cloud', 'DevOps') ON CONFLICT DO NOTHING;
 INSERT INTO technology(id, name, type) VALUES (32, 'Docker', 'DevOps') ON CONFLICT DO NOTHING;

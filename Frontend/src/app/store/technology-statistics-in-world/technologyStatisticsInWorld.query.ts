@@ -1,6 +1,6 @@
 import {TechnologyStatistics} from '../../models/technologyStatistics.interfaces';
 
-import {TechnologyWorldState, TechnologyStatisticsInWorldStore} from './technologyStatisticsInWorld.store';
+import {TechnologyStatisticsInWorldStore, TechnologyWorldState} from './technologyStatisticsInWorld.store';
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
 

@@ -24,7 +24,8 @@ export class HistoryDiagramsComponent {
       "#538576", "#8ad4c5", "#e3cd94", "#00a6aa", "#fa5c9c", "#6ea5c3", "#a50842", "#6d72a0", "#df6270", "#ab5b46"]
   };
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) {
+  }
 
   onRequest(event) {
 
@@ -61,12 +62,20 @@ export class HistoryDiagramsComponent {
         break;
       }
       case 'categoryStats': {
-        this.httpService.getCategoryStatsInPolandDiagram(event.cityCountryTechnology, event.dateFrom, event.dateTo, portals)
-          .subscribe(data => {
-            Object.assign(this, {data});
-          });
+        if (portals.get("portals") === 'indeed') {
+          this.httpService.getCategoryStatsInPolandDiagramForIndeed(event.cityCountryTechnology, event.dateFrom, event.dateTo)
+            .subscribe(data => {
+              Object.assign(this, {data});
+            });
+        } else if (portals.get("portals") === 'pracuj') {
+          this.httpService.getCategoryStatsInPolandDiagramForPracuj(event.cityCountryTechnology, event.dateFrom, event.dateTo)
+            .subscribe(data => {
+              Object.assign(this, {data});
+            });
+        }
         break;
       }
+
     }
   }
 

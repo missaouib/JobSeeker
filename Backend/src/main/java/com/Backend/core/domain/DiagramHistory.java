@@ -1,7 +1,7 @@
 package com.Backend.core.domain;
 
-import com.Backend.infrastructure.dto.diagram.DiagramPersistenceDto;
 import com.Backend.infrastructure.dto.diagram.DiagramDto;
+import com.Backend.infrastructure.dto.diagram.DiagramPersistenceDto;
 import com.Backend.infrastructure.dto.diagram.Series;
 import com.Backend.infrastructure.repository.CategoryOffersInPolandRepository;
 import com.Backend.infrastructure.repository.TechnologyOffersInPolandRepository;
@@ -33,18 +33,23 @@ public class DiagramHistory {
         return parseToDto(dtos);
     }
 
-    public List<DiagramDto> getTechnologyStatsInPolandDiagram(String cityName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo){
+    public List<DiagramDto> getTechnologyStatsInPolandDiagram(String cityName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo) {
         List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramTechnologyStatsInPoland(cityName, dateFrom, dateTo), portalNames);
         return parseToDto(dtos);
     }
 
-    public List<DiagramDto> getTechnologyStatsInWorldDiagram(String countryName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo){
+    public List<DiagramDto> getTechnologyStatsInWorldDiagram(String countryName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo) {
         List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramTechnologyStatsInWorld(countryName, dateFrom, dateTo), portalNames);
         return parseToDto(dtos);
     }
 
-    public List<DiagramDto> getCategoryStatsInPolandDiagram(String cityName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo){
-        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramCategoryStatsInPoland(cityName, dateFrom, dateTo), portalNames);
+    public List<DiagramDto> getCategoryStatsInPolandDiagramForIndeed(String cityName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo) {
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramCategoryStatsInPolandForIndeed(cityName, dateFrom, dateTo), portalNames);
+        return parseToDto(dtos);
+    }
+
+    public List<DiagramDto> getCategoryStatsInPolandDiagramForPracuj(String cityName, List<String> portalNames, LocalDate dateFrom, LocalDate dateTo) {
+        List<DiagramPersistenceDto> dtos = getOffersFromSelectedPortals(customOffersDao.findDiagramCategoryStatsInPolandForPracuj(cityName, dateFrom, dateTo), portalNames);
         return parseToDto(dtos);
     }
 
@@ -80,6 +85,9 @@ public class DiagramHistory {
                 }
                 if (name.equals("justJoinIt")) {
                     dto.addToOffers(dto.getJustJoinIt());
+                }
+                if (name.equals("categoryOffers")) {
+                    dto.addToOffers(Math.toIntExact(dto.getCategoryOffers()));
                 }
             });
         });

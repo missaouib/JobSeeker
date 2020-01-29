@@ -128,7 +128,7 @@ public class CustomOffersDao {
         return em.createQuery(cq).getResultList();
     }
 
-    public List<DiagramPersistenceDto> findDiagramCategoryStatsInPoland(String cityName, LocalDate dateFrom, LocalDate dateTo) {
+    public List<DiagramPersistenceDto> findDiagramCategoryStatsInPolandForIndeed(String cityName, LocalDate dateFrom, LocalDate dateTo) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<DiagramPersistenceDto> cq = cb.createQuery(DiagramPersistenceDto.class);
@@ -139,6 +139,7 @@ public class CustomOffersDao {
 
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(cb.between(categoryOffers.get("date"), dateFrom, dateTo));
+        predicates.add(cb.equal(category.get("pracujId"), 0));
         if (!cityName.equals("all cities")) {
             predicates.add(cb.like(cb.lower(city.get("name")), cityName));
         }
@@ -147,10 +148,36 @@ public class CustomOffersDao {
                 DiagramPersistenceDto.class,
                 category.get("englishName"),
                 categoryOffers.get("date"),
-                categoryOffers.get("indeed"),
-                categoryOffers.get("pracuj")
-        )).where(predicates.toArray(new Predicate[]{}));
+                cb.sum(categoryOffers.get("indeed"))
+        )).where(predicates.toArray(new Predicate[]{}))
+                .groupBy(category.get("englishName"), categoryOffers.get("date"));
 
+        return em.createQuery(cq).getResultList();
+    }
+
+    public List<DiagramPersistenceDto> findDiagramCategoryStatsInPolandForPracuj(String cityName, LocalDate dateFrom, LocalDate dateTo) {
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<DiagramPersistenceDto> cq = cb.createQuery(DiagramPersistenceDto.class);
+
+        Root<CategoryOffersInPoland> categoryOffers = cq.from(CategoryOffersInPoland.class);
+        Join<CategoryOffersInPoland, City> city = categoryOffers.join("city");
+        Join<CategoryOffersInPoland, Category> category = categoryOffers.join("category");
+
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(cb.between(categoryOffers.get("date"), dateFrom, dateTo));
+        predicates.add(cb.notEqual(category.get("pracujId"), 0));
+        if (!cityName.equals("all cities")) {
+            predicates.add(cb.like(cb.lower(city.get("name")), cityName));
+        }
+
+        cq.select(cb.construct(
+                DiagramPersistenceDto.class,
+                category.get("englishName"),
+                categoryOffers.get("date"),
+                cb.sum(categoryOffers.get("pracuj"))
+        )).where(predicates.toArray(new Predicate[]{}))
+                .groupBy(category.get("englishName"), categoryOffers.get("date"));
         return em.createQuery(cq).getResultList();
     }
 

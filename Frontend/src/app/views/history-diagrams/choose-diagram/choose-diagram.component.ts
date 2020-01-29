@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {FormControl} from "@angular/forms";
 import {MatSelect} from "@angular/material/select";
 import {MatOption} from "@angular/material/core";
 import {DatePipe} from "@angular/common";
@@ -56,8 +55,10 @@ export class ChooseDiagramComponent implements AfterViewInit {
   }
 
   selectAllCheckbox() {
-    this.jobPortals.options.forEach((item: MatOption) => item.select());
-    this.jobPortals.close();
+    if(this.selectedType != 'categoryStats') {
+      this.jobPortals.options.forEach((item: MatOption) => item.select());
+      this.jobPortals.close();
+    }
   }
 
   emitEvent() {
@@ -88,7 +89,7 @@ export class ChooseDiagramComponent implements AfterViewInit {
       this.inputElements = this.countryInputList;
     }
 
-    if (event === 'itJobPoland' || event === 'techStatsPoland'){
+    if (event === 'itJobPoland' || event === 'techStatsPoland') {
       this.portals = ['linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt'];
       this.selectedPortals = ['linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt'];
     } else if (event === 'itJobWorld' || event === 'techStatsWorld') {
@@ -96,7 +97,7 @@ export class ChooseDiagramComponent implements AfterViewInit {
       this.selectedPortals = ['linkedin', 'indeed'];
     } else if (event === 'categoryStats') {
       this.portals = ['indeed', 'pracuj'];
-      this.selectedPortals = ['indeed', 'pracuj'];
+      this.selectedPortals = ['indeed'];
     }
 
     this.selectAllCheckbox();
@@ -111,7 +112,12 @@ export class ChooseDiagramComponent implements AfterViewInit {
   }
 
   OnPortalChange(eventValue) {
-    this.selectedPortals = eventValue;
+    if(this.selectedType === 'categoryStats'){
+      this.selectedPortals.pop();
+      this.selectedPortals.push(eventValue);
+    } else {
+      this.selectedPortals = eventValue;
+    }
     this.emitEvent();
   }
 
