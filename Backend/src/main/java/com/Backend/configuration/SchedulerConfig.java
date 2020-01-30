@@ -60,18 +60,20 @@ public class SchedulerConfig {
     public void cyclicScraping() {
 
         List<JustJoinIt> justJoinItOffers = requestCreator.scrapJustJoinIT();
-        logger.info("1x " + LocalTime.now());
 
+        logger.info("City: " + LocalTime.now());
         runForCities(justJoinItOffers);
-        logger.info("2x " + LocalTime.now());
 
+        logger.info("Country: " + LocalTime.now());
         runForCountries();
-        logger.info("3x " + LocalTime.now());
 
+        logger.info("Category: " + LocalTime.now());
         runForCategories();
-        logger.info("4x " + LocalTime.now());
 
+        logger.info("Verify: " + LocalTime.now());
         verifyData(justJoinItOffers);
+
+        logger.info("End: " + LocalTime.now());
     }
 
     private void runForCities(List<JustJoinIt> justJoinItOffers) {
@@ -107,7 +109,7 @@ public class SchedulerConfig {
             runForCountries();
         }
 
-        if (technologyOffersInWorldRepository.findByDate(LocalDate.now()).size() != countryRepository.findAll().size() * technologyRepository.findAll().size()) {
+        if (technologyOffersInWorldRepository.findByDate(LocalDate.now()).size() != countryRepository.findAllCountriesWithCode().size() * technologyRepository.findAll().size()) {
             UtilityClass.waitRandomFromToSeconds(1200000, 1800000);
             runForCategories();
         }
