@@ -12,16 +12,12 @@ public class BackendApplication {
         SpringApplication.run(BackendApplication.class, args);
     }
 
-    //[FEAT] Diagram module
-    //separate category requests
-    //check all checkbox on startup????? maybe no
-    //multiple requests on frontend diagram
-
     //[BACKEND] TODO
     //[FEAT] Consider nofluff {experience, remote, category}
     //[FEAT] Consider justjoinit {experience, remote, salary}
     //[FEAT] Try Selenium with proxy for Linkedin and Glassdor
 
     //[FRONTEND] TODO
+    //[FIX] Multiple request on all selected checkbox
     //[FEAT] Responsive Web Design
 }

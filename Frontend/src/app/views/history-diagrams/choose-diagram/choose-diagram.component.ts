@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {MatSelect} from "@angular/material/select";
 import {MatOption} from "@angular/material/core";
 import {DatePipe} from "@angular/common";
@@ -8,9 +8,10 @@ import {DatePipe} from "@angular/common";
   templateUrl: './choose-diagram.component.html',
   styleUrls: ['./choose-diagram.component.css']
 })
-export class ChooseDiagramComponent implements AfterViewInit {
+export class ChooseDiagramComponent implements AfterViewChecked {
 
   @ViewChild('jobPortal', {static: false}) jobPortals: MatSelect;
+  @ViewChild('singlePortal', {static: false}) singlePortal: MatSelect;
   @Output() eventEmitter = new EventEmitter<Object>();
 
   selectedType: string;
@@ -50,7 +51,7 @@ export class ChooseDiagramComponent implements AfterViewInit {
     this.labelName = 'Technology';
   }
 
-  ngAfterViewInit() {
+  ngAfterViewChecked() {
     this.selectAllCheckbox();
   }
 

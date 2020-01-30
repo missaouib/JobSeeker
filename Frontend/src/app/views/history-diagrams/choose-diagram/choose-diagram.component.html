@@ -20,10 +20,6 @@
   <mat-form-field>
     <mat-label>Portal</mat-label>
 
-<!--    <mat-select #jobPortal (selectionChange)="OnPortalChange($event.value)" multiple>-->
-<!--      <mat-option *ngFor="let portal of portals" [value]="portal">{{portal}}</mat-option>-->
-<!--    </mat-select>-->
-
     <div *ngIf="selectedType != 'categoryStats';else notCheckBoxList">
       <mat-select #jobPortal (selectionChange)="OnPortalChange($event.value)" multiple>
         <mat-option *ngFor="let portal of portals" [value]="portal">{{portal}}</mat-option>
@@ -31,7 +27,7 @@
     </div>
 
     <ng-template #notCheckBoxList>
-      <mat-select (selectionChange)="OnPortalChange($event.value)">
+      <mat-select (selectionChange)="OnPortalChange($event.value)" value="indeed">
         <mat-option *ngFor="let portal of portals" [value]="portal">{{portal}}</mat-option>
       </mat-select>
     </ng-template>
