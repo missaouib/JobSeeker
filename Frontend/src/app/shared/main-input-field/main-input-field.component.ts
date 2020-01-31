@@ -32,7 +32,7 @@ export class MainInputFieldComponent implements OnInit, OnDestroy {
     'Finland', 'Argentina', 'Saudi Arabia', 'Oman', 'Russia', 'Canada', 'Australia'];
   technologyInputList = ['All Technologies', 'Java', 'Javascript', 'Typescript', 'C#', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Rust', 'Swift', 'Golang', 'Visual Basic',
     'Spring', 'Selenium', 'Android', 'Angular', 'React', 'Vue', 'Node', '.NET', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
-    'Linux', 'Bash', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Ansible', 'Terraform', 'TeamCity', 'Circle CI', 'ELK stack', 'Nginx'];
+    'Linux', 'Bash', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Ansible', 'Terraform', 'TeamCity', 'Spark', 'ELK stack', 'Nginx'];
   filteredInputs: Observable<string[]>;
   subscriptions: Subscription[] = [];
 
