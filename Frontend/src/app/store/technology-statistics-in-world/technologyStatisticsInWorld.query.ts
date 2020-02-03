@@ -1,4 +1,4 @@
-import {TechnologyStatistics} from '../../models/technologyStatistics.interfaces';
+import {TechnologyStatistics} from '../../models/technology-statistics.interfaces';
 
 import {TechnologyStatisticsInWorldStore, TechnologyWorldState} from './technologyStatisticsInWorld.store';
 import {Injectable} from '@angular/core';

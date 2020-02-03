@@ -3,7 +3,7 @@ import {Component, DoCheck, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";
-import {JobOffer} from "../../models/jobOffer.interfaces";
+import {JobOffer} from "../../models/job-offer.interfaces";
 
 @Component({
   selector: 'app-it-job-offers-in-world',

@@ -1,4 +1,4 @@
-import {TechnologyStatistics} from '../../models/technologyStatistics.interfaces';
+import {TechnologyStatistics} from '../../models/technology-statistics.interfaces';
 import {EntityState, EntityStore, StoreConfig} from '@datorama/akita';
 import {Injectable} from '@angular/core';
 

@@ -1,8 +1,8 @@
-import {TechnologyStatistics} from '../models/technologyStatistics.interfaces';
-import {CategoryStatistics} from '../models/categoryStatistics.interfaces';
+import {TechnologyStatistics} from '../models/technology-statistics.interfaces';
+import {CategoryStatistics} from '../models/category-statistics.interfaces';
 import {Observable, Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {JobOffer} from "../models/jobOffer.interfaces";
+import {JobOffer} from "../models/job-offer.interfaces";
 
 @Injectable({providedIn: 'root'})
 export class ResultInputService {

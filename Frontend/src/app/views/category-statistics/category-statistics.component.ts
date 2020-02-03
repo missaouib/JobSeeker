@@ -1,6 +1,6 @@
 import {CategoryStatisticsQuery} from '../../store/category-statistics/categoryStatistics.query';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CategoryStatistics} from "../../models/categoryStatistics.interfaces";
+import {CategoryStatistics} from "../../models/category-statistics.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";

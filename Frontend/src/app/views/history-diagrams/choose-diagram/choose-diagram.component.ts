@@ -1,14 +1,24 @@
-import {AfterViewChecked, AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit, ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  QueryList,
+  ViewChild
+} from '@angular/core';
 import {MatSelect} from "@angular/material/select";
 import {MatOption} from "@angular/material/core";
 import {DatePipe} from "@angular/common";
+import {InputListInterface} from "../../../shared/input-list.interface";
 
 @Component({
   selector: 'app-choose-diagram',
   templateUrl: './choose-diagram.component.html',
   styleUrls: ['./choose-diagram.component.css']
 })
-export class ChooseDiagramComponent implements AfterViewChecked {
+export class ChooseDiagramComponent implements AfterViewInit {
 
   @ViewChild('jobPortal', {static: false}) jobPortals: MatSelect;
   @ViewChild('singlePortal', {static: false}) singlePortal: MatSelect;
@@ -27,19 +37,12 @@ export class ChooseDiagramComponent implements AfterViewChecked {
   minDate = new Date(2020, 0, 1);
   maxDate = new Date();
 
-  cityInputList = ['All Cities', 'Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Poznań', 'Łódź', 'Lublin', 'Bydgoszcz', 'Białystok',
-    'Szczecin', 'Katowice', 'Rzeszów', 'Kielce', 'Olsztyn', 'Zielona Góra', 'Opole', 'Toruń', 'Gorzów Wielkopolski',];
-  countryInputList = ['All Countries', 'Poland', 'United States', 'United Kingdom', 'Germany', 'France', 'Singapore', 'Hong Kong', 'Bahrain',
-    'Taiwan', 'Korea', 'Netherlands', 'Israel', 'India', 'Belgium', 'Philippines', 'Japan', 'Vietnam', 'Pakistan', 'Kuwait',
-    'Luxembourg', 'Qatar', 'Switzerland', 'Italy', 'China', 'Indonesia', 'Czech Republic', 'Denmark', 'Thailand',
-    'United Arab Emirates', 'Portugal', 'Austria', 'Turkey', 'Hungary', 'Spain', 'Romania', 'Greece', 'Ireland',
-    'Mexico', 'South Africa', 'Colombia', 'Venezuela', 'Peru', 'Brazil', 'Chile', 'Sweden', 'New Zealand', 'Norway',
-    'Finland', 'Argentina', 'Saudi Arabia', 'Oman', 'Russia', 'Canada', 'Australia'];
-  technologyInputList = ['All Technologies', 'Java', 'Javascript', 'Typescript', 'C#', 'Python', 'PHP', 'C++', 'Ruby', 'Kotlin', 'Scala', 'Rust', 'Swift', 'Golang', 'Visual Basic',
-    'Spring', 'Selenium', 'Android', 'Angular', 'React', 'Vue', 'Node', '.NET', 'Symfony', 'Laravel', 'iOS', 'Asp.net', 'Django', 'Unity',
-    'Linux', 'Bash', 'Docker', 'Jenkins', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Ansible', 'Terraform', 'TeamCity', 'Spark', 'ELK stack', 'Nginx'];
+  inputList = new InputListInterface();
+  cityInputList = this.inputList.cityInputList;
+  technologyInputList = this.inputList.technologyInputList;
+  countryInputList = this.inputList.countryInputList;
 
-  constructor() {
+  constructor(private changeDetector : ChangeDetectorRef) {
     this.selectedType = 'itJobPoland';
     this.selectedCityCountryTechnology = 'All Technologies';
     this.selectedPortals = ['linkedin', 'indeed', 'pracuj', 'noFluffJobs', 'justJoinIt'];
@@ -51,7 +54,7 @@ export class ChooseDiagramComponent implements AfterViewChecked {
     this.labelName = 'Technology';
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     this.selectAllCheckbox();
   }
 
@@ -101,8 +104,9 @@ export class ChooseDiagramComponent implements AfterViewChecked {
       this.selectedPortals = ['indeed'];
     }
 
-    this.selectAllCheckbox();
     this.selectedType = event;
+    this.changeDetector.detectChanges();
+    this.selectAllCheckbox();
     this.emitEvent();
   }
 

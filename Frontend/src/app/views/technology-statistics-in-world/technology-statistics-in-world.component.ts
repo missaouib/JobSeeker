@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {TechnologyStatistics} from "../../models/technologyStatistics.interfaces";
+import {TechnologyStatistics} from "../../models/technology-statistics.interfaces";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {ResultInputService} from "../../services/result-input.service";
 import {Subscription} from "rxjs";

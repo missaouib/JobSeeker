@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {EntityState, EntityStore, StoreConfig} from '@datorama/akita';
-import {JobOffer} from "../../models/jobOffer.interfaces";
+import {JobOffer} from "../../models/job-offer.interfaces";
 
 export interface CountryState extends EntityState<JobOffer> {
 }

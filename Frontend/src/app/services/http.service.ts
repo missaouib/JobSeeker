@@ -1,10 +1,10 @@
-import {CategoryStatistics} from '../models/categoryStatistics.interfaces';
+import {CategoryStatistics} from '../models/category-statistics.interfaces';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TechnologyStatistics} from '../models/technologyStatistics.interfaces';
+import {TechnologyStatistics} from '../models/technology-statistics.interfaces';
 import {environment} from "../../environments/environment";
-import {JobOffer} from "../models/jobOffer.interfaces";
+import {JobOffer} from "../models/job-offer.interfaces";
 import {Diagram} from "../models/diagram.interfaces";
 
 @Injectable({providedIn: 'root'})

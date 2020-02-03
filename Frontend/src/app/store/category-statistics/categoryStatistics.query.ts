@@ -1,4 +1,4 @@
-import {CategoryStatistics} from '../../models/categoryStatistics.interfaces';
+import {CategoryStatistics} from '../../models/category-statistics.interfaces';
 import {CategoryState, CategoryStatisticsStore} from './categoryStatistics.store';
 import {Injectable} from '@angular/core';
 import {QueryEntity} from '@datorama/akita';
